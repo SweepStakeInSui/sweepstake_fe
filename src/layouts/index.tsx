@@ -11,7 +11,7 @@ export default function MyLayout({ children }: IMyLayout) {
         <NavBar />
       </header>
       <main>{children}</main>
-      <footer></footer>
+      <footer />
     </>
   );
 }
