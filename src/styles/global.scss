@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: var(--blue);
+}
+
+.container {
+  max-width: 100% !important;
+  padding-left: calc(100vw / 20);
+  padding-right: calc(100vw / 20);
+
+  @include min-tablet {
+    padding-left: calc(100vw / 16);
+    padding-right: calc(100vw / 16);
+  }
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.reverseColor {
+  * {
+    color: var(--white) !important;
+  }
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+::-moz-selection { /* Code for Firefox */
+  color: var(--white);
+  background: var(--black);
+}
+
+::selection {
+  color: var(--white);
+  background: var(--black);
+}

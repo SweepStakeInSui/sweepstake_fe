@@ -1,0 +1,25 @@
+@import '_vars';
+@import '_root';
+@import '_reset';
+@import '_mixins';
+
+// /* width */
+// ::-webkit-scrollbar {
+//   width: rem(10px);
+// }
+
+// /* Track */
+// ::-webkit-scrollbar-track {
+//   background-color: $beige;
+//   outline: rem(1px) solid $blue;
+// }
+
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//   background: $blue;
+// }
+
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: transparentize($blue, 0.3);
+// }

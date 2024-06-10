@@ -1,0 +1,10 @@
+:root {
+  --easeOutQuart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --easeInOutQuart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --black: #000000;
+  --white: #ffffff;
+
+  --gap-x: #{rem(24px)};
+  --radius: #{rem(8px)};
+}
