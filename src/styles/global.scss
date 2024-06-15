@@ -6,17 +6,6 @@ body {
   background-color: var(--blue);
 }
 
-.container {
-  max-width: 100% !important;
-  padding-left: calc(100vw / 20);
-  padding-right: calc(100vw / 20);
-
-  @include min-tablet {
-    padding-left: calc(100vw / 16);
-    padding-right: calc(100vw / 16);
-  }
-}
-
 .stack {
   display: flex;
   flex-direction: column;

@@ -1,9 +1,7 @@
-import { TypographyDemo } from '@/components/ui/TypographyDemo';
+import React from 'react';
 
 export default function HomeModule() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <TypographyDemo />
-    </div>
+    <div className="flex min-h-screen flex-col items-center justify-between p-24" />
   );
 }

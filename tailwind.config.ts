@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-const { fontFamily } = require("tailwindcss/defaultTheme")
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 const config = {
   darkMode: ['class'],
@@ -8,6 +8,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './modules/**/*.{ts,tsx}',
   ],
   prefix: '',
   theme: {
@@ -18,9 +19,9 @@ const config = {
     },
     container: {
       center: true,
-      padding: '2rem',
+      padding: '1.5rem',
       screens: {
-        '2xl': '1400px',
+        '2xl': '1630px',
       },
     },
     extend: {
@@ -60,6 +61,50 @@ const config = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+
+        brand: {
+          elevation: {
+            a50: '#fafafa',
+            a100: '#f4f4f5',
+            a200: '#e4e4e7',
+            a300: '#d4d4d8',
+            a400: '#a1a1aa',
+            a500: '#71717a',
+            a600: '#52525b',
+            a700: '#3f3f46',
+            a800: '#27272a',
+            a900: '#18181b',
+          },
+          primary: {
+            a1000: '#ff3131',
+            a900: '#ff4646',
+            a800: '#ff5a5a',
+            a700: '#ff6f6f',
+            a600: '#ff8383',
+            a500: '#ff9898',
+            a400: '#ffadad',
+            a300: '#ffc1c1',
+            a200: '#ffd6d6',
+            a100: '#ffeaea',
+          },
+          secondary: {
+            green: {
+              a50: '#32fca8',
+              a100: '#12eb90',
+              a200: '#07d580',
+              a300: '#05be70',
+              a400: '#049a5b',
+            },
+
+            red: {
+              a50: '#ff8b8e',
+              a100: '#e03a3d',
+              a200: '#fe0000',
+              a300: '#dc0004',
+              a400: '#c80003',
+            },
+          },
         },
       },
       borderRadius: {
