@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import Providers from './providers';
 
 export const metadata: Metadata = {
-  title: 'Sweepstake | The World\'s Largest Prediction Market',
+  title: "Sweepstake | The World's Largest Prediction Market",
   description: 'Bet on your beliefs',
 };
 
