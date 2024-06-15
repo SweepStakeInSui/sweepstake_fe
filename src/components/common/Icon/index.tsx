@@ -35,7 +35,7 @@ export const Icons = {
       </defs>
     </svg>
   ),
-  Market: (props: IconProps) => (
+  Markets: (props: IconProps) => (
     <svg
       width={props.width ?? 24}
       height={props.height ?? props.width ?? 24}

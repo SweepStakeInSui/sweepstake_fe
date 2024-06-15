@@ -1,7 +1,11 @@
 import React from 'react';
 
+import Container from '@/components/common/Container';
+
 export default function HomeModule() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24" />
+    <Container>
+      <p>Hello</p>
+    </Container>
   );
 }
