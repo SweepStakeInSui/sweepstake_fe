@@ -7,23 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint:style": "stylelint 'src/**/styled.ts' 'src/**/*.tsx'",
-    "lint-staged": {
-      "*.{ts,tsx,js,jsx}": [
-        "eslint --cache"
-      ],
-      "styled.ts": [
-        "stylelint --cache"
-      ]
-    },
     "lint:fix": "next lint --fix --ignore-path .eslintignore",
     "lint:css": "prettier '**/*.{json,yaml,css,scss}' --write --ignore-path .eslintignore",
     "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
     "lint": "next lint",
-    "husky": {
-      "hooks": {
-        "pre-commit": "yarn lint-staged && yarn check:type"
-      }
-    },
     "prepare": "husky install .husky",
     "postinstall": "husky install"
   },
