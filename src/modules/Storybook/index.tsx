@@ -1,7 +1,8 @@
+import React from 'react';
+
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
-import { Icons, iconNames } from '@/components/common/Icon';
-import React from 'react';
+import { iconNames, Icons } from '@/components/common/Icon';
 
 export default function StorybookModule() {
   return (

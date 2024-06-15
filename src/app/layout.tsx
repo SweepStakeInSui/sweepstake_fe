@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 
 import MyLayout from '@/layouts';
 import { cn } from '@/lib/utils';
+
 import Providers from './providers';
 
 export const metadata: Metadata = {
