@@ -1,3 +1,6 @@
+
+'use client';
+
 import { ThemeProvider } from '@/contexts/themeContext';
 
 interface ProvidersProps {

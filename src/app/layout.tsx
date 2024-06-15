@@ -6,7 +6,6 @@ import type { Metadata } from 'next';
 
 import MyLayout from '@/layouts';
 import { cn } from '@/lib/utils';
-
 import Providers from './providers';
 
 export const metadata: Metadata = {
@@ -21,16 +20,16 @@ interface IRootLayout {
 export default function RootLayout({ children }: Readonly<IRootLayout>) {
   return (
     <html lang="en">
-      <Providers>
-        <body
-          className={cn(
-            'min-h-screen bg-background font-sans antialiased',
-            contentFont.className,
-          )}
-        >
+      <body
+        className={cn(
+          'min-h-screen bg-background font-sans antialiased',
+          contentFont.className,
+        )}
+      >
+        <Providers>
           <MyLayout>{children}</MyLayout>
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   );
 }

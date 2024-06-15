@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils';
 
 interface FlexProps {
-  children: any;
+  children: React.ReactNode;
   className?: string;
 }
 
 export default function Flex({ children, className }: Readonly<FlexProps>) {
-  return <div className={cn('flex', className)}>{children}</div>;
+  return <div className={cn('flex gap-2', className)}>{children}</div>;
 }
