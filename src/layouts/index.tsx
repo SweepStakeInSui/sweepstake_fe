@@ -1,4 +1,4 @@
-import { NavBar } from './NavBar';
+import NavBar from './NavBar';
 
 interface IMyLayout {
   children: React.ReactElement;
