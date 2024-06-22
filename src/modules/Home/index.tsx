@@ -1,9 +1,11 @@
-import { TypographyDemo } from '@/components/ui/TypographyDemo';
+import React from 'react';
+
+import Container from '@/components/common/Container';
 
 export default function HomeModule() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <TypographyDemo />
-    </div>
+    <Container>
+      <p>Hello</p>
+    </Container>
   );
 }

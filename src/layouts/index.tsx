@@ -1,4 +1,4 @@
-import { NavBar } from './NavBar';
+import NavBar from './components/NavBar';
 
 interface IMyLayout {
   children: React.ReactElement;
@@ -6,12 +6,12 @@ interface IMyLayout {
 
 export default function MyLayout({ children }: IMyLayout) {
   return (
-    <>
-      <header>
-        <NavBar />
-      </header>
+    <div className="relative">
+      <NavBar />
+
       <main>{children}</main>
-      <footer></footer>
-    </>
+
+      <footer />
+    </div>
   );
 }
