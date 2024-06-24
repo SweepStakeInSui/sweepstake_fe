@@ -21,6 +21,8 @@ const buttonVariants = cva(
           'bg-secondary-red-a400 bg-opacity-25 text-secondary-red-a400 hover:bg-secondary-red-a100 hover:bg-secondary-red-a400 active:text-white hover:text-white active:bg-secondary-red-a200',
         accent_green:
           'bg-secondary-green-a400 bg-opacity-25 text-secondary-green-a400 hover:bg-secondary-a100 hover:bg-secondary-green-a100 active:text-white hover:text-white active:bg-secondary-green-a300',
+        ghost:
+          'bg-transparent hover:bg-bg-elevation-a200 active:bg-elevation-a200',
       },
       size: {
         default: 'h-10 px-4 py-2',

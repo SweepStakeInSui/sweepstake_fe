@@ -43,7 +43,7 @@ export default function NavBar(): React.ReactElement {
   return (
     <header className="sticky top-0 left-0 w-full bg-elevation-a50/75 dark:bg-elevation-a900/75 backdrop-blur-md">
       <Container>
-        <Flex className="justify-between w-full py-1">
+        <Flex className="justify-between w-full py-2">
           <HomeLogo />
 
           <Flex>
@@ -56,13 +56,21 @@ export default function NavBar(): React.ReactElement {
                 />
               ))}
             </Flex>
+            <Flex>
+              <Button variant="secondary_light">Log In</Button>
+              <Button>Sign up</Button>
+            </Flex>
             <ModeToggle />
           </Flex>
         </Flex>
 
         <Flex>
           {bottomNavList.map((item) => (
-            <Button key={item} className="first:pl-0">
+            <Button
+              variant="ghost"
+              key={item}
+              className="first:pl-0 text-elevation-a600 text-xs"
+            >
               {item}
             </Button>
           ))}

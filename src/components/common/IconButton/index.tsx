@@ -15,10 +15,13 @@ export default function IconButton({
   const IconComponent = Icons[icon];
 
   return (
-    <Button className="h-full hover:bg-elevation-a100 dark:hover:bg-elevation-a800">
+    <Button
+      variant="ghost"
+      className="h-full hover:bg-elevation-a100 dark:hover:bg-elevation-a800"
+    >
       <Stack className="items-center gap-1">
         <IconComponent />
-        <p className="text-md font-bold text-elevation-a500">{text ?? icon}</p>
+        <p className="text-xs font-bold text-elevation-a500">{text ?? icon}</p>
       </Stack>
     </Button>
   );
