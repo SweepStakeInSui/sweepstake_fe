@@ -1,5 +1,6 @@
 import '@styles/index.scss';
 import '@styles/global.scss';
+import './globals.css';
 
 import { contentFont } from '@constants/fonts';
 import type { Metadata } from 'next';

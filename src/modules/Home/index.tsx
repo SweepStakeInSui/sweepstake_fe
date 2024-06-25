@@ -1,11 +1,15 @@
 import React from 'react';
 
-import Container from '@/components/common/Container';
+import PopularTopic from './PopularTopic';
+import SliderHero from './SliderHero';
+import VoteCard from './VoteCards';
 
 export default function HomeModule() {
   return (
-    <Container>
-      <p>Hello</p>
-    </Container>
+    <div className="flex min-h-screen flex-col items-center px-10 pt-6">
+      <SliderHero />
+      <PopularTopic />
+      <VoteCard />
+    </div>
   );
 }

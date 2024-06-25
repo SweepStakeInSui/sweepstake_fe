@@ -5,7 +5,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center w-fit justify-center whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -16,7 +16,7 @@ const buttonVariants = cva(
         secondary_dark:
           'bg-elevation-a800 text-elevation-a50 hover:bg-elevation-a600 active:bg-elevation-a500',
         light_outline:
-          'bg-elevation-a700 bg-opacity-25 text-elevation-a700 hover:border-elevation-a700 hover:bg-opacity-0 active:border-elevation-a700 active:bg-opacity-50 border border-elevation-a700 border-opacity-25',
+          'bg-elevation-a700 bg-opacity-25 text-elevation-a700  hover:bg-opacity-0 border active:bg-opacity-50 border-opacity-25',
         accent_red:
           'bg-secondary-red-a400 bg-opacity-25 text-secondary-red-a400 hover:bg-secondary-red-a100 hover:bg-secondary-red-a400 active:text-white hover:text-white active:bg-secondary-red-a200',
         accent_green:
@@ -25,7 +25,7 @@ const buttonVariants = cva(
           'bg-transparent hover:bg-bg-elevation-a200 active:bg-elevation-a200',
       },
       size: {
-        default: 'h-10 px-4 py-2',
+        default: 'px-6 py-3',
         sm: 'h-9 rounded-md px-3',
         lg: 'h-11 rounded-md px-8',
         icon: 'h-10 w-10',
