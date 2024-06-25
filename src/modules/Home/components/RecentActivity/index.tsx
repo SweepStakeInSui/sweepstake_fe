@@ -76,9 +76,11 @@ export default function RecentActivity({
           <Icons.RightArrow />
         </Button>
       </Flex>
-      {data.map((item) => (
-        <ActivityItem key={item.id} {...item} />
-      ))}
+      <Stack className="gap-2">
+        {data.map((item) => (
+          <ActivityItem key={item.id} {...item} />
+        ))}
+      </Stack>
     </Stack>
   );
 }
