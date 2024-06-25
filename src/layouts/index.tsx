@@ -6,12 +6,12 @@ interface IMyLayout {
 
 export default function MyLayout({ children }: IMyLayout) {
   return (
-    <>
-      <header>
-        <NavBar />
-      </header>
+    <div className="relative">
+      <NavBar />
+
       <main>{children}</main>
+
       <footer />
-    </>
+    </div>
   );
 }
