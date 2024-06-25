@@ -130,11 +130,6 @@ img:is([loading='lazy']) {
 }
 
 body {
-  line-height: 110%;
-  font-weight: normal;
-  font-size: rem(16px);
-  color: var(--blue);
-
   &.is-locked {
     overflow: hidden;
     height: 100%;
