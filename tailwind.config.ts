@@ -16,6 +16,7 @@ const config = {
       'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       'gradient-conic':
         'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      card: 'linear-gradient(0deg, rgba(0, 0, 0, 0.00) 0%, #000 100%)',
     },
     container: {
       center: true,
@@ -115,6 +116,9 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      gridTemplateColumns: {
+        autoFill: 'repeat(auto-fill, minmax(300px, 1fr))',
       },
     },
   },
