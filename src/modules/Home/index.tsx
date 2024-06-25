@@ -2,17 +2,17 @@ import React from 'react';
 
 import Container from '@/components/common/Container';
 import { mockRecentActivities } from '@/mocks/mockRecentAcitivities';
+import { mockTopVolumeThisWeek } from '@/mocks/mockTopVolumeThisWeek';
 
 import RecentActivity from './components/RecentActivity';
+import TopVolume from './components/TopVolume';
+import VoteCard from './components/VoteCards';
 import PopularTopic from './PopularTopic';
 import SliderHero from './SliderHero';
-import VoteCard from './components/VoteCards';
-import TopVolume from './components/TopVolume';
-import { mockTopVolumeThisWeek } from '@/mocks/mockTopVolumeThisWeek';
 
 export default function HomeModule() {
   return (
-    <Container>
+    <Container className='mb-12'>
       <SliderHero />
       <PopularTopic />
       <VoteCard />
