@@ -1,14 +1,14 @@
 // 'use client';
 
-import Stack from '@/components/common/Stack';
-import Flex from '@/components/common/Flex';
-import { Button } from '@/components/ui/button';
-import { Icons } from '@/components/common/Icon';
 import Container from '@/components/common/Container';
+import Flex from '@/components/common/Flex';
+import { Icons } from '@/components/common/Icon';
+import Stack from '@/components/common/Stack';
+import { Button } from '@/components/ui/button';
 
 export default function Footer() {
   return (
-    <footer className='bg-elevation-a100 p-4'>
+    <footer className="bg-elevation-a100 p-4">
       <Container>
         <Flex className="h-full justify-between items-stretch">
           <Stack className="justify-between">

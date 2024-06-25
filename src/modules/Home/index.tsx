@@ -12,7 +12,7 @@ import SliderHero from './SliderHero';
 
 export default function HomeModule() {
   return (
-    <Container className='mb-12'>
+    <Container className="mb-12">
       <SliderHero />
       <PopularTopic />
       <VoteCard />
