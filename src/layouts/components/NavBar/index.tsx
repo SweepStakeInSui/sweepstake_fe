@@ -41,7 +41,7 @@ const bottomNavList = [
 
 export default function NavBar(): React.ReactElement {
   return (
-    <header className="sticky top-0 left-0 w-full bg-elevation-a50/75 dark:bg-elevation-a900/75 backdrop-blur-md">
+    <header className="sticky top-0 left-0 w-full bg-elevation-a50/75 dark:bg-elevation-a900/75 backdrop-blur-md z-50">
       <Container>
         <Flex className="justify-between w-full py-2">
           <HomeLogo />

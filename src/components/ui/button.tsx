@@ -13,6 +13,8 @@ const buttonVariants = cva(
           'bg-primary-a800 text-white hover:bg-primary-a600 active:bg-primary-a500',
         secondary_light:
           'bg-elevation-a200 text-elevation-a700 hover:bg-elevation-a400 active:bg-elevation-a500',
+        secondary_mid:
+          'bg-elevation-a300 text-elevation-a700 hover:bg-elevation-a400 active:bg-elevation-a500',
         secondary_dark:
           'bg-elevation-a800 text-elevation-a50 hover:bg-elevation-a600 active:bg-elevation-a500',
         light_outline:

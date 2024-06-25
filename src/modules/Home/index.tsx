@@ -1,15 +1,25 @@
 import React from 'react';
 
+import Container from '@/components/common/Container';
+import { mockRecentActivities } from '@/mocks/mockRecentAcitivities';
+import { mockTopVolumeThisWeek } from '@/mocks/mockTopVolumeThisWeek';
+
+import RecentActivity from './components/RecentActivity';
+import TopVolume from './components/TopVolume';
+import VoteCard from './components/VoteCards';
 import PopularTopic from './PopularTopic';
 import SliderHero from './SliderHero';
-import VoteCard from './VoteCards';
 
 export default function HomeModule() {
   return (
-    <div className="flex min-h-screen flex-col items-center px-10 pt-6">
+    <Container className="mb-12">
       <SliderHero />
       <PopularTopic />
       <VoteCard />
-    </div>
+      <div className="grid grid-cols-2 gap-4">
+        <RecentActivity data={mockRecentActivities} />
+        <TopVolume data={mockTopVolumeThisWeek} />
+      </div>
+    </Container>
   );
 }
