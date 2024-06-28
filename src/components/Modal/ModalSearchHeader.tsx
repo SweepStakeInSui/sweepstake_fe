@@ -42,7 +42,7 @@ const ModalSearchHeader = () => {
         <SearchIcon width={14} height={14} className="mr-2" />
         <input
           className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
-          placeholder="Type a command or search..."
+          placeholder="Search all of Sweepstack"
           autoComplete="off"
           autoCorrect="off"
           spellCheck="false"
