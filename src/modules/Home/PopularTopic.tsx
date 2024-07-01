@@ -96,7 +96,7 @@ const PopularTopic: React.FC = () => {
 
   return (
     <div className="w-full h-40 mt-4">
-      <SwiperCustom slidesPerView={1}>
+      <SwiperCustom slidesPerView={1} spaceBetween={16}>
         {listTopic.map((item) => (
           <SwiperSlide key={item.id}>
             <Topic content={item} />
