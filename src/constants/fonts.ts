@@ -1,7 +1,7 @@
-import { Roboto } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
-export const contentFont = Roboto({
-  weight: ['400', '500'],
-  style: ['normal', 'italic'],
+export const contentFont = Inter({
+  weight: ['400', '500', '600'],
+  style: ['normal'],
   subsets: ['latin'],
 });

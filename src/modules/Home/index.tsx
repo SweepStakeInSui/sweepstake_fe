@@ -20,7 +20,6 @@ export default function HomeModule() {
           Text/ Medium-16
         </Typography.Text>
         <Typography.Text size={18}>Text/ Regular-18</Typography.Text>
-        <Typography.Text>Text/ Regular-18</Typography.Text>
 
         <Typography.Heading size={20}>Heading/ Semibold-20</Typography.Heading>
         <Typography.Heading size={24}>Heading/ Semibold-24</Typography.Heading>
