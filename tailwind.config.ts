@@ -29,6 +29,21 @@ const config = {
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
+      fontSize: {
+        '10': ['0.625rem', '0.75rem'], // 10px
+        '12': ['0.75rem', '1rem'], // 12px
+        '13': ['0.8125rem', '1rem'], // 13px
+        '14': ['0.875rem', '1rem'], // 14px
+        '15': ['0.9375rem', '1rem'], // 15px
+        '16': ['1rem', '1.125rem'], // 16px
+        '18': ['1.125rem', '1.25rem'], // 18px
+        '20': ['1.25rem', '1.5rem'], // 20px
+        '24': ['1.5rem', '1.75rem'], // 24px
+        '28': ['1.75rem', '2rem'], // 28px
+        '32': ['2rem', '2.4rem'], // 32px
+        '48': ['3rem', '3.6rem'], // 48px
+        '64': ['4rem', '4.8rem'], // 64px
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
