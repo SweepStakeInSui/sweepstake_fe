@@ -7,8 +7,12 @@ export default function HomeModule() {
   return (
     <Container className="mb-12">
       <div className="container mx-auto p-4 space-y-4">
-        <Typography.Text size={10}>Text/ Regular-10</Typography.Text>
-        <Typography.Text size={12}>Text/ Regular-12</Typography.Text>
+        <Typography.Text size={10} className="text-blk-a45">
+          Text/ Regular-10
+        </Typography.Text>
+        <Typography.Text size={12} className="text-gr-30">
+          Text/ Regular-12
+        </Typography.Text>
         <Typography.Text size={13}>Text/ Regular-13</Typography.Text>
         <Typography.Text size={14}>Text/ Regular-14</Typography.Text>
         <Typography.Text size={15}>Text/ Regular-15</Typography.Text>

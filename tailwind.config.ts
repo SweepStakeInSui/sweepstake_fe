@@ -1,6 +1,6 @@
+import { colors } from './src/lib/colorUtils';
 import type { Config } from 'tailwindcss';
 const { fontFamily } = require('tailwindcss/defaultTheme');
-
 const config = {
   darkMode: ['selector'],
   content: [
@@ -112,6 +112,7 @@ const config = {
             a400: '#c80003',
           },
         },
+        ...colors,
       },
       borderRadius: {
         lg: 'var(--radius)',
