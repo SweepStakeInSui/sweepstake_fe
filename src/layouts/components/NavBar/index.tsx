@@ -76,7 +76,7 @@ export default function NavBar(): React.ReactElement {
               ))}
             </Flex>
             <Flex>
-              <Button variant="secondary_light">Log In</Button>
+              <Button variant="secondary">Log In</Button>
               <Button>Sign up</Button>
             </Flex>
             <ModeToggle />

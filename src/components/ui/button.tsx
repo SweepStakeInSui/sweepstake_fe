@@ -5,31 +5,24 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center w-fit justify-center whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center w-fit justify-center whitespace-nowrap rounded-md duration-500 text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary:
-          'bg-primary-a800 text-white hover:bg-primary-a600 active:bg-primary-a500',
-        secondary_light:
-          'bg-elevation-a200 text-elevation-a700 hover:bg-elevation-a400 active:bg-elevation-a500',
-        secondary_mid:
-          'bg-elevation-a300 text-elevation-a700 hover:bg-elevation-a400 active:bg-elevation-a500',
-        secondary_dark:
-          'bg-elevation-a800 text-elevation-a50 hover:bg-elevation-a600 active:bg-elevation-a500',
-        light_outline:
-          'bg-elevation-a700 bg-opacity-25 text-elevation-a700  hover:bg-opacity-0 border active:bg-opacity-50 border-opacity-25',
-        accent_red:
-          'bg-secondary-red-a400 bg-opacity-25 text-secondary-red-a400 hover:bg-secondary-red-a100 hover:bg-secondary-red-a400 active:text-white hover:text-white active:bg-secondary-red-a200',
-        accent_green:
-          'bg-secondary-green-a400 bg-opacity-25 text-secondary-green-a400 hover:bg-secondary-a100 hover:bg-secondary-green-a100 active:text-white hover:text-white active:bg-secondary-green-a300',
-        ghost:
-          'bg-transparent hover:bg-bg-elevation-a200 active:bg-elevation-a200',
+        primary: 'bg-r-50 text-white hover:bg-r-60 active:bg-r-70',
+        secondary: 'bg-dyb-95 text-white hover:bg-dyb-85 active:bg-dyb-60',
+        ghost: 'bg-transparent text-dyb-70 hover:bg-dyb-5 active:bg-dyb-10',
+        bet_yes:
+          'bg-r-5 text-r-50 active:bg-r-10 active:text-r-50 hover:bg-r-50 hover:text-white',
+        bet_no:
+          'bg-dyb-5 text-dyb-95 hover:bg-dyb-90 hover:text-white active:bg-dyb-5 active:text-dyb-95',
+        disable: 'bg-dyb-10 text-dyb-40 cursor-not-allowed',
       },
       size: {
-        default: 'px-6 py-3',
-        sm: 'h-9 rounded-md px-3',
+        default: 'px-4 py-2',
+        sm: 'h-12 rounded-md px-4',
         lg: 'h-11 rounded-md px-8',
+        full: 'h-full rounded-md w-full',
         icon: 'h-10 w-10',
       },
     },
