@@ -71,7 +71,7 @@ export default function RecentActivity({
     <Stack className="gap-6">
       <Flex className="justify-between">
         <h3 className="text-2xl">Recent Activity</h3>
-        <Button variant="secondary_mid" className="flex gap-1 px-6">
+        <Button variant="primary" className="flex gap-1 px-6">
           See all
           <Icons.RightArrow />
         </Button>

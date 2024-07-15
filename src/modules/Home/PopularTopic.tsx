@@ -41,7 +41,7 @@ const Topic: React.FC<TopicProps> = ({ content }) => {
             <h5 className=" font-semibold text-lg">{content.title}</h5>
             <p className="text-white text-sm font-medium">{content.des}</p>
           </div>
-          <Button variant="secondary_dark" className="">
+          <Button variant="secondary" className="">
             View
           </Button>
         </div>

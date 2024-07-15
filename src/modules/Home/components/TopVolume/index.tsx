@@ -41,7 +41,7 @@ export default function TopVolume({ data }: Readonly<TopVolumeProps>) {
     <Stack className="gap-6">
       <Flex className="justify-between">
         <h3 className="text-2xl">Top Volume This Week</h3>
-        <Button variant="secondary_mid" className="flex gap-1 px-6">
+        <Button variant="primary" className="flex gap-1 px-6">
           See all
           <Icons.RightArrow />
         </Button>

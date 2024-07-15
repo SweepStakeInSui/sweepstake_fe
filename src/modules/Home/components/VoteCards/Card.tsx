@@ -23,11 +23,11 @@ const Card = () => {
             <p className="text-elevation-a700 font-medium">Donald Trump</p>
             <div className="flex gap-x-2 items-center">
               <span>59%</span>
-              <Button variant="accent_green" className="py-[10px] group w-16">
+              <Button variant="bet_yes" className="py-[10px] group w-16">
                 <p className="group-hover:hidden">Yes</p>
                 <p className="group-hover:block hidden">21%</p>
               </Button>
-              <Button variant="accent_red" className="py-[10px] group w-16">
+              <Button variant="bet_no" className="py-[10px] group w-16">
                 <p className="group-hover:hidden">No</p>
                 <p className="group-hover:block hidden">12%</p>
               </Button>
@@ -37,11 +37,11 @@ const Card = () => {
             <p className="text-elevation-a700 font-medium">Donald Trump</p>
             <div className="flex gap-x-2 items-center">
               <span>59%</span>
-              <Button variant="accent_green" className="py-[10px] group w-16">
+              <Button variant="bet_yes" className="py-[10px] group w-16">
                 <p className="group-hover:hidden">Yes</p>
                 <p className="group-hover:block hidden">21%</p>
               </Button>
-              <Button variant="accent_red" className="py-[10px] group w-16">
+              <Button variant="bet_no" className="py-[10px] group w-16">
                 <p className="group-hover:hidden">No</p>
                 <p className="group-hover:block hidden">12%</p>
               </Button>
@@ -51,11 +51,11 @@ const Card = () => {
             <p className="text-elevation-a700 font-medium">Donald Trump</p>
             <div className="flex gap-x-2 items-center">
               <span>59%</span>
-              <Button variant="accent_green" className="py-[10px] group w-16">
+              <Button variant="bet_yes" className="py-[10px] group w-16">
                 <p className="group-hover:hidden">Yes</p>
                 <p className="group-hover:block hidden">21%</p>
               </Button>
-              <Button variant="accent_red" className="py-[10px] group w-16">
+              <Button variant="bet_no" className="py-[10px] group w-16">
                 <p className="group-hover:hidden">No</p>
                 <p className="group-hover:block hidden">12%</p>
               </Button>

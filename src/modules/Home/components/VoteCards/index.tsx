@@ -18,7 +18,7 @@ const VoteCard = () => {
         <Card />
         <Card />
       </div>
-      <Button variant="light_outline" className="my-4">
+      <Button variant="primary" className="my-4">
         See more
       </Button>
     </>

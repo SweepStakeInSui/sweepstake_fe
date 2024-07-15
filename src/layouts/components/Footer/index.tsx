@@ -16,8 +16,8 @@ export default function Footer() {
               <Icons.Logo />
               <h6 className="text-sm">The worlds largest prediction market.</h6>
               <Flex>
-                <Button variant="secondary_light">POWERED BY SUI</Button>
-                <Button variant="secondary_light">
+                <Button variant="secondary">POWERED BY SUI</Button>
+                <Button variant="secondary">
                   <span className="bg-secondary-green-a400 w-2 h-2 mr-4 rounded-full" />
                   ALL SYSTEMS OPERATIONAL
                 </Button>
