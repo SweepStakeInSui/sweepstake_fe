@@ -2,11 +2,9 @@ import '@styles/index.scss';
 import '@styles/global.scss';
 import './globals.css';
 
-import { contentFont } from '@constants/fonts';
 import type { Metadata } from 'next';
 
 import MyLayout from '@/layouts';
-import { cn } from '@/lib/utils';
 
 import Providers from './providers';
 
@@ -22,12 +20,7 @@ interface IRootLayout {
 export default function RootLayout({ children }: Readonly<IRootLayout>) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          'min-h-screen bg-background font-sans antialiased',
-          contentFont.className,
-        )}
-      >
+      <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
           <MyLayout>{children}</MyLayout>
         </Providers>

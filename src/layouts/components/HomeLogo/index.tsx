@@ -9,7 +9,7 @@ export default function HomeLogo() {
   return (
     <Button
       variant="ghost"
-      className="px-0"
+      className="p-0"
       onClick={() => {
         router.push('/');
       }}
