@@ -25,7 +25,8 @@ img {
   user-drag: none;
 }
 
-::-moz-selection { /* Code for Firefox */
+::-moz-selection {
+  /* Code for Firefox */
   color: var(--white);
   background: var(--black);
 }

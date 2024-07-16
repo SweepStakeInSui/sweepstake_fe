@@ -2,6 +2,7 @@ import React from 'react';
 
 import Container from '@/components/common/Container';
 import Typography from '@/components/common/Typography';
+import { Button } from '@/components/ui/button';
 
 export default function HomeModule() {
   return (
@@ -10,7 +11,7 @@ export default function HomeModule() {
         <Typography.Text size={10} className="text-blk-a45">
           Text/ Regular-10
         </Typography.Text>
-        <Typography.Text size={12} className="text-gr-30">
+        <Typography.Text size={12} className="text-gr-30 bg-r-50">
           Text/ Regular-12
         </Typography.Text>
         <Typography.Text size={13}>Text/ Regular-13</Typography.Text>
@@ -31,6 +32,22 @@ export default function HomeModule() {
         <Typography.Heading size={32}>Heading/ Semibold-32</Typography.Heading>
         <Typography.Heading size={48}>Heading/ Semibold-48</Typography.Heading>
         <Typography.Heading size={64}>Heading/ Semibold-64</Typography.Heading>
+      </div>
+      <div className="flex gap-x-2">
+        <Button variant="primary">CHECK BUTTON</Button>
+        <Button variant="secondary">CHECK BUTTON</Button>
+        <Button variant="ghost">CHECK BUTTON</Button>
+        <Button variant="bet_yes">CHECK BUTTON</Button>
+        <Button variant="bet_no">CHECK BUTTON</Button>
+        <Button variant="disable">CHECK BUTTON</Button>
+      </div>
+      <div className="mt-4 flex gap-x-2">
+        <Button variant="secondary" size="sm">
+          CHECK BUTTON
+        </Button>
+        <Button variant="bet_no" size="sm">
+          CHECK BUTTON
+        </Button>
       </div>
     </Container>
   );

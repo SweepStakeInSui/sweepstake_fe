@@ -69,7 +69,7 @@ export default function NavBar(): React.ReactElement {
               </DialogContent>
             </Dialog>
             <Flex>
-              <Button variant="secondary_light">Log In</Button>
+              <Button variant="secondary">Log In</Button>
               <Button>Sign up</Button>
             </Flex>
             <ModeToggle />
