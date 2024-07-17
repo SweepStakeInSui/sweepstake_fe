@@ -17,11 +17,15 @@ export default function IconButton({
   return (
     <Button
       variant="ghost"
-      className="h-full hover:bg-elevation-a100 dark:hover:bg-elevation-a800"
+      className="h-full p-2 hover:bg-elevation-a100 dark:hover:bg-elevation-a800"
     >
       <Stack className="items-center gap-1">
         <IconComponent />
-        <p className="text-xs font-bold text-elevation-a500">{text ?? icon}</p>
+        {text && (
+          <p className="text-xs font-bold text-elevation-a500">
+            {text ?? icon}
+          </p>
+        )}
       </Stack>
     </Button>
   );

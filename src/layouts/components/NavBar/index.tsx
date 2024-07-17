@@ -1,62 +1,77 @@
 'use client';
 
 import { SearchIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
-import type { IconName } from '@/components/common/Icon';
-import IconButton from '@/components/common/IconButton';
+import Typography from '@/components/common/Typography';
 import { ModalSearchHeader } from '@/components/Modal';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 import HomeLogo from '../HomeLogo';
-import { ModeToggle } from '../ModeToggle';
 
 const navList = [
   {
     name: 'Markets',
     icon: 'Markets',
+    href: '/markets',
   },
   {
     name: 'Election',
     icon: 'Election',
+    href: '/election',
   },
   {
     name: 'Activity',
     icon: 'Activity',
+    href: '/activity',
   },
   {
     name: 'Ranks',
     icon: 'Ranks',
+    href: '/ranks',
   },
 ];
 
-const bottomNavList = [
-  'All',
-  'Politics',
-  'Midle East',
-  'Sports',
-  'Crypto',
-  'Pop Culture',
-  'Business',
-  'Science',
-];
-
 export default function NavBar(): React.ReactElement {
+  const router = useRouter();
+
   return (
     <header className="sticky top-0 left-0 w-full bg-elevation-a50/75 dark:bg-elevation-a900/75 backdrop-blur-md z-50">
       <Container>
-        <Flex className="justify-between w-full py-2">
+        <Flex className="justify-between w-full py-4">
           <Flex className="gap-x-4">
             <HomeLogo />
 
+            <Flex className="gap-x-0">
+              {navList.map((item) => (
+                <Button
+                  key={item.name}
+                  variant="ghost"
+                  onClick={() => router.push(item.href)}
+                  className="px-3"
+                >
+                  {item.name}
+                </Button>
+              ))}
+            </Flex>
+          </Flex>
+
+          <Flex>
             <Dialog>
               <DialogTrigger asChild>
                 <div>
-                  <Flex className="border border-elevation-a400 text-elevation-a500 p-2 rounded-lg text-xs w-[300px] group cursor-pointer transition-all duration-150 ease-linear hover:bg-elevation-a200 hover:text-elevation-a600">
-                    <SearchIcon width={16} height={16} />
-                    <p className=" ">Search all of Sweep Stack</p>
+                  <Flex className="border border-dyb-15 text-elevation-a500 p-2 rounded-md text-xs w-[300px] group cursor-pointer transition-all duration-150 ease-linear hover:bg-elevation-a200 hover:text-elevation-a600">
+                    <SearchIcon
+                      width={16}
+                      height={16}
+                      className="stroke-dyb-50"
+                    />
+                    <Typography.Text size={12} className="text-dyb-50">
+                      Search
+                    </Typography.Text>
                   </Flex>
                 </div>
               </DialogTrigger>
@@ -64,35 +79,12 @@ export default function NavBar(): React.ReactElement {
                 <ModalSearchHeader />
               </DialogContent>
             </Dialog>
-          </Flex>
-          <Flex>
-            <Flex className="gap-0">
-              {navList.map((item) => (
-                <IconButton
-                  key={item.name}
-                  icon={item.icon as IconName}
-                  text={item.name}
-                />
-              ))}
-            </Flex>
             <Flex>
               <Button variant="secondary">Log In</Button>
               <Button>Sign up</Button>
             </Flex>
-            <ModeToggle />
+            {/* <ModeToggle /> */}
           </Flex>
-        </Flex>
-
-        <Flex>
-          {bottomNavList.map((item) => (
-            <Button
-              variant="ghost"
-              key={item}
-              className="first:pl-0 text-elevation-a600 text-xs"
-            >
-              {item}
-            </Button>
-          ))}
         </Flex>
       </Container>
     </header>

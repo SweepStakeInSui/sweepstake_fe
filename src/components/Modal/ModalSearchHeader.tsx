@@ -5,6 +5,7 @@ import Stack from '@/components/common/Stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 import { SkeletonSearch } from '../common/Skeleton';
+import Typography from '../common/Typography';
 
 interface ResultsItemProps {
   content?: string;
@@ -25,10 +26,12 @@ const ResultsItem = ({
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <Stack className="gap-2">
-          <p>{content}</p>
+          <Typography.Text>{content as string}</Typography.Text>
           <div className="text-elevation-a400 gap-x-1 flex items-center">
             <BadgePercentIcon width={14} height={14} />
-            <p className=" text-sm">{price}</p>
+            <Typography.Text className=" text-sm">
+              {price as string}
+            </Typography.Text>
           </div>
         </Stack>
       </Flex>

@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: var(--blue);
-}
-
 .stack {
   display: flex;
   flex-direction: column;
