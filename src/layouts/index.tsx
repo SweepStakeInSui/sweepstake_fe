@@ -1,6 +1,3 @@
-import { contentFont } from '@/constants/fonts';
-import { cn } from '@/lib/utils';
-
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 
@@ -10,7 +7,7 @@ interface IMyLayout {
 
 export default function MyLayout({ children }: IMyLayout) {
   return (
-    <div className={cn('relative', contentFont.className)}>
+    <div className="relative">
       <NavBar />
 
       <main>{children}</main>

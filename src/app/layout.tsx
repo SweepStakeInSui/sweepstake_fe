@@ -4,7 +4,9 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 
+import { contentFont } from '@/constants/fonts';
 import MyLayout from '@/layouts';
+import { cn } from '@/lib/utils';
 
 import Providers from './providers';
 
@@ -20,7 +22,12 @@ interface IRootLayout {
 export default function RootLayout({ children }: Readonly<IRootLayout>) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body
+        className={cn(
+          'min-h-screen bg-background antialiased',
+          contentFont.className,
+        )}
+      >
         <Providers>
           <MyLayout>{children}</MyLayout>
         </Providers>
