@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { Icons } from '@/components/common/Icon';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -11,7 +10,7 @@ interface IHomeLogoProps {
 }
 
 export default function HomeLogo({
-  className,  
+  className,
   variant,
 }: Readonly<IHomeLogoProps>) {
   const router = useRouter();
@@ -25,7 +24,7 @@ export default function HomeLogo({
       }}
     >
       {(!variant || variant === 'default') && (
-        <div className='relative h-10 aspect-[167/40]'>
+        <div className="relative h-10 aspect-[167/40]">
           <Image src="/logos/logo.png" alt="logo" fill />
         </div>
       )}
