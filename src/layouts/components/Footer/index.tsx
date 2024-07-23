@@ -15,7 +15,7 @@ export default function Footer() {
       <Container>
         <Flex className="h-full justify-between items-start">
           <Stack>
-            <HomeLogo variant="squared" />
+            <HomeLogo />
             <Typography.Text size={13} className="text-dyb-50">
               Copyright © 2024 SweepStack. All rights reserved.
             </Typography.Text>
