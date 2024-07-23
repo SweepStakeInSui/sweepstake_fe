@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { Icons } from '@/components/common/Icon';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -24,10 +23,14 @@ export default function HomeLogo({
         router.push('/');
       }}
     >
-      {(!variant || variant === 'default') && <Icons.Logo />}
+      {(!variant || variant === 'default') && (
+        <div className="relative h-10 aspect-[167/40]">
+          <Image src="/logos/logo.png" alt="logo" fill />
+        </div>
+      )}
       {variant === 'squared' && (
         <div className="relative w-10 aspect-square">
-          <Image src="/logos/square-logo.svg" alt="logo" fill />
+          <Image src="/logos/square-logo.png" alt="logo" fill />
         </div>
       )}
     </Button>
