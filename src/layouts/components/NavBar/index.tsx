@@ -43,7 +43,7 @@ export default function NavBar(): React.ReactElement {
       <Container>
         <Flex className="justify-between w-full py-4">
           <Flex className="gap-x-4">
-            <HomeLogo />
+            <HomeLogo variant="squared" />
 
             <Flex className="gap-x-0">
               {navList.map((item) => (
@@ -80,7 +80,7 @@ export default function NavBar(): React.ReactElement {
               </DialogContent>
             </Dialog>
             <Flex>
-              <Button variant="secondary">Log In</Button>
+              <Button variant="ghost">Log In</Button>
               <Button>Sign up</Button>
             </Flex>
             {/* <ModeToggle /> */}
