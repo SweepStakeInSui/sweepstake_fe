@@ -18,7 +18,7 @@ const VoteCard = () => {
         <Card />
         <Card />
       </div>
-      <Button variant="primary" className="my-4">
+      <Button variant="primary" className="my-6 block mx-auto w-fit">
         See more
       </Button>
     </>

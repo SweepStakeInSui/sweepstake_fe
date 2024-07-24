@@ -1,5 +1,4 @@
 import Flex from '@/components/common/Flex';
-import { Icons } from '@/components/common/Icon';
 import Stack from '@/components/common/Stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -73,7 +72,6 @@ export default function RecentActivity({
         <h3 className="text-2xl">Recent Activity</h3>
         <Button variant="primary" className="flex gap-1 px-6">
           See all
-          <Icons.RightArrow />
         </Button>
       </Flex>
       <Stack className="gap-2">
