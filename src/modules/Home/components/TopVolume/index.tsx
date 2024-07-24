@@ -1,5 +1,4 @@
 import Flex from '@/components/common/Flex';
-import { Icons } from '@/components/common/Icon';
 import Stack from '@/components/common/Stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -43,7 +42,6 @@ export default function TopVolume({ data }: Readonly<TopVolumeProps>) {
         <h3 className="text-2xl">Top Volume This Week</h3>
         <Button variant="primary" className="flex gap-1 px-6">
           See all
-          <Icons.RightArrow />
         </Button>
       </Flex>
       <div className="grid grid-cols-2 gap-2">

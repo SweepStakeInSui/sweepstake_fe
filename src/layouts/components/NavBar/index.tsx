@@ -63,15 +63,18 @@ export default function NavBar(): React.ReactElement {
             <Dialog>
               <DialogTrigger asChild>
                 <div>
-                  <Flex className="border border-dyb-15 text-elevation-a500 p-2 h-11 rounded-md text-xs w-[380px] group cursor-pointer transition-all duration-150 ease-linear hover:bg-elevation-a200 hover:text-elevation-a600">
-                    <SearchIcon
-                      width={16}
-                      height={16}
-                      className="stroke-dyb-50"
-                    />
-                    <Typography.Text size={12} className="text-dyb-50">
-                      Search market or people
-                    </Typography.Text>
+                  <Flex className="justify-between border  border-dyb-15 text-elevation-a500 px-3 h-11 rounded-md text-xs w-[380px] group cursor-pointer transition-all duration-150 ease-linear hover:bg-elevation-a200 hover:text-elevation-a600">
+                    <Flex>
+                      <SearchIcon
+                        width={16}
+                        height={16}
+                        className="stroke-dyb-50"
+                      />
+                      <Typography.Text size={12} className="text-dyb-50">
+                        Search market or people
+                      </Typography.Text>
+                    </Flex>
+                    <div className="text-dyb-40">/</div>
                   </Flex>
                 </div>
               </DialogTrigger>
