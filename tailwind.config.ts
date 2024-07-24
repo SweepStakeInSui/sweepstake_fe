@@ -17,6 +17,7 @@ const config = {
       'gradient-conic':
         'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       card: 'linear-gradient(0deg, rgba(0, 0, 0, 0.00) 0%, #000 100%)',
+      "banner-home":"radial-gradient(97.24% 183.5% at 134.15% 75.4%, #580808 16%, #121212 100%)",
     },
     container: {
       center: true,

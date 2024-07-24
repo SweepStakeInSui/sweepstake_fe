@@ -43,7 +43,7 @@ function Text({
 
 interface IHeadingProps extends ITypographyProps {
   size?: 20 | 24 | 28 | 32 | 48 | 64;
-  weight?: 'semibold' | 'bold';
+  weight?: 'semibold' | 'bold' | 'normal';
   className?: string;
 }
 
@@ -65,6 +65,7 @@ function Heading({
   const weightClasses = {
     semibold: 'font-semibold',
     bold: 'font-bold',
+    normal: 'font-normal',
   };
 
   return (
