@@ -7,11 +7,13 @@ import MarketTab from './components/MarketTab';
 import RecentActivity from './components/RecentActivity';
 import TopVolume from './components/TopVolume';
 import VoteCard from './components/VoteCards';
+import Slider from './components/Slider';
 
 export default function HomeModule() {
   return (
     <section>
       <Banner />
+      <Slider />
       <MarketTab />
       <Container>
         <VoteCard />
