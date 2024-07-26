@@ -1,63 +1,116 @@
 'use client';
 
+import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectFade } from 'swiper/modules';
+
 import Flex from '@/components/common/Flex';
-import Typography from '@/components/common/Typography';
+import SelectWithStats from '@/components/common/SelectWithStats';
 import Stack from '@/components/common/Stack';
+import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 
-function Slide() {
+type TSlide = {
+  title: string;
+  forcast: number;
+  percent: number;
+  vol: number;
+  desc: {
+    title: string;
+    content: string;
+  };
+};
+
+function Slide({ title, forcast, percent, vol, desc }: TSlide) {
   return (
-    <div
-      className="text-"
-      style={{
-        background: '#302d2d',
-      }}
-    >
-      <Stack>
-        <div className="text-">
-          <Typography.Heading size={20} weight="bold">
-            Despicable Me 4" Rotten Tomatoes score about ten?
+    <div className="p-7 w-[800px] rounded-md relative grid grid-cols-12 bg-[#302D2D] before:content-[''] before:absolute before:rounded-md before:left-0 before:top-0 before:w-full before:h-full before:bg-gradient-conic">
+      <Stack className="relative z-10 col-span-6">
+        <Stack>
+          <Typography.Heading
+            size={20}
+            weight="bold"
+            className="light: text-dyb-5 dark:text-dyb-100"
+          >
+            {title}
           </Typography.Heading>
           <Flex>
             <Flex>
-              <Typography.Text size={16}>24.2</Typography.Text>
-              <Typography.Text size={12}>forcast</Typography.Text>
-              <Typography.Text size={12}>+13%</Typography.Text>
+              <Typography.Text
+                className="light: text-dyb-5 dark:text-dyb-100"
+                size={16}
+              >
+                {forcast}
+              </Typography.Text>
+              <Typography.Text
+                className="light: text-dyb-5 dark:text-dyb-100"
+                size={12}
+              >
+                forcast
+              </Typography.Text>
+              <Typography.Text
+                className="light: text-dyb-5 dark:text-dyb-100"
+                size={12}
+              >
+                {percent}%
+              </Typography.Text>
             </Flex>
             <Flex>
-              <Typography.Text>120,000 vol</Typography.Text>
+              <Typography.Text className="light: text-dyb-5 dark:text-dyb-100">
+                {vol} vol
+              </Typography.Text>
             </Flex>
           </Flex>
+        </Stack>
+        <div />
+        <div>
+          <SelectWithStats />
         </div>
-        <div></div>
-        <div></div>
         <Flex>
-          <Button variant="bet_yes">Bet Yes</Button>
-          <Button variant="bet_no">Bet No</Button>
+          <Button variant="bet_yes_ghost">Bet Yes</Button>
+          <Button variant="bet_no_ghost">Bet No</Button>
         </Flex>
       </Stack>
-      <Stack>
-        <Typography.Heading>Texas braces for Beryl</Typography.Heading>
-        <Typography.Text>
-          Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen
-          and hit South Texas late Sunday, bringing damaging winds, storm surge,
-          and flooding, CNN reports. This will be the first tropical storm to
-          hit the US this season.
+      <Stack className="relative z-10 col-span-6">
+        <Typography.Heading className="light: text-dyb-5 dark:text-dyb-100">
+          {desc.title}
+        </Typography.Heading>
+        <Typography.Text className="light: text-dyb-5 dark:text-dyb-100">
+          {desc.content}
         </Typography.Text>
       </Stack>
     </div>
   );
 }
 
-export default function Slider() {
+interface ISliderProps {
+  slides: TSlide[];
+}
+
+export default function Slider({ slides }: ISliderProps) {
+  const pagination = {
+    clickable: true,
+    renderBullet(index: number, className: string) {
+      return `<span class="${className}">${index + 1}</span>`;
+    },
+  };
+
   return (
-    <Swiper modules={[EffectFade]} effect="fade">
-      {[1, 2, 3].map((i, el) => {
+    <Swiper
+      modules={[Autoplay, Pagination]}
+      pagination={pagination}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
+      loop
+      spaceBetween={16}
+      slidesPerView={2}
+      centeredSlides
+      className="hero_swipper"
+    >
+      {slides.map((slide) => {
         return (
-          <SwiperSlide>
-            <Slide />
+          <SwiperSlide key={slide.title}>
+            <Slide {...slide} />
           </SwiperSlide>
         );
       })}

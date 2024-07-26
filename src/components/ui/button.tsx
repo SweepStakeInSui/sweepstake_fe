@@ -14,8 +14,12 @@ const buttonVariants = cva(
         ghost: 'bg-transparent text-dyb-70 hover:bg-dyb-5 active:bg-dyb-10',
         bet_yes:
           'bg-r-5 text-r-50 active:bg-r-10 active:text-r-50 hover:bg-r-50 hover:text-white',
+        bet_yes_ghost:
+          'bg-red-700/15 text-r-40 active:bg-r-10 active:text-r-50 hover:bg-r-50 hover:text-white',
         bet_no:
           'bg-dyb-5 text-dyb-95 hover:bg-dyb-90 hover:text-white active:bg-dyb-5 active:text-dyb-95',
+        bet_no_ghost:
+          'bg-dyb-5/15 text-dyb-5 hover:bg-dyb-90 hover:text-white active:bg-dyb-5 active:text-dyb-95',
         disable: 'bg-dyb-10 text-dyb-40 cursor-not-allowed',
         sub_btn: 'text-dyb-70 border border-dyb-20 hover:border-dyb-80',
       },

@@ -10,7 +10,7 @@ import { ModalSearchHeader } from '@/components/Modal';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
-import HomeLogo from '../HomeLogo';
+import { ModeToggle } from '../ModeToggle';
 
 const navList = [
   {
@@ -43,7 +43,7 @@ export default function NavBar(): React.ReactElement {
       <Container>
         <Flex className="justify-between w-full py-4">
           <Flex className="gap-x-4">
-            <HomeLogo variant="squared" />
+            {/* <HomeLogo variant="squared" /> */}
 
             <Flex className="gap-x-0">
               {navList.map((item) => (
@@ -86,7 +86,7 @@ export default function NavBar(): React.ReactElement {
               <Button variant="ghost">Log In</Button>
               <Button>Sign up</Button>
             </Flex>
-            {/* <ModeToggle /> */}
+            <ModeToggle />
           </Flex>
         </Flex>
       </Container>

@@ -1,6 +1,5 @@
 import { colors } from './src/lib/colorUtils';
 import type { Config } from 'tailwindcss';
-const { fontFamily } = require('tailwindcss/defaultTheme');
 const config = {
   darkMode: ['selector'],
   content: [
@@ -15,7 +14,7 @@ const config = {
     backgroundImage: {
       'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       'gradient-conic':
-        'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'conic-gradient(from 12.01deg at 89.19% 40.8%, rgba(233, 44, 146, 0.37) 0deg, rgba(109, 0, 0, 0.44) 50.4deg, rgba(0, 0, 0, 0.44) 138.38deg, #171717 261deg, rgba(18, 118, 174, 0.41) 304.2deg, rgba(233, 44, 146, 0.37) 360deg)',
       card: 'linear-gradient(0deg, rgba(0, 0, 0, 0.00) 0%, #000 100%)',
       "banner-home":"radial-gradient(97.24% 183.5% at 134.15% 75.4%, #580808 16%, #121212 100%)",
     },
@@ -27,9 +26,6 @@ const config = {
       },
     },
     extend: {
-      fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
-      },
       fontSize: {
         '10': ['0.625rem', '0.75rem'], // 10px
         '12': ['0.75rem', '1rem'], // 12px
@@ -98,7 +94,7 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  // plugins: [require('tailwindcss-animate')],
 } satisfies Config;
 
 export default config;

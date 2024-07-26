@@ -31,3 +31,7 @@ img {
   color: var(--white);
   background: var(--black);
 }
+
+.swiper-slide {
+  width: fit-content !important;
+}

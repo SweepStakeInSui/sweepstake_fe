@@ -1,5 +1,5 @@
 interface ITypographyProps {
-  children: React.ReactElement | string;
+  children: React.ReactNode;
 }
 
 export default function Typography({ children }: Readonly<ITypographyProps>) {
