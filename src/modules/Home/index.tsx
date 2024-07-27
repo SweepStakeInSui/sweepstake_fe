@@ -11,7 +11,7 @@ import VoteCard from './components/VoteCards';
 
 const mockSlides = [
   {
-    title: 'Despicable Me 4" Rotten Tomatoes score about ten?',
+    title: 'Despicable Me 0" Rotten Tomatoes score about ten?',
     forcast: 14,
     percent: 12,
     vol: 1200000,
@@ -22,7 +22,7 @@ const mockSlides = [
     },
   },
   {
-    title: 'Nabati Rotten Tomatoes score about ten?',
+    title: 'Despicable Me 1 Rotten Tomatoes score about ten?',
     forcast: 14,
     percent: 12,
     vol: 1200000,
@@ -33,7 +33,7 @@ const mockSlides = [
     },
   },
   {
-    title: 'Doraemon" Rotten Tomatoes score about ten?',
+    title: 'Despicable Me 2" Rotten Tomatoes score about ten?',
     forcast: 14,
     percent: 12,
     vol: 1200000,
@@ -44,7 +44,7 @@ const mockSlides = [
     },
   },
   {
-    title: 'Jeon Somi" Rotten Tomatoes score about ten?',
+    title: 'Despicable Me 3" Rotten Tomatoes score about ten?',
     forcast: 14,
     percent: 12,
     vol: 1200000,
@@ -55,7 +55,7 @@ const mockSlides = [
     },
   },
   {
-    title: 'Rapunzel Rotten Tomatoes score about ten?',
+    title: 'Despicable Me 4" Tomatoes score about ten?',
     forcast: 14,
     percent: 12,
     vol: 1200000,
@@ -66,7 +66,7 @@ const mockSlides = [
     },
   },
   {
-    title: 'Conan" Rotten Tomatoes score about ten?',
+    title: 'Despicable Me 5" Rotten Tomatoes score about ten?',
     forcast: 14,
     percent: 12,
     vol: 1200000,

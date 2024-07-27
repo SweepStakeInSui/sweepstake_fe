@@ -39,7 +39,7 @@ export default function NavBar(): React.ReactElement {
   const router = useRouter();
 
   return (
-    <header className="sticky top-0 left-0 w-full bg-elevation-a50/75 dark:bg-elevation-a900/75 backdrop-blur-md z-50">
+    <header className="sticky top-0 left-0 w-full bg-dyb-5/75 dark:bg-dyb-95/75 backdrop-blur-md z-50">
       <Container>
         <Flex className="justify-between w-full py-4">
           <Flex className="gap-x-4">

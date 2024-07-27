@@ -1,4 +1,4 @@
-import { colors } from './src/lib/colorUtils';
+import { colors } from './src/utils/colorUtils';
 import type { Config } from 'tailwindcss';
 const config = {
   darkMode: ['selector'],
@@ -16,7 +16,8 @@ const config = {
       'gradient-conic':
         'conic-gradient(from 12.01deg at 89.19% 40.8%, rgba(233, 44, 146, 0.37) 0deg, rgba(109, 0, 0, 0.44) 50.4deg, rgba(0, 0, 0, 0.44) 138.38deg, #171717 261deg, rgba(18, 118, 174, 0.41) 304.2deg, rgba(233, 44, 146, 0.37) 360deg)',
       card: 'linear-gradient(0deg, rgba(0, 0, 0, 0.00) 0%, #000 100%)',
-      "banner-home":"radial-gradient(97.24% 183.5% at 134.15% 75.4%, #580808 16%, #121212 100%)",
+      'banner-home':
+        'radial-gradient(97.24% 183.5% at 134.15% 75.4%, #580808 16%, #121212 100%)',
     },
     container: {
       center: true,
@@ -67,7 +68,7 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        white: '#FFFFFF',
+        qwerty: 'var(--qwerty)',
         ...colors,
       },
       borderRadius: {
