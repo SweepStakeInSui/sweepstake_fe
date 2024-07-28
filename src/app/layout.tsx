@@ -4,7 +4,7 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 
-import { contentFont } from '@/constants/fonts';
+import { PlusJakartaFont } from '@/constants/fonts';
 import MyLayout from '@/layouts';
 import { cn } from '@/lib/utils';
 
@@ -23,10 +23,7 @@ export default function RootLayout({ children }: Readonly<IRootLayout>) {
   return (
     <html lang="en">
       <body
-        className={cn(
-          'min-h-screen bg-background antialiased',
-          contentFont.className,
-        )}
+        className={cn('min-h-screen antialiased', PlusJakartaFont.className)}
       >
         <Providers>
           <MyLayout>{children}</MyLayout>

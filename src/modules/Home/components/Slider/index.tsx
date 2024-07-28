@@ -60,10 +60,10 @@ function Slide({ title, forcast, percent, vol, desc }: TSlide) {
           <SelectWithStats />
         </div>
         <Flex className="w-full">
-          <Button variant="bet_yes" className="w-full bg-opacity-15">
+          <Button variant="bet_yes_ghost" className="w-full">
             Bet Yes
           </Button>
-          <Button variant="bet_no" className="w-full">
+          <Button variant="bet_no_ghost" className="w-full">
             Bet No
           </Button>
         </Flex>

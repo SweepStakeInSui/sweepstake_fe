@@ -97,7 +97,7 @@ const config = {
         bg: {
           primary: 'var(--bg-primary)',
           surface: 'var(--bg-surface)',
-          subtle: 'var(--bg-subtle)',
+          sublest: 'var(--bg-sublest)',
           hovered: 'var(--bg-hovered)',
           container: 'var(--bg-container)',
           inverse: 'var(--bg-inverse)',
