@@ -9,7 +9,18 @@ const nextConfig = {
   `,
   },
   images: {
-    domains: ['source.unsplash.com', 'github.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '**',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
   },
   env: {

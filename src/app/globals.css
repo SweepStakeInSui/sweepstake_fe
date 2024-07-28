@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('public/styles/root.css');
+
 @layer base {
   :root {
     --background: 240 11% 96%;
@@ -33,8 +35,93 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+    /* Text Colors */
+    --text: var(--dyb-95);
+    --text-subtle: #666666;
+    --text-sublest: var(--dyb-50);
+    --text-disable: var(--dyb-40);
+    --text-inverse: var(--wht-a100);
+    --text-support-green: #4db706;
+    --text-support-red: #eb201e;
+    --text-support-yellow: var(--org-60);
+    --text-support-blue: var(--b-60);
+    /* Icon Colors */
+    --icon: var(--dyb-95);
+    --icon-subtle: var(--dyb-70);
+    --icon-sublest: var(--dyb-50);
+    --icon-disable: var(--dyb-40);
+    --icon-inverse: var(--wht-a100);
+    --icon-support-green: var(--gr-50);
+    --icon-support-red: var(--r-50);
+    --icon-support-yellow: var(--org-60);
+    --icon-support-blue: var(--b-60);
+    /* Background Colors */
+    --bg-primary: #f5f5f7;
+    --bg-surface: var(--wht-a100);
+    --bg-subtle: var(--dyb-5);
+    --bg-hovered: var(--dyb-5);
+    --bg-container: #ffffff;
+    --bg-inverse: var(--dyb-95);
+    --bg-inverse-subtle: var(--dyb-70);
+    --bg-inverse-sublest: var(--dyb-50);
+    /* Border Colors */
+    --border-main: var(--dyb-15);
+    --border-subtle: var(--dyb-10);
+    --border-sublest: var(--dyb-5);
+    /* Primary Button */
+    --btn-primary-default: var(--r-50);
+    --btn-primary-hover: var(--r-60);
+    --btn-primary-press: var(--r-70);
+    --btn-primary-disable: var(--dyb-10);
 
-    --qwerty: #1a8069;
+    /* Secondary Button */
+    --btn-secondary-default: var(--dyb-95);
+    --btn-secondary-hover: var(--dyb-85);
+    --btn-secondary-press: var(--dyb-60);
+    --btn-secondary-disable: var(--dyb-10);
+
+    /* Ghost Button */
+    --btn-ghost-hover: var(--dyb-5);
+    --btn-ghost-press: var(--dyb-15);
+
+    /* Btn / Bet Yes */
+    --btn-bet-yes-default: var(--r-5);
+    --btn-bet-yes-hover: var(--r-10);
+    --btn-bet-yes-press: var(--r-50);
+    --btn-bet-yes-shadow: #c41614;
+
+    /* Btn / Bet No */
+    --btn-bet-no-default: var(--dyb-5);
+    --btn-bet-no-press: var(--dyb-15);
+    --btn-bet-no-hover: var(--dyb-90);
+    --btn-bet-no-shadow: rgba(0, 0, 0, 0.65);
+
+    /* Btn-text */
+    --btn-text-default: var(--dyb-70);
+    --btn-text-hover: var(--dyb-70);
+    --btn-text-press: var(--dyb-95);
+
+    /* Tab / Tab-btn-yes */
+    --tab-btn-yes-bg-selected: var(--dyb-95);
+    --tab-btn-yes-bg-hover: var(--dyb-5);
+    --tab-btn-yes-bg-press: var(--dyb-10);
+
+    /* Tab / Tab-btn-no */
+    --tab-btn-no-default: var(--dyb-50);
+    --tab-btn-no-selected: var(--r-50);
+    --tab-btn-no-hover: var(--dyb-20);
+    --tab-btn-no-text-press: var(--r-60);
+    /* Search + Filter / Background */
+    --search-filter-bg-default: var(--wht-a70);
+    --search-filter-bg-hover: var(--wht-a70);
+    --search-filter-bg-focus: var(--wht-a100);
+    --search-filter-bg-disable: var(--dyb-5);
+
+    /* Search + Filter / Border */
+    --search-filter-border-default: var(--dyb-15);
+    --search-filter-border-hover: var(--dyb-95);
+    --search-filter-border-focus: var(--r-50);
+    --search-filter-border-disable: var(--dyb-10);
   }
 
   .dark {
@@ -66,7 +153,93 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
 
-    --qwerty: #ffffff;
+    --text: var(--dyb-10);
+    --text-subtle: var(--dyb-30);
+    --text-sublest: var(--dyb-50);
+    --text-disable: var(--dyb-60);
+    --text-inverse: var(--blk-a100);
+    --text-support-green: var(--gr-40);
+    --text-support-red: var(--r-40);
+    --text-support-yellow: var(--org-50);
+    --text-support-blue: var(--b-40);
+    --icon: var(--dyb-10);
+    --icon-subtle: var(--dyb-30);
+    --icon-sublest: var(--dyb-50);
+    --icon-disable: var(--dyb-60);
+    --icon-inverse: var(--wht-a100);
+    --icon-support-green: var(--gr-40);
+    --icon-support-red: var(--r-40);
+    --icon-support-yellow: var(--org-50);
+    --icon-support-blue: var(--b-40);
+    --bg-primary: var(--dyb-95);
+    --bg-surface: var(--blk-a100);
+    --bg-subtle: var(--dyb-95);
+    --bg-hovered: var(--wht-a5);
+    --bg-container: var(--dyb-90);
+    --bg-inverse: var(--dyb-5);
+    --bg-inverse-subtle: var(--dyb-30);
+    --bg-inverse-sublest: var(--dyb-50);
+    /* Border Colors */
+    --border-main: var(--wht-a15);
+    --border-subtle: var(--wht-a10);
+    --border-sublest: var(--wht-a5);
+    /* Primary Button */
+    --btn-primary-default: var(--r-50);
+    --btn-primary-hover: var(--r-60);
+    --btn-primary-press: var(--r-70);
+    --btn-primary-disable: var(--dyb-10);
+
+    /* Secondary Button */
+    --btn-secondary-default: var(--dyb-95);
+    --btn-secondary-hover: var(--dyb-85);
+    --btn-secondary-press: var(--dyb-60);
+    --btn-secondary-disable: var(--dyb-10);
+
+    /* Ghost Button */
+    --btn-ghost-hover: var(--dyb-5);
+    --btn-ghost-press: var(--dyb-15);
+
+    /* Btn / Bet Yes */
+    --btn-bet-yes-default: rgb(191, 13, 11, 0.15);
+    --btn-bet-yes-hover: var(--r-10);
+    --btn-bet-yes-press: var(--r-50);
+    --btn-bet-yes-shadow: #c41614;
+
+    /* Btn / Bet No */
+    --btn-bet-no-default: var(--dyb-5);
+    --btn-bet-no-default-bg: var(--wht-a5);
+    --btn-bet-no-press: var(--dyb-15);
+    --btn-bet-no-press-bg: var(--dyb-100);
+    --btn-bet-no-hover: var(--dyb-90);
+    --btn-bet-no-hover-bg: var(--dyb-85);
+    --btn-bet-no-shadow: rgba(0, 0, 0, 0.65);
+
+    /* Btn-text */
+    --btn-text-default: var(--dyb-70);
+    --btn-text-hover: var(--dyb-70);
+    --btn-text-press: var(--dyb-95);
+
+    /* Tab / Tab-btn-yes */
+    --tab-btn-yes-bg-selected: var(--dyb-95);
+    --tab-btn-yes-bg-hover: var(--dyb-5);
+    --tab-btn-yes-bg-press: var(--dyb-10);
+
+    /* Tab / Tab-btn-no */
+    --tab-btn-no-default: var(--dyb-50);
+    --tab-btn-no-selected: var(--r-50);
+    --tab-btn-no-hover: var(--dyb-5);
+    --tab-btn-no-press: var(--r-60);
+    /* Search + Filter / Background */
+    --search-filter-bg-default: var(--wht-a70);
+    --search-filter-bg-hover: var(--wht-a70);
+    --search-filter-bg-focus: var(--wht-a100);
+    --search-filter-bg-disable: var(--dyb-90);
+
+    /* Search + Filter / Border */
+    --search-filter-border-default: var(--dyb-10);
+    --search-filter-border-hover: var(--dyb-20);
+    --search-filter-border-focus: var(--r-50);
+    --search-filter-border-disable: var(--r-50);
   }
 }
 
@@ -131,4 +304,7 @@ html *::-webkit-scrollbar-track {
 
 .swiper-pagination-bullet-active {
   background-color: #9075fe !important;
+}
+.testColor {
+  color: var(--gr-60);
 }

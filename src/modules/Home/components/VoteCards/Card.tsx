@@ -16,7 +16,7 @@ const Card = () => {
             className="object-cover w-12 h-12 rounded-sm"
           />
           <div>
-            <Typography.Text size={15} className="text-dyb-95">
+            <Typography.Text size={15} className="text-text">
               Richest person in the world at the end of the year?
             </Typography.Text>
             <Typography.Text size={10} className="text-dyb-50">
