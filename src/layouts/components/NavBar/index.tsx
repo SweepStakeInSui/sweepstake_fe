@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import Typography from '@/components/common/Typography';
+import { Login } from '@/components/Login';
 import { ModalSearchHeader } from '@/components/Modal';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
@@ -83,8 +84,9 @@ export default function NavBar(): React.ReactElement {
               </DialogContent>
             </Dialog>
             <Flex>
-              <Button variant="ghost">Log In</Button>
-              <Button>Sign up</Button>
+              {/* <Button variant="ghost">Log In</Button>
+              <Button>Sign up</Button> */}
+              <Login />
             </Flex>
             <ModeToggle />
           </Flex>
