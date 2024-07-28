@@ -9,17 +9,20 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-r-50 text-white hover:bg-r-60 active:bg-r-70',
-        secondary: 'bg-dyb-95 text-white hover:bg-dyb-85 active:bg-dyb-60',
-        ghost: 'bg-transparent text-dyb-70 hover:bg-dyb-5 active:bg-dyb-10',
+        primary:
+          'bg-btn-primary text-text-inverse hover:bg-btn-primary-hover active:bg-btn-primary-press',
+        secondary:
+          'bg-btn-secondary text-text-inverse hover:bg-btn-secondary-hover active:bg-btn-secondary-press',
+        ghost:
+          'bg-transparent text-text-subtle hover:bg-btn-ghost-hover active:bg-btn-ghost-press',
         bet_yes:
-          'bg-r-5 text-r-50 active:bg-r-10 active:text-r-50 hover:bg-r-50 hover:text-white',
+          'bg-btn-betYes text-text-support-red active:bg-btn-betYes-press active:text-wht-a100 hover:bg-btn-betYes-hover hover:text-text-support-red bg-opacity-35',
         bet_yes_ghost:
           'bg-red-700/15 text-r-40 active:bg-r-10 active:text-r-50 hover:bg-r-50 hover:text-white',
         bet_no:
-          'bg-dyb-5 text-dyb-95 hover:bg-dyb-90 hover:text-white active:bg-dyb-5 active:text-dyb-95',
+          'bg-btn-betNo text-text hover:bg-btn-betNo-hover hover:text-white active:bg-dyb-5 active:text-dyb-95',
         bet_no_ghost:
-          'bg-dyb-5/5 text-dyb-5 hover:bg-dyb-90 hover:text-white active:bg-dyb-5 active:text-dyb-95',
+          'bg-dyb-5/5 text-dyb-5 hover:bg-dyb-90 hover:text-white active:bg-btn-betNo-press active:text-text',
         disable: 'bg-dyb-10 text-dyb-40 cursor-not-allowed',
         sub_btn: 'text-dyb-70 border border-dyb-20 hover:border-dyb-80',
       },
