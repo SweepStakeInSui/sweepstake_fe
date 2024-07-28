@@ -200,13 +200,13 @@
     --btn-ghost-press: var(--dyb-15);
 
     /* Btn / Bet Yes */
-    --btn-bet-yes-default: rgb(191, 13, 11, 0.15);
+    --btn-bet-yes-default: rgba(191, 13, 11, 0.15);
     --btn-bet-yes-hover: var(--r-10);
     --btn-bet-yes-press: var(--r-50);
     --btn-bet-yes-shadow: #c41614;
 
     /* Btn / Bet No */
-    --btn-bet-no-default: var(--dyb-5);
+    --btn-bet-no-default: rgba(255, 255, 255, 0.05);
     --btn-bet-no-default-bg: var(--wht-a5);
     --btn-bet-no-press: var(--dyb-15);
     --btn-bet-no-press-bg: var(--dyb-100);

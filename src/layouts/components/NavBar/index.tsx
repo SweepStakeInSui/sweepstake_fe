@@ -10,41 +10,20 @@ import { Login } from '@/components/Login';
 import { ModalSearchHeader } from '@/components/Modal';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { navList } from '@/constants/navList';
 
+import HomeLogo from '../HomeLogo';
 import { ModeToggle } from '../ModeToggle';
-
-const navList = [
-  {
-    name: 'Markets',
-    icon: 'Markets',
-    href: '/markets',
-  },
-  {
-    name: 'Election',
-    icon: 'Election',
-    href: '/election',
-  },
-  {
-    name: 'Activity',
-    icon: 'Activity',
-    href: '/activity',
-  },
-  {
-    name: 'Ranks',
-    icon: 'Ranks',
-    href: '/ranks',
-  },
-];
 
 export default function NavBar(): React.ReactElement {
   const router = useRouter();
 
   return (
-    <header className="sticky top-0 left-0 w-full bg-dyb-5/75 dark:bg-dyb-95/75 backdrop-blur-md z-50">
+    <header className="sticky top-0 left-0 w-full bg-dyb-5/85 dark:bg-dyb-95/85 backdrop-blur-sm z-50">
       <Container>
         <Flex className="justify-between w-full py-4">
           <Flex className="gap-x-4">
-            {/* <HomeLogo variant="squared" /> */}
+            <HomeLogo variant="squared" />
 
             <Flex className="gap-x-0">
               {navList.map((item) => (
@@ -64,18 +43,18 @@ export default function NavBar(): React.ReactElement {
             <Dialog>
               <DialogTrigger asChild>
                 <div>
-                  <Flex className="justify-between border  border-dyb-15 text-elevation-a500 px-3 h-11 rounded-md text-xs w-[380px] group cursor-pointer transition-all duration-150 ease-linear hover:bg-elevation-a200 hover:text-elevation-a600">
+                  <Flex className="justify-between border border-borderSubtle text-elevation-a500 px-3 h-11 rounded-md text-xs w-[380px] group cursor-pointer transition-all duration-150 ease-linear hover:bg-elevation-a200 hover:text-elevation-a600">
                     <Flex>
                       <SearchIcon
-                        width={16}
-                        height={16}
+                        width={12}
+                        height={12}
                         className="stroke-dyb-50"
                       />
-                      <Typography.Text size={12} className="text-dyb-50">
+                      <Typography.Text size={12} className="text-text-sublest">
                         Search market or people
                       </Typography.Text>
                     </Flex>
-                    <div className="text-dyb-40">/</div>
+                    <div className="text-text-sublest">/</div>
                   </Flex>
                 </div>
               </DialogTrigger>
