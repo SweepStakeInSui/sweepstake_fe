@@ -20,11 +20,11 @@
     height: auto !important;
 
     &-bullet {
-      background: #7a7a7a !important;
-      opacity: 0.2;
+      background: var(--dyb-15) !important;
+      opacity: 1;
 
       &-active {
-        background: #7a7a7a !important;
+        background: var(--dyb-60) !important;
         opacity: 1;
       }
     }
