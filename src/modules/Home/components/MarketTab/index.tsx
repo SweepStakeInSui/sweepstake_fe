@@ -124,14 +124,16 @@ const marketSubTab = [
 const MarketTab = () => {
   return (
     <div>
-      <ul className="flex gap-x-4 text-dyb-50 font-medium justify-center mt-5 mb-3">
+      <ul className="flex gap-x-4 text-tab-btnNo font-medium justify-center mt-5 mb-3">
         {marketMainTab.map((item) => (
           <li className="py-[6px] cursor-pointer relative group" key={item.id}>
-            <p className={`${item.active && 'text-r-50 font-semibold'}`}>
+            <p
+              className={`${item.active && 'text-tab-btnNo-selected font-semibold active:text-tab-btnNo-textPress'}`}
+            >
               {item.type}
             </p>
             <p
-              className={`absolute  bottom-0 ${item.active ? 'bg-r-50 w-full' : 'w-0 group-hover:w-full bg-dyb-60'} h-[2px]  transition-all duration-150 ease-linear`}
+              className={`absolute  bottom-0 ${item.active ? 'bg-tab-btnNo-selected w-full ' : 'w-0 group-hover:w-full bg-tab-btnNo'} h-[2px]  transition-all duration-150 ease-linear`}
             />
           </li>
         ))}
@@ -141,14 +143,14 @@ const MarketTab = () => {
           {marketSubTab.map((item) => (
             <SwiperSlide
               key={item.id}
-              className={`swiper-tab cursor-pointer ${item.type === 'Top' ? 'bg-primary-a800 text-white' : 'bg-elevation-a200 text-elevation-a900 '} rounded-lg font-semibold`}
+              className={`swiper-tab cursor-pointer ${item.type === 'Top' ? 'bg-tab-btnYes-bgSelected text-text-inverse' : 'bg-elevation-a200 text-elevation-a900 '} rounded-lg`}
             >
               <Button
                 variant={`${item.active ? 'secondary' : 'sub_btn'}`}
                 className="flex gap-x-1 items-center"
               >
                 {item.icon}
-                <p className="w-fit text-nowrap">{item.type}</p>
+                <p className="w-fit text-nowrap font-semibold">{item.type}</p>
               </Button>
             </SwiperSlide>
           ))}

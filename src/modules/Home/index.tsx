@@ -1,5 +1,4 @@
 import Container from '@/components/common/Container';
-import { Button } from '@/components/ui/button';
 import { mockRecentActivities } from '@/mocks/mockRecentAcitivities';
 import { mockTopVolumeThisWeek } from '@/mocks/mockTopVolumeThisWeek';
 
@@ -85,13 +84,6 @@ export default function HomeModule() {
       <Banner />
       <Slider slides={mockSlides} />
       <MarketTab />
-      <Button variant="bet_yes_ghost" className="w-full">
-        Bet Yes
-      </Button>
-      <Button variant="primary" className="w-full">
-        ini 09
-      </Button>
-      <p className="size-10 bg-red-400 bg-opacity-100">123</p>
       <Container>
         <VoteCard />
         <div className="grid grid-cols-2">

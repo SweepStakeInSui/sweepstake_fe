@@ -58,7 +58,7 @@
     /* Background Colors */
     --bg-primary: #f5f5f7;
     --bg-surface: var(--wht-a100);
-    --bg-subtle: var(--dyb-5);
+    --bg-sublest: var(--dyb-5);
     --bg-hovered: var(--dyb-5);
     --bg-container: #ffffff;
     --bg-inverse: var(--dyb-95);
@@ -173,7 +173,7 @@
     --icon-support-blue: var(--b-40);
     --bg-primary: var(--dyb-95);
     --bg-surface: var(--blk-a100);
-    --bg-subtle: var(--dyb-95);
+    --bg-sublest: var(--dyb-95);
     --bg-hovered: var(--wht-a5);
     --bg-container: var(--dyb-90);
     --bg-inverse: var(--dyb-5);
@@ -248,7 +248,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-base;
+    @apply bg-bg-primary text-base;
   }
 }
 html *::-webkit-scrollbar {
