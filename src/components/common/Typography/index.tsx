@@ -70,7 +70,7 @@ function Heading({
 
   return (
     <div
-      className={`${headingClasses[size]} ${weightClasses[weight]} ${className} light:text-black dark:text-white`}
+      className={`${headingClasses[size]} ${weightClasses[weight]} ${className} text-text`}
     >
       {children}
     </div>
