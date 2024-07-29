@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use client';
 
 import type { IProvider } from '@web3auth/base';
@@ -13,12 +14,14 @@ import { useEffect, useState } from 'react';
 
 import SuiRPC from '@/utils/SuiRPC';
 
+import Flex from '../common/Flex';
 import { Button } from '../ui/button';
+import LoggedIn from './LoggedIn';
 
 const clientId =
   'BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ'; // get from https://dashboard.web3auth.io
 
-function Login() {
+function Authentication() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [provider, setProvider] = useState<IProvider | null>(null);
   const [loggedIn, setLoggedIn] = useState<boolean | null>(false);
@@ -116,7 +119,6 @@ function Login() {
       return;
     }
     try {
-      // Kết nối với Web3Auth và lấy provider
       const web3authProvider = await web3auth.connect();
       setProvider(web3authProvider);
 
@@ -218,72 +220,18 @@ function Login() {
     uiConsole(privateKey);
   };
 
-  const loggedInView = (
-    <>
-      <div className="flex-container text-red-600">
-        <div>
-          <button onClick={getUserInfo} className="card">
-            Get User Info
-          </button>
-        </div>
-        <div>
-          <button onClick={authenticateUser} className="card">
-            Get ID Token
-          </button>
-        </div>
-        <div>
-          <button onClick={getChainId} className="card">
-            Get Chain ID
-          </button>
-        </div>
-        <div>
-          <button onClick={getAccounts} className="card">
-            Get Accounts
-          </button>
-        </div>
-        <div>
-          <button onClick={getFaucet} className="card">
-            Get Faucet Sui Dev
-          </button>
-        </div>
-        <div>
-          <button onClick={getBalance} className="card">
-            Get Balance
-          </button>
-        </div>
-        <div>
-          <button onClick={sendTransaction} className="card">
-            Send Transaction
-          </button>
-        </div>
-        <div>
-          <button onClick={getPrivateKey} className="card">
-            Get Private Key
-          </button>
-        </div>
-        <div>
-          <button onClick={logout} className="card">
-            Log Out
-          </button>
-        </div>
-      </div>
-      <div id="console" style={{ whiteSpace: 'pre-line' }}>
-        <p style={{ whiteSpace: 'pre-line' }}>Logged in Successfully!</p>
-      </div>
-    </>
-  );
+  const loggedInView = <LoggedIn />;
 
   const unloggedInView = (
-    <Button onClick={login} className="card">
-      Login
-    </Button>
+    <Flex>
+      <Button variant="ghost" onClick={login} className="card">
+        Log In
+      </Button>
+      <Button>Sign up</Button>
+    </Flex>
   );
 
-  return (
-    <div className="container">
-      <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
-    </div>
-  );
+  return <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>;
 }
 
-export default Login;
+export default Authentication;
