@@ -3,15 +3,13 @@
 import { SearchIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
+import { Login } from '@/components/Authentication';
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import Typography from '@/components/common/Typography';
-import { Login } from '@/components/Login';
 import { ModalSearchHeader } from '@/components/Modal';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-
-import { ModeToggle } from '../ModeToggle';
 
 const navList = [
   {
@@ -83,12 +81,8 @@ export default function NavBar(): React.ReactElement {
                 <ModalSearchHeader />
               </DialogContent>
             </Dialog>
-            <Flex>
-              {/* <Button variant="ghost">Log In</Button>
-              <Button>Sign up</Button> */}
-              <Login />
-            </Flex>
-            <ModeToggle />
+            <Login />
+            {/* <ModeToggle /> */}
           </Flex>
         </Flex>
       </Container>
