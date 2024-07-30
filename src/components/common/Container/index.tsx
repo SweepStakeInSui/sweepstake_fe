@@ -12,7 +12,10 @@ export default function Container({
   px = 40,
 }: Readonly<ContainerProps>) {
   return (
-    <div className={cn(`px-${px / 4} mx-auto max-w-screen-2xl`, className)}>
+    <div
+      style={{ paddingLeft: `${px}px`, paddingRight: `${px}px` }}
+      className={cn(`mx-auto max-w-screen-2xl`, className)}
+    >
       {children}
     </div>
   );

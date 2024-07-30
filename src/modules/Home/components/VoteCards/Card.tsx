@@ -58,7 +58,7 @@ const Card = () => {
   ];
 
   return (
-    <div className="p-4 border border-borderSublest rounded-lg relative">
+    <div className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface">
       <div className="relative">
         <Flex className="gap-x-4">
           <Image
@@ -163,11 +163,19 @@ const Card = () => {
           </Popover>
         </div>
         <Flex>
-          <Button variant="bet_yes" className="w-full">
+          <Button variant="bet_yes" className="w-full group gap-x-1">
             Bet Yes
+            <Svg
+              src="/icons/trending_up.svg"
+              className="w-0 group-hover:w-4 transition-all duration-150 ease-linear group-focus:w-0"
+            />
           </Button>
-          <Button variant="bet_no" className="w-full">
+          <Button variant="bet_no" className="w-full group gap-x-1">
             Bet No
+            <Svg
+              src="/icons/trending_down.svg"
+              className="w-0 group-hover:w-4 transition-all duration-150 ease-linear group-focus:w-0"
+            />
           </Button>
         </Flex>
       </div>

@@ -209,6 +209,10 @@ const config = {
         ...rem(80),
         ...rem(140),
       },
+      boxShadow: {
+        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)', 
+        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)', 
+      },
     },
   },
   // plugins: [require('tailwindcss-animate')],
