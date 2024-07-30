@@ -83,6 +83,7 @@ const config = {
             red: 'var(--text-support-red)',
             yellow: 'var(--text-support-yellow)',
             blue: 'var(--text-support-blue)',
+            match:'var(--text-support-match)',
           },
         },
         icon: {
