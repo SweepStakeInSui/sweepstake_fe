@@ -10,10 +10,11 @@ import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import SelectWithStats from '@/components/common/SelectWithStats';
 import Stack from '@/components/common/Stack';
+import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 
-type TSlide = {
+interface IHomeSlide {
   title: string;
   forcast: number;
   percent: number;
@@ -22,34 +23,36 @@ type TSlide = {
     title: string;
     content: string;
   };
-};
+}
 
-function Slide({ title, forcast, percent, vol, desc }: TSlide) {
+function HomeSlide({
+  title,
+  forcast,
+  percent,
+  vol,
+  desc,
+}: Readonly<IHomeSlide>) {
   return (
-    <div className="p-7 w-[50rem] h-[23.4rem] rounded-md relative grid grid-cols-12 bg-[#302D2D] before:content-[''] before:absolute before:rounded-md before:left-0 before:top-0 before:w-full before:h-full before:bg-gradient-conic after:content-[''] after:w-[50%] after:h-full after:absolute after:right-0 after:bg-[image:url(/images/Flare.png)] after:bg-no-repeat after:bg-contain after:mix-blend-color-dodge">
+    <div className="dark p-7 w-[50rem] h-[23.4rem] rounded-md relative grid grid-cols-12 bg-[#302D2D] before:content-[''] before:absolute before:rounded-md before:left-0 before:top-0 before:w-full before:h-full before:bg-gradient-conic after:content-[''] after:w-[50%] after:h-full after:absolute after:right-0 after:bg-[image:url(/images/Flare.png)] after:bg-no-repeat after:bg-contain after:mix-blend-color-dodge">
       <Stack className="relative z-10 col-span-6">
         <Stack>
-          <Typography.Heading
-            size={20}
-            weight="bold"
-            className="text-dyb-5 dark:text-dyb-100"
-          >
+          <Typography.Heading size={20} weight="bold" className="text-text">
             {title}
           </Typography.Heading>
           <Flex>
             <Flex className="items-end">
-              <Typography.Text className="text-dyb-5" size={16}>
+              <Typography.Text className="text-text" size={16}>
                 {forcast}
               </Typography.Text>
-              <Typography.Text className="text-dyb-30" size={12}>
+              <Typography.Text className="text-text-subtle" size={12}>
                 forcast
               </Typography.Text>
-              <Typography.Text className="text-green-400" size={12}>
+              <Typography.Text className="text-text-support-green" size={12}>
                 {percent}%
               </Typography.Text>
             </Flex>
             <Flex>
-              <Typography.Text className="text-dyb-30">
+              <Typography.Text className="text-text-subtle">
                 {vol} vol
               </Typography.Text>
             </Flex>
@@ -60,19 +63,19 @@ function Slide({ title, forcast, percent, vol, desc }: TSlide) {
           <SelectWithStats />
         </div>
         <Flex className="w-full">
-          <Button variant="bet_yes_ghost" className="w-full">
+          <Button variant="bet_yes" className="w-full">
             Bet Yes
           </Button>
-          <Button variant="bet_no_ghost" className="w-full">
+          <Button variant="bet_no" className="w-full">
             Bet No
           </Button>
         </Flex>
       </Stack>
       <Stack className="relative z-10 col-span-6">
-        <Typography.Heading className="text-dyb-5" size={24}>
+        <Typography.Heading className="text-text" size={24}>
           {desc.title}
         </Typography.Heading>
-        <Typography.Text className="text-dyb-30" size={13}>
+        <Typography.Text className="text-text-subtle" size={13}>
           {desc.content}
         </Typography.Text>
       </Stack>
@@ -80,12 +83,15 @@ function Slide({ title, forcast, percent, vol, desc }: TSlide) {
   );
 }
 
-interface ISliderActionsProps {
+interface IHomeNavigationProps {
   activeIndex: number;
-  slides: TSlide[];
+  slides: IHomeSlide[];
 }
 
-function SwiperButtonPrev({ activeIndex, slides }: ISliderActionsProps) {
+function SwiperButtonPrev({
+  activeIndex,
+  slides,
+}: Readonly<IHomeNavigationProps>) {
   const swiper = useSwiper();
   const [prevTitle, setPrevTitle] = useState('');
 
@@ -96,15 +102,23 @@ function SwiperButtonPrev({ activeIndex, slides }: ISliderActionsProps) {
 
   return (
     <button onClick={() => swiper.slidePrev()}>
-      <Typography.Text
-        size={12}
-        className="text-dyb-70"
-      >{`< ${prevTitle}`}</Typography.Text>
+      <Typography.Text size={12} className="text-text-subtle inline-flex">
+        <span className="w-4">
+          <Svg
+            src="/icons/chevron_right.svg"
+            className="text-inherit rotate-180"
+          />
+        </span>
+        {prevTitle}
+      </Typography.Text>
     </button>
   );
 }
 
-function SwiperButtonNext({ activeIndex, slides }: ISliderActionsProps) {
+function SwiperButtonNext({
+  activeIndex,
+  slides,
+}: Readonly<IHomeNavigationProps>) {
   const swiper = useSwiper();
   const [nextTile, setNextTile] = useState('');
 
@@ -115,24 +129,30 @@ function SwiperButtonNext({ activeIndex, slides }: ISliderActionsProps) {
 
   return (
     <button onClick={() => swiper.slideNext()}>
-      <Typography.Text
-        size={12}
-        className="text-dyb-70"
-      >{`${nextTile} >`}</Typography.Text>
+      <Typography.Text size={12} className="text-text-subtle inline-flex">
+        {`${nextTile} `}
+        <span className="w-4 h-4">
+          <Svg
+            key="next"
+            src="/icons/chevron_right.svg"
+            className="text-inherit"
+          />
+        </span>
+      </Typography.Text>
     </button>
   );
 }
 
 interface ISliderProps {
-  slides: TSlide[];
+  slides: IHomeSlide[];
 }
 
-export default function Slider({ slides }: ISliderProps) {
+export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
   const [realIndex, setRealIndex] = useState(0);
   const pagination = {
     clickable: true,
     renderBullet(_: number, className: string) {
-      return `<span class="${className}" />`;
+      return `<span class="${className}"></span>`;
     },
   };
 
@@ -156,21 +176,21 @@ export default function Slider({ slides }: ISliderProps) {
         {slides.map((slide) => {
           return (
             <SwiperSlide key={slide.title}>
-              <Slide {...slide} />
+              <HomeSlide {...slide} />
             </SwiperSlide>
           );
         })}
 
         <div className="relative py-3 w-screen h-12 border-y border-t-dyb-20 border-b-dyb-20 text-r-200">
           <Container className="relative w-full h-full">
-            <div className="relative z-20 w-fit translate-y-[-12%]">
+            <div className="relative z-20 w-fit">
               <SwiperButtonPrev
                 key={`prev_${realIndex}`}
                 activeIndex={realIndex}
                 slides={slides}
               />
             </div>
-            <div className="absolute top-0 right-6 z-10 w-fit  translate-y-[-12%]">
+            <div className="absolute top-0 right-6 z-10 w-fit translate-y-[-12%]">
               <SwiperButtonNext
                 key={`next_${realIndex}`}
                 activeIndex={realIndex}

@@ -56,7 +56,7 @@ function Heading({
   const headingClasses = {
     20: 'text-20',
     24: 'text-24',
-    28: 'text-28',
+    28: 'text-28 leading-8',
     32: 'text-32',
     48: 'text-48',
     64: 'text-64',
@@ -70,7 +70,7 @@ function Heading({
 
   return (
     <div
-      className={`${headingClasses[size]} ${weightClasses[weight]} ${className} light:text-black dark:text-white`}
+      className={`${headingClasses[size]} ${weightClasses[weight]} ${className} text-text`}
     >
       {children}
     </div>

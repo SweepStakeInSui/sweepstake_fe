@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import Flex from '../common/Flex';
-import { Icons } from '../common/Icon';
+import Svg from '../common/Svg';
 import Typography from '../common/Typography';
 import { Button } from '../ui/button';
 
@@ -20,27 +20,27 @@ const LoggedIn = () => {
     {
       slug: 'account',
       title: 'Account',
-      icon: <Icons.Mood />,
+      icon: <Svg src="/icons/mood.svg" />,
     },
     {
       slug: 'leaderboard',
       title: 'Leaderboard',
-      icon: <Icons.LeaderBoard />,
+      icon: <Svg src="/icons/leaderboard.svg" />,
     },
     {
       slug: 'activity',
       title: 'My Activity',
-      icon: <Icons.Activity />,
+      icon: <Svg src="/icons/timeline.svg" />,
     },
     {
-      slug: 'account',
-      title: 'Account',
-      icon: <Icons.Setting />,
+      slug: 'settings',
+      title: 'Settings',
+      icon: <Svg src="/icons/settings.svg" />,
     },
     {
-      slug: 'account',
+      slug: 'logout',
       title: 'Log out',
-      icon: <Icons.Logout />,
+      icon: <Svg src="/icons/logout.svg" />,
     },
   ];
   const inforUser = [
@@ -56,14 +56,14 @@ const LoggedIn = () => {
   return (
     <Flex>
       <Button className="gap-x-2">
-        <Icons.Add width={24} height={24} />
+        <Svg src="/icons/add.svg" />
         Fund
       </Button>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="size-11 p-0">
-            <Icons.Menu />
+            <Svg src="/icons/menu.svg" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[370px] px-2.5 py-3 bg-bg-surface">
