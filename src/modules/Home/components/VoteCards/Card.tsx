@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import Flex from '@/components/common/Flex';
-import { Icons } from '@/components/common/Icon';
+import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -114,7 +114,10 @@ const Card = () => {
                 ) : (
                   'No Bets Available'
                 )}
-                <Icons.Down width={16} height={16} />
+                <Svg
+                  src="/icons/chevron_right.svg"
+                  className="rotate-90 text-icon-subtle"
+                />
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-[--radix-popover-trigger-width] max-h-[--radix-popover-content-available-height] p-1">

@@ -274,16 +274,12 @@ function Login() {
   );
 
   const unloggedInView = (
-    <Button onClick={login} className="card">
+    <Button variant="ghost" onClick={login} className="card">
       Login
     </Button>
   );
 
-  return (
-    <div className="container">
-      <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>
-    </div>
-  );
+  return <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>;
 }
 
 export default Login;

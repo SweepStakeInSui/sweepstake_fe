@@ -1,5 +1,9 @@
 import { colors } from './src/utils/colorUtils';
 import type { Config } from 'tailwindcss';
+
+const BASE = 16;
+export const rem = (px: number, key = px) => ({ [key / 4]: `${px / BASE}rem` });
+
 const config = {
   darkMode: ['selector'],
   content: [
@@ -21,7 +25,7 @@ const config = {
     },
     container: {
       center: true,
-      padding: '1.5rem',
+      padding: '2.5rem',
       screens: {
         '2xl': '1630px',
       },
@@ -193,6 +197,16 @@ const config = {
       },
       gridTemplateColumns: {
         autoFill: 'repeat(auto-fill, minmax(300px, 1fr))',
+      },
+      width: {
+        ...rem(40),
+        ...rem(80),
+        ...rem(140),
+      },
+      spacing: {
+        ...rem(40),
+        ...rem(80),
+        ...rem(140),
       },
     },
   },

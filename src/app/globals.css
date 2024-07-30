@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 240 11% 96%;
+    --background: 220 16% 96%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -251,6 +251,7 @@
     @apply bg-bg-primary text-base;
   }
 }
+
 html *::-webkit-scrollbar {
   border-radius: 0;
   width: 6px;

@@ -1,7 +1,7 @@
 import Flex from '@/components/common/Flex';
-import { Icons } from '@/components/common/Icon';
 import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
+import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 
@@ -35,7 +35,7 @@ export default function MarketsRulesSummary({
         </Typography.Text>
         <Stack className="border-borderSublest rounded-md border">
           <Flex className="px-4 py-3 border-b border-borderSublest items-start">
-            <Icons.Link />
+            <Svg src="/icons/launch.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
                 Opened on {openOn}
@@ -46,10 +46,10 @@ export default function MarketsRulesSummary({
             </Stack>
           </Flex>
           <Flex className="px-4 py-3 border-b border-borderSublest items-start">
-            <Icons.Link />
+            <Svg src="/icons/launch.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
-                Opened on {openOn}
+                Opened on {closeOn}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
                 10:00PM EDT
@@ -57,10 +57,10 @@ export default function MarketsRulesSummary({
             </Stack>
           </Flex>
           <Flex className="px-4 py-3 border-b border-borderSublest items-start">
-            <Icons.Link />
+            <Svg src="/icons/launch.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
-                Opened on {openOn}
+                Opened on {payoutOn}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
                 10:00PM EDT

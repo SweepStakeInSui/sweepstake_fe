@@ -5,7 +5,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import { Navigation } from 'swiper/modules';
 import { Swiper } from 'swiper/react';
 
@@ -95,9 +94,7 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
         }}
         onClick={goPrev}
         aria-label="Previous slide"
-      >
-        <GoChevronLeft />
-      </button>
+      />
       <Swiper {...swiperProps}>{children}</Swiper>
       <button
         type="button"
@@ -110,9 +107,7 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
         }}
         onClick={goNext}
         aria-label="Next slide"
-      >
-        <GoChevronRight />
-      </button>
+      />
     </div>
   );
 };

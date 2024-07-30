@@ -1,3 +1,5 @@
+import { rem } from 'tailwind.config';
+
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import Paper from '@/components/common/Paper';
@@ -11,10 +13,11 @@ import MarketsRelateMarket from './components/RelateMarket';
 import MarketsRulesSummary from './components/RulesSummary';
 
 export default function MarketsModule() {
+  console.log(rem(140));
   return (
-    <Container>
+    <Container px={140}>
       <div className="grid grid-cols-12">
-        <Stack className="col-span-9">
+        <Stack className="col-span-8">
           <MarketsDetail />
           <MarketsAbout desc="This is a description of the markets module" />
           <MarketsRulesSummary
@@ -28,7 +31,7 @@ export default function MarketsModule() {
           />
           <MarketsRelateMarket />
         </Stack>
-        <Stack className="col-span-3">
+        <Stack className="col-span-4">
           <Paper>
             <Stack>
               <Typography.Text>Pick a side</Typography.Text>

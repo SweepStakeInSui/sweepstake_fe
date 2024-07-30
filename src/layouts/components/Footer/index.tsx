@@ -1,11 +1,15 @@
 'use client';
 
+import Link from 'next/link';
+
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
 import Stack from '@/components/common/Stack';
+import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
+import { socialList } from '@/constants/socialList';
 
 import HomeLogo from '../HomeLogo';
 
@@ -68,10 +72,13 @@ export default function Footer() {
                 FOLLOW US
               </Typography.Text>
               <Flex className="gap-0">
-                <IconButton icon="Discord" />
-                <IconButton icon="Telegram" />
-                <IconButton icon="X" />
-                <IconButton icon="Github" />
+                {socialList.map((social) => (
+                  <Link href={social.href} target="_blank" key={social.name}>
+                    <IconButton isRounded>
+                      <Svg src={social.icon} aria-label={social.name} />
+                    </IconButton>
+                  </Link>
+                ))}
               </Flex>
             </Stack>
           </Flex>

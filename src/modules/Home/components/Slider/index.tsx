@@ -10,6 +10,7 @@ import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import SelectWithStats from '@/components/common/SelectWithStats';
 import Stack from '@/components/common/Stack';
+import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 
@@ -62,10 +63,10 @@ function HomeSlide({
           <SelectWithStats />
         </div>
         <Flex className="w-full">
-          <Button variant="bet_yes_ghost" className="w-full">
+          <Button variant="bet_yes" className="w-full">
             Bet Yes
           </Button>
-          <Button variant="bet_no_ghost" className="w-full">
+          <Button variant="bet_no" className="w-full">
             Bet No
           </Button>
         </Flex>
@@ -101,10 +102,15 @@ function SwiperButtonPrev({
 
   return (
     <button onClick={() => swiper.slidePrev()}>
-      <Typography.Text
-        size={12}
-        className="text-text-subtle"
-      >{`< ${prevTitle}`}</Typography.Text>
+      <Typography.Text size={12} className="text-text-subtle inline-flex">
+        <span className="w-4">
+          <Svg
+            src="/icons/chevron_right.svg"
+            className="text-inherit rotate-180"
+          />
+        </span>
+        {prevTitle}
+      </Typography.Text>
     </button>
   );
 }
@@ -123,10 +129,16 @@ function SwiperButtonNext({
 
   return (
     <button onClick={() => swiper.slideNext()}>
-      <Typography.Text
-        size={12}
-        className="text-text-subtle"
-      >{`${nextTile} >`}</Typography.Text>
+      <Typography.Text size={12} className="text-text-subtle inline-flex">
+        {`${nextTile} `}
+        <span className="w-4 h-4">
+          <Svg
+            key="next"
+            src="/icons/chevron_right.svg"
+            className="text-inherit"
+          />
+        </span>
+      </Typography.Text>
     </button>
   );
 }
@@ -171,14 +183,14 @@ export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
 
         <div className="relative py-3 w-screen h-12 border-y border-t-dyb-20 border-b-dyb-20 text-r-200">
           <Container className="relative w-full h-full">
-            <div className="relative z-20 w-fit translate-y-[-12%]">
+            <div className="relative z-20 w-fit">
               <SwiperButtonPrev
                 key={`prev_${realIndex}`}
                 activeIndex={realIndex}
                 slides={slides}
               />
             </div>
-            <div className="absolute top-0 right-6 z-10 w-fit  translate-y-[-12%]">
+            <div className="absolute top-0 right-6 z-10 w-fit translate-y-[-12%]">
               <SwiperButtonNext
                 key={`next_${realIndex}`}
                 activeIndex={realIndex}

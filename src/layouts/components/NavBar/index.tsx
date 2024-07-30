@@ -1,10 +1,10 @@
 'use client';
 
-import { SearchIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
+import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Login } from '@/components/Login';
 import { ModalSearchHeader } from '@/components/Modal';
@@ -13,7 +13,6 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { navList } from '@/constants/navList';
 
 import HomeLogo from '../HomeLogo';
-import { ModeToggle } from '../ModeToggle';
 
 export default function NavBar(): React.ReactElement {
   const router = useRouter();
@@ -45,10 +44,9 @@ export default function NavBar(): React.ReactElement {
                 <div>
                   <Flex className="justify-between border border-borderSubtle text-elevation-a500 px-3 h-11 rounded-md text-xs w-[380px] group cursor-pointer transition-all duration-150 ease-linear hover:bg-elevation-a200 hover:text-elevation-a600">
                     <Flex>
-                      <SearchIcon
-                        width={12}
-                        height={12}
-                        className="stroke-dyb-50"
+                      <Svg
+                        src="/icons/search.svg"
+                        className="text-icon-sublest"
                       />
                       <Typography.Text size={12} className="text-text-sublest">
                         Search market or people
@@ -63,11 +61,10 @@ export default function NavBar(): React.ReactElement {
               </DialogContent>
             </Dialog>
             <Flex>
-              {/* <Button variant="ghost">Log In</Button>
-              <Button>Sign up</Button> */}
               <Login />
+              <Button>Sign up</Button>
             </Flex>
-            <ModeToggle />
+            {/* <ModeToggle /> */}
           </Flex>
         </Flex>
       </Container>
