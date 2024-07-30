@@ -7,10 +7,10 @@ import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 
-import MarketsAbout from './components/About';
-import MarketsDetail from './components/Detail';
-import MarketsRelateMarket from './components/RelateMarket';
-import MarketsRulesSummary from './components/RulesSummary';
+import { MarketsAbout } from './components/About';
+import { MarketsDetail } from './components/Detail';
+import { MarketsRelateMarket } from './components/RelateMarket';
+import { MarketsRulesSummary } from './components/RulesSummary';
 
 export default function MarketsModule() {
   console.log(rem(140));

@@ -2,11 +2,11 @@ import Container from '@/components/common/Container';
 import { mockRecentActivities } from '@/mocks/mockRecentAcitivities';
 import { mockTopVolumeThisWeek } from '@/mocks/mockTopVolumeThisWeek';
 
-import Banner from './components/Banner';
-import MarketTab from './components/MarketTab';
-import RecentActivity from './components/RecentActivity';
+import { Banner } from './components/Banner';
+import { MarketTab } from './components/MarketTab';
+import RecentActivity from './components/RecentActivity/RecentActivity';
 import Slider from './components/Slider';
-import TopVolume from './components/TopVolume';
+import { TopVolume } from './components/TopVolume';
 import VoteCard from './components/VoteCards';
 
 const mockSlides = [

@@ -16,9 +16,9 @@ const buttonVariants = cva(
         ghost:
           'bg-transparent text-text-subtle hover:bg-btn-ghost-hover active:bg-btn-ghost-press',
         bet_yes:
-          'bg-btn-betYes text-text-support-match hover:bg-btn-betYes-press hover:text-wht-a100 active:bg-btn-betYes-hover active:text-text-support-match bg-opacity-35',
+          'bg-btn-betYes text-text-support-match hover:bg-btn-betYes-press hover:shadow-button-yes-shadow hover:text-wht-a100 active:bg-btn-betYes-hover active:text-text-support-match bg-opacity-35',
         bet_no:
-          'bg-btn-betNo text-text-support-blue hover:bg-btn-betNo-hover hover:text-white active:bg-btn-betNo-press active:text-text-support-blue',
+          'bg-btn-betNo text-text-support-blue hover:bg-btn-betNo-hover hover:shadow-button-no-shadow  hover:text-white active:bg-btn-betNo-press active:text-text-support-blue',
         disable: 'bg-dyb-10 text-dyb-40 cursor-not-allowed',
         sub_btn: 'text-dyb-70 border border-dyb-20 hover:border-dyb-80',
       },

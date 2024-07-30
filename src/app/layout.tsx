@@ -23,7 +23,10 @@ export default function RootLayout({ children }: Readonly<IRootLayout>) {
   return (
     <html lang="en">
       <body
-        className={cn('min-h-screen antialiased', PlusJakartaFont.className)}
+        className={cn(
+          'min-h-screen antialiased bg-bg-primary ',
+          PlusJakartaFont.className,
+        )}
       >
         <Providers>
           <MyLayout>{children}</MyLayout>

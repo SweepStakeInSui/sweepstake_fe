@@ -63,7 +63,7 @@ function HomeSlide({
           <SelectWithStats />
         </div>
         <Flex className="w-full">
-          <Button variant="bet_yes" className="w-full">
+          <Button variant="bet_yes" className="w-full group">
             Bet Yes
           </Button>
           <Button variant="bet_no" className="w-full">
