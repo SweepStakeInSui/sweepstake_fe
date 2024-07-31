@@ -3,8 +3,8 @@ import Stack from '@/components/common/Stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 import { SkeletonSearch } from '../common/Skeleton';
-import Typography from '../common/Typography';
 import Svg from '../common/Svg';
+import Typography from '../common/Typography';
 
 interface ResultsItemProps {
   content?: string;

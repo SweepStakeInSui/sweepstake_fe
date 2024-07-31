@@ -7,6 +7,7 @@ import 'swiper/css/pagination';
 import React, { useEffect, useRef, useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper } from 'swiper/react';
+
 import Svg from '../Svg';
 
 interface SwiperCustomProps {
