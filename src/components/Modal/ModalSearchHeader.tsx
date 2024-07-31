@@ -1,11 +1,10 @@
-import { BadgePercentIcon, SearchIcon } from 'lucide-react';
-
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 import { SkeletonSearch } from '../common/Skeleton';
 import Typography from '../common/Typography';
+import Svg from '../common/Svg';
 
 interface ResultsItemProps {
   content?: string;
@@ -28,7 +27,6 @@ const ResultsItem = ({
         <Stack className="gap-2">
           <Typography.Text>{content as string}</Typography.Text>
           <div className="text-elevation-a400 gap-x-1 flex items-center">
-            <BadgePercentIcon width={14} height={14} />
             <Typography.Text className=" text-sm">
               {price as string}
             </Typography.Text>
@@ -42,7 +40,7 @@ const ModalSearchHeader = () => {
   return (
     <div>
       <div className="flex items-center border-b px-3" cmdk-input-wrapper="">
-        <SearchIcon width={14} height={14} className="mr-2" />
+        <Svg src="/icons/search.svg" />
         <input
           className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
           placeholder="Search all of Sweepstack"

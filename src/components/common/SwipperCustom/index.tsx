@@ -7,6 +7,7 @@ import 'swiper/css/pagination';
 import React, { useEffect, useRef, useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper } from 'swiper/react';
+import Svg from '../Svg';
 
 interface SwiperCustomProps {
   children: React.ReactNode;
@@ -94,7 +95,9 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
         }}
         onClick={goPrev}
         aria-label="Previous slide"
-      />
+      >
+        <Svg src="/icons/chevron_right.svg" className="rotate-180" />
+      </button>
       <Swiper {...swiperProps}>{children}</Swiper>
       <button
         type="button"
@@ -107,7 +110,9 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
         }}
         onClick={goNext}
         aria-label="Next slide"
-      />
+      >
+        <Svg src="/icons/chevron_right.svg" />
+      </button>
     </div>
   );
 };

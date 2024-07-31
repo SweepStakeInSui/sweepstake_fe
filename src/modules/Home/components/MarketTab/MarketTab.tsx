@@ -1,6 +1,5 @@
 'use client';
 
-import { TrophyIcon } from 'lucide-react';
 import { SwiperSlide } from 'swiper/react';
 
 import SwiperCustom from '@/components/common/SwipperCustom';
@@ -45,7 +44,6 @@ const marketSubTab = [
   {
     id: 1,
     type: 'Top',
-    icon: <TrophyIcon className="w-4 h-4 " />,
     active: true,
   },
   {
@@ -149,7 +147,6 @@ const MarketTab = () => {
                 variant={`${item.active ? 'secondary' : 'sub_btn'}`}
                 className="flex gap-x-1 items-center"
               >
-                {item.icon}
                 <p className="w-fit text-nowrap font-semibold">{item.type}</p>
               </Button>
             </SwiperSlide>
