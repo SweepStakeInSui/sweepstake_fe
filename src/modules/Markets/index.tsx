@@ -1,5 +1,3 @@
-import { rem } from 'tailwind.config';
-
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import Paper from '@/components/common/Paper';
@@ -8,12 +6,12 @@ import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 
 import { MarketsAbout } from './components/About';
+import MarketsComments from './components/Comments/Comments';
 import { MarketsDetail } from './components/Detail';
 import { MarketsRelateMarket } from './components/RelateMarket';
 import { MarketsRulesSummary } from './components/RulesSummary';
 
 export default function MarketsModule() {
-  console.log(rem(140));
   return (
     <Container px={140}>
       <div className="grid grid-cols-12">
@@ -30,6 +28,7 @@ export default function MarketsModule() {
             market="2021-09-20"
           />
           <MarketsRelateMarket />
+          <MarketsComments />
         </Stack>
         <Stack className="col-span-4">
           <Paper>

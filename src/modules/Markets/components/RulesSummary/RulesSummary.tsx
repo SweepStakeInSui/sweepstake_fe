@@ -27,7 +27,7 @@ export default function MarketsRulesSummary({
   return (
     <Paper>
       <Stack>
-        <Typography.Heading size={24} weight="semibold">
+        <Typography.Heading tag="h5" size={24} weight="semibold">
           Rules Summary
         </Typography.Heading>
         <Typography.Text size={15} className="text-text-subtle">
