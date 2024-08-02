@@ -1,9 +1,13 @@
 interface ITypographyProps {
   children: React.ReactNode;
+  tag?: React.ElementType;
 }
 
-export default function Typography({ children }: Readonly<ITypographyProps>) {
-  return <div>{children}</div>;
+export default function Typography({
+  children,
+  tag: Tag = 'p',
+}: Readonly<ITypographyProps>) {
+  return <Tag>{children}</Tag>;
 }
 
 interface ITextProps extends ITypographyProps {
@@ -17,6 +21,7 @@ function Text({
   children,
   size = 16,
   className = '',
+  tag: Tag = 'p',
 }: Readonly<ITextProps>) {
   const textClasses = {
     10: 'text-10',
@@ -35,9 +40,11 @@ function Text({
   };
 
   return (
-    <p className={`${textClasses[size]} ${weightClasses[weight]} ${className}`}>
+    <Tag
+      className={`${textClasses[size]} ${weightClasses[weight]} ${className}`}
+    >
       {children}
-    </p>
+    </Tag>
   );
 }
 
@@ -52,6 +59,7 @@ function Heading({
   weight = 'semibold',
   children,
   className = '',
+  tag: Tag = 'h3',
 }: Readonly<IHeadingProps>) {
   const headingClasses = {
     20: 'text-20',
@@ -69,11 +77,11 @@ function Heading({
   };
 
   return (
-    <div
+    <Tag
       className={`${headingClasses[size]} ${weightClasses[weight]} ${className} text-text`}
     >
       {children}
-    </div>
+    </Tag>
   );
 }
 
