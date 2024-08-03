@@ -22,7 +22,7 @@ const ResultsItem = ({
       <Flex className="gap-4">
         <Avatar isRounded={false}>
           <AvatarImage src={avatar} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback />
         </Avatar>
         <Stack className="gap-2">
           <Typography.Text>{content as string}</Typography.Text>

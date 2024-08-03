@@ -58,7 +58,7 @@ const Card = () => {
   ];
 
   return (
-    <div className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface">
+    <div className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface hover:shadow-card-bet-home transition-all duration-150">
       <div className="relative">
         <Flex className="gap-x-4">
           <Image
@@ -72,9 +72,14 @@ const Card = () => {
             <Typography.Text size={15} className="text-text">
               Richest person in the world at the end of the year?
             </Typography.Text>
-            <Typography.Text size={10} className="text-text-sublest">
-              32,900 vol
-            </Typography.Text>
+            <Flex className="text-text-sublest mt-1">
+              <Typography.Text size={10}>32,900k bet</Typography.Text>
+              <div className="w-px bg-borderSubtle h-2.5" />
+              <Flex className="gap-0">
+                <Svg src="/icons/add_circle_outline.svg" />
+                <Typography.Text size={12}>Add to watch list</Typography.Text>
+              </Flex>
+            </Flex>
           </div>
         </Flex>
         <div className="my-4 relative">
@@ -90,7 +95,7 @@ const Card = () => {
                   <div className="flex items-center gap-2">
                     <Avatar size="sm" isRounded>
                       <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarFallback />
                     </Avatar>
                     <div className="text-left">
                       <Typography.Text size={13} className="text-text mb-[2px]">
@@ -136,7 +141,7 @@ const Card = () => {
                       >
                         <Avatar size="sm" isRounded>
                           <AvatarImage src="https://github.com/shadcn.png" />
-                          <AvatarFallback>CN</AvatarFallback>
+                          <AvatarFallback />
                         </Avatar>
                         <div className="text-left">
                           <Typography.Text

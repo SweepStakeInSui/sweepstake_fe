@@ -7,7 +7,7 @@ import Card from './Card';
 const VoteCard = () => {
   return (
     <>
-      <div className="grid grid-cols-autoFill w-full gap-4">
+      <div className="grid grid-cols-autoFill w-full gap-4 py-8">
         <Card />
         <Card />
         <Card />

@@ -22,6 +22,7 @@ const config = {
       card: 'linear-gradient(0deg, rgba(0, 0, 0, 0.00) 0%, #000 100%)',
       'banner-home':
         'radial-gradient(97.24% 183.5% at 134.15% 75.4%, #580808 16%, #121212 100%)',
+        "slider-home":"linear-gradient(134deg, #E1EFF5 2.25%, rgba(250, 237, 249, 0.61) 52.75%, #FADCDC 100%)",
     },
     container: {
       center: true,
@@ -212,6 +213,7 @@ const config = {
       boxShadow: {
         'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)', 
         'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)', 
+        "card-bet-home" :"0px 4px 12px 0px rgba(0, 0, 0, 0.06)",
       },
     },
   },

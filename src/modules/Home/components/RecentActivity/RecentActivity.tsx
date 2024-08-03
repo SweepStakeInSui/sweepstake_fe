@@ -26,7 +26,7 @@ function ActivityItem({
       <Flex className="gap-4">
         <Avatar>
           <AvatarImage src={avatar} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback />
         </Avatar>
         <Stack className="gap-2">
           <p className="text-elevation-a400">{title}</p>
@@ -34,7 +34,7 @@ function ActivityItem({
             <div>
               <Avatar size="sm" isRounded={false}>
                 <AvatarImage src={avatar} />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback />
               </Avatar>
             </div>
             <p className="text-sm">

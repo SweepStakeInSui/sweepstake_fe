@@ -51,7 +51,7 @@ function SelectOption({ label }: Readonly<ISelectOptionProps>) {
     <Flex>
       <Avatar size="sm" isRounded={false}>
         <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarFallback />
       </Avatar>
       <div>
         <Typography.Text>{topic}</Typography.Text>
