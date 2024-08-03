@@ -83,7 +83,7 @@ const config = {
             red: 'var(--text-support-red)',
             yellow: 'var(--text-support-yellow)',
             blue: 'var(--text-support-blue)',
-            match:'var(--text-support-match)',
+            match: 'var(--text-support-match)',
           },
         },
         icon: {
@@ -175,6 +175,10 @@ const config = {
             disable: 'var(--search-filter-border-disable)',
           },
         },
+        field: {
+          background: { DEFAULT: 'var(--field-bg-default)' },
+          border: { DEFAULT: 'var(--field-border-default)' },
+        },
         ...colors,
       },
       borderRadius: {
@@ -210,8 +214,8 @@ const config = {
         ...rem(140),
       },
       boxShadow: {
-        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)', 
-        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)', 
+        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)',
+        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)',
       },
     },
   },

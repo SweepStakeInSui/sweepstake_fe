@@ -68,6 +68,7 @@ export const colors = {
   'yel-90': '#774B04',
   'yel-95': '#543303',
   'yel-100': '#3C2401',
+  'dyb-0': '#FAFAFA',
   'dyb-5': '#F5F5F5',
   'dyb-10': '#EBEBEB',
   'dyb-15': '#D7D7D7',

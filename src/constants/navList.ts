@@ -5,11 +5,6 @@ export const navList = [
     href: '/markets',
   },
   {
-    name: 'Election',
-    icon: 'Election',
-    href: '/election',
-  },
-  {
     name: 'Activity',
     icon: 'Activity',
     href: '/activity',

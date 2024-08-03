@@ -3,5 +3,5 @@ interface IPaperProps {
 }
 
 export default function Paper({ children }: Readonly<IPaperProps>) {
-  return <div className="p-5 bg-wht-a100 rounded-xl">{children}</div>;
+  return <div className="p-6 bg-wht-a100 rounded-xl">{children}</div>;
 }

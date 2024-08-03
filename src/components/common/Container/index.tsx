@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 interface ContainerProps {
   children: React.ReactNode;
   className?: string;
-  px?: 40 | 80 | 140;
+  px?: 0 | 40 | 80 | 140;
 }
 
 export default function Container({
