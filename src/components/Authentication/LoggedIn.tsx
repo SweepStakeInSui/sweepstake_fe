@@ -55,9 +55,9 @@ const LoggedIn = () => {
   ];
   return (
     <Flex>
-      <Button className="gap-x-2">
-        <Svg src="/icons/add.svg" />
-        Fund
+      <Button className="gap-x-2">Add Fund</Button>
+      <Button className="gap-x-2" variant="secondary">
+        Add Bet
       </Button>
 
       <DropdownMenu>

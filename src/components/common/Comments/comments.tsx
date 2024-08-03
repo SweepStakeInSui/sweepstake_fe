@@ -21,11 +21,10 @@ const Comments = ({ comments }: ICommentsProps) => {
           content={comment.content}
           onReply={() => console.log(`Reply to comment ${comment.id}`)}
           onLike={() => console.log(`Like comment ${comment.id}`)}
-          onSave={() => console.log(`Save comment ${comment.id}`)}
           onShare={() => console.log(`Share comment ${comment.id}`)}
         />
         {comment.replies && comment.replies.length > 0 && (
-          <div className="ml-8 mt-2 border-l-2 border-gray-200 pl-4">
+          <div className="ml-8 mt-2 pl-4">
             {renderComments(comment.replies)}
           </div>
         )}

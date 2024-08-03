@@ -1,4 +1,5 @@
 import Flex from '@/components/common/Flex';
+import IconButton from '@/components/common/IconButton';
 import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
@@ -14,6 +15,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { mockAvatar } from '@/mocks/mockAvatar';
+
+import { MarketTile } from '../MarketTile';
 
 // interface IMarketsDetailProps {
 //   title: string;
@@ -32,31 +35,47 @@ export default function MarketsDetail() {
         <Typography.Heading size={28}>
           Despicable Me 4&quot; Rotten Tomatoes score about ten?
         </Typography.Heading>
-        <Svg src="/icons/launch.svg" />
+
+        <Flex className="gap-0">
+          <IconButton isRounded>
+            <Svg src="/icons/add_circle_outline.svg" className="text-icon" />
+          </IconButton>
+          <IconButton isRounded>
+            <Svg src="/icons/launch.svg" className="text-icon" />
+          </IconButton>
+        </Flex>
       </Flex>
-      <Flex className="items-start">
+      <Flex className="items-center">
         <Typography.Heading className="text-text" size={20}>
           24.2
         </Typography.Heading>
-        <Typography.Text className="text-text-subtle" size={13}>
-          chance
-        </Typography.Text>
-        <Typography.Text className="text-text-support-green" size={12}>
-          +2%
-        </Typography.Text>
-        <Typography.Text
-          className="text-text-subtle inline-flex gap-1"
-          size={15}
-        >
-          120,000 vol
+
+        <div className="pr-2 border-r border-borderMain">
+          <Typography.Text className="text-text inline-flex gap-1" size={15}>
+            forscast{' '}
+            <Typography.Text
+              tag="span"
+              className="text-text-support-green"
+              size={15}
+            >
+              +2%
+            </Typography.Text>
+            <span>
+              <Svg src="/icons/info_outline.svg" />
+            </span>
+          </Typography.Text>
+        </div>
+
+        <Typography.Text className="text-text inline-flex gap-1" size={15}>
+          $120,000,000 bet
           <span>
             <Svg src="/icons/info_outline.svg" />
           </span>
         </Typography.Text>
       </Flex>
 
-      <Stack className="border-b border-borderSublest py-3">
-        <Flex className="w-full justify-between">
+      <Stack className="gap-3">
+        <Flex className="w-full justify-between border-b border-borderSublest">
           <Select>
             <SelectTrigger className="bg-transparent border-none w-fit text-text-subtle gap-2 pl-0">
               <SelectValue placeholder="2024" />
@@ -78,30 +97,20 @@ export default function MarketsDetail() {
             </Typography.Text>
           </Flex>
         </Flex>
-        <Flex className="w-full justify-between">
-          <Stack>
-            <Typography.Text size={15} weight="medium">
-              Before Aug 9
-            </Typography.Text>
-            <Typography.Text size={13} className="text-text-subtle">
-              SpaceXlauches in 2023
-            </Typography.Text>
-          </Stack>
-          <Flex className="w-[21.25rem] justify-between">
-            <Flex className="w-[6.875rem]">
-              <Typography.Text>83%</Typography.Text>
-              <Typography.Text>+13</Typography.Text>
-            </Flex>
-            <Flex className="w-[14.375rem]">
-              <Button variant="bet_yes" className="w-full">
-                Yes 72
-              </Button>
-              <Button variant="bet_no" className="w-full">
-                No 29
-              </Button>
-            </Flex>
-          </Flex>
-        </Flex>
+        {/* TODO: Replace key index */}
+        {Array.from({ length: 3 }).map((_, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <MarketTile key={index} />
+        ))}
+        <Button
+          variant="ghost"
+          className="text-text-support-blue pl-0 hover:bg-transparent active:bg-transparent"
+        >
+          2 more markets
+          <span>
+            <Svg src="/icons/chevron_right.svg" className="rotate-90" />
+          </span>
+        </Button>
       </Stack>
     </Paper>
   );

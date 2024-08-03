@@ -26,16 +26,21 @@ export default function MarketsRulesSummary({
 }: Readonly<IRulesSummaryProps>) {
   return (
     <Paper>
-      <Stack>
-        <Typography.Heading tag="h5" size={24} weight="semibold">
+      <Stack className="gap-0">
+        <Typography.Heading
+          tag="h5"
+          size={24}
+          weight="semibold"
+          className="mb-2"
+        >
           Rules Summary
         </Typography.Heading>
-        <Typography.Text size={15} className="text-text-subtle">
+        <Typography.Text size={15} className="text-text-subtle mb-5">
           {desc}
         </Typography.Text>
-        <Stack className="border-borderSublest rounded-md border">
+        <Stack className="border-borderSublest rounded-md border mb-5">
           <Flex className="px-4 py-3 border-b border-borderSublest items-start">
-            <Svg src="/icons/launch.svg" />
+            <Svg src="/icons/lock_open.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
                 Opened on {openOn}
@@ -45,11 +50,11 @@ export default function MarketsRulesSummary({
               </Typography.Text>
             </Stack>
           </Flex>
-          <Flex className="px-4 py-3 border-b border-borderSublest items-start">
-            <Svg src="/icons/launch.svg" />
+          <Flex className="px-4 py-3 items-start">
+            <Svg src="/icons/lock_outline.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
-                Opened on {closeOn}
+                Closes by {closeOn}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
                 10:00PM EDT
@@ -57,10 +62,10 @@ export default function MarketsRulesSummary({
             </Stack>
           </Flex>
           <Flex className="px-4 py-3 border-b border-borderSublest items-start">
-            <Svg src="/icons/launch.svg" />
+            <Svg src="/icons/attach_money.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
-                Opened on {payoutOn}
+                Projected payout on {payoutOn}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
                 10:00PM EDT
@@ -94,7 +99,7 @@ export default function MarketsRulesSummary({
             </Flex>
           </Flex>
         </Stack>
-        <Flex>
+        <Flex className="gap-0">
           <Button variant="ghost">Hide timeline</Button>
           <Button variant="ghost">View full rule</Button>
         </Flex>
