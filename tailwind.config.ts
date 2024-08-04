@@ -177,6 +177,10 @@ const config = {
             disable: 'var(--search-filter-border-disable)',
           },
         },
+        field: {
+          background: { DEFAULT: 'var(--field-bg-default)' },
+          border: { DEFAULT: 'var(--field-border-default)' },
+        },
         ...colors,
       },
       borderRadius: {

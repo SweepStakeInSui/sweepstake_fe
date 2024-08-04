@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 
 interface StackProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   justifyCenter?: boolean;
 }

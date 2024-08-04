@@ -1,22 +1,22 @@
 export const socialList = [
   {
     name: 'Discord',
-    icon: '/logos/Discord.svg',
+    icon: '/logos/Discord-gradient.svg',
     href: '',
   },
   {
     name: 'X/Twitter',
-    icon: 'logos/X.svg',
+    icon: 'logos/X-gradient.svg',
     href: 'https://twitter.com/SweepstakeMkt',
   },
   {
     name: 'Telegram',
-    icon: 'logos/Telegram.svg',
+    icon: 'logos/Telegram-gradient.svg',
     href: '',
   },
   {
     name: 'Github',
-    icon: '/logos/Github.svg',
+    icon: '/logos/Github-gradient.svg',
     href: '',
   },
 ];

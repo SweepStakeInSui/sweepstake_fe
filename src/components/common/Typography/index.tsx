@@ -28,9 +28,11 @@ function Text({
     12: 'text-12',
     13: 'text-13',
     14: 'text-14',
-    15: 'text-15',
+    15: 'text-15 leading-5',
     16: 'text-16',
     18: 'text-18',
+    20: 'text-20',
+    24: 'text-24',
   };
 
   const weightClasses = {
@@ -42,7 +44,7 @@ function Text({
 
   return (
     <Tag
-      className={`${textClasses[size]} ${weightClasses[weight]} ${className}`}
+      className={`${textClasses[size]} ${weightClasses[weight]} ${className} text-text`}
     >
       {children}
     </Tag>
