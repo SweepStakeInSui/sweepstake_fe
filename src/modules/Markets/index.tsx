@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import Container from '@/components/common/Container';
+import { DatePicker } from '@/components/common/DatePicker';
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
 import Stack from '@/components/common/Stack';
@@ -11,7 +12,17 @@ import Typography from '@/components/common/Typography';
 import { UpDownButton } from '@/components/common/UpDownButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { TimePicker } from '@/components/ui/time-picker';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
 import { MarketsAbout } from './components/About';
@@ -24,7 +35,7 @@ export default function MarketsModule() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <Container px={0}>
+    <Container px={0} className="bg-bg-surface">
       <Flex className="items-start gap-0">
         <aside
           className={`sticky flex flex-col top-[4.75rem] px-6 pr-3 py-5 ${isSidebarOpen ? 'w-[17.5rem]' : 'w-[5.5rem]'} h-[calc(100vh-4.75rem)] border-r border-solid border-borderSubtle overflow-hidden transition-all`}
@@ -195,25 +206,61 @@ export default function MarketsModule() {
                 </Flex>
               </Stack>
 
-              <UpDownButton label="Price" />
+              <UpDownButton label="Price" placeholder="$0" />
+              <UpDownButton label="Share" placeholder="0" />
+
+              <Flex>
+                <Checkbox id="expiration" aria-labelledby="expiration-label" />
+                <label
+                  id="expiration-label"
+                  htmlFor="expiration"
+                  className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  <Typography.Text size={15}>Set Expiration</Typography.Text>
+                </label>
+              </Flex>
+
+              <Stack>
+                <Select>
+                  <SelectTrigger className="rounded-md border border-field-border bg-field-background h-[3.375rem]">
+                    <SelectValue placeholder="End of day" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="End of day">End of day</SelectItem>
+                      <SelectItem value="End of day">End of day</SelectItem>
+                      <SelectItem value="End of day">End of day</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="col-span-1">
+                    <DatePicker />
+                  </div>
+                  <div className="col-span-1">
+                    <TimePicker />
+                  </div>
+                </div>
+              </Stack>
 
               <Stack className="gap-3">
                 <Flex className="justify-between">
-                  <Typography.Text size={13} className="text-text-subtle">
-                    Contract
-                  </Typography.Text>
-                  <Typography.Text size={13}>0</Typography.Text>
-                </Flex>
-                <Flex className="justify-between">
-                  <Typography.Text size={13} className="text-text-subtle">
-                    Average Price
+                  <Typography.Text
+                    size={13}
+                    className="inline-flex items-center gap-1 text-text-subtle"
+                  >
+                    Estimated Cost
+                    <span>
+                      <Svg src="/icons/info_outline.svg" />
+                    </span>
                   </Typography.Text>
                   <Typography.Text size={13}>$100</Typography.Text>
                 </Flex>
                 <Flex className="justify-between">
                   <Typography.Text
                     size={13}
-                    className="inline-flex gap-1 text-text-subtle"
+                    className="inline-flex items-center gap-1 text-text-subtle"
                   >
                     Payout if Yes wins
                     <span>

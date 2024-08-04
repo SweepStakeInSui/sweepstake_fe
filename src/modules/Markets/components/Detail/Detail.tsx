@@ -40,7 +40,10 @@ export default function MarketsDetail() {
 
         <Flex className="gap-0">
           <IconButton isRounded>
-            <Svg src="/icons/add_circle_outline.svg" className="text-icon" />
+            <Svg
+              src="/icons/add_circle_outline.svg"
+              className="text-icon size-6"
+            />
           </IconButton>
           <IconButton isRounded>
             <Svg src="/icons/launch.svg" className="text-icon" />
@@ -66,7 +69,7 @@ export default function MarketsDetail() {
               +2%
             </Typography.Text>
             <span>
-              <Svg src="/icons/info_outline.svg" />
+              <Svg src="/icons/info_outline.svg" className="text-icon-subtle" />
             </span>
           </Typography.Text>
         </div>
@@ -77,7 +80,7 @@ export default function MarketsDetail() {
         >
           $120,000,000 bet
           <span>
-            <Svg src="/icons/info_outline.svg" />
+            <Svg src="/icons/info_outline.svg" className="text-icon-subtle" />
           </span>
         </Typography.Text>
       </Flex>

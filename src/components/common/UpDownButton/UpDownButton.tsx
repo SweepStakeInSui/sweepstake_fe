@@ -10,9 +10,10 @@ import Typography from '../Typography';
 
 interface IUpDownButton {
   label?: string;
+  placeholder?: string;
 }
 
-const UpDownButton = ({ label }: IUpDownButton) => {
+const UpDownButton = ({ label, placeholder }: IUpDownButton) => {
   return (
     <Stack className="gap-1">
       {label && (
@@ -21,8 +22,10 @@ const UpDownButton = ({ label }: IUpDownButton) => {
         </Typography.Text>
       )}
       <div className="h-[3.375rem] flex items-center p-4 w-full rounded-md border border-field-border bg-field-background">
-        <Typography.Text>$</Typography.Text>
-        <Input className="bg-transparent border-0 p-0 pl-1" placeholder="0" />
+        <Input
+          className="bg-transparent border-0 p-0 pl-1"
+          placeholder={placeholder}
+        />
         <Flex className="gap-1">
           <IconButton className="size-6 bg-dyb-10 p-0" isRounded={false}>
             <Svg src="/icons/remove.svg" />
