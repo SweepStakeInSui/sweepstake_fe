@@ -1,30 +1,36 @@
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import Typography from '@/components/common/Typography';
 import type { TopVolumeType } from '@/types/topVolume';
+import ViewAll from '../ViewAll';
+import AvatarRank from './AvatarRank';
 
 interface TopVolumeItemProps {
+  id: number;
   username: string;
   avatar?: string;
   price: string;
 }
 
 function TopVolumeItem({
+  id,
   username,
   avatar = 'https://github.com/shadcn.png',
   price,
 }: Readonly<TopVolumeItemProps>) {
   return (
-    <Flex className="cursor-default justify-between p-2 overflow-hidden rounded-sm transition-colors hover:bg-elevation-a200">
+    <Flex className="justify-between p-2 overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
       <Flex className="gap-4">
-        <Avatar isRounded={false}>
-          <AvatarImage src={avatar} />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <Stack className="gap-2">
-          <p>{username}</p>
-          <p className="text-elevation-a400 text-sm">{price}</p>
+        <AvatarRank avatar={avatar} id={id} />
+        <Stack className="gap-y-px">
+          <Typography.Text size={15} weight="bold" className="text-text">
+            {username}
+          </Typography.Text>
+          <Flex className="text-text-subtle">
+            <Typography.Text size={13}>{price}</Typography.Text>
+            <span>.</span>
+            <Typography.Text size={13}>12k trades</Typography.Text>
+          </Flex>
         </Stack>
       </Flex>
     </Flex>
@@ -37,14 +43,14 @@ interface TopVolumeProps {
 
 export default function TopVolume({ data }: Readonly<TopVolumeProps>) {
   return (
-    <Stack className="gap-6">
+    <Stack className="gap-4 z-10">
       <Flex className="justify-between">
-        <h3 className="text-2xl">Top Volume This Week</h3>
-        <Button variant="primary" className="flex gap-1 px-6">
-          See all
-        </Button>
+        <Typography.Heading size={24} weight="semibold">
+          Top Volume This Week
+        </Typography.Heading>
+        <ViewAll link="/" />
       </Flex>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-rows-5 grid-flow-col gap-4">
         {data.map((item) => (
           <TopVolumeItem key={item.id} {...item} />
         ))}

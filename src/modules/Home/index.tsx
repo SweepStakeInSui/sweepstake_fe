@@ -86,9 +86,10 @@ export default function HomeModule() {
       <MarketTab />
       <Container>
         <VoteCard />
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 py-8 bg-white relative overflow-hidden">
           <RecentActivity data={mockRecentActivities} />
           <TopVolume data={mockTopVolumeThisWeek} />
+          <div className="absolute w-1/2 h-full left-1/2 -translate-x-1/2 top-1/2 blur-2xl bg-top-home opacity-10 rounded-full z-0"></div>
         </div>
       </Container>
     </section>

@@ -12,7 +12,7 @@ export default function Typography({
 
 interface ITextProps extends ITypographyProps {
   size?: 10 | 12 | 13 | 14 | 15 | 16 | 18;
-  weight?: 'regular' | 'medium' | 'semibold';
+  weight?: 'regular' | 'medium' | 'semibold' | 'bold';
   className?: string;
 }
 
@@ -37,6 +37,7 @@ function Text({
     regular: 'font-normal',
     medium: 'font-medium',
     semibold: 'font-semibold',
+    bold: 'font-bold',
   };
 
   return (

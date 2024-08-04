@@ -22,6 +22,8 @@ const config = {
       card: 'linear-gradient(0deg, rgba(0, 0, 0, 0.00) 0%, #000 100%)',
       'banner-home':
         'radial-gradient(97.24% 183.5% at 134.15% 75.4%, #580808 16%, #121212 100%)',
+      'top-home':
+        'conic-gradient(from 346deg at 55.38% 52.84%, #5BAAF3 20.13%, #F029C4 11.87%, #FF8181 25.27%)',
     },
     container: {
       center: true,
@@ -83,7 +85,7 @@ const config = {
             red: 'var(--text-support-red)',
             yellow: 'var(--text-support-yellow)',
             blue: 'var(--text-support-blue)',
-            match:'var(--text-support-match)',
+            match: 'var(--text-support-match)',
           },
         },
         icon: {
@@ -210,8 +212,8 @@ const config = {
         ...rem(140),
       },
       boxShadow: {
-        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)', 
-        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)', 
+        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)',
+        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)',
       },
     },
   },

@@ -36,21 +36,27 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
     if (swiperRef && swiperRef.current) {
       swiperRef.current.swiper.slidePrev();
     }
+    setShowNextButton(true);
   };
   const handleSlideChange = () => {
     const swiperInstance = swiperRef.current.swiper;
+    const slides = swiperInstance.slides;
+    const slideWidth = slides[0].offsetWidth;
+    const containerWidth = swiperInstance.wrapperEl.clientWidth;
+    const slidesToShow = Math.floor(containerWidth / slideWidth);
     setShowPrevButton(!swiperInstance.isBeginning);
-    setShowNextButton(!swiperInstance.isEnd);
+    setShowNextButton(!swiperInstance.isEnd && slides.length > slidesToShow);
   };
-  useEffect(() => {
-    if (
-      swiperRef.current &&
-      swiperRef.current.swiper.slides.length <=
-        swiperRef.current.swiper.params.slidesPerView
-    ) {
-      setShowNextButton(false);
-    }
-  }, [children]);
+
+  // useEffect(() => {
+  //   if (
+  //     swiperRef.current &&
+  //     swiperRef.current.swiper.slides.length <=
+  //       swiperRef.current.swiper.params.slidesPerView
+  //   ) {
+  //     setShowNextButton(false);
+  //   }
+  // }, [children]);
   const swiperProps: any = {
     navigation: true,
     modules: [Navigation],

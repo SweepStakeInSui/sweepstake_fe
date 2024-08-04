@@ -19,7 +19,46 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+interface BetItemProps {
+  bet: {
+    img: string;
+    name: string;
+    chance: number;
+    count: number;
+  };
+}
+const BetItem: React.FC<BetItemProps> = ({ bet }) => {
+  return (
+    <div className="flex items-center gap-2">
+      <Avatar size="sm" isRounded>
+        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
+      <div className="text-left">
+        <Typography.Text size={13} className="text-text mb-[2px]">
+          {bet.name}
+        </Typography.Text>
+        <Flex className="gap-x-1">
+          <div style={{ width: 12, height: 12 }}>
+            <CircularProgressbar
+              value={bet.chance}
+              styles={buildStyles({
+                pathColor: `rgba(1, 70, 244)`,
+              })}
+            />
+          </div>
+          <Typography.Text size={12} className="text-text-support-blue mr-1">
+            {bet.chance} % Chances
+          </Typography.Text>
+          <Typography.Text size={12} className="text-text-support-green">
+            +{bet.count}
+          </Typography.Text>
+        </Flex>
+      </div>
+    </div>
+  );
+};
 const Card = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState('');
@@ -56,7 +95,7 @@ const Card = () => {
       count: 1,
     },
   ];
-
+  const bet = bets.find((bet) => bet.name === value) || bets[0];
   return (
     <div className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface">
       <div className="relative">
@@ -87,30 +126,7 @@ const Card = () => {
                 className="w-full justify-between flex border rounded-md border-borderSubtle p-2 items-center"
               >
                 {value || bets.length > 0 ? (
-                  <div className="flex items-center gap-2">
-                    <Avatar size="sm" isRounded>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                    <div className="text-left">
-                      <Typography.Text size={13} className="text-text mb-[2px]">
-                        {bets.find((bet) => bet.name === value)?.name ||
-                          bets[0].name}
-                      </Typography.Text>
-                      <Typography.Text size={12}>
-                        <span className="text-text-support-blue mr-1">
-                          {bets.find((bet) => bet.name === value)?.chance ||
-                            bets[0].chance}
-                          % Chances
-                        </span>
-                        <span className="text-text-support-green">
-                          +
-                          {bets.find((bet) => bet.name === value)?.count ||
-                            bets[0].count}
-                        </span>
-                      </Typography.Text>
-                    </div>
-                  </div>
+                  <BetItem bet={bet} />
                 ) : (
                   'No Bets Available'
                 )}
@@ -134,26 +150,7 @@ const Card = () => {
                         }}
                         className="p-1 rounded-sm gap-x-2"
                       >
-                        <Avatar size="sm" isRounded>
-                          <AvatarImage src="https://github.com/shadcn.png" />
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                        <div className="text-left">
-                          <Typography.Text
-                            size={13}
-                            className="text-text mb-[2px]"
-                          >
-                            {bet.name}
-                          </Typography.Text>
-                          <Typography.Text size={12}>
-                            <span className="text-text-support-blue mr-1">
-                              {bet.chance}% Chances
-                            </span>
-                            <span className="text-text-support-green">
-                              +{bet.count}
-                            </span>
-                          </Typography.Text>
-                        </div>
+                        <BetItem bet={bet} />
                       </CommandItem>
                     ))}
                   </CommandGroup>

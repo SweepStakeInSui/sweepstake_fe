@@ -1,17 +1,9 @@
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
+import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import type { RecentActivityType } from '@/types/recentActivity';
-
-interface ActivityItemProps {
-  username: string;
-  avatar?: string;
-  title: string;
-  bidding: boolean;
-  date: string;
-  price: string;
-}
+import ViewAll from '../ViewAll';
 
 function ActivityItem({
   username,
@@ -20,41 +12,42 @@ function ActivityItem({
   bidding,
   date,
   price,
-}: Readonly<ActivityItemProps>) {
+  betname,
+  contract,
+}: Readonly<RecentActivityType>) {
   return (
-    <Flex className="cursor-default justify-between p-2 overflow-hidden rounded-sm transition-colors hover:bg-elevation-a200">
-      <Flex className="gap-4">
+    <Flex className="justify-between p-2 overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
+      <Flex className="gap-x-2">
         <Avatar>
           <AvatarImage src={avatar} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <Stack className="gap-2">
-          <p className="text-elevation-a400">{title}</p>
-          <Flex>
-            <div>
-              <Avatar size="sm" isRounded={false}>
-                <AvatarImage src={avatar} />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-            <p className="text-sm">
-              {username} bought
-              <span
-                className={
-                  bidding
-                    ? 'text-secondary-green-a400'
-                    : 'text-secondary-red-a400'
-                }
-              >
-                {bidding ? 'Yes' : 'No'}
-              </span>
-              at {price}
-            </p>
+        <Stack className="gap-px">
+          <Flex className="gap-x-1">
+            <Typography.Text size={15} weight="bold" className="text-text">
+              {username}
+            </Typography.Text>
+            <Typography.Text size={15} className="text-text">
+              bought
+            </Typography.Text>
+            {/* TODO */}
+            <Flex>
+              <span>Yes 72¢</span>
+              <p>.</p>
+              <span>{betname}</span>
+              <span>.</span>
+              <span>{contract}</span>
+            </Flex>
           </Flex>
+          <Typography.Text className="text-text-subtle" size={13}>
+            {title}
+          </Typography.Text>
         </Stack>
       </Flex>
 
-      <p className="text-sm">{date}</p>
+      <Typography.Text size={13} className="text-text-subtle">
+        {date}
+      </Typography.Text>
     </Flex>
   );
 }
@@ -67,14 +60,14 @@ export default function RecentActivity({
   data,
 }: Readonly<RecentActivityProps>) {
   return (
-    <Stack className="gap-6">
+    <Stack className="gap-4 z-10">
       <Flex className="justify-between">
-        <h3 className="text-2xl">Recent Activity</h3>
-        <Button variant="primary" className="flex gap-1 px-6">
-          See all
-        </Button>
+        <Typography.Heading size={24} weight="semibold">
+          Recent Activity
+        </Typography.Heading>
+        <ViewAll link="/" />
       </Flex>
-      <Stack className="gap-2">
+      <Stack className="gap-4">
         {data.map((item) => (
           <ActivityItem key={item.id} {...item} />
         ))}

@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react';
-
-import { Button } from '@/components/ui/button';
-
+import React from 'react';
 import Card from './Card';
+import Flex from '@/components/common/Flex';
+import Typography from '@/components/common/Typography';
+import Link from 'next/link';
+import Svg from '@/components/common/Svg';
+import { Button } from '@/components/ui/button';
 
 const VoteCard = () => {
   return (
@@ -18,9 +20,30 @@ const VoteCard = () => {
         <Card />
         <Card />
       </div>
-      <Button variant="primary" className="my-6 block mx-auto w-fit">
-        See more
-      </Button>
+      <Flex className="mt-3 mb-6 mx-auto gap-x-3 justify-center">
+        <Typography.Text className="text-text-subtle" size={13}>
+          And 130k bets waiting for you
+        </Typography.Text>
+        <div className="relative">
+          <Button variant={'see_more_red'} className="w-fit p-0">
+            <Flex className="gap-x-1">
+              <Link href="/" className="font-semibold">
+                <Typography.Text
+                  className="text-text-support-red flex items-center gap-x-1"
+                  size={14}
+                  weight="semibold"
+                >
+                  See all
+                </Typography.Text>
+              </Link>
+              <Svg
+                src="/icons/arrow_forward_ios.svg"
+                className="text-text-support-red"
+              />
+            </Flex>
+          </Button>
+        </div>
+      </Flex>
     </>
   );
 };
