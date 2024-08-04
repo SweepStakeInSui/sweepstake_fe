@@ -4,7 +4,7 @@ import React from 'react';
 
 import type { TComment } from '@/types/comment';
 
-import Comment from '../Comment';
+import { Comment } from '../Comment';
 
 interface ICommentsProps {
   comments: TComment[];

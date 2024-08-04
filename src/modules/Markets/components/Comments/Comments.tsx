@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Comments from '@/components/common/Comments/comments';
+import { Comments } from '@/components/common/Comments';
 import Flex from '@/components/common/Flex';
 import Paper from '@/components/common/Paper';
 import Typography from '@/components/common/Typography';
