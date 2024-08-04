@@ -27,14 +27,16 @@ import { MarketTile } from '../MarketTile';
 export default function MarketsDetail() {
   return (
     <Paper>
-      <Flex className="items-start gap-3 mb-2">
-        <Avatar isRounded={false} className="w-[3.75rem] h-auto aspect-1">
-          <AvatarImage src={mockAvatar} />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <Typography.Heading size={28}>
-          Despicable Me 4&quot; Rotten Tomatoes score about ten?
-        </Typography.Heading>
+      <Flex className="items-start justify-between gap-3 mb-2">
+        <Flex className="gap-3">
+          <Avatar isRounded={false} className="w-[3.75rem] h-auto aspect-1">
+            <AvatarImage src={mockAvatar} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <Typography.Heading size={28}>
+            Despicable Me 4&quot; Rotten Tomatoes score about ten?
+          </Typography.Heading>
+        </Flex>
 
         <Flex className="gap-0">
           <IconButton isRounded>
@@ -51,7 +53,10 @@ export default function MarketsDetail() {
         </Typography.Heading>
 
         <div className="pr-2 border-r border-borderMain">
-          <Typography.Text className="text-text inline-flex gap-1" size={15}>
+          <Typography.Text
+            className="text-text inline-flex items-center gap-1"
+            size={15}
+          >
             forscast{' '}
             <Typography.Text
               tag="span"
@@ -66,7 +71,10 @@ export default function MarketsDetail() {
           </Typography.Text>
         </div>
 
-        <Typography.Text className="text-text inline-flex gap-1" size={15}>
+        <Typography.Text
+          className="text-text inline-flex items-center gap-1"
+          size={15}
+        >
           $120,000,000 bet
           <span>
             <Svg src="/icons/info_outline.svg" />

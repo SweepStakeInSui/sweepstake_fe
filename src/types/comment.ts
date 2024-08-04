@@ -1,5 +1,5 @@
 export type TComment = {
-  id: number;
+  id: string;
   author: string;
   avatar?: string;
   timestamp: string;
@@ -7,4 +7,6 @@ export type TComment = {
   replies?: TComment[];
   favorite?: boolean;
   saved?: boolean;
+  likeCount?: number;
+  likeByMe?: boolean;
 };
