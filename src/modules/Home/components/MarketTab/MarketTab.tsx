@@ -2,9 +2,9 @@
 
 import { SwiperSlide } from 'swiper/react';
 
+import Container from '@/components/common/Container';
 import SwiperCustom from '@/components/common/SwipperCustom';
 import { Button } from '@/components/ui/button';
-import Container from '@/components/common/Container';
 
 const marketMainTab = [
   {

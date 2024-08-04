@@ -2,6 +2,7 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import type { TopVolumeType } from '@/types/topVolume';
+
 import ViewAll from '../ViewAll';
 import AvatarRank from './AvatarRank';
 

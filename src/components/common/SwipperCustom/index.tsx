@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper } from 'swiper/react';
 
@@ -40,7 +40,7 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
   };
   const handleSlideChange = () => {
     const swiperInstance = swiperRef.current.swiper;
-    const slides = swiperInstance.slides;
+    const { slides } = swiperInstance;
     const slideWidth = slides[0].offsetWidth;
     const containerWidth = swiperInstance.wrapperEl.clientWidth;
     const slidesToShow = Math.floor(containerWidth / slideWidth);

@@ -87,7 +87,7 @@ const LoggedIn = () => {
                   </Typography.Text>
                   {user.add && (
                     <Button
-                      variant={'secondary'}
+                      variant="secondary"
                       className="py-0.5 px-1 rounded-sm"
                     >
                       <Flex className="gap-0">
@@ -123,7 +123,7 @@ const LoggedIn = () => {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem className="py-3 flex justify-between">
-              <Link href={'/'} className="flex gap-x-2.5 items-center">
+              <Link href="/" className="flex gap-x-2.5 items-center">
                 <span className="size-6 flex items-center justify-center">
                   <Svg src="/icons/my_bet.svg" />
                 </span>
@@ -135,7 +135,7 @@ const LoggedIn = () => {
                   My bet
                 </Typography.Text>
               </Link>
-              <Link href={'/'}>
+              <Link href="/">
                 <Typography.Text
                   size={13}
                   weight="semibold"

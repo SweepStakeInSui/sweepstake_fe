@@ -1,10 +1,12 @@
-import React from 'react';
-import Card from './Card';
-import Flex from '@/components/common/Flex';
-import Typography from '@/components/common/Typography';
 import Link from 'next/link';
+import React from 'react';
+
+import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
+import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
+
+import Card from './Card';
 
 const VoteCard = () => {
   return (
@@ -25,7 +27,7 @@ const VoteCard = () => {
           And 130k bets waiting for you
         </Typography.Text>
         <div className="relative">
-          <Button variant={'see_more_red'} className="w-fit p-0">
+          <Button variant="see_more_red" className="w-fit p-0">
             <Flex className="gap-x-1">
               <Link href="/" className="font-semibold">
                 <Typography.Text

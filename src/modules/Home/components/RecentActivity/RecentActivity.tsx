@@ -3,6 +3,7 @@ import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { RecentActivityType } from '@/types/recentActivity';
+
 import ViewAll from '../ViewAll';
 
 function ActivityItem({
@@ -32,7 +33,8 @@ function ActivityItem({
             </Typography.Text>
             {/* TODO */}
             <Flex>
-              <span>Yes 72¢</span>
+              <span>Yes {price}¢</span>
+              {bidding}
               <p>.</p>
               <span>{betname}</span>
               <span>.</span>

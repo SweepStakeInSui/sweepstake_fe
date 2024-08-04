@@ -1,8 +1,9 @@
+import React from 'react';
+
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
-import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import React from 'react';
+
 interface AvatarRankProps {
   id: number;
   avatar?: string;
@@ -18,7 +19,7 @@ const AvatarRank: React.FC<AvatarRankProps> = ({ id, avatar }) => {
     <div className="relative">
       <Avatar>
         <AvatarImage src={avatar} />
-        <AvatarFallback></AvatarFallback>
+        <AvatarFallback />
       </Avatar>
       <div className="absolute -top-[6px] -right-[6px]">
         {iconSrc ? (

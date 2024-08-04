@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
@@ -19,7 +20,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+
 interface BetItemProps {
   bet: {
     img: string;
@@ -95,7 +96,7 @@ const Card = () => {
       count: 1,
     },
   ];
-  const bet = bets.find((bet) => bet.name === value) || bets[0];
+  const bet = bets.find((item) => item.name === value) || bets[0];
   return (
     <div className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface">
       <div className="relative">
@@ -140,9 +141,9 @@ const Card = () => {
               <Command>
                 <CommandList>
                   <CommandGroup>
-                    {bets.map((bet) => (
+                    {bets.map((item) => (
                       <CommandItem
-                        key={bet.name}
+                        key={item.name}
                         value={bet.name}
                         onSelect={(currentValue) => {
                           setValue(currentValue === value ? '' : currentValue);
