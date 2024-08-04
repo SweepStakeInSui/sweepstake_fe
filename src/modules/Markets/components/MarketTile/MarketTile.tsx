@@ -18,7 +18,7 @@ const MarketTile = () => {
       </Stack>
       <Flex className="w-[21.25rem] justify-between">
         <Flex className="w-[6.875rem] items-center gap-1">
-          <Typography.Text size={20} weight="medium">
+          <Typography.Text size={18} weight="medium">
             83%
           </Typography.Text>
           <Typography.Text size={13} className="text-text-support-green">

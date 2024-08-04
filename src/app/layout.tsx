@@ -1,6 +1,7 @@
 import '@styles/index.scss';
 import '@styles/global.scss';
 import './globals.css';
+import 'react-circular-progressbar/dist/styles.css';
 
 import type { Metadata } from 'next';
 
@@ -9,6 +10,7 @@ import MyLayout from '@/layouts';
 import { cn } from '@/lib/utils';
 
 import Providers from './providers';
+import QueryProviders from './queryProvider';
 
 export const metadata: Metadata = {
   title: "Sweepstake | The World's Largest Prediction Market",
@@ -28,9 +30,11 @@ export default function RootLayout({ children }: Readonly<IRootLayout>) {
           PlusJakartaFont.className,
         )}
       >
-        <Providers>
-          <MyLayout>{children}</MyLayout>
-        </Providers>
+        <QueryProviders>
+          <Providers>
+            <MyLayout>{children}</MyLayout>
+          </Providers>
+        </QueryProviders>
       </body>
     </html>
   );

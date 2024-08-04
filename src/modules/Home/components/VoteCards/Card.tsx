@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
@@ -19,46 +20,54 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { bets } from '@/mocks/mockBet';
 
+interface BetItemProps {
+  bet: {
+    img: string;
+    name: string;
+    chance: number;
+    count: number;
+  };
+}
+const BetItem: React.FC<BetItemProps> = ({ bet }) => {
+  return (
+    <div className="flex items-center gap-2">
+      <Avatar size="sm" isRounded>
+        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarFallback />
+      </Avatar>
+      <div className="text-left">
+        <Typography.Text size={13} className="text-text mb-[2px]">
+          {bet.name}
+        </Typography.Text>
+        <Flex className="gap-x-1">
+          <div style={{ width: 12, height: 12 }}>
+            <CircularProgressbar
+              value={bet.chance}
+              styles={buildStyles({
+                pathColor: `rgba(1, 70, 244)`,
+              })}
+            />
+          </div>
+          <Typography.Text size={12} className="text-text-support-blue mr-1">
+            {bet.chance} % Chances
+          </Typography.Text>
+          <Typography.Text size={12} className="text-text-support-green">
+            +{bet.count}
+          </Typography.Text>
+        </Flex>
+      </div>
+    </div>
+  );
+};
 const Card = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState('');
 
-  const bets = [
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Elon Musk',
-      chance: 12,
-      count: 6,
-    },
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Jeff Bezos',
-      chance: 43,
-      count: 3,
-    },
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Bill Gates',
-      chance: 23,
-      count: 3,
-    },
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Mark Zuckerberg',
-      chance: 6,
-      count: 12,
-    },
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Larry Page',
-      chance: 91,
-      count: 1,
-    },
-  ];
-
+  const bet = bets.find((item) => item.name === value) || bets[0];
   return (
-    <div className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface">
+    <div className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface hover:shadow-card-bet-home transition-all duration-150">
       <div className="relative">
         <Flex className="gap-x-4">
           <Image
@@ -72,9 +81,14 @@ const Card = () => {
             <Typography.Text size={15} className="text-text">
               Richest person in the world at the end of the year?
             </Typography.Text>
-            <Typography.Text size={10} className="text-text-sublest">
-              32,900 vol
-            </Typography.Text>
+            <Flex className="text-text-sublest mt-1">
+              <Typography.Text size={10}>32,900k bet</Typography.Text>
+              <div className="w-px bg-borderSubtle h-2.5" />
+              <Flex className="gap-0">
+                <Svg src="/icons/add_circle_outline.svg" />
+                <Typography.Text size={12}>Add to watch list</Typography.Text>
+              </Flex>
+            </Flex>
           </div>
         </Flex>
         <div className="my-4 relative">
@@ -87,30 +101,7 @@ const Card = () => {
                 className="w-full justify-between flex border rounded-md border-borderSubtle p-2 items-center"
               >
                 {value || bets.length > 0 ? (
-                  <div className="flex items-center gap-2">
-                    <Avatar size="sm" isRounded>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                    <div className="text-left">
-                      <Typography.Text size={13} className="text-text mb-[2px]">
-                        {bets.find((bet) => bet.name === value)?.name ||
-                          bets[0].name}
-                      </Typography.Text>
-                      <Typography.Text size={12}>
-                        <span className="text-text-support-blue mr-1">
-                          {bets.find((bet) => bet.name === value)?.chance ||
-                            bets[0].chance}
-                          % Chances
-                        </span>
-                        <span className="text-text-support-green">
-                          +
-                          {bets.find((bet) => bet.name === value)?.count ||
-                            bets[0].count}
-                        </span>
-                      </Typography.Text>
-                    </div>
-                  </div>
+                  <BetItem bet={bet} />
                 ) : (
                   'No Bets Available'
                 )}
@@ -124,36 +115,17 @@ const Card = () => {
               <Command>
                 <CommandList>
                   <CommandGroup>
-                    {bets.map((bet) => (
+                    {bets.map((item) => (
                       <CommandItem
-                        key={bet.name}
-                        value={bet.name}
+                        key={item.name}
+                        value={item.name}
                         onSelect={(currentValue) => {
                           setValue(currentValue === value ? '' : currentValue);
                           setOpen(false);
                         }}
                         className="p-1 rounded-sm gap-x-2"
                       >
-                        <Avatar size="sm" isRounded>
-                          <AvatarImage src="https://github.com/shadcn.png" />
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                        <div className="text-left">
-                          <Typography.Text
-                            size={13}
-                            className="text-text mb-[2px]"
-                          >
-                            {bet.name}
-                          </Typography.Text>
-                          <Typography.Text size={12}>
-                            <span className="text-text-support-blue mr-1">
-                              {bet.chance}% Chances
-                            </span>
-                            <span className="text-text-support-green">
-                              +{bet.count}
-                            </span>
-                          </Typography.Text>
-                        </div>
+                        <BetItem bet={item} />
                       </CommandItem>
                     ))}
                   </CommandGroup>

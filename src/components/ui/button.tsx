@@ -5,7 +5,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center w-fit justify-center whitespace-nowrap rounded-sm duration-500 text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center w-fit justify-center whitespace-nowrap rounded-md duration-500 text-sm font-semibold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -21,12 +21,16 @@ const buttonVariants = cva(
           'bg-btn-betNo text-text-support-blue hover:bg-btn-betNo-hover hover:shadow-button-no-shadow  hover:text-white active:bg-btn-betNo-press active:text-text-support-blue',
         disable: 'bg-dyb-10 text-dyb-40 cursor-not-allowed',
         sub_btn: 'text-dyb-70 border border-dyb-20 hover:border-dyb-80',
+        see_more:
+          'text-btn-text hover:after:absolute hover:after:w-full hover:after:bg-btn-text hover:after:h-0.5 hover:after:bottom-0',
+        see_more_red:
+          'text-btn-text hover:after:absolute hover:after:w-full hover:after:bg-text-support-red hover:after:h-0.5 hover:after:bottom-0',
       },
       size: {
         default: 'px-4 py-2',
-        sm: 'h-12 rounded-md px-4',
-        lg: 'h-11 rounded-md px-4',
-        full: 'h-full rounded-md w-full',
+        sm: 'h-12 px-4',
+        lg: 'h-11 px-4',
+        full: 'h-full w-full',
         icon: 'h-10 w-10',
       },
     },

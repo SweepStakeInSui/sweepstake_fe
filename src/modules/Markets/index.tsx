@@ -56,7 +56,7 @@ export default function MarketsModule() {
                   className="w-[2.5rem] h-auto aspect-1"
                 >
                   <AvatarImage src={mockAvatar} />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback />
                 </Avatar>
                 <Button
                   variant="ghost"
@@ -87,7 +87,7 @@ export default function MarketsModule() {
                   className="w-[2.5rem] h-auto aspect-1"
                 >
                   <AvatarImage src={mockAvatar} />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback />
                 </Avatar>
                 <Button
                   variant="ghost"
@@ -118,7 +118,7 @@ export default function MarketsModule() {
                   className="w-[2.5rem] h-auto aspect-1"
                 >
                   <AvatarImage src={mockAvatar} />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback />
                 </Avatar>
                 <Button
                   variant="ghost"
@@ -170,7 +170,7 @@ export default function MarketsModule() {
                   className="w-[2.5rem] h-auto aspect-1"
                 >
                   <AvatarImage src={mockAvatar} />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback />
                 </Avatar>
                 <Typography.Text>
                   <span className="text-text-support-match">Bet Yes</span>

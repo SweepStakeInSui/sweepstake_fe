@@ -45,7 +45,7 @@
     --text-support-red: #eb201e;
     --text-support-yellow: var(--org-60);
     --text-support-blue: var(--b-60);
-    --text-support-match:var(--ma-50);
+    --text-support-match: var(--ma-50);
     /* Icon Colors */
     --icon: var(--dyb-95);
     --icon-subtle: var(--dyb-70);
@@ -56,9 +56,9 @@
     --icon-support-red: var(--r-50);
     --icon-support-yellow: var(--org-60);
     --icon-support-blue: var(--b-60);
-    --text-support-match:var(--ma-50);
+    --text-support-match: var(--ma-50);
     /* Background Colors */
-    --bg-primary: #ffffff;
+    --bg-primary: #FCFCFC;
     --bg-surface: var(--wht-a100);
     --bg-sublest: var(--dyb-5);
     --bg-hovered: var(--dyb-5);
@@ -90,13 +90,13 @@
     --btn-bet-yes-default: var(--ma-5);
     --btn-bet-yes-hover: var(--ma-10);
     --btn-bet-yes-press: var(--ma-50);
-    --btn-bet-yes-shadow: #0D99A1;
+    --btn-bet-yes-shadow: #0d99a1;
 
     /* Btn / Bet No */
     --btn-bet-no-default: var(--b-5);
     --btn-bet-no-press: var(--b-10);
     --btn-bet-no-hover: var(--b-60);
-    --btn-bet-no-shadow: #0234B2;
+    --btn-bet-no-shadow: #0234b2;
 
     /* Btn-text */
     --btn-text-default: var(--dyb-70);
@@ -170,7 +170,7 @@
     --text-support-red: var(--r-40);
     --text-support-yellow: var(--org-50);
     --text-support-blue: var(--b-40);
-    --text-support-match:var(--ma-50);
+    --text-support-match: var(--ma-50);
 
     --icon: var(--dyb-10);
     --icon-subtle: var(--dyb-30);

@@ -15,7 +15,7 @@ import HomeLogo from '../HomeLogo';
 
 export default function Footer() {
   return (
-    <footer className="py-10 border-solid border-t-[1px] border-borderMain">
+    <footer className="py-10 border-solid border-t-[1px] border-borderSubtle bg-bg-surface">
       <Container>
         <Flex className="h-full justify-between items-start">
           <Stack>
@@ -26,7 +26,11 @@ export default function Footer() {
           </Stack>
           <Flex className="gap-20 items-start">
             <Stack>
-              <Typography.Text size={12} className="text-text-sublest px-2">
+              <Typography.Text
+                size={12}
+                className="text-text-sublest px-2"
+                weight="semibold"
+              >
                 COMPANY
               </Typography.Text>
               <Button variant="ghost" className="px-2 py-1">
@@ -47,7 +51,11 @@ export default function Footer() {
             </Stack>
 
             <Stack>
-              <Typography.Text size={12} className="text-text-sublest px-2">
+              <Typography.Text
+                size={12}
+                className="text-text-sublest px-2"
+                weight="semibold"
+              >
                 PRODUCTS
               </Typography.Text>
               <Button variant="ghost" className="px-2 py-1">
@@ -68,7 +76,11 @@ export default function Footer() {
             </Stack>
 
             <Stack>
-              <Typography.Text size={12} className="text-text-sublest px-2">
+              <Typography.Text
+                size={12}
+                className="text-text-sublest px-2"
+                weight="semibold"
+              >
                 FOLLOW US
               </Typography.Text>
               <Flex className="gap-0">

@@ -10,7 +10,7 @@ const avatarVariants = cva('relative flex shrink-0 overflow-hidden', {
   variants: {
     size: {
       sm: 'h-5 w-5',
-      md: 'h-12 w-12',
+      md: 'h-11 w-11',
       lg: 'h-16 w-16',
     },
     isRounded: {
@@ -55,7 +55,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      'flex h-full w-full items-center justify-center rounded-full bg-muted',
+      'flex h-full w-full items-center justify-center rounded-full bg-dyb-50 animate-pulse',
       className,
     )}
     {...props}

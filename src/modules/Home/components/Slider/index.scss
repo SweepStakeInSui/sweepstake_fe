@@ -5,13 +5,16 @@
   }
 
   .swiper-wrapper {
-    margin-bottom: rem(16px);
+    padding-top: rem(16px);
   }
 
   .swiper-slide {
     width: fit-content !important;
   }
-
+  .swiper-pagination-bullet{
+    width: 6px !important;
+    height: 6px !important;
+  }
   .swiper-pagination {
     position: absolute;
     transform: translateY(-50%);
