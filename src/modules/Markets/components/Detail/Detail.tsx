@@ -27,7 +27,7 @@ export default function MarketsDetail() {
       <Flex className="items-start gap-3 mb-2">
         <Avatar isRounded={false} className="w-[3.75rem] h-auto aspect-1">
           <AvatarImage src={mockAvatar} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback />
         </Avatar>
         <Typography.Heading size={28}>
           Despicable Me 4&quot; Rotten Tomatoes score about ten?

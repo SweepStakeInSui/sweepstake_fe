@@ -21,7 +21,7 @@ function ActivityItem({
       <Flex className="gap-x-2">
         <Avatar>
           <AvatarImage src={avatar} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback />
         </Avatar>
         <Stack className="gap-px">
           <Flex className="gap-x-1">

@@ -212,8 +212,9 @@ const config = {
         ...rem(140),
       },
       boxShadow: {
-        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)',
-        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)',
+        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)', 
+        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)', 
+        "card-bet-home" :"0px 4px 12px 0px rgba(0, 0, 0, 0.06)",
       },
     },
   },

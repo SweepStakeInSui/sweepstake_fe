@@ -82,8 +82,8 @@ export default function HomeModule() {
   return (
     <section>
       <Banner />
-      <Slider slides={mockSlides} />
       <MarketTab />
+      <Slider slides={mockSlides} />
       <Container>
         <VoteCard />
         <div className="grid grid-cols-2 py-8 bg-white relative overflow-hidden">
