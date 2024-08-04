@@ -20,6 +20,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { bets } from '@/mocks/mockBet';
 
 interface BetItemProps {
   bet: {
@@ -34,7 +35,7 @@ const BetItem: React.FC<BetItemProps> = ({ bet }) => {
     <div className="flex items-center gap-2">
       <Avatar size="sm" isRounded>
         <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarFallback />
       </Avatar>
       <div className="text-left">
         <Typography.Text size={13} className="text-text mb-[2px]">
@@ -64,38 +65,6 @@ const Card = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState('');
 
-  const bets = [
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Elon Musk',
-      chance: 12,
-      count: 6,
-    },
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Jeff Bezos',
-      chance: 43,
-      count: 3,
-    },
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Bill Gates',
-      chance: 23,
-      count: 3,
-    },
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Mark Zuckerberg',
-      chance: 6,
-      count: 12,
-    },
-    {
-      img: 'https://github.com/shadcn.png',
-      name: 'Larry Page',
-      chance: 91,
-      count: 1,
-    },
-  ];
   const bet = bets.find((item) => item.name === value) || bets[0];
   return (
     <div className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface hover:shadow-card-bet-home transition-all duration-150">
@@ -149,14 +118,14 @@ const Card = () => {
                     {bets.map((item) => (
                       <CommandItem
                         key={item.name}
-                        value={bet.name}
+                        value={item.name}
                         onSelect={(currentValue) => {
                           setValue(currentValue === value ? '' : currentValue);
                           setOpen(false);
                         }}
                         className="p-1 rounded-sm gap-x-2"
                       >
-                        <BetItem bet={bet} />
+                        <BetItem bet={item} />
                       </CommandItem>
                     ))}
                   </CommandGroup>

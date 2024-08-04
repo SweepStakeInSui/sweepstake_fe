@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { Login } from '@/components/Authentication';
@@ -22,7 +23,9 @@ export default function NavBar(): React.ReactElement {
       <Container>
         <Flex className="justify-between w-full py-4">
           <Flex className="gap-x-4">
-            <HomeLogo variant="squared" />
+            <Link href="/">
+              <HomeLogo variant="squared" />
+            </Link>
 
             <Flex className="gap-x-0">
               {navList.map((item) => (

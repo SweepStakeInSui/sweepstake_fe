@@ -10,7 +10,7 @@ import Card from './Card';
 
 const VoteCard = () => {
   return (
-    <>
+    <div className="bg-bg-primary">
       <div className="grid grid-cols-autoFill w-full gap-4 py-8">
         <Card />
         <Card />
@@ -46,7 +46,7 @@ const VoteCard = () => {
           </Button>
         </div>
       </Flex>
-    </>
+    </div>
   );
 };
 

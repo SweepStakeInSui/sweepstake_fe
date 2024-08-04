@@ -17,7 +17,10 @@ const Banner = () => {
       >
         Your next generation prediction market
       </Typography.Heading>
-      <Svg src="/images/Flare_Banner.svg" className="absolute top-0" />
+      <Svg
+        src="/images/Flare_Banner.svg"
+        className="absolute top-0 w-full h-full"
+      />
     </div>
   );
 };

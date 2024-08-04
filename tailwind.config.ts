@@ -24,6 +24,7 @@ const config = {
         'radial-gradient(97.24% 183.5% at 134.15% 75.4%, #580808 16%, #121212 100%)',
       'top-home':
         'conic-gradient(from 346deg at 55.38% 52.84%, #5BAAF3 20.13%, #F029C4 11.87%, #FF8181 25.27%)',
+        "slider-home":"linear-gradient(134deg, #E1EFF5 2.25%, rgba(250, 237, 249, 0.61) 52.75%, #FADCDC 100%)",
     },
     container: {
       center: true,

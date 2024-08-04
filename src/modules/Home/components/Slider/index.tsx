@@ -8,10 +8,10 @@ import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
-import SelectWithStats from '@/components/common/SelectWithStats';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
+import { SelectBet } from '@/components/SelectBet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 
@@ -61,7 +61,7 @@ function HomeSlide({
         </Stack>
         <div />
         <div>
-          <SelectWithStats />
+          <SelectBet />
         </div>
         <Flex className="w-full">
           <Button variant="bet_yes" className="w-full group">
@@ -83,7 +83,7 @@ function HomeSlide({
         </Stack>
         <Avatar isRounded={false} size="sm" className="w-full flex-auto">
           <AvatarImage src="./images/slider.png" alt="silder_bet" />
-          <AvatarFallback />
+          <AvatarFallback className="rounded-md" />
         </Avatar>
       </Stack>
     </div>

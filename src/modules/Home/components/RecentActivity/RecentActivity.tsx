@@ -2,6 +2,7 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import type { RecentActivityType } from '@/types/recentActivity';
 
 import ViewAll from '../ViewAll';
@@ -31,15 +32,9 @@ function ActivityItem({
             <Typography.Text size={15} className="text-text">
               bought
             </Typography.Text>
-            {/* TODO */}
-            <Flex>
-              <span>Yes {price}¢</span>
-              {bidding}
-              <p>.</p>
-              <span>{betname}</span>
-              <span>.</span>
-              <span>{contract}</span>
-            </Flex>
+            <Badge variant={`${bidding ? 'bet_yes' : 'bet_no'}`}>
+              Yes {price} • {betname} • {contract} contracts
+            </Badge>
           </Flex>
           <Typography.Text className="text-text-subtle" size={13}>
             {title}
