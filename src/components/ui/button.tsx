@@ -13,6 +13,8 @@ const buttonVariants = cva(
           'bg-btn-primary text-text-inverse hover:bg-btn-primary-hover active:bg-btn-primary-press',
         secondary:
           'bg-btn-secondary text-text-inverse hover:bg-btn-secondary-hover active:bg-btn-secondary-press',
+        terriary:
+          'border border-btn-terriary text-text-subtle hover:border-btn-terriary-hover active:border-btn-terriary-press ',
         ghost:
           'bg-transparent text-text-subtle hover:bg-btn-ghost-hover active:bg-btn-ghost-press',
         bet_yes:

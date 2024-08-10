@@ -14,7 +14,7 @@ export default function Container({
   return (
     <div
       style={{ paddingLeft: `${px}px`, paddingRight: `${px}px` }}
-      className={cn(`mx-auto max-w-screen-2xl`, className)}
+      className={cn(`mx-auto`, className)}
     >
       {children}
     </div>

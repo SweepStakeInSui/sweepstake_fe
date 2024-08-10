@@ -24,7 +24,10 @@ const config = {
         'radial-gradient(97.24% 183.5% at 134.15% 75.4%, #580808 16%, #121212 100%)',
       'top-home':
         'conic-gradient(from 346deg at 55.38% 52.84%, #5BAAF3 20.13%, #F029C4 11.87%, #FF8181 25.27%)',
-        "slider-home":"linear-gradient(134deg, #E1EFF5 2.25%, rgba(250, 237, 249, 0.61) 52.75%, #FADCDC 100%)",
+      'slider-home':
+        'linear-gradient(134deg, #E1EFF5 2.25%, rgba(250, 237, 249, 0.61) 52.75%, #FADCDC 100%)',
+      'linear-profile':
+        'linear-gradient(133deg, #E6F4FA -2.1%, rgba(250, 245, 237, 0.61) 51.84%, #FFEDED 102.3%)',
     },
     container: {
       center: true,
@@ -128,6 +131,12 @@ const config = {
             press: 'var(--btn-secondary-press)',
             disable: 'var(--btn-secondary-disable)',
           },
+          terriary: {
+            DEFAULT: 'var(--btn-terriary-default)',
+            hover: 'var(--btn-terriary-hover)',
+            press: 'var(--btn-terriary-press)',
+            disable: 'var(--btn-terriary-disable)',
+          },
           ghost: {
             hover: 'var(--btn-ghost-hover)',
             press: 'var(--btn-ghost-press)',
@@ -217,9 +226,9 @@ const config = {
         ...rem(140),
       },
       boxShadow: {
-        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)', 
-        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)', 
-        "card-bet-home" :"0px 4px 12px 0px rgba(0, 0, 0, 0.06)",
+        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)',
+        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)',
+        'card-bet-home': '0px 4px 12px 0px rgba(0, 0, 0, 0.06)',
       },
     },
   },

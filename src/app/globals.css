@@ -58,7 +58,7 @@
     --icon-support-blue: var(--b-60);
     --text-support-match: var(--ma-50);
     /* Background Colors */
-    --bg-primary: #FCFCFC;
+    --bg-primary: #fcfcfc;
     --bg-surface: var(--wht-a100);
     --bg-sublest: var(--dyb-5);
     --bg-hovered: var(--dyb-5);
@@ -82,6 +82,11 @@
     --btn-secondary-press: var(--dyb-60);
     --btn-secondary-disable: var(--dyb-10);
 
+    /* Terriary Button */
+    --btn-terriary-default: var(--dyb-15);
+    --btn-terriary-hover: var(--dyb-25);
+    --btn-terriary-press: var(--dyb-40);
+    --btn-terriary-disable: var(--dyb-10);
     /* Ghost Button */
     --btn-ghost-hover: var(--dyb-5);
     --btn-ghost-press: var(--dyb-15);
@@ -205,6 +210,11 @@
     --btn-secondary-press: var(--dyb-60);
     --btn-secondary-disable: var(--dyb-10);
 
+    /* Terriary Button */
+    --btn-terriary-default: var(--r-50);
+    --btn-terriary-hover: var(--r-60);
+    --btn-terriary-press: var(--r-70);
+    --btn-terriary-disable: var(--dyb-10);
     /* Ghost Button */
     --btn-ghost-hover: var(--dyb-5);
     --btn-ghost-press: var(--dyb-15);
