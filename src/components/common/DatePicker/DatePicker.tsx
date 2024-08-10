@@ -23,12 +23,12 @@ function DatePicker() {
         <Button
           variant="ghost"
           className={cn(
-            'w-full justify-start text-left font-normal',
+            'w-full justify-start text-left font-normal rounded-md border border-field-border bg-field-background px-3 py-2 h-[3.375rem]',
             !date && 'text-muted-foreground',
           )}
         >
           <Svg src="/icons/calendar.svg" className="mr-2 h-4 w-4" />
-          {date ? format(date, 'PPP') : <span>Pick a date</span>}
+          {date ? format(date, 'P') : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
