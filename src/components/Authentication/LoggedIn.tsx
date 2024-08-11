@@ -18,7 +18,7 @@ import { Button } from '../ui/button';
 const LoggedIn = () => {
   const menuListLogin = [
     {
-      slug: 'account',
+      slug: 'profile',
       title: 'Account',
       icon: <Svg src="/icons/mood.svg" />,
     },

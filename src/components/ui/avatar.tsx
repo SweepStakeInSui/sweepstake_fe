@@ -12,6 +12,7 @@ const avatarVariants = cva('relative flex shrink-0 overflow-hidden', {
       sm: 'h-5 w-5',
       md: 'h-11 w-11',
       lg: 'h-16 w-16',
+      xl: 'h-20 w-20',
     },
     isRounded: {
       true: 'rounded-full',
