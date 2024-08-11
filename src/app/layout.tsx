@@ -12,7 +12,6 @@ import MyLayout from '@/layouts';
 import { cn } from '@/lib/utils';
 
 import Providers from './providers';
-import QueryProviders from './queryProvider';
 
 export const metadata: Metadata = {
   title: "Sweepstake | The World's Largest Prediction Market",
@@ -34,11 +33,9 @@ export default function RootLayout({ children }: Readonly<IRootLayout>) {
           PlusJakartaFont.className,
         )}
       >
-        <QueryProviders>
-          <Providers>
-            <MyLayout>{children}</MyLayout>
-          </Providers>
-        </QueryProviders>
+        <Providers>
+          <MyLayout>{children}</MyLayout>
+        </Providers>
       </body>
     </html>
   );
