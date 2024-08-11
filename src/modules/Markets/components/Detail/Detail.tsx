@@ -4,7 +4,6 @@ import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { Accordion } from '@/components/ui/accordion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,7 +17,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
-import { MarketTile } from '../MarketTile';
+import { MarketTiles } from '../MarketTiles';
 
 // interface IMarketsDetailProps {
 //   title: string;
@@ -236,34 +235,33 @@ export default function MarketsDetail() {
       </Stack>
 
       <Stack className="gap-3">
-        <Flex className="w-full justify-between border-b border-borderSublest">
-          <Select defaultValue="2024">
-            <SelectTrigger className="bg-transparent border-none w-fit gap-2 pl-0 text-13 text-text-subtle">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="2024">2024</SelectItem>
-                <SelectItem value="2023">2023</SelectItem>
-                <SelectItem value="2022">2022</SelectItem>
-                <SelectItem value="2021">2021</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Flex className="w-[21.25rem] justify-between">
-            <Typography.Text size={13} className="text-text-subtle">
-              %Chance
-            </Typography.Text>
-            <Typography.Text size={13} className="text-text-subtle">
-              13,000 vol
-            </Typography.Text>
+        <Stack className="gap-0">
+          <Flex className="w-full justify-between border-b border-borderSublest">
+            <Select defaultValue="2024">
+              <SelectTrigger className="bg-transparent border-none w-fit gap-2 pl-0 text-13 text-text-subtle">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="2024">2024</SelectItem>
+                  <SelectItem value="2023">2023</SelectItem>
+                  <SelectItem value="2022">2022</SelectItem>
+                  <SelectItem value="2021">2021</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Flex className="w-[21.25rem] justify-between">
+              <Typography.Text size={13} className="text-text-subtle">
+                %Chance
+              </Typography.Text>
+              <Typography.Text size={13} className="text-text-subtle">
+                13,000 vol
+              </Typography.Text>
+            </Flex>
           </Flex>
-        </Flex>
-        <Accordion type="single" collapsible className="w-full">
-          {statistic.map((item) => (
-            <MarketTile key={item.id} {...item} />
-          ))}
-        </Accordion>
+          <MarketTiles data={statistic} />
+        </Stack>
+
         <Button
           variant="ghost"
           className="text-text-support-blue pl-0 hover:bg-transparent active:bg-transparent"

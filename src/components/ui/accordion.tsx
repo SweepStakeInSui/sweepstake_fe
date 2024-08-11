@@ -21,24 +21,34 @@ const AccordionItem = React.forwardRef<
 ));
 AccordionItem.displayName = 'AccordionItem';
 
+interface AccordionTriggerProps
+  extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
+  hasChevron?: boolean;
+}
+
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  AccordionTriggerProps
+>(({ className, children, hasChevron = false, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
+      asChild
       ref={ref}
       className={cn(
-        'flex flex-1 items-center justify-between py-4 font-medium transition-all [&[data-state=open]>svg]:rotate-180',
+        'cursor-pointer flex flex-1 items-center justify-between py-4 font-medium transition-all [&[data-state=open]>svg]:rotate-180',
         className,
       )}
       {...props}
     >
-      {children}
-      <Svg
-        src="/icons/chevron-right.svg"
-        className="h-4 w-4 -rotate-90 shrink-0 transition-transform duration-200"
-      />
+      <div>
+        {children}
+        {hasChevron && (
+          <Svg
+            src="/icons/chevron_right.svg"
+            className="h-4 w-4 -rotate-90 shrink-0 transition-transform duration-200"
+          />
+        )}
+      </div>
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

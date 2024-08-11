@@ -51,6 +51,16 @@ const nextConfig = {
     });
     return config;
   },
+  experimental: {
+    swcPlugins: [
+      [
+        "@preact-signals/safe-react/swc",
+        {
+          mode: "auto",
+        },
+      ],
+    ],
+  },
 };
 
 module.exports = nextConfig;

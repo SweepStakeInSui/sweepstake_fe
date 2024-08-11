@@ -9,6 +9,7 @@ import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { mockAvatar } from '@/mocks/mockAvatar';
+import ViewAll from '@/modules/Home/components/ViewAll';
 
 const watchList = [
   {
@@ -163,13 +164,16 @@ const MarketsWatchList = () => {
           </div>
         ))}
 
-        {watchList.length > 5 && (
-          <Flex className="justify-center">
-            <IconButton className="aspect-1 size-10">
-              <Svg src="/icons/three_dots.svg" />
-            </IconButton>
-          </Flex>
-        )}
+        {watchList.length > 5 &&
+          (isSidebarOpen ? (
+            <ViewAll className="text-text-subtle hover:after:h-0" />
+          ) : (
+            <Flex className="justify-center">
+              <IconButton className="aspect-1 size-10">
+                <Svg src="/icons/three_dots.svg" />
+              </IconButton>
+            </Flex>
+          ))}
       </ScrollArea>
     </aside>
   );

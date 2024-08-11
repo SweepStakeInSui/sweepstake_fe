@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 
 import { DatePicker } from '@/components/common/DatePicker';
 import Flex from '@/components/common/Flex';
@@ -20,7 +22,35 @@ import {
 import { TimePicker } from '@/components/ui/time-picker';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
+import { useSectionIndicatorSignal } from '../../useSectionIndicatorSignal';
+
+const sections = [
+  {
+    label: 'Top Page',
+    id: '/',
+  },
+  {
+    label: 'Rule Summary',
+    id: 'rule-summary',
+  },
+  {
+    label: 'About',
+    id: 'about',
+  },
+  {
+    label: 'Relate Market',
+    id: 'relate-market',
+  },
+  {
+    label: 'Idea',
+    id: 'idea',
+  },
+];
+
 const MarketsActionForm = () => {
+  const [isSetExpiration, setIsSetExpiration] = useState(false);
+  const { activeSection } = useSectionIndicatorSignal();
+
   return (
     <Stack className="sticky border-l border-solid border-borderSubtle p-3 top-[4.75rem] w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto">
       <Stack className="gap-4 p-3">
@@ -56,7 +86,11 @@ const MarketsActionForm = () => {
         <UpDownButton label="Share" placeholder="0" />
 
         <Flex>
-          <Checkbox id="expiration" aria-labelledby="expiration-label" />
+          <Checkbox
+            id="expiration"
+            aria-labelledby="expiration-label"
+            onClick={() => setIsSetExpiration(!isSetExpiration)}
+          />
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label
             id="expiration-label"
@@ -67,29 +101,31 @@ const MarketsActionForm = () => {
           </label>
         </Flex>
 
-        <Stack>
-          <Select>
-            <SelectTrigger className="rounded-md border border-field-border bg-field-background h-[3.375rem]">
-              <SelectValue placeholder="End of day" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="End of day">End of day</SelectItem>
-                <SelectItem value="End of day">End of day</SelectItem>
-                <SelectItem value="End of day">End of day</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+        {isSetExpiration && (
+          <Stack>
+            <Select>
+              <SelectTrigger className="rounded-md border border-field-border bg-field-background h-[3.375rem]">
+                <SelectValue placeholder="End of day" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="End of day">End of day</SelectItem>
+                  <SelectItem value="End of day">End of day</SelectItem>
+                  <SelectItem value="End of day">End of day</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
 
-          <div className="grid grid-cols-2 gap-2">
-            <div className="col-span-1">
-              <DatePicker />
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-1">
+                <DatePicker />
+              </div>
+              <div className="col-span-1">
+                <TimePicker />
+              </div>
             </div>
-            <div className="col-span-1">
-              <TimePicker />
-            </div>
-          </div>
-        </Stack>
+          </Stack>
+        )}
 
         <Stack className="gap-3">
           <Flex className="justify-between">
@@ -124,21 +160,24 @@ const MarketsActionForm = () => {
       <hr className="border-borderSubtle my-5" />
 
       <Stack>
-        <Button variant="ghost" className="w-full justify-start">
-          Top Page
-        </Button>
-        <Button variant="ghost" className="w-full justify-start">
-          Rule Summary
-        </Button>
-        <Button variant="ghost" className="w-full justify-start">
-          About
-        </Button>
-        <Button variant="ghost" className="w-full justify-start">
-          Relate Market
-        </Button>
-        <Button variant="ghost" className="w-full justify-start">
-          Idea
-        </Button>
+        {sections.map((section) => (
+          <Button
+            key={section.id}
+            variant="ghost"
+            className={`
+          w-full justify-start text-16 ${activeSection.value === section.id ? 'text-text-support-red' : 'text-text'}`}
+            onClick={() => {
+              const element = document.getElementById(section.id);
+              if (!element) return;
+              window.scroll({
+                top: element.offsetTop - 20,
+                behavior: 'smooth',
+              });
+            }}
+          >
+            {section.label}
+          </Button>
+        ))}
       </Stack>
     </Stack>
   );

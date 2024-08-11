@@ -4,6 +4,7 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import {
+  Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
@@ -125,7 +126,7 @@ const MarketTile = ({
                   </Typography.Text>
                 </div>
               </TableCell>
-              <TableCell className="h-[2.625rem] text-right text-right text-13 text-text-subtle">
+              <TableCell className="h-[2.625rem] text-right text-13 text-text-subtle">
                 Last 50c
               </TableCell>
               <TableCell colSpan={2} />
@@ -167,4 +168,18 @@ const MarketTile = ({
   );
 };
 
-export default MarketTile;
+interface IMarketTiles {
+  data: IMarketTitleProps[];
+}
+
+const MarketTiles = ({ data }: IMarketTiles) => {
+  return (
+    <Accordion type="single" collapsible className="w-full">
+      {data.map((item) => (
+        <MarketTile key={item.id} {...item} />
+      ))}
+    </Accordion>
+  );
+};
+
+export default MarketTiles;
