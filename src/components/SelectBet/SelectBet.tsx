@@ -29,7 +29,7 @@ interface BetItemProps {
     count: number;
   };
 }
-const BetItem: React.FC<BetItemProps> = ({ bet }) => {
+export const BetItem: React.FC<BetItemProps> = ({ bet }) => {
   return (
     <div className="flex items-center gap-2">
       <Avatar size="sm" isRounded>

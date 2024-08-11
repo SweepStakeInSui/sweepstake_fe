@@ -118,6 +118,7 @@ const config = {
         borderMain: 'var(--border-main)',
         borderSubtle: 'var(--border-subtle)',
         borderSublest: 'var(--border-sublest)',
+        borderPlain: 'var(--border-plain)',
         btn: {
           primary: {
             DEFAULT: 'var(--btn-primary-default)',
