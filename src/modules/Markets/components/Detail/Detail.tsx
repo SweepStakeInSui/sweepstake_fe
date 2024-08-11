@@ -4,6 +4,7 @@ import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
+import { Accordion } from '@/components/ui/accordion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -24,6 +25,138 @@ import { MarketTile } from '../MarketTile';
 //   chance: number;
 //   percent: number;
 // }
+
+const statistic = [
+  {
+    id: '1',
+    title: 'Before Aug 9',
+    desc: 'SpaceXlauches in 2023',
+    percent: 86,
+    fluctuate: 13,
+    bids: [
+      {
+        price: '0.511',
+        size: '11815.88',
+      },
+      {
+        price: '0.513',
+        size: '15701.06',
+      },
+      {
+        price: '0.514',
+        size: '19214.42',
+      },
+      {
+        price: '0.515',
+        size: '716.36',
+      },
+    ],
+    asks: [
+      {
+        price: '0.521',
+        size: '50.08',
+      },
+      {
+        price: '0.52',
+        size: '1137.18',
+      },
+      {
+        price: '0.519',
+        size: '5547.94',
+      },
+      {
+        price: '0.518',
+        size: '566.25',
+      },
+    ],
+  },
+  {
+    id: '2',
+    title: 'Before Aug 9',
+    desc: 'SpaceXlauches in 2023',
+    percent: 86,
+    fluctuate: 13,
+    bids: [
+      {
+        price: '0.511',
+        size: '11815.88',
+      },
+      {
+        price: '0.513',
+        size: '15701.06',
+      },
+      {
+        price: '0.514',
+        size: '19214.42',
+      },
+      {
+        price: '0.515',
+        size: '716.36',
+      },
+    ],
+    asks: [
+      {
+        price: '0.521',
+        size: '50.08',
+      },
+      {
+        price: '0.52',
+        size: '1137.18',
+      },
+      {
+        price: '0.519',
+        size: '5547.94',
+      },
+      {
+        price: '0.518',
+        size: '566.25',
+      },
+    ],
+  },
+  {
+    id: '3',
+    title: 'Before Aug 9',
+    desc: 'SpaceXlauches in 2023',
+    percent: 86,
+    fluctuate: 13,
+    bids: [
+      {
+        price: '0.511',
+        size: '11815.88',
+      },
+      {
+        price: '0.513',
+        size: '15701.06',
+      },
+      {
+        price: '0.514',
+        size: '19214.42',
+      },
+      {
+        price: '0.515',
+        size: '716.36',
+      },
+    ],
+    asks: [
+      {
+        price: '0.521',
+        size: '50.08',
+      },
+      {
+        price: '0.52',
+        size: '1137.18',
+      },
+      {
+        price: '0.519',
+        size: '5547.94',
+      },
+      {
+        price: '0.518',
+        size: '566.25',
+      },
+    ],
+  },
+];
 
 export default function MarketsDetail() {
   return (
@@ -126,11 +259,11 @@ export default function MarketsDetail() {
             </Typography.Text>
           </Flex>
         </Flex>
-        {/* TODO: Replace key index */}
-        {Array.from({ length: 3 }).map((_, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <MarketTile key={index} />
-        ))}
+        <Accordion type="single" collapsible className="w-full">
+          {statistic.map((item) => (
+            <MarketTile key={item.id} {...item} />
+          ))}
+        </Accordion>
         <Button
           variant="ghost"
           className="text-text-support-blue pl-0 hover:bg-transparent active:bg-transparent"

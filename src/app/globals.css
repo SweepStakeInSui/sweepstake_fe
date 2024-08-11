@@ -70,6 +70,7 @@
     --border-main: var(--dyb-15);
     --border-subtle: var(--dyb-10);
     --border-sublest: var(--dyb-5);
+    --border-plain: #ffffff;
     /* Primary Button */
     --btn-primary-default: var(--r-50);
     --btn-primary-hover: var(--r-60);
@@ -193,6 +194,8 @@
     --border-main: var(--wht-a15);
     --border-subtle: var(--wht-a10);
     --border-sublest: var(--wht-a5);
+    --border-plain: var(--dyb-100);
+
     /* Primary Button */
     --btn-primary-default: var(--r-50);
     --btn-primary-hover: var(--r-60);
