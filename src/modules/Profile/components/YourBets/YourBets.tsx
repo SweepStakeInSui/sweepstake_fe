@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { Activity } from '../Activity';
+
 const YourBets = () => {
-  return <div>YourBets</div>;
+  return <Activity />;
 };
 
 export default YourBets;
