@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { StringParam, useQueryParam, withDefault } from 'use-query-params';
 
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
@@ -16,31 +17,39 @@ import { Watchlist } from './components/Watchlist';
 import { YourBets } from './components/YourBets';
 
 const Profile = () => {
-  const tabsProfile = [
-    { id: 1, value: 'posts', title: 'Posts', panel: <Posts /> },
-    { id: 2, value: 'replies', title: 'Replies', panel: <Posts /> },
-    { id: 3, value: 'likes', title: 'Likes', panel: <Likes /> },
-    { id: 4, value: 'positions', title: 'Positions', panel: <Positions /> },
-    { id: 5, value: 'activity', title: 'Activity', panel: <Activity /> },
-    { id: 6, value: 'watchlist', title: 'Watchlist', panel: <Watchlist /> },
-    { id: 7, value: 'your_bets', title: 'Your Bets', panel: <YourBets /> },
+  const [tab, setTab] = useQueryParam(
+    'tab',
+    withDefault(StringParam, 'positions'),
+  );
+  const tabProfile = [
+    { value: 'positions', title: 'Positions', panel: <Positions /> },
+    { value: 'activity', title: 'Activity', panel: <Activity /> },
+    { value: 'watchlist', title: 'Watchlist', panel: <Watchlist /> },
+    { value: 'your_bets', title: 'Your Bets', panel: <YourBets /> },
+    { value: 'posts', title: 'Posts', panel: <Posts /> },
+    { value: 'replies', title: 'Replies', panel: <Posts /> },
+    { value: 'likes', title: 'Likes', panel: <Likes /> },
   ];
   return (
     <Container className="max-w-screen-xl py-10" px={0}>
       <Stack className="gap-y-5">
         <Information />
         <Statistics />
-        <Tabs defaultValue="posts" className="w-full">
+        <Tabs defaultValue={tab} className="w-full">
           <TabsList className="mb-5">
-            {tabsProfile.map((tab) => (
-              <TabsTrigger key={tab.id} value={tab.value}>
-                {tab.title}
+            {tabProfile.map((item) => (
+              <TabsTrigger
+                key={item.value}
+                value={item.value}
+                onClick={() => setTab(item.value)}
+              >
+                {item.title}
               </TabsTrigger>
             ))}
           </TabsList>
-          {tabsProfile.map((tab) => (
-            <TabsContent key={tab.id} value={tab.value} className="mt-0">
-              {tab.panel}
+          {tabProfile.map((item) => (
+            <TabsContent key={item.value} value={item.value} className="mt-0">
+              {item.panel}
             </TabsContent>
           ))}
         </Tabs>

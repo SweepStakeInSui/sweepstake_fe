@@ -39,7 +39,9 @@ export const columns: ColumnDef<ActivityProps>[] = [
 
   {
     accessorKey: 'shares',
-    header: 'Shares',
+    header: () => {
+      return <div className="flex justify-end py-2 text-left">Shares</div>;
+    },
     cell: ({ row }) => {
       const { shares } = row.original;
       return (
