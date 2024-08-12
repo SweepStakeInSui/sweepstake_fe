@@ -150,7 +150,7 @@ const LoggedIn = () => {
               <DropdownMenuItem className="py-3" key={item.slug}>
                 <Link
                   href={`/${item.slug}`}
-                  className="flex gap-x-2.5 items-center"
+                  className="flex gap-x-2.5 items-center w-full"
                 >
                   <span className="size-6 flex items-center justify-center">
                     {item.icon}

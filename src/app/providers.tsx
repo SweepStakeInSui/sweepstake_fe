@@ -6,6 +6,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import NextAdapterApp from 'next-query-params/app';
 import { Suspense } from 'react';
 import { QueryParamProvider } from 'use-query-params';
@@ -55,6 +56,12 @@ export default function Providers({ children }: Readonly<ProvidersProps>) {
         <QueryParamProvider adapter={NextAdapterApp}>
           <QueryClientProvider client={queryClient}>
             {children}
+            <ProgressBar
+              height="2px"
+              color="#EB201E"
+              options={{ showSpinner: false }}
+              shallowRouting
+            />
             <ReactQueryDevtools />
           </QueryClientProvider>
         </QueryParamProvider>
