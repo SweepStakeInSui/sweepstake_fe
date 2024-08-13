@@ -13,7 +13,7 @@ interface TopVolumeItemProps {
   price: string;
 }
 
-function TopVolumeItem({
+export function TopVolumeItem({
   id,
   username,
   avatar = 'https://github.com/shadcn.png',

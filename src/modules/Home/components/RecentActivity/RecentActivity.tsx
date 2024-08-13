@@ -7,7 +7,7 @@ import type { RecentActivityType } from '@/types/recentActivity';
 
 import ViewAll from '../ViewAll';
 
-function ActivityItem({
+export function ActivityItem({
   username,
   avatar = 'https://github.com/shadcn.png',
   title,
