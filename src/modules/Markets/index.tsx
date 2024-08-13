@@ -9,8 +9,8 @@ import Stack from '@/components/common/Stack';
 
 import { MarketsAbout } from './components/About';
 import { MarketsActionForm } from './components/ActionForm';
-import { MarketsComments } from './components/Comments';
 import { MarketsDetail } from './components/Detail';
+import { LevelSection } from './components/LevelSection';
 import { MarketsRelateMarket } from './components/RelateMarket';
 import { MarketsRulesSummary } from './components/RulesSummary';
 import { MarketsWatchList } from './components/WatchList';
@@ -56,7 +56,7 @@ export default function MarketsModule() {
             </SectionIndicator>
 
             <SectionIndicator section="idea" ref={ideaRef}>
-              <MarketsComments />
+              <LevelSection />
             </SectionIndicator>
           </Stack>
 
