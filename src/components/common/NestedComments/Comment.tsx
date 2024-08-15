@@ -1,10 +1,13 @@
+import Image from 'next/image';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { mockAvatar } from '@/mocks/mockAvatar';
 
 import Flex from '../Flex';
 import IconButton from '../IconButton';
+import Stack from '../Stack';
 import Svg from '../Svg';
 import Typography from '../Typography';
 
@@ -20,6 +23,7 @@ export interface ICommentProps {
   onReply: () => void;
   onLike: () => void;
   onShare: () => void;
+  replyTo?: string;
 }
 
 const Comment = ({
@@ -34,6 +38,7 @@ const Comment = ({
   onReply,
   onLike,
   onShare,
+  replyTo,
 }: ICommentProps) => {
   return (
     <div className="flex space-x-4 mb-4" key={id}>
@@ -49,20 +54,43 @@ const Comment = ({
           </span>
           <Badge variant="bet_yes">Yes • Micheal Jack • 62% Chance</Badge>
         </Flex>
-        <p className="mb-2">{content}</p>
-        <div className="flex space-x-2">
+        <p className="mb-2">
+          {replyTo && <span className="font-bold">@{replyTo} </span>}
+          {content}
+        </p>
+
+        <Flex className="rounded-md bg-btn-betYes p-4">
+          <div className="relative rounded-md overflow-hidden w-10 h-10">
+            <Image src={mockAvatar} alt="avt" fill />
+          </div>
+          <Stack>
+            <Typography.Text size={15} className="text-text">
+              Yes • Micheal Jack • 62% Chance
+            </Typography.Text>
+            <Typography.Text size={13} className="text-text-support-match">
+              Yes • Micheal Jack • 62% Chance
+            </Typography.Text>
+          </Stack>
+        </Flex>
+
+        <Flex className="space-x-2">
           <Flex className="gap-1">
             <IconButton
               isRounded
               onClick={onLike}
               className={likedByMe ? 'bg-red-50' : ''}
             >
-              <Svg
-                src="/icons/favorite_border.svg"
-                className={
-                  likedByMe ? 'text-icon-support-red' : 'text-icon-subtle'
-                }
-              />
+              {likedByMe ? (
+                <Svg
+                  src="/icons/favorite_filled.svg"
+                  className="text-icon-subtle"
+                />
+              ) : (
+                <Svg
+                  src="/icons/favorite_border.svg"
+                  className="text-icon-subtle"
+                />
+              )}
             </IconButton>
             {likeCount && (
               <Typography.Text className="text-text-subtle">
@@ -83,7 +111,7 @@ const Comment = ({
           <IconButton isRounded onClick={onShare}>
             <Svg src="/icons/launch.svg" />
           </IconButton>
-        </div>
+        </Flex>
       </div>
     </div>
   );

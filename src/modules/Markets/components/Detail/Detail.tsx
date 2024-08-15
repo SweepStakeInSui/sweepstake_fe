@@ -250,6 +250,7 @@ export default function MarketsDetail() {
                 </SelectGroup>
               </SelectContent>
             </Select>
+
             <Flex className="w-[21.25rem] justify-between">
               <Typography.Text size={13} className="text-text-subtle">
                 %Chance
