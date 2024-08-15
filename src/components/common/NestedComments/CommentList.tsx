@@ -33,42 +33,42 @@ const CommentList = ({ comments }: ICommentListProps) => {
     if (replyingTo && replyTextareaRef.current) {
       replyTextareaRef.current.scrollIntoView({
         behavior: 'smooth',
-        block: 'center',
+        block: 'start',
       });
       replyTextareaRef.current.focus();
     }
   }, [replyingTo]);
 
-  const renderComments = (commentsArray: TComment[]) => {
+  // TODO: handleReply
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleReply = (_commentId: string, _author: string) => {
+    setReplyingTo(null);
+  };
+
+  const renderComments = (commentsArray: TComment[], isNested = false) => {
     return commentsArray.map((comment) => (
       <div key={comment.id} className="mb-4">
         <Comment
-          id={comment.id}
-          author={comment.author}
-          avatar={comment.avatar}
-          timestamp={comment.timestamp}
-          content={comment.content}
-          likeCount={comment.likeCount}
-          replyCount={comment.replies?.length}
-          onReply={() => setReplyingTo(comment.id)}
+          {...comment}
+          onReply={() => !isNested && setReplyingTo(comment.id)}
           onLike={() => toggleLike(comment.id)}
           onShare={() => console.log(`Share comment ${comment.id}`)}
           likedByMe={likedComments.has(comment.id)}
         />
-        {comment.replies && comment.replies.length > 0 && (
-          <div className="ml-8 mt-2 pl-4">
-            {renderComments(comment.replies)}
+        {!isNested && comment.replies && comment.replies.length > 0 && (
+          <div className="ml-8 mt-2">
+            {renderComments(comment.replies, true)}
           </div>
         )}
-        {replyingTo === comment.id && (
-          <div className="relative ml-8 mt-2 pl-4">
+        {replyingTo === comment.id && !isNested && (
+          <div className="relative ml-8 mt-2">
             <Textarea
               ref={replyTextareaRef}
-              placeholder="Write your reply..."
+              placeholder={`Reply to @${comment.author}...`}
             />
             <Button
               variant="secondary"
-              onClick={() => setReplyingTo(null)}
+              onClick={() => handleReply(comment.id, comment.author)}
               className="absolute bottom-3 right-3"
             >
               Submit Reply
