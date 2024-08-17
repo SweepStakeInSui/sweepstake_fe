@@ -1,13 +1,11 @@
-import Image from 'next/image';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { mockAvatar } from '@/mocks/mockAvatar';
 
 import Flex from '../Flex';
 import IconButton from '../IconButton';
-import Stack from '../Stack';
+import { LinkBox } from '../LinkBox';
 import Svg from '../Svg';
 import Typography from '../Typography';
 
@@ -24,6 +22,9 @@ export interface ICommentProps {
   onLike: () => void;
   onShare: () => void;
   replyTo?: string;
+  isMinimal?: boolean;
+  isReplies?: boolean;
+  isForDisplay?: boolean;
 }
 
 const Comment = ({
@@ -39,10 +40,13 @@ const Comment = ({
   onLike,
   onShare,
   replyTo,
+  isMinimal = false,
+  isReplies = false,
+  isForDisplay = false,
 }: ICommentProps) => {
   return (
     <div className="flex space-x-4 mb-4" key={id}>
-      <Avatar isRounded={false}>
+      <Avatar>
         <AvatarImage src={avatar} alt={author} />
         <AvatarFallback className="rounded-sm">{author[0]}</AvatarFallback>
       </Avatar>
@@ -52,66 +56,68 @@ const Comment = ({
           <span className="text-sm text-text-subtle">
             {new Date(timestamp).toLocaleString()}
           </span>
-          <Badge variant="bet_yes">Yes • Micheal Jack • 62% Chance</Badge>
+          {isMinimal && !isReplies && (
+            <Badge variant="bet_yes">Yes • Micheal Jack • 62% Chance</Badge>
+          )}
         </Flex>
         <p className="mb-2">
           {replyTo && <span className="font-bold">@{replyTo} </span>}
           {content}
         </p>
 
-        <Flex className="rounded-md bg-btn-betYes p-4">
-          <div className="relative rounded-md overflow-hidden w-10 h-10">
-            <Image src={mockAvatar} alt="avt" fill />
-          </div>
-          <Stack>
-            <Typography.Text size={15} className="text-text">
-              Yes • Micheal Jack • 62% Chance
-            </Typography.Text>
-            <Typography.Text size={13} className="text-text-support-match">
-              Yes • Micheal Jack • 62% Chance
-            </Typography.Text>
-          </Stack>
-        </Flex>
+        {!isMinimal && !isReplies && (
+          <LinkBox
+            href=""
+            title="Richest person in the world at the end of this dang year?"
+            bet={{
+              type: 'no',
+              subject: 'Micheal Jack',
+              chance: 62,
+            }}
+          />
+        )}
 
-        <Flex className="space-x-2">
-          <Flex className="gap-1">
-            <IconButton
-              isRounded
-              onClick={onLike}
-              className={likedByMe ? 'bg-red-50' : ''}
-            >
-              {likedByMe ? (
-                <Svg
-                  src="/icons/favorite_filled.svg"
-                  className="text-icon-subtle"
-                />
-              ) : (
-                <Svg
-                  src="/icons/favorite_border.svg"
-                  className="text-icon-subtle"
-                />
+        {!isForDisplay && (
+          <Flex className="space-x-2">
+            <Flex className="gap-1">
+              <IconButton
+                isRounded
+                onClick={onLike}
+                className={likedByMe ? 'bg-red-50' : ''}
+              >
+                {likedByMe ? (
+                  <Svg
+                    src="/icons/favorite_filled.svg"
+                    className="text-icon-subtle"
+                  />
+                ) : (
+                  <Svg
+                    src="/icons/favorite_border.svg"
+                    className="text-icon-subtle"
+                  />
+                )}
+              </IconButton>
+              {likeCount && (
+                <Typography.Text className="text-text-subtle">
+                  {likeCount}
+                </Typography.Text>
               )}
+            </Flex>
+            <Flex className="gap-1">
+              <IconButton isRounded onClick={onReply}>
+                <Svg src="/icons/chat_bubble_outline.svg" />
+              </IconButton>
+              {replyCount && (
+                <Typography.Text className="text-text-subtle">
+                  {replyCount}
+                </Typography.Text>
+              )}
+            </Flex>
+            <IconButton isRounded onClick={onShare}>
+              <Svg src="/icons/launch.svg" />
             </IconButton>
-            {likeCount && (
-              <Typography.Text className="text-text-subtle">
-                {likeCount}
-              </Typography.Text>
-            )}
           </Flex>
-          <Flex className="gap-1">
-            <IconButton isRounded onClick={onReply}>
-              <Svg src="/icons/chat_bubble_outline.svg" />
-            </IconButton>
-            {replyCount && (
-              <Typography.Text className="text-text-subtle">
-                {replyCount}
-              </Typography.Text>
-            )}
-          </Flex>
-          <IconButton isRounded onClick={onShare}>
-            <Svg src="/icons/launch.svg" />
-          </IconButton>
-        </Flex>
+        )}
       </div>
     </div>
   );

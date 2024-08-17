@@ -1,0 +1,26 @@
+.mentionInput {
+  div,
+  textarea {
+    border-radius: rem(6px);
+  }
+
+  > div:first-child {
+    padding-right: rem(80) !important;
+  }
+
+  textarea {
+    background-color: #fafafa !important;
+    border: rem(1px) solid var(--dyb-5) !important;
+    padding: rem(16px) rem(96px) rem(16px) rem(16px) !important;
+  }
+
+  ul {
+    border-radius: rem(6px) !important;
+    overflow: hidden;
+  }
+
+  &_mention {
+    z-index: 1;
+    position: relative;
+  }
+}
