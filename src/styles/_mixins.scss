@@ -239,7 +239,7 @@
   }
 }
 
-@function rem($px, $base: 10px) {
+@function rem($px, $base: 16px) {
   @if unitless($px) {
     $px: $px * 1px;
   }

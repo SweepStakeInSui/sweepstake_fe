@@ -115,7 +115,7 @@ const MarketsActionForm = () => {
               const element = document.getElementById(section.id);
               if (!element) return;
               window.scroll({
-                top: element.offsetTop - 20,
+                top: element.offsetTop - 70,
                 behavior: 'smooth',
               });
             }}

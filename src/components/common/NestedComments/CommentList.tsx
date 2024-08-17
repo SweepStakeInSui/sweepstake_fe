@@ -1,19 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import type { TComment } from '@/types/comment';
 
+import { MentionInput } from '../MentionInput';
 import Comment from './Comment';
 
 interface ICommentListProps {
   comments: TComment[];
+  isMinimal?: boolean;
+  isForDisplay?: boolean;
 }
 
-const CommentList = ({ comments }: ICommentListProps) => {
+const CommentList = ({
+  comments,
+  isMinimal = false,
+  isForDisplay = false,
+}: ICommentListProps) => {
   const [likedComments, setLikedComments] = useState<Set<string>>(new Set());
-  const [replyingTo, setReplyingTo] = useState<string | null>(null);
-  const replyTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const [replyingTo, setReplyingTo] = useState<{
+    id: string;
+    author: string;
+  } | null>(null);
+  const replyTextareaRef = useRef<HTMLDivElement>(null);
 
   // Functions
   const toggleLike = (commentId: string) => {
@@ -46,36 +55,52 @@ const CommentList = ({ comments }: ICommentListProps) => {
   };
 
   const renderComments = (commentsArray: TComment[], isNested = false) => {
-    return commentsArray.map((comment) => (
-      <div key={comment.id} className="mb-4">
-        <Comment
-          {...comment}
-          onReply={() => !isNested && setReplyingTo(comment.id)}
-          onLike={() => toggleLike(comment.id)}
-          onShare={() => console.log(`Share comment ${comment.id}`)}
-          likedByMe={likedComments.has(comment.id)}
-        />
-        {!isNested && comment.replies && comment.replies.length > 0 && (
-          <div className="ml-8 mt-2">
-            {renderComments(comment.replies, true)}
-          </div>
+    return commentsArray.map((comment, index) => (
+      <Fragment key={comment.id}>
+        {!isNested && index > 0 && (
+          <hr className="my-3 border-t border-borderSublest" />
         )}
-        {replyingTo === comment.id && !isNested && (
-          <div className="relative ml-8 mt-2">
-            <Textarea
-              ref={replyTextareaRef}
-              placeholder={`Reply to @${comment.author}...`}
+        <div key={comment.id} className="mb-4">
+          <div>
+            <Comment
+              {...comment}
+              onReply={() =>
+                setReplyingTo({ id: comment.id, author: comment.author })
+              }
+              onLike={() => toggleLike(comment.id)}
+              onShare={() => console.log(`Share comment ${comment.id}`)}
+              likedByMe={likedComments.has(comment.id)}
+              isMinimal={isMinimal}
+              isReplies={isNested}
+              isForDisplay={isForDisplay}
             />
-            <Button
-              variant="secondary"
-              onClick={() => handleReply(comment.id, comment.author)}
-              className="absolute bottom-3 right-3"
-            >
-              Submit Reply
-            </Button>
+            {comment.replies && comment.replies.length > 0 && (
+              <div className="ml-8 mt-2">
+                {renderComments(comment.replies, true)}
+              </div>
+            )}
           </div>
-        )}
-      </div>
+
+          {!isNested &&
+            replyingTo &&
+            (replyingTo.id === comment.id ||
+              comment.replies?.some((reply) => replyingTo.id === reply.id)) && (
+              <div className="relative ml-8 mt-2" ref={replyTextareaRef}>
+                <MentionInput
+                  userData={{ id: '1', display: replyingTo.author }}
+                  placeholder={`Reply to ${replyingTo.author}`}
+                />
+                <Button
+                  variant="secondary"
+                  onClick={() => handleReply(replyingTo.id, replyingTo.author)}
+                  className="absolute bottom-3 right-3"
+                >
+                  Reply
+                </Button>
+              </div>
+            )}
+        </div>
+      </Fragment>
     ));
   };
 
