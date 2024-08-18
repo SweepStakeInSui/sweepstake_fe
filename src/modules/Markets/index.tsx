@@ -28,7 +28,7 @@ export default function MarketsModule() {
         <MarketsWatchList />
 
         <Flex className="transition-all shrink-[100] items-start w-full gap-0">
-          <Stack className="shrink-[100] max-w-[44.6875rem] mx-auto gap-y-8">
+          <Stack className="shrink-[100] max-w-[49.375rem] w-full mx-auto gap-y-8">
             <SectionIndicator section="/" ref={topPageRef}>
               <MarketsDetail />
             </SectionIndicator>

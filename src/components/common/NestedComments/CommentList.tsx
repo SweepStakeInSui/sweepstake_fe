@@ -1,19 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import type { TComment } from '@/types/comment';
 
+import { MentionInput } from '../MentionInput';
 import Comment from './Comment';
 
 interface ICommentListProps {
   comments: TComment[];
+  isMinimal?: boolean;
+  isForDisplay?: boolean;
 }
 
-const CommentList = ({ comments }: ICommentListProps) => {
+const CommentList = ({
+  comments,
+  isMinimal = false,
+  isForDisplay = false,
+}: ICommentListProps) => {
   const [likedComments, setLikedComments] = useState<Set<string>>(new Set());
-  const [replyingTo, setReplyingTo] = useState<string | null>(null);
-  const replyTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const [replyingTo, setReplyingTo] = useState<{
+    id: string;
+    author: string;
+  } | null>(null);
+  const replyTextareaRef = useRef<HTMLDivElement>(null);
 
   // Functions
   const toggleLike = (commentId: string) => {
@@ -33,49 +42,65 @@ const CommentList = ({ comments }: ICommentListProps) => {
     if (replyingTo && replyTextareaRef.current) {
       replyTextareaRef.current.scrollIntoView({
         behavior: 'smooth',
-        block: 'center',
+        block: 'start',
       });
       replyTextareaRef.current.focus();
     }
   }, [replyingTo]);
 
-  const renderComments = (commentsArray: TComment[]) => {
-    return commentsArray.map((comment) => (
-      <div key={comment.id} className="mb-4">
-        <Comment
-          id={comment.id}
-          author={comment.author}
-          avatar={comment.avatar}
-          timestamp={comment.timestamp}
-          content={comment.content}
-          likeCount={comment.likeCount}
-          replyCount={comment.replies?.length}
-          onReply={() => setReplyingTo(comment.id)}
-          onLike={() => toggleLike(comment.id)}
-          onShare={() => console.log(`Share comment ${comment.id}`)}
-          likedByMe={likedComments.has(comment.id)}
-        />
-        {comment.replies && comment.replies.length > 0 && (
-          <div className="ml-8 mt-2 pl-4">
-            {renderComments(comment.replies)}
-          </div>
+  // TODO: handleReply
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleReply = (_commentId: string, _author: string) => {
+    setReplyingTo(null);
+  };
+
+  const renderComments = (commentsArray: TComment[], isNested = false) => {
+    return commentsArray.map((comment, index) => (
+      <Fragment key={comment.id}>
+        {!isNested && index > 0 && (
+          <hr className="my-3 border-t border-borderSublest" />
         )}
-        {replyingTo === comment.id && (
-          <div className="relative ml-8 mt-2 pl-4">
-            <Textarea
-              ref={replyTextareaRef}
-              placeholder="Write your reply..."
+        <div key={comment.id} className="mb-4">
+          <div>
+            <Comment
+              {...comment}
+              onReply={() =>
+                setReplyingTo({ id: comment.id, author: comment.author })
+              }
+              onLike={() => toggleLike(comment.id)}
+              onShare={() => console.log(`Share comment ${comment.id}`)}
+              likedByMe={likedComments.has(comment.id)}
+              isMinimal={isMinimal}
+              isReplies={isNested}
+              isForDisplay={isForDisplay}
             />
-            <Button
-              variant="secondary"
-              onClick={() => setReplyingTo(null)}
-              className="absolute bottom-3 right-3"
-            >
-              Submit Reply
-            </Button>
+            {comment.replies && comment.replies.length > 0 && (
+              <div className="ml-8 mt-2">
+                {renderComments(comment.replies, true)}
+              </div>
+            )}
           </div>
-        )}
-      </div>
+
+          {!isNested &&
+            replyingTo &&
+            (replyingTo.id === comment.id ||
+              comment.replies?.some((reply) => replyingTo.id === reply.id)) && (
+              <div className="relative ml-8 mt-2" ref={replyTextareaRef}>
+                <MentionInput
+                  userData={{ id: '1', display: replyingTo.author }}
+                  placeholder={`Reply to ${replyingTo.author}`}
+                />
+                <Button
+                  variant="secondary"
+                  onClick={() => handleReply(replyingTo.id, replyingTo.author)}
+                  className="absolute bottom-3 right-3"
+                >
+                  Reply
+                </Button>
+              </div>
+            )}
+        </div>
+      </Fragment>
     ));
   };
 

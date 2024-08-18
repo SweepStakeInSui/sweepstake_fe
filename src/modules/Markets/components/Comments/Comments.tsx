@@ -5,7 +5,7 @@ const MarketsComments = () => {
   return (
     <section>
       <CommentForm />
-      <CommentList comments={mockNestedComments} />
+      <CommentList comments={mockNestedComments} isMinimal />
     </section>
   );
 };
