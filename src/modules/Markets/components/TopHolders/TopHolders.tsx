@@ -5,7 +5,7 @@ import Stack from '@/components/common/Stack';
 import SwiperCustom from '@/components/common/SwipperCustom';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
-import { TopVolumeItem } from '@/modules/Home/components/TopVolume/TopVolume';
+import { TopVolumeItem } from '@/modules/Home/components/TopVolume';
 import type { TopVolumeType } from '@/types/topVolume';
 
 interface TopHoldersProps {

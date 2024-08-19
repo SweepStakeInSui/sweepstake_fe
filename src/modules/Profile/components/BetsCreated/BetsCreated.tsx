@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Activity } from '../Activity';
 
-const YourBets = () => {
+const BetsCreated = () => {
   return <Activity />;
 };
 
-export default YourBets;
+export default BetsCreated;

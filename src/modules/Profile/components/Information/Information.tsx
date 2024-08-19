@@ -4,7 +4,8 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+
+import { EditProfile } from '../EditProfile';
 
 const Information = () => {
   return (
@@ -30,13 +31,13 @@ const Information = () => {
               Edit nickname
             </Typography.Text>
           </Stack>
-          <Flex className="text-text">
+          <Flex className="text-text-support-yellow">
             <Typography.Text size={13}>Rank:</Typography.Text>
             <Typography.Text size={13}>#13</Typography.Text>
           </Flex>
         </Stack>
       </Flex>
-      <Button variant="terriary">Create Bet</Button>
+      <EditProfile />
     </Flex>
   );
 };

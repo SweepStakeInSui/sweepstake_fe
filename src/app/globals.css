@@ -133,9 +133,18 @@
 
     /* Field / Background */
     --field-bg-default: var(--dyb-0);
+    --field-bg-fill: var(--dyb-0);
+    --field-bg-hover: var(--dyb-5);
+    --field-bg-focus: var(--wht-a100);
+    --field-bg-disable: var(--dyb-10);
 
     /* Field / Border */
     --field-border-default: var(--dyb-5);
+    --field-border-fill: var(--dyb-5);
+    --field-border-hover: var(--dyb-90);
+    --field-border-focus: var(--dyb-90);
+    --field-border-disable: var(--dyb-15);
+
   }
 
   .dark {

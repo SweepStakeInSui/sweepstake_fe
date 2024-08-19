@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { StringParam, useQueryParam, withDefault } from 'use-query-params';
 
 import Container from '@/components/common/Container';
@@ -8,13 +7,12 @@ import Stack from '@/components/common/Stack';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { Activity } from './components/Activity';
+import { BetsCreated } from './components/BetsCreated';
 import { Information } from './components/Information';
-import { Likes } from './components/Likes';
+import { Mention } from './components/Mention';
 import { Positions } from './components/Positions';
-import { Posts } from './components/Posts';
 import { Statistics } from './components/Statistics';
 import { Watchlist } from './components/Watchlist';
-import { YourBets } from './components/YourBets';
 
 const Profile = () => {
   const [tab, setTab] = useQueryParam(
@@ -25,10 +23,8 @@ const Profile = () => {
     { value: 'positions', title: 'Positions', panel: <Positions /> },
     { value: 'activity', title: 'Activity', panel: <Activity /> },
     { value: 'watchlist', title: 'Watchlist', panel: <Watchlist /> },
-    { value: 'your_bets', title: 'Your Bets', panel: <YourBets /> },
-    { value: 'posts', title: 'Posts', panel: <Posts /> },
-    { value: 'replies', title: 'Replies', panel: <Posts /> },
-    { value: 'likes', title: 'Likes', panel: <Likes /> },
+    { value: 'bets_created', title: 'Bets Created', panel: <BetsCreated /> },
+    { value: 'mention', title: 'Mention', panel: <Mention /> },
   ];
   return (
     <Container className="max-w-screen-xl py-10" px={0}>
