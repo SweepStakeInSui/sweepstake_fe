@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Stack from '@/components/common/Stack';
-import { ActivityItem } from '@/modules/Home/components/RecentActivity/RecentActivity';
+import { ActivityItem } from '@/modules/Home/components/RecentActivity';
 import type { RecentActivityType } from '@/types/recentActivity';
 
 interface ActivityProps {

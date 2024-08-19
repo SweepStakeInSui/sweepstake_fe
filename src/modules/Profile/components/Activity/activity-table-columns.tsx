@@ -23,7 +23,7 @@ export const columns: ColumnDef<ActivityProps>[] = [
       return (
         <Flex className="justify-between space-x-2">
           <Flex>
-            <Avatar size="md" isRounded>
+            <Avatar size="md" isRounded={false}>
               <AvatarImage src={image} />
               <AvatarFallback />
             </Avatar>

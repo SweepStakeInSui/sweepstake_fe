@@ -1,6 +1,9 @@
 import React from 'react';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
+import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
+import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Separator } from '@/components/ui/separator';
 
@@ -66,22 +69,41 @@ const Statistics = () => {
           <Separator orientation="vertical" />
         </li>
         <li>
-          <Stack className="gap-1">
-            <Typography.Text
-              size={13}
-              weight="medium"
-              className="text-text-subtle"
-            >
-              Win rate
-            </Typography.Text>
-            <Typography.Heading
-              size={20}
-              weight="semibold"
-              className="text-text"
-            >
-              90/100(90%)
-            </Typography.Heading>
-          </Stack>
+          <Flex className="justify-between">
+            <Stack className="gap-1">
+              <Flex>
+                <Typography.Text
+                  size={13}
+                  weight="medium"
+                  className="text-text-subtle"
+                >
+                  Win rate
+                </Typography.Text>
+                <Svg
+                  src="/icons/info_outline.svg"
+                  className="text-icon-subtle"
+                />
+              </Flex>
+              <Typography.Heading
+                size={20}
+                weight="semibold"
+                className="text-text"
+              >
+                90/100(90%)
+              </Typography.Heading>
+            </Stack>
+            <div style={{ width: 43, height: 43 }}>
+              <CircularProgressbar
+                value={90}
+                styles={buildStyles({
+                  pathColor: `#3DA003`,
+                  textColor: '#3DA003',
+                  textSize: '24px',
+                })}
+                text="90%"
+              />
+            </div>
+          </Flex>
         </li>
       </ul>
     </section>

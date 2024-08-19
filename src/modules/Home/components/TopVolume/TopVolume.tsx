@@ -1,6 +1,7 @@
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
+import { cn } from '@/lib/utils';
 import type { TopVolumeType } from '@/types/topVolume';
 
 import ViewAll from '../ViewAll';
@@ -11,6 +12,7 @@ interface TopVolumeItemProps {
   username: string;
   avatar?: string;
   price: string;
+  className?: string;
 }
 
 export function TopVolumeItem({
@@ -18,9 +20,15 @@ export function TopVolumeItem({
   username,
   avatar = 'https://github.com/shadcn.png',
   price,
+  className,
 }: Readonly<TopVolumeItemProps>) {
   return (
-    <Flex className="justify-between p-2 overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
+    <Flex
+      className={cn(
+        'justify-between p-2 overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer',
+        className,
+      )}
+    >
       <Flex className="gap-4">
         <AvatarRank avatar={avatar} id={id} />
         <Stack className="gap-y-px">

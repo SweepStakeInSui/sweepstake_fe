@@ -10,8 +10,8 @@ export const navList = [
     href: '/activity',
   },
   {
-    name: 'Ranks',
-    icon: 'Ranks',
-    href: '/ranks',
+    name: 'Leaderboard',
+    icon: 'Leaderboard',
+    href: '/leaderboard',
   },
 ];

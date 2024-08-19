@@ -189,8 +189,20 @@ const config = {
           },
         },
         field: {
-          background: { DEFAULT: 'var(--field-bg-default)' },
-          border: { DEFAULT: 'var(--field-border-default)' },
+          background: { 
+            DEFAULT: 'var(--field-bg-default)',
+            fill: 'var(--field-bg-fill)',
+            hover: 'var(--field-bg-hover)', 
+            focus: 'var(--field-bg-focus)',
+            disable: 'var(--field-bg-disable)',
+          },
+          border: { 
+            DEFAULT: 'var(--field-border-default)',
+            fill: 'var(--field-border-fill)',
+            hover: 'var(--field-border-hover)', 
+            focus: 'var(--field-border-focus)',
+            disable: 'var(--field-border-disable)',
+           },
         },
         ...colors,
       },
@@ -230,6 +242,7 @@ const config = {
         'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)',
         'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)',
         'card-bet-home': '0px 4px 12px 0px rgba(0, 0, 0, 0.06)',
+        'leaderboard-shadow':'0px 6px 17px 0px rgba(44, 41, 211, 0.05)'
       },
     },
   },
