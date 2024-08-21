@@ -86,10 +86,7 @@ const Comment = ({
                 className={likedByMe ? 'bg-red-50' : ''}
               >
                 {likedByMe ? (
-                  <Svg
-                    src="/icons/favorite_filled.svg"
-                    className="text-icon-subtle"
-                  />
+                  <Svg src="/icons/favorite_filled.svg" className="text-r-50" />
                 ) : (
                   <Svg
                     src="/icons/favorite_border.svg"
