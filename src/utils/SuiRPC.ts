@@ -65,19 +65,6 @@ export default class SuiRPC {
     }
   }
 
-  // Faucet
-  // async faucetSUIDev(): Promise<any> {
-  //   try {
-  //     await requestSuiFromFaucetV0({
-  //       // connect to Devnet
-  //       host: getFaucetHost('devnet'),
-  //       recipient: '<YOUR SUI ADDRESS>',
-  //     });
-  //   } catch (error) {
-  //     return error as string;
-  //   }
-  // }
-
   // Convert MIST to Sui
   private balance = (balance: CoinBalance) => {
     return Number.parseInt(balance.totalBalance) / Number(MIST_PER_SUI);
@@ -87,7 +74,6 @@ export default class SuiRPC {
     try {
       const keyPair = await this.getKeyPair();
       const tx = new TransactionBlock();
-
       // Convert value to be transferred to smallest value.
       const [coin] = tx.splitCoins(tx.gas, [
         tx.pure(0.2 * Number(MIST_PER_SUI)),

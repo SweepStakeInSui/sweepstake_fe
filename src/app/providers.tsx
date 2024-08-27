@@ -1,5 +1,13 @@
 'use client';
 
+import '@mysten/dapp-kit/dist/index.css';
+
+import {
+  createNetworkConfig,
+  SuiClientProvider,
+  WalletProvider,
+} from '@mysten/dapp-kit';
+import { getFullnodeUrl } from '@mysten/sui/client';
 import {
   isServer,
   QueryClient,
@@ -11,8 +19,14 @@ import NextAdapterApp from 'next-query-params/app';
 import { Suspense } from 'react';
 import { QueryParamProvider } from 'use-query-params';
 
+import { ConnectWalletProvider } from '@/components/connectWallet/useWallet';
 import { ThemeProvider } from '@/contexts/themeContext';
 
+// Config options for the networks you want to connect to
+const { networkConfig } = createNetworkConfig({
+  localnet: { url: getFullnodeUrl('localnet') },
+  mainnet: { url: getFullnodeUrl('mainnet') },
+});
 interface ProvidersProps {
   children: React.ReactElement;
 }
@@ -55,7 +69,14 @@ export default function Providers({ children }: Readonly<ProvidersProps>) {
       <Suspense>
         <QueryParamProvider adapter={NextAdapterApp}>
           <QueryClientProvider client={queryClient}>
-            {children}
+            <SuiClientProvider
+              networks={networkConfig}
+              defaultNetwork="localnet"
+            >
+              <WalletProvider autoConnect storageKey="mysten-dapp-wallet">
+                <ConnectWalletProvider>{children}</ConnectWalletProvider>
+              </WalletProvider>
+            </SuiClientProvider>
             <ProgressBar
               height="2px"
               color="#EB201E"

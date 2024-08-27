@@ -17,6 +17,9 @@ import SuiRPC from '@/utils/SuiRPC';
 import Flex from '../common/Flex';
 import { Button } from '../ui/button';
 import LoggedIn from './LoggedIn';
+import { useSignAndExecuteTransaction } from '@mysten/dapp-kit';
+import { TransactionBlock } from '@mysten/sui.js/transactions';
+import { Transaction } from '@mysten/sui/transactions';
 
 const clientId =
   'BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ'; // get from https://dashboard.web3auth.io
@@ -132,7 +135,15 @@ function Authentication() {
       console.error('Login error:', error);
     }
   };
-
+  const privateKey = async () => {
+    if (!provider) {
+      uiConsole('web3auth not initialized yet');
+      return;
+    }
+    const idToken = await provider.request({
+      method: 'private_key',
+    });
+  };
   const authenticateUser = async () => {
     if (!web3auth) {
       uiConsole('web3auth not initialized yet');
@@ -150,7 +161,18 @@ function Authentication() {
     const user = await web3auth.getUserInfo();
     uiConsole(user);
   };
+  // const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
 
+  // function sendMessage() {
+  //   const txb = new TransactionBlock();
+
+  //   const coin = txb.splitCoins(txb.gas, [10]);
+  //   txb.transferObjects([coin], 'Ox...');
+
+  //   signAndExecuteTransaction({
+  //     transaction: new Transaction(),
+  //   });
+  // }
   const logout = async () => {
     if (!web3auth) {
       uiConsole('web3auth not initialized yet');
@@ -187,6 +209,8 @@ function Authentication() {
     }
     const rpc = new SuiRPC(provider);
     const balance = await rpc.getBalance();
+    console.log(balance);
+
     uiConsole(balance);
   };
   const getFaucet = async () => {
@@ -196,6 +220,8 @@ function Authentication() {
     }
     const rpc = new SuiRPC(provider);
     const txHash = await rpc.requestSui(account);
+    console.log(txHash);
+
     uiConsole(`TxHash: ${txHash}`);
   };
   const sendTransaction = async () => {
@@ -217,10 +243,22 @@ function Authentication() {
     }
     const rpc = new SuiRPC(provider);
     const privateKey = await rpc.getPrivateKey();
+    console.log(privateKey);
+
     uiConsole(privateKey);
   };
+  const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
 
-  const loggedInView = <LoggedIn />;
+  const loggedInView = (
+    <div>
+      <LoggedIn />
+      <p onClick={logout}>Logout</p>
+      <p onClick={sendTransaction}>Send Transaction</p>
+      <p onClick={getFaucet}>getFaucet</p>
+      <p onClick={getBalance}>get Balance</p>
+      <p onClick={getPrivateKey}>getPrivateKey</p>
+    </div>
+  );
 
   const unloggedInView = (
     <Flex>
