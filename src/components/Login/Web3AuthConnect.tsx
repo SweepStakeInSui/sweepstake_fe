@@ -18,8 +18,6 @@ import Flex from '../common/Flex';
 import { Button } from '../ui/button';
 import LoggedIn from './LoggedIn';
 import { useSignAndExecuteTransaction } from '@mysten/dapp-kit';
-import { TransactionBlock } from '@mysten/sui.js/transactions';
-import { Transaction } from '@mysten/sui/transactions';
 
 const clientId =
   'BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ'; // get from https://dashboard.web3auth.io
@@ -247,16 +245,15 @@ function Authentication() {
 
     uiConsole(privateKey);
   };
-  const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
 
   const loggedInView = (
     <div>
       <LoggedIn />
-      <p onClick={logout}>Logout</p>
+      {/* <p onClick={logout}>Logout</p>
       <p onClick={sendTransaction}>Send Transaction</p>
       <p onClick={getFaucet}>getFaucet</p>
       <p onClick={getBalance}>get Balance</p>
-      <p onClick={getPrivateKey}>getPrivateKey</p>
+      <p onClick={getPrivateKey}>getPrivateKey</p> */}
     </div>
   );
 

@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next-nprogress-bar';
 
-import { Login } from '@/components/Authentication';
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
+import { Web3AuthConnect } from '@/components/Login';
 import { ModalSearchHeader } from '@/components/Modal';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
@@ -63,7 +63,7 @@ export default function NavBar(): React.ReactElement {
                 <ModalSearchHeader />
               </DialogContent>
             </Dialog>
-            <Login />
+            <Web3AuthConnect />
             {/* <ModeToggle /> */}
           </Flex>
         </Flex>

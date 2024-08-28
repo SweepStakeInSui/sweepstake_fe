@@ -3,7 +3,7 @@ import '@styles/global.scss';
 import './globals.css';
 import 'react-circular-progressbar/dist/styles.css';
 
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 
 import { PlusJakartaFont } from '@/constants/fonts';
@@ -24,7 +24,7 @@ interface IRootLayout {
 export default function RootLayout({ children }: Readonly<IRootLayout>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <GoogleTagManager gtmId="G-8G2LLQCTYN" />
+      <GoogleAnalytics gaId="G-8G2LLQCTYN" />
       <body
         className={cn(
           'min-h-screen antialiased bg-bg-primary ',

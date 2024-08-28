@@ -85,7 +85,9 @@ export default function AboutModule() {
     <div>
       <ConnectButton />
       <div>Auto-connection status: {autoConnectionStatus}</div>
-      <button onClick={getBalance}>Get balance</button>
+      <button onClick={getBalance} className="">
+        Get balance
+      </button>
       <button onClick={getKeypair}>Keypair</button>
       <button onClick={sendTransaction}>Sign and execute transaction</button>
       <ul>
