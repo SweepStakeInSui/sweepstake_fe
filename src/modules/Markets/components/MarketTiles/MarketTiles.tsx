@@ -120,7 +120,7 @@ const MarketTile = ({
 
             <TableRow>
               <TableCell className="h-[2.625rem]">
-                <div className="py-1 px-2 ml-2 rounded-md bg-[#0FB4BD] w-fit">
+                <div className="py-1 px-2 ml-3 rounded-md bg-[#0FB4BD] w-fit">
                   <Typography.Text size={12} className="text-text-inverse">
                     Yes
                   </Typography.Text>

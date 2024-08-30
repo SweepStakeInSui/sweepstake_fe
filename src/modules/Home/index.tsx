@@ -7,7 +7,7 @@ import { MarketTab } from './components/MarketTab';
 import RecentActivity from './components/RecentActivity/RecentActivity';
 import Slider from './components/Slider';
 import { TopVolume } from './components/TopVolume';
-import VoteCard from './components/VoteCards';
+import VoteCardGrid from './components/VoteCardGrid';
 
 const mockSlides = [
   {
@@ -85,7 +85,7 @@ export default function HomeModule() {
       <MarketTab />
       <Slider slides={mockSlides} />
       <Container>
-        <VoteCard />
+        <VoteCardGrid />
         <div className="grid grid-cols-2 py-8 bg-white relative overflow-hidden">
           <RecentActivity data={mockRecentActivities} />
           <TopVolume data={mockTopVolumeThisWeek} />
