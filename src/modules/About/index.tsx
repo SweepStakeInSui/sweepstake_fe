@@ -30,7 +30,7 @@ export default function AboutModule() {
   const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
   // const [digest, setDigest] = useState('');
   const getBalance = async () => {
-    const client = new SuiClient({ url: getFullnodeUrl('devnet') });
+    const client = new SuiClient({ url: getFullnodeUrl('testnet') });
     const balance = await client.getBalance({
       owner:
         '0x2f371d30a31e95367ccfe382e3bc5466818d34e1909f5af93adcd9aea29132aa',
@@ -50,7 +50,7 @@ export default function AboutModule() {
       signAndExecuteTransaction(
         {
           transaction: tx,
-          chain: 'sui:devnet', // Specify the correct chain if needed
+          chain: 'sui:testnet', // Specify the correct chain if needed
         },
         {
           onSuccess: (result) => {

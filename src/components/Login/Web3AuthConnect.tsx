@@ -14,15 +14,14 @@ import { useEffect, useState } from 'react';
 
 import SuiRPC from '@/utils/SuiRPC';
 
-import Flex from '../common/Flex';
+import Typography from '../common/Typography';
 import { Button } from '../ui/button';
 import LoggedIn from './LoggedIn';
-import { useSignAndExecuteTransaction } from '@mysten/dapp-kit';
 
 const clientId =
   'BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ'; // get from https://dashboard.web3auth.io
 
-function Authentication() {
+function Web3AuthConnect() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [provider, setProvider] = useState<IProvider | null>(null);
   const [loggedIn, setLoggedIn] = useState<boolean | null>(false);
@@ -38,10 +37,10 @@ function Authentication() {
       try {
         const chainConfig = {
           chainNamespace: CHAIN_NAMESPACES.OTHER,
-          chainId: 'fd2adfa8',
-          rpcTarget: 'https://fullnode.devnet.sui.io:443',
-          displayName: 'Sui Devnet',
-          blockExplorerUrl: 'https://suiexplorer.com/?network=devnet',
+          chainId: '4c78adac',
+          rpcTarget: 'https://fullnode.testnet.sui.io:443',
+          displayName: 'Sui Testnet',
+          blockExplorerUrl: 'https://suiexplorer.com/?network=testnet',
           ticker: 'SUI',
           tickerName: 'Sui',
           logo: 'https://cryptologos.cc/logos/sui-sui-logo.png?v=029',
@@ -54,7 +53,7 @@ function Authentication() {
         const web3AuthInstance = new Web3Auth({
           clientId,
           privateKeyProvider,
-          web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
+          web3AuthNetwork: WEB3AUTH_NETWORK.TESTNET,
         });
 
         setWeb3auth(web3AuthInstance);
@@ -180,14 +179,18 @@ function Authentication() {
     setProvider(null);
     setLoggedIn(false);
   };
+  console.log(provider);
 
   const getChainId = async () => {
     if (!provider) {
       uiConsole('provider not initialized yet');
       return;
     }
+
     const rpc = new SuiRPC(provider);
     const chainId = await rpc.getChainId();
+    console.log(chainId);
+
     uiConsole(chainId);
   };
   const getAccounts = async () => {
@@ -233,7 +236,18 @@ function Authentication() {
 
     uiConsole(`TxHash: ${transactionHash}`);
   };
+  const createBet = async () => {
+    if (!provider) {
+      uiConsole('provider not initialized yet');
+      return;
+    }
 
+    const rpc = new SuiRPC(provider);
+    const transactionHash = await rpc.createBet();
+    console.log(transactionHash);
+
+    uiConsole(`TxHash: ${transactionHash}`);
+  };
   const getPrivateKey = async () => {
     if (!provider) {
       uiConsole('provider not initialized yet');
@@ -241,32 +255,48 @@ function Authentication() {
     }
     const rpc = new SuiRPC(provider);
     const privateKey = await rpc.getPrivateKey();
-    console.log(privateKey);
-
     uiConsole(privateKey);
   };
 
   const loggedInView = (
     <div>
       <LoggedIn />
-      {/* <p onClick={logout}>Logout</p>
+      <p onClick={logout}>Logout</p>
       <p onClick={sendTransaction}>Send Transaction</p>
       <p onClick={getFaucet}>getFaucet</p>
       <p onClick={getBalance}>get Balance</p>
-      <p onClick={getPrivateKey}>getPrivateKey</p> */}
+      <p onClick={getChainId}>getChainId</p>
+      <p onClick={createBet}>createBet</p>
+
+      <p onClick={getPrivateKey}>getPrivateKey</p>
     </div>
   );
 
   const unloggedInView = (
-    <Flex>
-      <Button variant="ghost" onClick={login} className="card">
-        Log In
-      </Button>
-      <Button>Sign up</Button>
-    </Flex>
+    <Button className="w-full" variant="secondary" size="lg" onClick={login}>
+      <Typography.Text className="text-text-inverse" weight="semibold">
+        Connect With Social Wallet
+      </Typography.Text>
+    </Button>
   );
 
-  return <div className="grid">{loggedIn ? loggedInView : unloggedInView}</div>;
+  return (
+    <div className="grid">
+      {loggedIn
+        ? // <Button
+          //   className="w-full"
+          //   variant="secondary"
+          //   size="lg"
+          //   onClick={login}
+          // >
+          //   <Typography.Text className="text-text-inverse" weight="semibold">
+          //     Connect With Social Wallet
+          //   </Typography.Text>
+          // </Button>
+          loggedInView
+        : unloggedInView}
+    </div>
+  );
 }
 
-export default Authentication;
+export default Web3AuthConnect;

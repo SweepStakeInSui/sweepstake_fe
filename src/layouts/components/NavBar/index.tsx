@@ -7,7 +7,7 @@ import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import ConnectButton from '@/components/connectWallet/ConnectButton';
+import { Web3AuthConnect } from '@/components/Login';
 import { ModalSearchHeader } from '@/components/Modal';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
@@ -63,7 +63,8 @@ export default function NavBar(): React.ReactElement {
                 <ModalSearchHeader />
               </DialogContent>
             </Dialog>
-            <ConnectButton />
+            {/* <ConnectButton /> */}
+            <Web3AuthConnect />
           </Flex>
         </Flex>
       </Container>
