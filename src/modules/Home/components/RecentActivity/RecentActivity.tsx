@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import type { RecentActivityType } from '@/types/recentActivity';
 
 import ViewAll from '../ViewAll';
+import RecentActivityItemSkeleton from './Skeleton';
 
 export function ActivityItem({
   username,
@@ -64,6 +65,7 @@ export default function RecentActivity({
         </Typography.Heading>
         <ViewAll link="/" />
       </Flex>
+      <RecentActivityItemSkeleton />
       <Stack className="gap-4">
         {data.map((item) => (
           <ActivityItem key={item.id} {...item} />

@@ -6,21 +6,21 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 
-import Card from './Card';
+import VoteCard from './VoteCard';
 
-const VoteCard = () => {
+const VoteCardGrid = () => {
   return (
     <div className="bg-bg-primary">
       <div className="grid grid-cols-autoFill w-full gap-4 py-8">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <VoteCard />
+        <VoteCard />
+        <VoteCard />
+        <VoteCard />
+        <VoteCard />
+        <VoteCard />
+        <VoteCard />
+        <VoteCard />
+        <VoteCard />
       </div>
       <Flex className="mt-3 mb-6 mx-auto gap-x-3 justify-center">
         <Typography.Text className="text-text-subtle" size={13}>
@@ -50,4 +50,4 @@ const VoteCard = () => {
   );
 };
 
-export default VoteCard;
+export default VoteCardGrid;
