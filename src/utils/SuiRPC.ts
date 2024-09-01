@@ -30,8 +30,8 @@ export default class SuiRPC {
           '0x621c091c3eb8b07b3df5833d27d1e77d0600ebcb92ea997234d622be1c56bf9e::bet_marketplace::create_bet',
         arguments: [
           tx.pure.string('Bitcoin 60000 USD'),
-          tx.pure(1725012006, 'u64'),
-          tx.pure(1727699406, 'u64'),
+          tx.pure.u64(1725012006),
+          tx.pure.u64(1727699406),
         ],
       });
       const { bytes, signature } = await tx.sign({

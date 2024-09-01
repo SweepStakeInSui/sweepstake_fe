@@ -2,112 +2,128 @@
 
 import {
   ConnectButton,
-  useAccounts,
-  useAutoConnectWallet,
-  useConnectWallet,
   useCurrentWallet,
   useDisconnectWallet,
   useSignAndExecuteTransaction,
-  useWallets,
+  useSignTransaction,
+  useSuiClient,
 } from '@mysten/dapp-kit';
-import { getFullnodeUrl, SuiClient } from '@mysten/sui.js/client';
-import {
-  Ed25519Keypair,
-  Ed25519PublicKey,
-} from '@mysten/sui.js/keypairs/ed25519';
 import { Transaction } from '@mysten/sui/transactions';
 
 export default function AboutModule() {
   const { currentWallet, connectionStatus } = useCurrentWallet();
-  const autoConnectionStatus = useAutoConnectWallet();
-  const wallets = useWallets();
-  const accounts = useAccounts();
-  // const currentAccount = useCurrentAccount();
-  console.log(accounts);
-
-  const { mutate: connect } = useConnectWallet();
+  const { mutateAsync: signTransaction } = useSignTransaction();
+  const client = useSuiClient();
   const { mutate: disconnect } = useDisconnectWallet();
-  const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
   // const [digest, setDigest] = useState('');
-  const getBalance = async () => {
-    const client = new SuiClient({ url: getFullnodeUrl('testnet') });
-    const balance = await client.getBalance({
-      owner:
-        '0x2f371d30a31e95367ccfe382e3bc5466818d34e1909f5af93adcd9aea29132aa',
-    });
-    return balance;
-  };
-  const sendTransaction = async () => {
-    try {
-      const tx = new Transaction();
-      // Convert value to be transferred to smallest value.
-      const [coin] = tx.splitCoins(tx.gas, [5]);
-      tx.transferObjects(
-        [coin],
-        '0x7d42ef777fa6e46a7b19d54dc9353c898e7f1c65a3abab8b73f92fe5efe6d96d',
-      );
+  // const getBalance = async () => {
+  //   if (account) {
+  //     const client = new SuiClient({ url: getFullnodeUrl('testnet') });
+  //     const balance = await client.getBalance({
+  //       owner: account.address,
+  //     });
+  //     console.log(balance);
 
+  //     return balance;
+  //   }
+  // };
+  const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction({
+    execute: async ({ bytes, signature }) =>
+      client.executeTransactionBlock({
+        transactionBlock: bytes,
+        signature,
+        options: {
+          // Raw effects are required so the effects can be reported back to the wallet
+          showRawEffects: true,
+          // Select additional data to return
+          showObjectChanges: true,
+        },
+      }),
+  });
+
+  const handleCreateBet = async () => {
+    try {
+      const transaction = new Transaction();
+      transaction.moveCall({
+        target:
+          '0x621c091c3eb8b07b3df5833d27d1e77d0600ebcb92ea997234d622be1c56bf9e::bet_marketplace::create_bet',
+        arguments: [
+          transaction.pure.string('PEPE MEME COIN 2024'),
+          transaction.pure.u64(1725012006),
+          transaction.pure.u64(1727699406),
+        ],
+      });
       signAndExecuteTransaction(
         {
-          transaction: tx,
-          chain: 'sui:testnet', // Specify the correct chain if needed
+          transaction,
+          chain: 'sui:testnet',
         },
         {
           onSuccess: (result) => {
             console.log('Transaction executed successfully:', result);
-            return result.digest;
           },
           onError: (error) => {
             console.error('Transaction failed:', error);
-            return error;
           },
         },
       );
-      return 123;
     } catch (error) {
-      console.error('Transaction failed with error:', error);
-      return error as string;
+      console.error('Error in handleCreateBet:', error);
     }
   };
-  const getKeypair = () => {
-    const keypair = new Ed25519Keypair();
-    const bytes = keypair.getPublicKey().toRawBytes();
-    const publicKey = new Ed25519PublicKey(bytes);
-    const address = publicKey.toSuiAddress();
-    const privateKey = keypair.getSecretKey();
-    console.log({
-      publicKey,
-      address,
-      privateKey,
-    });
+  const handleCreateBetTEST = async () => {
+    try {
+      const transaction = new Transaction();
+      transaction.setSender(
+        '0x2f371d30a31e95367ccfe382e3bc5466818d34e1909f5af93adcd9aea29132aa',
+      );
+      transaction.moveCall({
+        target:
+          '0x621c091c3eb8b07b3df5833d27d1e77d0600ebcb92ea997234d622be1c56bf9e::bet_marketplace::create_bet',
+        arguments: [
+          transaction.pure.string('PEPE MEME COIN 2024'),
+          transaction.pure.u64(1725012006),
+          transaction.pure.u64(1727699406),
+        ],
+      });
+
+      console.log('Transaction created:', transaction);
+
+      const { bytes, signature } = await signTransaction({
+        transaction,
+        chain: 'sui:testnet', // Hoặc 'sui:testnet' tùy vào môi trường bạn đang sử dụng
+      });
+      console.log({
+        bytes,
+        signature,
+      });
+
+      const executeResult = await client.executeTransactionBlock({
+        transactionBlock: bytes,
+        signature,
+        requestType: 'WaitForLocalExecution',
+        options: {
+          showEffects: true,
+          showBalanceChanges: true,
+          showEvents: true,
+          showObjectChanges: true,
+        },
+      });
+
+      console.log('Transaction executed successfully:', executeResult);
+    } catch (error) {
+      console.error('Error in createBet:', error);
+    }
   };
   return (
     <div>
       <ConnectButton />
-      <div>Auto-connection status: {autoConnectionStatus}</div>
-      <button onClick={getBalance} className="">
+      {/* <button onClick={getBalance} className="">
         Get balance
-      </button>
-      <button onClick={getKeypair}>Keypair</button>
-      <button onClick={sendTransaction}>Sign and execute transaction</button>
-      <ul>
-        {wallets.map((wallet) => (
-          <li key={wallet.name}>
-            <button
-              onClick={() => {
-                connect(
-                  { wallet },
-                  {
-                    onSuccess: () => console.log('connected'),
-                  },
-                );
-              }}
-            >
-              Connect to {wallet.name}
-            </button>
-          </li>
-        ))}
-      </ul>
+      </button> */}
+      <button onClick={handleCreateBet}>Sign and execute transaction</button>
+      <br />
+      <button onClick={handleCreateBetTEST}>Sign empty transaction</button>
       {connectionStatus === 'connected' ? (
         <div>
           <h2>Current wallet:</h2>
@@ -124,15 +140,6 @@ export default function AboutModule() {
       ) : (
         <button onClick={() => disconnect()}>Disconnect</button>
       )}
-      <div>
-        <h2>Installed wallets</h2>
-        {wallets.length === 0 && <div>No wallets installed</div>}
-        <ul>
-          {wallets.map((wallet) => (
-            <li key={wallet.name}>{wallet.name}</li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 }

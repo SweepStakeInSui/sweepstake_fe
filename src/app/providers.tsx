@@ -26,6 +26,7 @@ import { ThemeProvider } from '@/contexts/themeContext';
 const { networkConfig } = createNetworkConfig({
   localnet: { url: getFullnodeUrl('localnet') },
   mainnet: { url: getFullnodeUrl('mainnet') },
+  testnet: { url: getFullnodeUrl('testnet') },
 });
 interface ProvidersProps {
   children: React.ReactElement;
@@ -54,10 +55,6 @@ function getQueryClient() {
   return browserQueryClient;
 }
 export default function Providers({ children }: Readonly<ProvidersProps>) {
-  // NOTE: Avoid useState when initializing the query client if you don't
-  //       have a suspense boundary between this and the code that may
-  //       suspend because React will throw away the client on the initial
-  //       render if it suspends and there is no boundary
   const queryClient = getQueryClient();
   return (
     <ThemeProvider
@@ -71,7 +68,7 @@ export default function Providers({ children }: Readonly<ProvidersProps>) {
           <QueryClientProvider client={queryClient}>
             <SuiClientProvider
               networks={networkConfig}
-              defaultNetwork="localnet"
+              defaultNetwork="testnet"
             >
               <WalletProvider autoConnect storageKey="mysten-dapp-wallet">
                 <ConnectWalletProvider>{children}</ConnectWalletProvider>
