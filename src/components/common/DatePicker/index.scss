@@ -1,53 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.stack {
-  display: flex;
-  flex-direction: column;
-}
-
-.reverseColor {
-  * {
-    color: var(--white) !important;
-  }
-}
-
-img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
-}
-
-::-moz-selection {
-  /* Code for Firefox */
-  color: var(--white);
-  background: var(--black);
-}
-
-::selection {
-  color: var(--white);
-  background: var(--black);
-}
-
-@layer utilities {
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-}
-
-.customDatePicker {
-  position: relative;
-}
-
 .datePicker {
   width: 100%;
   color: var(--text);
@@ -74,6 +24,10 @@ img {
 .react-datepicker__current-month {
   margin-top: rem(8) !important;
   margin-bottom: rem(16) !important;
+}
+
+.react-datepicker__tab-loop {
+  width: rem(340) !important;
 }
 
 .react-datepicker__month-container {

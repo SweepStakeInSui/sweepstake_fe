@@ -1,10 +1,12 @@
 'use client';
 
+import 'react-datepicker/dist/react-datepicker.css';
+import './index.scss';
+
 import { format } from 'date-fns';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
@@ -12,10 +14,17 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
+import { Calendar } from '../../ui/calendar';
 import Svg from '../Svg';
 
-function DatePicker() {
-  const [date, setDate] = React.useState<Date>();
+function CDatePicker() {
+  const [date, setDate] = React.useState<Date>(new Date());
+
+  const handleSelect = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
 
   return (
     <Popover>
@@ -35,12 +44,38 @@ function DatePicker() {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={handleSelect}
           initialFocus
         />
       </PopoverContent>
+      {/* 
+      <div className="customDatePicker">
+      <ReactDatePicker
+        showIcon
+        icon={
+          <Svg
+            src="/icons/calendar.svg"
+            className="mr-2 h-4 w-4 top-[50%] translate-y-[-50%]"
+          />
+        }
+        customInput={
+          <Button
+            variant="ghost"
+            className={cn(
+              'w-full justify-start text-left font-normal rounded-md border border-field-border bg-field-background px-3 pl-8 py-2 h-[3.375rem]',
+              !date && 'text-muted-foreground',
+            )}
+          >
+            {date ? format(date, 'P') : <span>Pick a date</span>}
+          </Button>
+        }
+        wrapperClassName="datePicker"
+        selected={date}
+        onChange={(date) => setDate(date!)}
+      />
+    </div> */}
     </Popover>
   );
 }
 
-export default DatePicker;
+export default CDatePicker;
