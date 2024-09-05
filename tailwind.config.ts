@@ -189,20 +189,20 @@ const config = {
           },
         },
         field: {
-          background: { 
+          background: {
             DEFAULT: 'var(--field-bg-default)',
             fill: 'var(--field-bg-fill)',
-            hover: 'var(--field-bg-hover)', 
+            hover: 'var(--field-bg-hover)',
             focus: 'var(--field-bg-focus)',
             disable: 'var(--field-bg-disable)',
           },
-          border: { 
+          border: {
             DEFAULT: 'var(--field-border-default)',
             fill: 'var(--field-border-fill)',
-            hover: 'var(--field-border-hover)', 
+            hover: 'var(--field-border-hover)',
             focus: 'var(--field-border-focus)',
             disable: 'var(--field-border-disable)',
-           },
+          },
         },
         ...colors,
       },
@@ -230,25 +230,30 @@ const config = {
       },
       width: {
         ...rem(52),
+        ...rem(54),
         ...rem(40),
         ...rem(80),
+        ...rem(120),
         ...rem(140),
       },
       spacing: {
         ...rem(52),
+        ...rem(54),
         ...rem(40),
         ...rem(80),
+        ...rem(120),
         ...rem(140),
       },
       boxShadow: {
         'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)',
         'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)',
         'card-bet-home': '0px 4px 12px 0px rgba(0, 0, 0, 0.06)',
-        'leaderboard-shadow':'0px 6px 17px 0px rgba(44, 41, 211, 0.05)'
+        'leaderboard-shadow': '0px 6px 17px 0px rgba(44, 41, 211, 0.05)',
+        'create-bet-shadow': '0px -3px 9px 0px #00000014',
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  // plugins: [require('tailwindcss-animate')],
 } satisfies Config;
 
 export default config;
