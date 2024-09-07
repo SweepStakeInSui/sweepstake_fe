@@ -8,92 +8,9 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { mockAvatar } from '@/mocks/mockAvatar';
 import ViewAll from '@/modules/Home/components/ViewAll';
 
-const watchList = [
-  {
-    avatar: mockAvatar,
-    title: 'Richest person in the world at the end of this dang year?',
-    author: 'Mike Jason',
-    price: '$72,000,000',
-    priceChange: '+13',
-    priceChangePercentage: '13%',
-    date: '2022-01-01',
-  },
-  {
-    avatar: mockAvatar,
-    title: 'Richest person in the world at the end of this dang year?',
-    author: 'Micheal Jack',
-    price: '$72,000,000',
-    priceChange: '+13',
-    priceChangePercentage: '13%',
-    date: '2022-01-01',
-  },
-  {
-    avatar: mockAvatar,
-    title: 'Richest person in the world at the end of this dang year?',
-    author: 'Michella Zach',
-    price: '$72,000,000',
-    priceChange: '+13',
-    priceChangePercentage: '13%',
-    date: '2022-01-01',
-  },
-  {
-    avatar: mockAvatar,
-    title: 'Richest person in the world at the end of this dang year?',
-    author: 'Mike Jason',
-    price: '$72,000,000',
-    priceChange: '+13',
-    priceChangePercentage: '13%',
-    date: '2022-01-01',
-  },
-  {
-    avatar: mockAvatar,
-    title: 'Richest person in the world at the end of this dang year?',
-    author: 'Micheal Jack',
-    price: '$72,000,000',
-    priceChange: '+13',
-    priceChangePercentage: '13%',
-    date: '2022-01-01',
-  },
-  {
-    avatar: mockAvatar,
-    title: 'Richest person in the world at the end of this dang year?',
-    author: 'Michella Zach',
-    price: '$72,000,000',
-    priceChange: '+13',
-    priceChangePercentage: '13%',
-    date: '2022-01-01',
-  },
-  {
-    avatar: mockAvatar,
-    title: 'Richest person in the world at the end of this dang year?',
-    author: 'Mike Jason',
-    price: '$72,000,000',
-    priceChange: '+13',
-    priceChangePercentage: '13%',
-    date: '2022-01-01',
-  },
-  {
-    avatar: mockAvatar,
-    title: 'Richest person in the world at the end of this dang year?',
-    author: 'Micheal Jack',
-    price: '$72,000,000',
-    priceChange: '+13',
-    priceChangePercentage: '13%',
-    date: '2022-01-01',
-  },
-  {
-    avatar: mockAvatar,
-    title: 'Richest person in the world at the end of this dang year?',
-    author: 'Michella Zach',
-    price: '$72,000,000',
-    priceChange: '+13',
-    priceChangePercentage: '13%',
-    date: '2022-01-01',
-  },
-];
+import { mockWatchList } from '../../../../mocks/mockWatchList';
 
 const MarketsWatchList = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -122,10 +39,10 @@ const MarketsWatchList = () => {
         </IconButton>
       </Flex>
 
-      <ScrollArea className="h-full pr-3 overflow-x-hidden">
-        {watchList.slice(4).map((item, index) => (
+      <ScrollArea className="h-full pr-3 overflow-x-hidden no-scrollbar">
+        {mockWatchList.slice(4).map((item, index) => (
           // eslint-disable-next-line react/no-array-index-key
-          <div key={index} className="mb-4">
+          <div key={index.toString()} className="mb-4">
             <Stack
               className={`${isSidebarOpen ? 'mb-11' : 'mb-4'} transition-all`}
             >
@@ -164,7 +81,7 @@ const MarketsWatchList = () => {
           </div>
         ))}
 
-        {watchList.length > 5 &&
+        {mockWatchList.length > 5 &&
           (isSidebarOpen ? (
             <ViewAll className="text-text-subtle hover:after:h-0" />
           ) : (

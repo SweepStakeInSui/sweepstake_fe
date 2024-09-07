@@ -228,11 +228,13 @@ const config = {
         autoFill: 'repeat(auto-fill, minmax(300px, 1fr))',
       },
       width: {
+        ...rem(52),
         ...rem(40),
         ...rem(80),
         ...rem(140),
       },
       spacing: {
+        ...rem(52),
         ...rem(40),
         ...rem(80),
         ...rem(140),
