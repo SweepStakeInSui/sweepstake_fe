@@ -16,13 +16,30 @@ import { cn } from '@/lib/utils';
 
 import { Calendar } from '../../ui/calendar';
 import Svg from '../Svg';
+import Typography from '../Typography';
 
-function CDatePicker() {
-  const [date, setDate] = React.useState<Date>(new Date());
+interface DatePickerProps {
+  defaultValue?: Date;
+  value?: Date;
+  onChange?: (date: Date | undefined) => void;
+}
+function CDatePicker({
+  value,
+  onChange,
+  defaultValue,
+}: Readonly<DatePickerProps>) {
+  const [date, setDate] = React.useState<Date | undefined>(defaultValue);
+
+  React.useEffect(() => {
+    if (value) {
+      setDate(value);
+    }
+  }, [value]);
 
   const handleSelect = (selectedDate: Date | undefined) => {
-    if (selectedDate) {
-      setDate(selectedDate);
+    setDate(selectedDate);
+    if (onChange) {
+      onChange(selectedDate);
     }
   };
 
@@ -37,7 +54,9 @@ function CDatePicker() {
           )}
         >
           <Svg src="/icons/calendar.svg" className="mr-2 h-4 w-4" />
-          {date ? format(date, 'P') : <span>Pick a date</span>}
+          <Typography.Text size={15} className="text-text text-15">
+            {date ? format(date, 'P') : <span>Pick a date</span>}
+          </Typography.Text>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
@@ -46,34 +65,11 @@ function CDatePicker() {
           selected={date}
           onSelect={handleSelect}
           initialFocus
+          disabled={{
+            before: new Date(),
+          }}
         />
       </PopoverContent>
-      {/* 
-      <div className="customDatePicker">
-      <ReactDatePicker
-        showIcon
-        icon={
-          <Svg
-            src="/icons/calendar.svg"
-            className="mr-2 h-4 w-4 top-[50%] translate-y-[-50%]"
-          />
-        }
-        customInput={
-          <Button
-            variant="ghost"
-            className={cn(
-              'w-full justify-start text-left font-normal rounded-md border border-field-border bg-field-background px-3 pl-8 py-2 h-[3.375rem]',
-              !date && 'text-muted-foreground',
-            )}
-          >
-            {date ? format(date, 'P') : <span>Pick a date</span>}
-          </Button>
-        }
-        wrapperClassName="datePicker"
-        selected={date}
-        onChange={(date) => setDate(date!)}
-      />
-    </div> */}
     </Popover>
   );
 }

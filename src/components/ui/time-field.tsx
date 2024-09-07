@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import Svg from '../common/Svg';
 import { DateSegment } from './date-segment';
 
-function TimeField(props: AriaTimeFieldProps<TimeValue>) {
+function TimeField(props: Readonly<AriaTimeFieldProps<TimeValue>>) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   const { locale } = useLocale();

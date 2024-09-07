@@ -17,7 +17,13 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
-export default function PreviewBetDetail() {
+interface IPreviewBetDetailProps {
+  title: string;
+}
+
+export default function PreviewBetDetail({
+  title,
+}: Readonly<IPreviewBetDetailProps>) {
   return (
     <Paper>
       <Stack className="gap-y-0">
@@ -48,9 +54,7 @@ export default function PreviewBetDetail() {
               <AvatarImage src={mockAvatar} />
               <AvatarFallback />
             </Avatar>
-            <Typography.Heading size={28}>
-              Despicable Me 4&quot; Rotten Tomatoes score about ten?
-            </Typography.Heading>
+            <Typography.Heading size={28}>{title}</Typography.Heading>
           </Flex>
 
           <Flex className="gap-0">

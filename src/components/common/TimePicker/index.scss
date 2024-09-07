@@ -1,0 +1,40 @@
+.customTimePicker {
+  width: 100%;
+  position: relative;
+  font-family: inherit !important;
+
+  &_input {
+    padding-left: rem(28) !important;
+  }
+
+  &_popper {
+    position: absolute;
+    font-family: inherit !important;
+    z-index: 9;
+
+    .react-datepicker__header {
+      display: none !important;
+    }
+
+    .react-datepicker--time-only {
+      border-radius: rem(8);
+      border: rem(1) solid var(--border-subtle);
+      box-shadow: rgba(0, 0, 0, 0.05) 0 4px 10px;
+      padding: rem(12) rem(6) rem(12) rem(12);
+      font-family: inherit !important;
+    }
+
+    .react-datepicker__time-list-item {
+      border-radius: rem(4);
+      font-size: rem(14);
+      line-height: rem(26);
+      height: rem(36) !important;
+      font-family: inherit !important;
+
+      &--selected {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-text) !important;
+      }
+    }
+  }
+}
