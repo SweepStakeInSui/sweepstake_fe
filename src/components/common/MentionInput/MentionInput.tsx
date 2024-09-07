@@ -69,8 +69,6 @@ const MentionInput = ({ placeholder, userData }: IMentionInputProps) => {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const [mentionInput, setMentionInput] = useState<string>('');
 
-  console.log(textareaRef);
-
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.click();

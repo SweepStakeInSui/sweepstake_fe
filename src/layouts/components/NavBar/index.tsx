@@ -1,23 +1,38 @@
+/* eslint-disable */
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next-nprogress-bar';
+import { useSelector } from 'react-redux';
 
-import { Login } from '@/components/Authentication';
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
+import ConnectButton from '@/components/connectWallet/ConnectButton';
+import LoggedIn from '@/components/Login/LoggedIn';
 import { ModalSearchHeader } from '@/components/Modal';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { navList } from '@/constants/navList';
+import { UserService } from '@/services/userService';
+import { selectProfile } from '@/store/profileSlice';
+import type { ProfileTypes } from '@/types/profile';
 
 import HomeLogo from '../HomeLogo';
 
 export default function NavBar(): React.ReactElement {
   const router = useRouter();
-
+  const { isLoggedIn } = useSelector(selectProfile);
+  const { data } = useQuery<ProfileTypes>({
+    queryKey: ['user-infor'],
+    queryFn: async () => {
+      const res = await UserService.getUserInfor();
+      return res;
+    },
+    enabled: isLoggedIn,
+  });
   return (
     <header className="sticky top-0 left-0 w-full bg-dyb-5/85 dark:bg-dyb-95/85 backdrop-blur-sm z-50">
       <Container>
@@ -63,8 +78,7 @@ export default function NavBar(): React.ReactElement {
                 <ModalSearchHeader />
               </DialogContent>
             </Dialog>
-            <Login />
-            {/* <ModeToggle /> */}
+            {isLoggedIn ? <LoggedIn /> : <ConnectButton />}
           </Flex>
         </Flex>
       </Container>

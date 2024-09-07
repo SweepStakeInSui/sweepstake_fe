@@ -4,7 +4,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { formatToUnit } from '@/utils/formatNumber';
+import { formatNumber } from '@/utils/formatNumber';
 // handle number values
 const FormatNumber = ({ number }: { number: string | number }) => {
   const roundedNumber = Number(number);
@@ -23,7 +23,7 @@ const FormatNumber = ({ number }: { number: string | number }) => {
 
   const renderNumber = () => {
     if (roundedNumber === 0) {
-      return <p>0</p>;
+      return <>0</>;
     }
 
     if (roundedNumber < 1e-5) {
@@ -37,12 +37,10 @@ const FormatNumber = ({ number }: { number: string | number }) => {
     }
 
     if (roundedNumber >= 1e-5 && roundedNumber < 1) {
-      return (
-        <p>{parseFloat(roundedNumber.toFixed(decimalPlaces)).toString()}</p>
-      );
+      return <>{parseFloat(roundedNumber.toFixed(decimalPlaces)).toString()}</>;
     }
 
-    return <p>{Number(roundedNumber.toFixed(2)).toLocaleString('en-US')}</p>;
+    return <>{Number(roundedNumber.toFixed(2)).toLocaleString('en-US')}</>;
   };
 
   return <div>{renderNumber()}</div>;
@@ -54,14 +52,14 @@ const TooltipNumber = ({ data }: { data: string }) => {
       {Number(data) >= 1000 || Number(data) < 0.001 ? (
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>{formatToUnit(data)}</TooltipTrigger>
+            <TooltipTrigger>{formatNumber.formatToUnit(data)}</TooltipTrigger>
             <TooltipContent>
               <FormatNumber number={data} />
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       ) : (
-        <div className="">{formatToUnit(data)}</div>
+        <div className="">{formatNumber.formatToUnit(data)}</div>
       )}
     </div>
   );
