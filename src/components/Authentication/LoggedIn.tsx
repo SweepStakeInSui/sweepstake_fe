@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
 import {
   DropdownMenu,
@@ -161,6 +162,9 @@ const NotifItem = ({
 };
 
 const LoggedIn = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const menuListLogin = [
     {
       slug: 'profile',
@@ -201,10 +205,12 @@ const LoggedIn = () => {
   ];
   return (
     <Flex>
-      <Button className="gap-x-2">
-        <Svg src="/icons/add.svg" />
-        Add Fund
-      </Button>
+      {pathname !== '/create-bet' && (
+        <Button className="gap-x-2" onClick={() => router.push('/create-bet')}>
+          <Svg src="/icons/add.svg" />
+          Create Bet
+        </Button>
+      )}
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

@@ -34,7 +34,7 @@ const DropdownIndicator = () => (
 
 interface IOptionsOutsideSelectProps {
   isMulti?: true;
-  selectedOptions?: TOption[];
+  value?: TOption[];
   options: TOption[];
   onChange?: (value: TOption[]) => void;
   placeholder?: string;
@@ -42,7 +42,7 @@ interface IOptionsOutsideSelectProps {
 
 const OptionsOutsideSelect = ({
   isMulti,
-  selectedOptions,
+  value,
   options,
   onChange,
   placeholder,
@@ -50,12 +50,9 @@ const OptionsOutsideSelect = ({
   const handleRemoveValue = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!onChange) return;
     const { name: buttonName } = e.currentTarget;
-    console.log(buttonName);
-    const removedValue = selectedOptions?.find(
-      (val) => val.value === buttonName,
-    );
+    const removedValue = value?.find((val) => val.value === buttonName);
     if (!removedValue) return;
-    onChange(selectedOptions?.filter((val) => val.value !== buttonName)!);
+    onChange(value?.filter((val) => val.value !== buttonName)!);
   };
 
   return (
@@ -69,7 +66,7 @@ const OptionsOutsideSelect = ({
         closeMenuOnSelect={false}
         isMulti={isMulti}
         controlShouldRenderValue={!isMulti}
-        value={selectedOptions}
+        value={value}
         options={options}
         onChange={(newValue) => {
           if (onChange) {
@@ -84,7 +81,7 @@ const OptionsOutsideSelect = ({
         }}
       />
       {isMulti
-        ? selectedOptions?.map((option) => (
+        ? value?.map((option) => (
             <CancelableOption
               key={option.value}
               value={option.value}
