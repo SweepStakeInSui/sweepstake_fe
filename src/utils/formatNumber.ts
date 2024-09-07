@@ -42,4 +42,9 @@ const replaceDot = (numString: string): string => {
   const replaced = numString.replace(/,/, '.');
   return replaced;
 };
-export { formatDate, formatPercent, formatToUnit, replaceDot };
+export const formatNumber = {
+  formatDate,
+  formatPercent,
+  formatToUnit,
+  replaceDot,
+};

@@ -1,15 +1,16 @@
 import type { CoinBalance } from '@mysten/sui.js/client';
 import { getFullnodeUrl, SuiClient } from '@mysten/sui.js/client';
-import { getFaucetHost, requestSuiFromFaucetV1 } from '@mysten/sui.js/faucet';
 import { Ed25519Keypair } from '@mysten/sui.js/keypairs/ed25519';
 import { TransactionBlock } from '@mysten/sui.js/transactions';
 import { MIST_PER_SUI } from '@mysten/sui.js/utils';
 import type { IProvider } from '@web3auth/base';
 
+import configs from '@/configs';
+
 export default class SuiRPC {
   private provider: IProvider;
 
-  rpcUrl = getFullnodeUrl('testnet');
+  rpcUrl = getFullnodeUrl(configs.network);
 
   suiClient = new SuiClient({ url: this.rpcUrl });
 
@@ -22,7 +23,6 @@ export default class SuiRPC {
       const keyPair = await this.getKeyPair();
       const tx = new TransactionBlock();
       const senderAddress = keyPair.toSuiAddress();
-      console.log(senderAddress);
 
       tx.setSender(senderAddress);
       tx.moveCall({
@@ -38,7 +38,6 @@ export default class SuiRPC {
         client: this.suiClient,
         signer: keyPair,
       });
-      console.log('Transaction signed:', { bytes, signature });
 
       const result = await this.suiClient.executeTransactionBlock({
         transactionBlock: bytes,
@@ -78,20 +77,20 @@ export default class SuiRPC {
     }
   }
 
-  async requestSui(account: string): Promise<any> {
-    try {
-      const host = getFaucetHost('testnet');
+  // async requestSui(account: string): Promise<any> {
+  //   try {
+  //     const host = getFaucetHost(configs.network);
 
-      const response = await requestSuiFromFaucetV1({
-        host,
-        recipient: account,
-      });
+  //     const response = await requestSuiFromFaucetV1({
+  //       host,
+  //       recipient: account,
+  //     });
 
-      console.log('Response from faucet:', response);
-    } catch (error) {
-      console.error('Error requesting SUI:', error);
-    }
-  }
+  //     console.log('Response from faucet:', response);
+  //   } catch (error) {
+  //     console.error('Error requesting SUI:', error);
+  //   }
+  // }
 
   async getBalance(): Promise<any> {
     try {
@@ -130,9 +129,19 @@ export default class SuiRPC {
         signer: keyPair,
         transactionBlock: tx,
       });
-      console.log(result);
 
       return result.digest;
+    } catch (error) {
+      return error as string;
+    }
+  }
+
+  async signPersonalMessage(nonce: string): Promise<any> {
+    try {
+      const keyPair = await this.getKeyPair();
+      const message = new TextEncoder().encode(nonce);
+      const { signature } = await keyPair.signPersonalMessage(message);
+      return signature;
     } catch (error) {
       return error as string;
     }

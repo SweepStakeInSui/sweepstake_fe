@@ -1,6 +1,7 @@
+import { useState } from 'react';
+
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -16,33 +17,30 @@ import SuiDappKit from '../Login/SuiDappKit';
 import { Button } from '../ui/button';
 
 const ConnectButton = () => {
+  const [open, setOpen] = useState<boolean>(false);
   return (
-    <div>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button size="lg">
-            <Flex>
-              <Svg src="/icons/Wallet.svg" />
-              Connect Wallet
-            </Flex>
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-md pb-10">
-          <DialogHeader>
-            <DialogTitle>Connect Wallet</DialogTitle>
-            <DialogDescription>Choose your wallet to connect</DialogDescription>
-          </DialogHeader>
-          <div className="flex items-center space-x-2 mt-5">
-            <Stack className="w-full gap-y-4 ">
-              <SuiDappKit />
-              <DialogClose>
-                <Web3AuthConnect />
-              </DialogClose>
-            </Stack>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button size="lg">
+          <Flex>
+            <Svg src="/icons/Wallet.svg" />
+            Connect Wallet
+          </Flex>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md pb-10">
+        <DialogHeader>
+          <DialogTitle>Connect Wallet</DialogTitle>
+          <DialogDescription>Choose your wallet to connect</DialogDescription>
+        </DialogHeader>
+        <div className="flex items-center space-x-2 mt-5">
+          <Stack className="w-full gap-y-4 ">
+            <SuiDappKit />
+            <Web3AuthConnect setOpen={setOpen} />
+          </Stack>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

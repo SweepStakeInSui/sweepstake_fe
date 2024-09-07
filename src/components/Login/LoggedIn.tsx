@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next-nprogress-bar';
 
 import {
   DropdownMenu,
@@ -17,6 +18,7 @@ import Flex from '../common/Flex';
 import Stack from '../common/Stack';
 import Svg from '../common/Svg';
 import Typography from '../common/Typography';
+import { useWallet } from '../connectWallet/useWallet';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { ScrollArea } from '../ui/scroll-area';
@@ -161,11 +163,18 @@ const NotifItem = ({
 };
 
 const LoggedIn = () => {
+  const { onDisconnect } = useWallet();
+  const router = useRouter();
   const menuListLogin = [
     {
       slug: 'profile',
       title: 'Account',
       icon: <Svg src="/icons/mood.svg" />,
+    },
+    {
+      slug: 'watchlist',
+      title: 'Watch List',
+      icon: <Svg src="/icons/star_outline.svg" />,
     },
     {
       slug: 'leaderboard',
@@ -177,15 +186,12 @@ const LoggedIn = () => {
       title: 'My Activity',
       icon: <Svg src="/icons/timeline.svg" />,
     },
+
     {
-      slug: 'settings',
-      title: 'Settings',
-      icon: <Svg src="/icons/settings.svg" />,
-    },
-    {
-      slug: 'logout',
-      title: 'Log out',
-      icon: <Svg src="/icons/logout.svg" />,
+      slug: 'disconnect',
+      title: 'Disconnect',
+      icon: <Svg src="/icons/Disconnect.svg" />,
+      onClick: onDisconnect,
     },
   ];
   const inforUser = [
@@ -203,7 +209,7 @@ const LoggedIn = () => {
     <Flex>
       <Button className="gap-x-2">
         <Svg src="/icons/add.svg" />
-        Add Fund
+        Create bet
       </Button>
 
       <DropdownMenu>
@@ -335,11 +341,16 @@ const LoggedIn = () => {
             </DropdownMenuItem>
 
             {menuListLogin.map((item) => (
-              <DropdownMenuItem className="py-3" key={item.slug}>
-                <Link
-                  href={`/${item.slug}`}
-                  className="flex gap-x-2.5 items-center w-full"
-                >
+              <DropdownMenuItem
+                className="py-3 cursor-pointer"
+                key={item.slug}
+                onClick={
+                  item.onClick
+                    ? item.onClick
+                    : () => router.push(`/${item.slug}`)
+                }
+              >
+                <div className="flex gap-x-2.5 items-center w-full">
                   <span className="size-6 flex items-center justify-center">
                     {item.icon}
                   </span>
@@ -350,7 +361,7 @@ const LoggedIn = () => {
                   >
                     {item.title}
                   </Typography.Text>
-                </Link>
+                </div>
               </DropdownMenuItem>
             ))}
           </DropdownMenuGroup>

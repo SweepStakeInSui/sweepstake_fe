@@ -10,6 +10,9 @@ import {
 } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
 
+import configs from '@/configs';
+import { removeCookieToken, setCookieToken } from '@/utils/token';
+
 export default function AboutModule() {
   const { currentWallet, connectionStatus } = useCurrentWallet();
   const { mutateAsync: signTransaction } = useSignTransaction();
@@ -56,7 +59,7 @@ export default function AboutModule() {
       signAndExecuteTransaction(
         {
           transaction,
-          chain: 'sui:testnet',
+          chain: configs.chain,
         },
         {
           onSuccess: (result) => {
@@ -91,7 +94,7 @@ export default function AboutModule() {
 
       const { bytes, signature } = await signTransaction({
         transaction,
-        chain: 'sui:testnet', // Hoặc 'sui:testnet' tùy vào môi trường bạn đang sử dụng
+        chain: configs.chain,
       });
       console.log({
         bytes,
@@ -118,12 +121,26 @@ export default function AboutModule() {
   return (
     <div>
       <ConnectButton />
-      {/* <button onClick={getBalance} className="">
-        Get balance
-      </button> */}
       <button onClick={handleCreateBet}>Sign and execute transaction</button>
       <br />
       <button onClick={handleCreateBetTEST}>Sign empty transaction</button>
+      <br />
+      <button
+        onClick={() => {
+          setCookieToken('123AT', 'RF');
+        }}
+      >
+        Cookie Set
+      </button>
+      <br />
+      <button
+        onClick={() => {
+          removeCookieToken();
+        }}
+      >
+        Cookie Remove
+      </button>
+      <br />
       {connectionStatus === 'connected' ? (
         <div>
           <h2>Current wallet:</h2>

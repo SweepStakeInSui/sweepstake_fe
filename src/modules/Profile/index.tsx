@@ -5,6 +5,7 @@ import { StringParam, useQueryParam, withDefault } from 'use-query-params';
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import withAuth from '@/components/withAuth';
 
 import { Activity } from './components/Activity';
 import { BetsCreated } from './components/BetsCreated';
@@ -54,4 +55,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default withAuth(Profile);
