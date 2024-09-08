@@ -1,13 +1,11 @@
 'use client';
 
 import { addWeeks } from 'date-fns';
-import Image from 'next/image';
 import { useEffect } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
-import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -16,11 +14,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { mockAvatar } from '@/mocks/mockAvatar';
 
 import { DatePicker } from '../../../../components/common/DatePicker';
+import { ImageUploader } from '../../../../components/common/ImageUploader';
 import { OptionsOutsideSelect } from '../../../../components/common/OptionsOutsideSelect';
-import Svg from '../../../../components/common/Svg';
 import { TimePicker } from '../../../../components/common/TimePicker';
 import { Input } from '../../../../components/ui/input';
 import { Textarea } from '../../../../components/ui/textarea';
@@ -63,7 +60,7 @@ const CreateBetFormModule = () => {
     <Stack className="sticky gap-y-0 border-l border-solid border-borderSubtle p-3 pt-10 pb-24 top-[4.75rem] w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto bg-bg-surface">
       <Stack className="gap-y-5">
         <Typography.Heading size={20}>Bet Details</Typography.Heading>
-        <Stack className="justify-center items-center">
+        {/* <Stack className="justify-center items-center">
           <div className="relative size-30 rounded-xl overflow-hidden">
             <Image src={mockAvatar} alt="bet thumbnail" fill />
           </div>
@@ -71,7 +68,14 @@ const CreateBetFormModule = () => {
             <Typography>Upload</Typography>
             <Svg src="/icons/photo_camera.svg" />
           </Button>
-        </Stack>
+        </Stack> */}
+        <Controller
+          control={control}
+          name="thumbnail"
+          render={({ field }) => (
+            <ImageUploader {...field} variant="big" customKey="thumbnail" />
+          )}
+        />
         <Stack className="gap-y-2">
           <Typography.Text size={15}>Bet Title</Typography.Text>
           <Controller
@@ -188,7 +192,7 @@ const CreateBetFormModule = () => {
           <Typography.Text size={15}>Source (Optional)</Typography.Text>
           <Controller
             control={control}
-            name="source"
+            name="sources"
             render={({ field }) => <Textarea {...field} />}
           />
         </Stack>

@@ -1,14 +1,15 @@
 import Stack from '@components/common/Stack';
+import { format } from 'date-fns';
 import React from 'react';
 
 import Typography from '../../../../components/common/Typography';
-import type { TCreateBetData } from '../../../../services/bets/types';
+import type { IFormattedCreateBetData } from '../../../../services/markets/types';
 import PreviewBetAbout from './About';
 import PreviewBetDetail from './Detail';
 import PreviewBetRulesSummary from './RulesSummary';
 
 interface IPreviewBetModuleProps {
-  data: TCreateBetData;
+  data: IFormattedCreateBetData;
 }
 
 const PreviewBetModule = ({ data }: IPreviewBetModuleProps) => {
@@ -23,15 +24,16 @@ const PreviewBetModule = ({ data }: IPreviewBetModuleProps) => {
       <Stack className="gap-y-8 bg-bg-surface">
         <PreviewBetDetail {...data} />
         <PreviewBetRulesSummary
-          desc="If SpaceX has more than 120 launches in 2024, then the market resolves to Yes. Outcome verified from Federal Aviation Administration."
-          openOn="2021-09-20"
-          closeOn="2021-09-20"
-          payoutOn="2021-09-20"
-          series="2021-09-20"
-          event="2021-09-20"
-          market="2021-09-20"
+          desc={data.rule}
+          openOn={format(new Date(data.startTime), 'MMM dd, yyyy')}
+          closeOn={format(new Date(data.endTime), 'MMM dd, yyyy')}
+          payoutOn={format(new Date(data.endTime), 'MMM dd, yyyy')}
+          categories={data.categories.reduce<string[]>((prev, curr) => {
+            prev.push(curr.label as string);
+            return prev;
+          }, [])}
         />
-        <PreviewBetAbout desc="" />
+        <PreviewBetAbout desc={data.about} sources={data.sources} />
       </Stack>
     </Stack>
   );

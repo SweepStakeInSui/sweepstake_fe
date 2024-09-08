@@ -6,7 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import Flex from '../../components/common/Flex';
 import { Button } from '../../components/ui/button';
-import type { TCreateBetData } from '../../services/bets/types';
+import type { IFormattedCreateBetData } from '../../services/markets/types';
 import { dateToMilliseconds } from '../../utils/dateToMilliseconds';
 import { epochToDate } from '../../utils/epochToDate';
 import { timeToMilliseconds } from '../../utils/timeToMilliseconds';
@@ -14,15 +14,8 @@ import { toEpoch } from '../../utils/toEpoch';
 import { CreateBetFormModule } from './components/CreateBetForm';
 import { PreviewBetModule } from './components/PreviewBet';
 
-type TCrateBetFormData = {
-  startDate: Date;
-  startClock: Date;
-  endDate: Date;
-  endClock: Date;
-} & TCreateBetData;
-
 const CreateBetModule = () => {
-  const methods = useForm<TCrateBetFormData>({
+  const methods = useForm<IFormattedCreateBetData>({
     defaultValues: {
       title: '',
       startDate: new Date(),
@@ -33,7 +26,18 @@ const CreateBetModule = () => {
       endTime: dateToMilliseconds(addWeeks(new Date(), 1)),
       categories: [],
       betType: 'yesno',
-      outcomes: [],
+      outcomes: [
+        {
+          outcome: '',
+          subOutcome: '',
+          picture: undefined,
+        },
+        {
+          outcome: '',
+          subOutcome: '',
+          picture: undefined,
+        },
+      ],
       rule: '',
       about: '',
       sources: '',
@@ -42,7 +46,7 @@ const CreateBetModule = () => {
   const formValues = methods.watch();
   const deferredFormData = useDeferredValue(formValues);
 
-  const handleCreateBet = (data: TCrateBetFormData) => {
+  const handleCreateBet = (data: IFormattedCreateBetData) => {
     const { startClock, startDate, endClock, endDate } = data;
     const startTimeFormatted =
       dateToMilliseconds(startDate, true) + timeToMilliseconds(startClock);

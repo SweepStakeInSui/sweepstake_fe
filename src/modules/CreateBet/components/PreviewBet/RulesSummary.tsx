@@ -3,16 +3,15 @@ import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { Button } from '@/components/ui/button';
+
+import { Separator } from '../../../../components/ui/separator';
 
 interface IRulesSummaryProps {
   desc: string;
   openOn: string;
   closeOn: string;
   payoutOn: string;
-  series: string;
-  event: string;
-  market: string;
+  categories?: string[];
 }
 
 export default function PreviewBetRulesSummary({
@@ -20,9 +19,7 @@ export default function PreviewBetRulesSummary({
   openOn,
   closeOn,
   payoutOn,
-  series,
-  event,
-  market,
+  categories,
 }: Readonly<IRulesSummaryProps>) {
   return (
     <Paper>
@@ -73,36 +70,29 @@ export default function PreviewBetRulesSummary({
             </Stack>
           </Flex>
           <Flex className="px-4 py-3">
-            <Flex>
+            <Flex className="flex-wrap">
               <Typography.Text size={13} className="text-text-subtle">
-                Series:
+                {categories && categories?.length > 1
+                  ? 'Categories: '
+                  : 'Category: '}
               </Typography.Text>
-              <Typography.Text size={13} className="text-icon-support-blue">
-                {series}
-              </Typography.Text>
-            </Flex>
-            <Flex>
-              <Typography.Text size={13} className="text-text-subtle">
-                Event:
-              </Typography.Text>
-              <Typography.Text size={13} className="text-icon-support-blue">
-                {event}
-              </Typography.Text>
-            </Flex>
-            <Flex>
-              <Typography.Text size={13} className="text-text-subtle">
-                Market:
-              </Typography.Text>
-              <Typography.Text size={13} className="text-icon-support-blue">
-                {market}
-              </Typography.Text>
+              {categories?.map((category, index) => (
+                <>
+                  <Typography.Text
+                    size={13}
+                    className="text-icon-support-blue"
+                    key={category + index.toString()}
+                  >
+                    {category}
+                  </Typography.Text>
+                  {categories.length - 1 !== index && (
+                    <Separator orientation="vertical" className="size-1" />
+                  )}
+                </>
+              ))}
             </Flex>
           </Flex>
         </Stack>
-        <Flex className="gap-0">
-          <Button variant="ghost">Hide timeline</Button>
-          <Button variant="ghost">View full rule</Button>
-        </Flex>
       </Stack>
     </Paper>
   );
