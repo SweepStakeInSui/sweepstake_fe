@@ -11,13 +11,13 @@ const withAuth = <P extends object>(Component: FC<P>) => {
     const router = useRouter();
     const { isLoggedIn } = useSelector(selectProfile);
 
-    // Nếu người dùng chưa đăng nhập, điều hướng về trang chủ
+    // If the user is not logged in, navigate to the home page
     if (!isLoggedIn) {
       router.push('/');
-      return null; // Ngăn việc render component khi chưa đăng nhập
+      return null;
     }
 
-    // Nếu đã đăng nhập, render component gốc với các props
+    // If logged in, render the root component with props
     return <Component {...props} />;
   };
 

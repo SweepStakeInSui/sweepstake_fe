@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Back from '@/components/common/Back';
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
@@ -14,7 +13,6 @@ const LeaderboardModule = () => {
   const tabs = ['Day', 'Week', 'Month', 'All'];
   return (
     <Container className="max-w-screen-lg py-10">
-      <Back />
       <Typography.Heading size={32} className="text-text my-4">
         Leaderboard
       </Typography.Heading>
