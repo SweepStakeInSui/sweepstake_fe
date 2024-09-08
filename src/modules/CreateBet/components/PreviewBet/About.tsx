@@ -1,16 +1,19 @@
 import Flex from '@/components/common/Flex';
 import Paper from '@/components/common/Paper';
-import { SourceLinks } from '@/components/common/SourceLinks';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 
 interface IPreviewBetAboutProps {
   desc: string;
+  sources: string;
 }
 
 export default function PreviewBetAbout({
   desc,
+  sources,
 }: Readonly<IPreviewBetAboutProps>) {
+  console.log(sources.split(';'));
+
   return (
     <Paper>
       <Typography.Heading size={24} className="mb-2">
@@ -24,7 +27,7 @@ export default function PreviewBetAbout({
         <Svg src="/icons/link.svg" className="size-5" />
         <Typography.Text size={15} className="text-text-subtle">
           Sources from{' '}
-          <SourceLinks
+          {/* <SourceLinks
             sources={[
               { label: 'GitHub', link: 'https://github.com' },
               { label: 'DataHub.io', link: 'https://datahub.io' },
@@ -34,7 +37,8 @@ export default function PreviewBetAbout({
                 link: 'https://www.eia.gov',
               },
             ]}
-          />
+          /> */}
+          {sources}
         </Typography.Text>
       </Flex>
     </Paper>

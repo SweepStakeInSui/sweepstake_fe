@@ -1,3 +1,6 @@
+import { format } from 'date-fns';
+import Image from 'next/image';
+
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
 import Paper from '@/components/common/Paper';
@@ -6,23 +9,23 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
+import type { IOutcomeData } from '../../../../services/markets/types';
+
 interface IPreviewBetDetailProps {
   title: string;
+  startTime: number;
+  betType: string;
+  outcomes: IOutcomeData[];
 }
 
 export default function PreviewBetDetail({
   title,
+  startTime,
+  betType,
+  outcomes,
 }: Readonly<IPreviewBetDetailProps>) {
   return (
     <Paper>
@@ -34,7 +37,7 @@ export default function PreviewBetDetail({
               className="text-text-subtle inline-flex items-center gap-1"
               size={15}
             >
-              $120,000,000 bet
+              $0 bet
             </Typography.Text>
           </Flex>
           <Separator orientation="vertical" className="h-3 bg-borderMain" />
@@ -44,7 +47,7 @@ export default function PreviewBetDetail({
               className="text-text-subtle inline-flex items-center gap-1"
               size={15}
             >
-              Aug 21, 2024
+              {format(new Date(startTime), 'MMM dd, yyyy - hh:mm')}
             </Typography.Text>
           </Flex>
         </Flex>
@@ -54,7 +57,7 @@ export default function PreviewBetDetail({
               <AvatarImage src={mockAvatar} />
               <AvatarFallback />
             </Avatar>
-            <Typography.Heading size={28}>{title}</Typography.Heading>
+            <Typography.Heading size={28}>{title || '--'}</Typography.Heading>
           </Flex>
 
           <Flex className="gap-0">
@@ -71,7 +74,7 @@ export default function PreviewBetDetail({
         </Flex>
         <Flex className="items-center">
           <Typography.Heading className="text-text" size={20}>
-            24.2
+            --%
           </Typography.Heading>
 
           <div>
@@ -79,13 +82,13 @@ export default function PreviewBetDetail({
               className="text-text inline-flex items-center gap-1"
               size={15}
             >
-              forscast{' '}
+              chance{' '}
               <Typography.Text
                 tag="span"
-                className="text-text-support-green"
+                className="text-text-subtle"
                 size={15}
               >
-                +2%
+                0
               </Typography.Text>
               <span>
                 <Svg
@@ -98,44 +101,84 @@ export default function PreviewBetDetail({
         </Flex>
       </Stack>
 
-      <Stack className="gap-3">
-        <Stack className="gap-0">
-          <Flex className="w-full justify-between border-b border-borderSublest">
-            <Select defaultValue="2024">
-              <SelectTrigger className="bg-transparent border-none w-fit gap-2 pl-0 text-13 text-text-subtle">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="2024">2024</SelectItem>
-                  <SelectItem value="2023">2023</SelectItem>
-                  <SelectItem value="2022">2022</SelectItem>
-                  <SelectItem value="2021">2021</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+      {(() => {
+        switch (betType) {
+          case 'yesno':
+            return (
+              <Flex>
+                <Typography.Text>Orderbook</Typography.Text>
+              </Flex>
+            );
+          case 'multi':
+            return (
+              <Stack className="gap-3">
+                <Stack className="gap-0">
+                  <Flex className="w-full justify-between border-b border-borderSublest px-4 py-3">
+                    <Typography.Text size={13} className="text-text-subtle">
+                      Outcomes
+                    </Typography.Text>
 
-            <Flex className="w-[21.25rem] justify-between">
-              <Typography.Text size={13} className="text-text-subtle">
-                %Chance
-              </Typography.Text>
-              <Typography.Text size={13} className="text-text-subtle">
-                13,000 vol
-              </Typography.Text>
-            </Flex>
-          </Flex>
-        </Stack>
+                    <Flex className="w-[21.25rem] justify-between">
+                      <Typography.Text size={13} className="text-text-subtle">
+                        %Chance
+                      </Typography.Text>
+                      <Typography.Text size={13} className="text-text-subtle">
+                        {' '}
+                      </Typography.Text>
+                    </Flex>
+                  </Flex>
+                </Stack>
 
-        <Button
-          variant="ghost"
-          className="text-text-support-blue pl-0 hover:bg-transparent active:bg-transparent"
-        >
-          2 more PreviewBet
-          <span>
-            <Svg src="/icons/chevron_right.svg" className="rotate-90" />
-          </span>
-        </Button>
-      </Stack>
+                {outcomes.map((outcome, index) => (
+                  <Flex
+                    className="w-full justify-between"
+                    key={outcome.outcome + index.toString()}
+                  >
+                    <Flex>
+                      <div className="relative size-11 rounded-md overflow-hidden">
+                        {outcome.picture ? (
+                          <Image
+                            src={URL.createObjectURL(outcome.picture)}
+                            alt={outcome.outcome}
+                            fill
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-300" />
+                        )}
+                      </div>
+                      <Stack className="items-start">
+                        <Typography.Text size={15} weight="medium">
+                          {outcome.outcome}
+                        </Typography.Text>
+                        <Typography.Text size={13} className="text-text-subtle">
+                          {outcome.subOutcome}
+                        </Typography.Text>
+                      </Stack>
+                    </Flex>
+                    <Flex className="w-[21.25rem] justify-between">
+                      <Flex className="w-[6.875rem] items-center gap-1">
+                        <Typography.Text size={18} weight="medium">
+                          --%
+                        </Typography.Text>
+                      </Flex>
+                      <Flex className="w-[14.375rem]">
+                        <Button variant="bet_yes" className="w-full">
+                          Bet Yes
+                        </Button>
+                        <Button variant="bet_no" className="w-full">
+                          Bet No
+                        </Button>
+                      </Flex>
+                    </Flex>
+                  </Flex>
+                ))}
+              </Stack>
+            );
+          default:
+            return null;
+        }
+      })()}
     </Paper>
   );
 }

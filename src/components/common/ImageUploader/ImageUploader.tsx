@@ -8,9 +8,19 @@ import Stack from '../Stack';
 import Svg from '../Svg';
 import Typography from '../Typography';
 
-interface ImageUploaderProps extends ControllerRenderProps {}
+interface ImageUploaderProps extends ControllerRenderProps {
+  variant?: 'big' | 'rounded' | 'default';
+  desc?: string;
+  customKey: string;
+}
 
-const ImageUploader: React.FC<ImageUploaderProps> = ({ onChange, value }) => {
+const ImageUploader: React.FC<ImageUploaderProps> = ({
+  onChange,
+  value,
+  variant = 'default',
+  desc,
+  customKey,
+}) => {
   const [preview, setPreview] = useState<string | null>(null);
 
   useEffect(() => {
@@ -44,10 +54,21 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onChange, value }) => {
     }
   };
 
+  const previewImageSize = (() => {
+    switch (variant) {
+      case 'big':
+        return 'size-30 rounded-md';
+      case 'rounded':
+        return 'size-30 rounded-full';
+      default:
+        return 'size-20 rounded-md';
+    }
+  })();
+
   return (
     <Stack>
       {preview && (
-        <div className="mb-2 relative h-20 w-20 rounded-md overflow-hidden">
+        <div className={`mb-2 relative ${previewImageSize} overflow-hidden`}>
           <Image
             src={preview}
             alt="Preview"
@@ -69,21 +90,23 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onChange, value }) => {
       <Flex className="items-center">
         <Button
           className="rounded-full bg-blk-a80 border-blk-a85 px-2 py-0.5 gap-1"
-          onClick={() => document.getElementById('fileInput')?.click()}
+          onClick={() => document.getElementById(customKey)?.click()}
         >
           <Typography>{value ? 'Change' : 'Upload'}</Typography>
           <Svg src="/icons/photo_camera.svg" />
         </Button>
         <input
-          id="fileInput"
+          id={customKey}
           type="file"
           accept="image/*"
           onChange={handleFileChange}
           style={{ display: 'none' }}
         />
-        <Typography.Text size={13} className="text-text-subtle ml-2">
-          Image maximum 10MB
-        </Typography.Text>
+        {desc && (
+          <Typography.Text size={13} className="text-text-subtle ml-2">
+            {desc}
+          </Typography.Text>
+        )}
       </Flex>
     </Stack>
   );

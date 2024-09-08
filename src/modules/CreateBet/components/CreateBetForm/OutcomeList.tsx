@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Controller,
-  useFieldArray,
-  useForm,
-  useFormContext,
-} from 'react-hook-form';
+import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
 import { ImageUploader } from '../../../../components/common/ImageUploader';
 import Stack from '../../../../components/common/Stack';
@@ -72,7 +67,13 @@ const OutcomePanel = ({ index }: IOutcomePanelProps) => {
         <Controller
           name={`outcomes.${index}.picture`}
           control={control}
-          render={({ field }) => <ImageUploader {...field} />}
+          render={({ field }) => (
+            <ImageUploader
+              {...field}
+              desc="Image maximum 10MB"
+              customKey={`image-uploader-${index}`}
+            />
+          )}
         />
       </div>
     </Stack>
@@ -80,22 +81,7 @@ const OutcomePanel = ({ index }: IOutcomePanelProps) => {
 };
 
 const OutcomeList = () => {
-  const { control } = useForm({
-    defaultValues: {
-      outcomes: [
-        {
-          outcome: '',
-          subOutcome: '',
-          picture: null,
-        },
-        {
-          outcome: '',
-          subOutcome: '',
-          picture: null,
-        },
-      ],
-    },
-  });
+  const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'outcomes',
