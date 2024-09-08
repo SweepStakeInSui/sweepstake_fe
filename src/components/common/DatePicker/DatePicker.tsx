@@ -1,10 +1,12 @@
 'use client';
 
+import 'react-datepicker/dist/react-datepicker.css';
+import './index.scss';
+
 import { format } from 'date-fns';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
@@ -12,10 +14,34 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
+import { Calendar } from '../../ui/calendar';
 import Svg from '../Svg';
+import Typography from '../Typography';
 
-function DatePicker() {
-  const [date, setDate] = React.useState<Date>();
+interface DatePickerProps {
+  defaultValue?: Date;
+  value?: Date;
+  onChange?: (date: Date | undefined) => void;
+}
+function CDatePicker({
+  value,
+  onChange,
+  defaultValue,
+}: Readonly<DatePickerProps>) {
+  const [date, setDate] = React.useState<Date | undefined>(defaultValue);
+
+  React.useEffect(() => {
+    if (value) {
+      setDate(value);
+    }
+  }, [value]);
+
+  const handleSelect = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
+    if (onChange) {
+      onChange(selectedDate);
+    }
+  };
 
   return (
     <Popover>
@@ -28,19 +54,24 @@ function DatePicker() {
           )}
         >
           <Svg src="/icons/calendar.svg" className="mr-2 h-4 w-4" />
-          {date ? format(date, 'P') : <span>Pick a date</span>}
+          <Typography.Text size={15} className="text-text text-15">
+            {date ? format(date, 'P') : <span>Pick a date</span>}
+          </Typography.Text>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={handleSelect}
           initialFocus
+          disabled={{
+            before: new Date(),
+          }}
         />
       </PopoverContent>
     </Popover>
   );
 }
 
-export default DatePicker;
+export default CDatePicker;
