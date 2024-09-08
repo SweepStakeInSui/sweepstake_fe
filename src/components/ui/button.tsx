@@ -16,7 +16,7 @@ const buttonVariants = cva(
         terriary:
           'border border-btn-terriary text-text-subtle hover:border-btn-terriary-hover active:border-btn-terriary-press ',
         ghost:
-          'bg-white text-text-subtle hover:bg-btn-ghost-hover active:bg-btn-ghost-press',
+          'bg-transparent text-text-subtle hover:bg-btn-ghost-hover active:bg-btn-ghost-press',
         bet_yes:
           'bg-btn-betYes text-text-support-match hover:bg-btn-betYes-press hover:shadow-button-yes-shadow hover:text-wht-a100 active:bg-btn-betYes-hover active:text-text-support-match bg-opacity-35',
         bet_no:

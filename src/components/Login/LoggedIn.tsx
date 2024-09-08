@@ -196,10 +196,12 @@ const LoggedIn = () => {
   ];
   return (
     <Flex>
-      <Button className="gap-x-2">
-        <Svg src="/icons/add.svg" />
-        Create bet
-      </Button>
+      <Link href="/create-bet">
+        <Button className="gap-x-2">
+          <Svg src="/icons/add.svg" />
+          Create bet
+        </Button>
+      </Link>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -272,30 +274,34 @@ const LoggedIn = () => {
             >
               $0
             </Typography.Heading>
-            <Flex className="mt-5">
-              <Button variant="ghost" size="medium" className="flex-1">
-                <Typography.Text
-                  size={14}
-                  weight="semibold"
-                  className="text-text"
-                >
-                  Deposit
-                </Typography.Text>
+            <Flex className="mt-5 relative z-10">
+              <Button variant="ghost" size="medium" className="flex-1 bg-white">
+                <Link href="/deposit">
+                  <Typography.Text
+                    size={14}
+                    weight="semibold"
+                    className="text-text"
+                  >
+                    Deposit
+                  </Typography.Text>
+                </Link>
               </Button>
-              <Button variant="ghost" size="medium" className="flex-1">
-                <Typography.Text
-                  size={14}
-                  weight="semibold"
-                  className="text-text"
-                >
-                  Withdraw
-                </Typography.Text>
+              <Button variant="ghost" size="medium" className="flex-1 bg-white">
+                <Link href="/deposit">
+                  <Typography.Text
+                    size={14}
+                    weight="semibold"
+                    className="text-text"
+                  >
+                    Withdraw
+                  </Typography.Text>
+                </Link>
               </Button>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="bg-white">
                 <Svg src="/icons/history.svg" />
               </Button>
             </Flex>
-            <div className="absolute -bottom-4 -left-2 mix-blend-color-burn blur-sm z-0">
+            <div className="absolute bottom-1 -left-2 mix-blend-color-burn blur-sm z-0">
               <Image
                 src="/icons/Flare.svg"
                 alt="flare"
@@ -317,15 +323,6 @@ const LoggedIn = () => {
                   className="text-text"
                 >
                   My bet
-                </Typography.Text>
-              </Link>
-              <Link href="/">
-                <Typography.Text
-                  size={13}
-                  weight="semibold"
-                  className="text-text-support-red"
-                >
-                  Create Bet
                 </Typography.Text>
               </Link>
             </DropdownMenuItem>
