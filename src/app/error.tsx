@@ -16,7 +16,7 @@ const Error = () => {
           <Image src="/images/404.png" alt="404" fill />
         </div>
         <Typography.Heading size={32} className="text-center">
-          Page Not Found
+          Oops! Something went wrong
         </Typography.Heading>
         <Link href="/">
           <Button variant="terriary">Back to Home</Button>

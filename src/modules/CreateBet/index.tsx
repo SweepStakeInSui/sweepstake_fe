@@ -5,6 +5,7 @@ import React, { useDeferredValue } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Flex from '../../components/common/Flex';
+import { StatusModal } from '../../components/common/StatusModal';
 import { Button } from '../../components/ui/button';
 import type { IFormattedCreateBetData } from '../../services/markets/types';
 import { dateToMilliseconds } from '../../utils/dateToMilliseconds';
@@ -15,6 +16,15 @@ import { CreateBetFormModule } from './components/CreateBetForm';
 import { PreviewBetModule } from './components/PreviewBet';
 
 const CreateBetModule = () => {
+  // STATES
+  const [confirmCreateBetModalOpen, setConfirmCreateBetModalOpen] =
+    React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [status, setStatus] = React.useState<'idle' | 'success' | 'fail'>(
+    'idle',
+  );
+  const [txsString, setTxsString] = React.useState('');
+
   const methods = useForm<IFormattedCreateBetData>({
     defaultValues: {
       title: '',
@@ -53,11 +63,29 @@ const CreateBetModule = () => {
     const endTimeFormatted =
       dateToMilliseconds(endDate, true) + timeToMilliseconds(endClock);
 
-    console.log({
+    const formattedData = {
       ...data,
       startTime: startTimeFormatted,
       endTime: endTimeFormatted,
-    });
+    };
+
+    setConfirmCreateBetModalOpen(true);
+    console.log('Data before loading:', formattedData);
+
+    setLoading(true);
+    setStatus('idle');
+
+    // Mock sending data
+    setTimeout(() => {
+      setLoading(false);
+      // Randomly set success or fail
+      const isSuccess = Math.random() > 0.5;
+      setStatus(isSuccess ? 'success' : 'fail');
+
+      if (isSuccess) {
+        setTxsString('success');
+      }
+    }, 1000);
   };
 
   return (
@@ -70,9 +98,29 @@ const CreateBetModule = () => {
         <Button variant="terriary" onClick={() => methods.reset()}>
           Clear All
         </Button>
+
         <Button onClick={methods.handleSubmit(handleCreateBet)}>
           Create Bet
         </Button>
+        <StatusModal
+          open={confirmCreateBetModalOpen}
+          onOpenChange={setConfirmCreateBetModalOpen}
+          isLoading={loading}
+          status={status}
+          title={(() => {
+            if (loading) return 'Your Bet Being Created';
+            if (status === 'success') return 'Bet Created';
+            if (status === 'fail') return 'Bet Creation Failed';
+            return '';
+          })()}
+          message={(() => {
+            if (loading) return 'Your bet is being created.';
+            if (status === 'success') return 'Your bet has been created.';
+            if (status === 'fail') return 'Your bet has not been created.';
+            return '';
+          })()}
+          txs={txsString}
+        />
       </div>
     </FormProvider>
   );

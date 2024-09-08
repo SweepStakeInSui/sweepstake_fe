@@ -60,15 +60,6 @@ const CreateBetFormModule = () => {
     <Stack className="sticky gap-y-0 border-l border-solid border-borderSubtle p-3 pt-10 pb-24 top-[4.75rem] w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto bg-bg-surface">
       <Stack className="gap-y-5">
         <Typography.Heading size={20}>Bet Details</Typography.Heading>
-        {/* <Stack className="justify-center items-center">
-          <div className="relative size-30 rounded-xl overflow-hidden">
-            <Image src={mockAvatar} alt="bet thumbnail" fill />
-          </div>
-          <Button className="rounded-full bg-blk-a80 border-blk-a85 px-2 py-0.5 gap-1">
-            <Typography>Upload</Typography>
-            <Svg src="/icons/photo_camera.svg" />
-          </Button>
-        </Stack> */}
         <Controller
           control={control}
           name="thumbnail"

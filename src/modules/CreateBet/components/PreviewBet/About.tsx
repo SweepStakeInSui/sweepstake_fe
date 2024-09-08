@@ -12,8 +12,6 @@ export default function PreviewBetAbout({
   desc,
   sources,
 }: Readonly<IPreviewBetAboutProps>) {
-  console.log(sources.split(';'));
-
   return (
     <Paper>
       <Typography.Heading size={24} className="mb-2">
