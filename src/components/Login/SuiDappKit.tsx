@@ -25,7 +25,6 @@ const SuiDappKit = () => {
   const { mutate: signPersonalMessage } = useSignPersonalMessage();
   const { mutate: connect } = useConnectWallet();
   const account = useCurrentAccount();
-  const [signature, setSignature] = useState('');
   const dispatch = useDispatch();
   const loginSuiWallets = async () => {
     setWallet(ConnectionType.SuiWallet);
@@ -37,10 +36,9 @@ const SuiDappKit = () => {
         },
         {
           onSuccess: async (result) => {
-            setSignature(result.signature);
             const { accessToken, refreshToken } = await AuthService.login(
               account.address,
-              signature,
+              result.signature,
             );
 
             dispatch(login({ accessToken, refreshToken }));

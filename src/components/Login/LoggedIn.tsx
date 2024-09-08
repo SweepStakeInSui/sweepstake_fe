@@ -194,17 +194,6 @@ const LoggedIn = () => {
       onClick: onDisconnect,
     },
   ];
-  const inforUser = [
-    {
-      infor: 'Balance',
-      amount: 0,
-      add: true,
-    },
-    {
-      infor: 'Referrals',
-      amount: 20,
-    },
-  ];
   return (
     <Flex>
       <Button className="gap-x-2">
@@ -265,55 +254,56 @@ const LoggedIn = () => {
           className="w-[370px] px-2.5 py-3 bg-bg-surface"
           align="end"
         >
-          <Flex className="">
-            {inforUser.map((user) => (
-              <div
-                key={user.infor}
-                className="p-4 basis-1/2 text-text bg-r-10 rounded-sm relative overflow-hidden"
+          <div className="p-4  text-text bg-r-10 rounded-sm relative overflow-hidden">
+            <Flex className=" z-10 relative mb-0.5">
+              <Typography.Text
+                size={13}
+                weight="medium"
+                className="text-text-subtle"
               >
-                <Flex className="justify-between z-10 relative">
-                  <Typography.Text
-                    size={15}
-                    weight="medium"
-                    className="text-text mb-1"
-                  >
-                    {user.infor}
-                  </Typography.Text>
-                  {user.add && (
-                    <Button
-                      variant="secondary"
-                      className="py-0.5 px-1 rounded-sm"
-                    >
-                      <Flex className="gap-0">
-                        <Svg src="/icons/add.svg" className="size-4" />
-                        <Typography.Text
-                          size={12}
-                          className="text-text-inverse"
-                        >
-                          Add
-                        </Typography.Text>
-                      </Flex>
-                    </Button>
-                  )}
-                </Flex>
-                <Typography.Heading
-                  size={24}
+                Balance
+              </Typography.Text>
+              <Svg src="/icons/refresh.svg" className="cursor-pointer" />
+            </Flex>
+            <Typography.Heading
+              weight="semibold"
+              size={24}
+              className="text-text "
+            >
+              $0
+            </Typography.Heading>
+            <Flex className="mt-5">
+              <Button variant="ghost" size="medium" className="flex-1">
+                <Typography.Text
+                  size={14}
                   weight="semibold"
                   className="text-text"
                 >
-                  ${user.amount}
-                </Typography.Heading>
-                <div className="absolute -bottom-4 -left-2 mix-blend-color-burn blur-sm z-0">
-                  <Image
-                    src="/icons/Flare.svg"
-                    alt="flare"
-                    width={147}
-                    height={108}
-                  />
-                </div>
-              </div>
-            ))}
-          </Flex>
+                  Deposit
+                </Typography.Text>
+              </Button>
+              <Button variant="ghost" size="medium" className="flex-1">
+                <Typography.Text
+                  size={14}
+                  weight="semibold"
+                  className="text-text"
+                >
+                  Withdraw
+                </Typography.Text>
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Svg src="/icons/history.svg" />
+              </Button>
+            </Flex>
+            <div className="absolute -bottom-4 -left-2 mix-blend-color-burn blur-sm z-0">
+              <Image
+                src="/icons/Flare.svg"
+                alt="flare"
+                width={147}
+                height={108}
+              />
+            </div>
+          </div>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem className="py-3 flex justify-between">

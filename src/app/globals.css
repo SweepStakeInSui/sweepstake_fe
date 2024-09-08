@@ -343,3 +343,11 @@ html *::-webkit-scrollbar-track {
 .swiper-pagination-bullet-active {
   background-color: #9075fe !important;
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
