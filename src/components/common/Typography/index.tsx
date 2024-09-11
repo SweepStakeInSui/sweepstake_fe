@@ -1,5 +1,3 @@
-import { cn } from '@/lib/utils';
-
 interface ITypographyProps {
   children: React.ReactNode;
   tag?: React.ElementType;
@@ -46,12 +44,7 @@ function Text({
 
   return (
     <Tag
-      className={cn(
-        'text-text',
-        textClasses[size],
-        weightClasses[weight],
-        className,
-      )}
+      className={`text-text ${textClasses[size]} ${weightClasses[weight]} ${className}`}
     >
       {children}
     </Tag>
@@ -88,12 +81,7 @@ function Heading({
 
   return (
     <Tag
-      className={cn(
-        'text-text',
-        headingClasses[size],
-        weightClasses[weight],
-        className,
-      )}
+      className={`text-text ${headingClasses[size]} ${weightClasses[weight]} ${className}`}
     >
       {children}
     </Tag>
