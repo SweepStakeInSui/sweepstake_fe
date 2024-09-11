@@ -1,6 +1,3 @@
-import { cn } from '@/lib/utils';
-import { twMerge } from 'tailwind-merge';
-
 interface ITypographyProps {
   children: React.ReactNode;
   tag?: React.ElementType;
