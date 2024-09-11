@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { twMerge } from 'tailwind-merge';
 
 interface ITypographyProps {
   children: React.ReactNode;
@@ -46,12 +47,7 @@ function Text({
 
   return (
     <Tag
-      className={cn(
-        'text-text',
-        textClasses[size],
-        weightClasses[weight],
-        className,
-      )}
+      className={`text-text ${textClasses[size]} ${weightClasses[weight]} ${className}`}
     >
       {children}
     </Tag>
@@ -88,12 +84,7 @@ function Heading({
 
   return (
     <Tag
-      className={cn(
-        'text-text',
-        headingClasses[size],
-        weightClasses[weight],
-        className,
-      )}
+      className={`text-text ${headingClasses[size]} ${weightClasses[weight]} ${className}`}
     >
       {children}
     </Tag>
