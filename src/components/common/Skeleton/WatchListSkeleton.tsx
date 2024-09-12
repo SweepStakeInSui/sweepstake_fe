@@ -1,8 +1,8 @@
-import Flex from '../../../../components/common/Flex';
-import Stack from '../../../../components/common/Stack';
-import { Skeleton } from '../../../../components/ui/skeleton';
+import { Skeleton } from '../../ui/skeleton';
+import Flex from '../Flex';
+import Stack from '../Stack';
 
-const MarketsWatchListSkeleton = () => {
+const WatchListSkeleton = () => {
   return (
     <aside className="sticky flex flex-col top-[4.75rem] px-6 pr-3 py-5 w-[5.5rem] h-[calc(100vh-4.75rem)] border-r border-solid border-borderSubtle overflow-hidden transition-all">
       <Flex className="relative justify-end pr-3 mb-6">
@@ -24,4 +24,4 @@ const MarketsWatchListSkeleton = () => {
   );
 };
 
-export default MarketsWatchListSkeleton;
+export default WatchListSkeleton;
