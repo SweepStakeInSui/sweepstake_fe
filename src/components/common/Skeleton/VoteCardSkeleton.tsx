@@ -1,9 +1,8 @@
 'use client';
 
 import Flex from '@/components/common/Flex';
-
-import Stack from '../../../../components/common/Stack';
-import { Skeleton } from '../../../../components/ui/skeleton';
+import Stack from '@/components/common/Stack';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const VoteCardSkeleton = () => {
   return (
@@ -32,22 +31,4 @@ const VoteCardSkeleton = () => {
   );
 };
 
-const VoteCardGridSkeleton = () => {
-  return (
-    <div className="bg-bg-surface">
-      <div className="grid grid-cols-autoFill w-full gap-4 py-8">
-        <VoteCardSkeleton />
-        <VoteCardSkeleton />
-        <VoteCardSkeleton />
-        <VoteCardSkeleton />
-        <VoteCardSkeleton />
-        <VoteCardSkeleton />
-        <VoteCardSkeleton />
-        <VoteCardSkeleton />
-        <VoteCardSkeleton />
-      </div>
-    </div>
-  );
-};
-
-export default VoteCardGridSkeleton;
+export default VoteCardSkeleton;

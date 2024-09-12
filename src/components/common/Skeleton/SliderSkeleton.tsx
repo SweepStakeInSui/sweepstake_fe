@@ -1,9 +1,8 @@
+import Container from '@components/common/Container';
+import Flex from '@components/common/Flex';
+import Stack from '@components/common/Stack';
+import { Skeleton } from '@components/ui/skeleton';
 import React from 'react';
-
-import Container from '../../../../components/common/Container';
-import Flex from '../../../../components/common/Flex';
-import Stack from '../../../../components/common/Stack';
-import { Skeleton } from '../../../../components/ui/skeleton';
 
 const SliderSkeleton = () => {
   return (

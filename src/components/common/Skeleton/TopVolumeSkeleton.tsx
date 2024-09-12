@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Flex from '../../../../components/common/Flex';
-import Stack from '../../../../components/common/Stack';
-import { Skeleton } from '../../../../components/ui/skeleton';
+import Flex from '@/components/common/Flex';
+import Stack from '@/components/common/Stack';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const TopVolumeItemSkeleton = () => {
   return (
