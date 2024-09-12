@@ -2,8 +2,6 @@
 
 import {
   ConnectButton,
-  useCurrentWallet,
-  useDisconnectWallet,
   useSignAndExecuteTransaction,
   useSignTransaction,
   useSuiClient,
@@ -11,13 +9,11 @@ import {
 import { Transaction } from '@mysten/sui/transactions';
 
 import configs from '@/configs';
-import { removeCookieToken, setCookieToken } from '@/utils/token';
+import { setCookieToken } from '@/utils/token';
 
 export default function AboutModule() {
-  const { currentWallet, connectionStatus } = useCurrentWallet();
   const { mutateAsync: signTransaction } = useSignTransaction();
   const client = useSuiClient();
-  const { mutate: disconnect } = useDisconnectWallet();
   // const [digest, setDigest] = useState('');
   // const getBalance = async () => {
   //   if (account) {
@@ -133,30 +129,6 @@ export default function AboutModule() {
         Cookie Set
       </button>
       <br />
-      <button
-        onClick={() => {
-          removeCookieToken();
-        }}
-      >
-        Cookie Remove
-      </button>
-      <br />
-      {connectionStatus === 'connected' ? (
-        <div>
-          <h2>Current wallet:</h2>
-          <div>Name: {currentWallet.name}</div>
-          <div>
-            Accounts:
-            <ul>
-              {currentWallet.accounts.map((account) => (
-                <li key={account.address}>- {account.address}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ) : (
-        <button onClick={() => disconnect()}>Disconnect</button>
-      )}
     </div>
   );
 }

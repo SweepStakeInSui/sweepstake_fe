@@ -17,11 +17,40 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { TimePicker } from '@/components/ui/time-picker';
+import { Tooltip } from '@/components/ui/tooltip';
 
 interface IBuyActionProps {
   isLimit: boolean;
 }
-
+const TooltipPrice = () => {
+  return (
+    <Stack className=" max-w-96">
+      <div>
+        <Typography.Text className="text-[#EBEBEB]" size={15}>
+          What do the prices mean?
+        </Typography.Text>
+        <Typography.Text size={13} className="text-text-subtle">
+          Prices reflect odds of&nbsp;
+          <span className="text-text-support-match">72% Yes</span>
+          &nbsp;and&nbsp;
+          <span className="text-text-support-blue">29% No</span>. If you&#39;re
+          right, the payout per contract is $1 (and if not, you get $0).
+        </Typography.Text>
+      </div>
+      <div>
+        <Typography.Text className="text-[#EBEBEB]" size={15}>
+          Why don&#39;t they add up to 100?
+        </Typography.Text>
+        <Typography.Text size={13} className="text-text-subtle">
+          Slight offsets happen due to market uncertainty. Imagine buying
+          lemonade at a stand. You offer $1, the highest you’d pay (bid). The
+          seller sets their lowest price $1.20 (ask). The $0.20 gap leaves room
+          for bargaining (spread).
+        </Typography.Text>
+      </div>
+    </Stack>
+  );
+};
 const BuyAction = ({ isLimit }: IBuyActionProps) => {
   const [isSetExpiration, setIsSetExpiration] = useState(false);
 
@@ -33,7 +62,11 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
             <Typography.Text size={13} className="text-text-subtle">
               Pick a side
             </Typography.Text>
-            <Svg src="/icons/info_outline.svg" />
+            <Tooltip content={<TooltipPrice />} side="bottom">
+              <div>
+                <Svg src="/icons/info_outline.svg" />
+              </div>
+            </Tooltip>
           </Flex>
           <Flex>
             <Button className="w-full" variant="bet_yes">
@@ -99,9 +132,11 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
                   className="inline-flex items-center gap-1 text-text-subtle"
                 >
                   Estimated Cost
-                  <span>
-                    <Svg src="/icons/info_outline.svg" />
-                  </span>
+                  <Tooltip content={<p>Includes a fee of $0</p>}>
+                    <span>
+                      <Svg src="/icons/info_outline.svg" />
+                    </span>
+                  </Tooltip>
                 </Typography.Text>
                 <Typography.Text size={13}>$100</Typography.Text>
               </Flex>
@@ -111,9 +146,14 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
                   className="inline-flex items-center gap-1 text-text-subtle"
                 >
                   Payout if Yes wins
-                  <span>
-                    <Svg src="/icons/info_outline.svg" />
-                  </span>
+                  <Tooltip
+                    content="This market closes when the outcome occurs.
+Projected payout 2 hours after closing."
+                  >
+                    <span>
+                      <Svg src="/icons/info_outline.svg" />
+                    </span>
+                  </Tooltip>
                 </Typography.Text>
                 <Typography.Text size={13}>$0</Typography.Text>
               </Flex>

@@ -248,13 +248,14 @@ const config = {
       boxShadow: {
         'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)',
         'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)',
+        'search-header': '0px 1px 0px 1px rgba(0, 0, 0, 0.01), 0px 2px 8px 0px rgba(0, 0, 0, 0.12)',
         'card-bet-home': '0px 4px 12px 0px rgba(0, 0, 0, 0.06)',
         'leaderboard-shadow': '0px 6px 17px 0px rgba(44, 41, 211, 0.05)',
         'create-bet-shadow': '0px -3px 9px 0px #00000014',
       },
     },
   },
-  // plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config;
 
 export default config;

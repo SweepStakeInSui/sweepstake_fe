@@ -8,6 +8,7 @@ import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Separator } from '@/components/ui/separator';
+import { Tooltip } from '@/components/ui/tooltip';
 import type { ProfileTypes } from '@/types/profile';
 
 const Statistics = () => {
@@ -84,10 +85,14 @@ const Statistics = () => {
                 >
                   Win rate
                 </Typography.Text>
-                <Svg
-                  src="/icons/info_outline.svg"
-                  className="text-icon-subtle"
-                />
+                <Tooltip content="This is your win rate based on your recent performance.">
+                  <div>
+                    <Svg
+                      src="/icons/info_outline.svg"
+                      className="text-icon-subtle"
+                    />
+                  </div>
+                </Tooltip>
               </Flex>
               <Typography.Heading
                 size={20}
@@ -98,17 +103,19 @@ const Statistics = () => {
                 {profile?.winRate}/100(%)
               </Typography.Heading>
             </Stack>
-            <div style={{ width: 43, height: 43 }}>
-              <CircularProgressbar
-                value={profile?.winRate || 0}
-                styles={buildStyles({
-                  pathColor: `#3DA003`,
-                  textColor: '#3DA003',
-                  textSize: '24px',
-                })}
-                text={profile?.winRate?.toString()}
-              />
-            </div>
+            <Tooltip content="Total win bet / Total bet">
+              <div style={{ width: 43, height: 43 }}>
+                <CircularProgressbar
+                  value={profile?.winRate || 0}
+                  styles={buildStyles({
+                    pathColor: `#3DA003`,
+                    textColor: '#3DA003',
+                    textSize: '24px',
+                  })}
+                  text={profile?.winRate?.toString()}
+                />
+              </div>
+            </Tooltip>
           </Flex>
         </li>
       </ul>
