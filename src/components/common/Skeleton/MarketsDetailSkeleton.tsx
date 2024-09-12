@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Flex from '../../../../components/common/Flex';
-import Paper from '../../../../components/common/Paper';
-import Stack from '../../../../components/common/Stack';
-import { Skeleton } from '../../../../components/ui/skeleton';
+import { Skeleton } from '../../ui/skeleton';
+import Flex from '../Flex';
+import Paper from '../Paper';
+import Stack from '../Stack';
 
 const MarketsDetailSkeleton = () => {
   return (
