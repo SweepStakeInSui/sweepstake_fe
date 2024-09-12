@@ -2,24 +2,21 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import Link from 'next/link';
 import { useRouter } from 'next-nprogress-bar';
+import Link from 'next/link';
 import { useSelector } from 'react-redux';
 
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
-import Svg from '@/components/common/Svg';
-import Typography from '@/components/common/Typography';
 import ConnectButton from '@/components/connectWallet/ConnectButton';
 import LoggedIn from '@/components/Login/LoggedIn';
-import { ModalSearchHeader } from '@/components/Modal';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { navList } from '@/constants/navList';
 import { UserService } from '@/services/userService';
 import { selectProfile } from '@/store/profileSlice';
 import type { ProfileTypes } from '@/types/profile';
 
+import { SearchHeader } from '@/components/Search';
 import HomeLogo from '../HomeLogo';
 
 export default function NavBar(): React.ReactElement {
@@ -56,28 +53,8 @@ export default function NavBar(): React.ReactElement {
             </Flex>
           </Flex>
 
-          <Flex>
-            <Dialog>
-              <DialogTrigger asChild>
-                <div>
-                  <Flex className="justify-between border border-borderSubtle text-elevation-a500 px-3 h-11 rounded-md text-xs w-[380px] group cursor-pointer transition-all duration-150 ease-linear hover:bg-elevation-a200 hover:text-elevation-a600">
-                    <Flex>
-                      <Svg
-                        src="/icons/search.svg"
-                        className="text-icon-sublest"
-                      />
-                      <Typography.Text size={12} className="text-text-sublest">
-                        Search market or people
-                      </Typography.Text>
-                    </Flex>
-                    <div className="text-text-sublest">/</div>
-                  </Flex>
-                </div>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] p-0">
-                <ModalSearchHeader />
-              </DialogContent>
-            </Dialog>
+          <Flex className="grow justify-end gap-x-5">
+            <SearchHeader />
             {isLoggedIn ? <LoggedIn /> : <ConnectButton />}
           </Flex>
         </Flex>

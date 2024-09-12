@@ -34,7 +34,7 @@ const VoteCardSkeleton = () => {
 
 const VoteCardGridSkeleton = () => {
   return (
-    <div className="bg-bg-primary">
+    <div className="bg-bg-surface">
       <div className="grid grid-cols-autoFill w-full gap-4 py-8">
         <VoteCardSkeleton />
         <VoteCardSkeleton />

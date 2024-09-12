@@ -1,9 +1,4 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip } from '@/components/ui/tooltip';
 import { formatNumber } from '@/utils/formatNumber';
 // handle number values
 const FormatNumber = ({ number }: { number: string | number }) => {
@@ -50,14 +45,9 @@ const TooltipNumber = ({ data }: { data: string }) => {
   return (
     <div>
       {Number(data) >= 1000 || Number(data) < 0.001 ? (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>{formatNumber.formatToUnit(data)}</TooltipTrigger>
-            <TooltipContent>
-              <FormatNumber number={data} />
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip content={<FormatNumber number={data} />}>
+          <p>{formatNumber.formatToUnit(data)}</p>
+        </Tooltip>
       ) : (
         <div className="">{formatNumber.formatToUnit(data)}</div>
       )}

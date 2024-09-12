@@ -32,6 +32,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
+import { Tooltip } from '@/components/ui/tooltip';
 import type { ProfileTypes } from '@/types/profile';
 
 const Balance = () => {
@@ -67,7 +68,9 @@ const Balance = () => {
           <Typography.Text className="text-text-subtle" size={13}>
             Balance
           </Typography.Text>
-          <Svg src="/icons/refresh.svg" />
+          <Tooltip content="Refresh balance">
+            <Svg src="/icons/refresh.svg" />
+          </Tooltip>
         </Flex>
         <Typography.Heading
           size={28}

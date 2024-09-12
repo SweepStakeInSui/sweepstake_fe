@@ -10,12 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip } from '@/components/ui/tooltip';
 // const EmptyHistory = () => {
 //   return (
 //     <Stack className="items-center py-10 pb-5">
@@ -47,21 +42,14 @@ const HistoryItem = () => {
               <Typography.Text className="text-text-subtle" size={13}>
                 From 0x890...PK0hQ
               </Typography.Text>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div>
-                      <Svg
-                        src="/icons/north_east.svg"
-                        className="text-[#8F8F8F] hover:text-text-support-blue"
-                      />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">
-                    <p>View on Suiscan</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Tooltip content="View on Suiscan">
+                <div>
+                  <Svg
+                    src="/icons/north_east.svg"
+                    className="text-[#8F8F8F] hover:text-text-support-blue"
+                  />
+                </div>
+              </Tooltip>
             </Flex>
           </Stack>
           <Typography.Text size={12} className="text-text-subtle">

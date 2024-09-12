@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import { Tooltip } from '@/components/ui/tooltip';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
 import { MarketTiles } from '../MarketTiles';
@@ -194,15 +195,23 @@ export default function MarketsDetail() {
           </Flex>
 
           <Flex className="gap-0">
-            <IconButton isRounded>
-              <Svg
-                src="/icons/add_circle_outline.svg"
-                className="text-icon size-6"
-              />
-            </IconButton>
-            <IconButton isRounded>
-              <Svg src="/icons/launch.svg" className="text-icon" />
-            </IconButton>
+            <Tooltip content="Add to library">
+              <div>
+                <IconButton isRounded>
+                  <Svg
+                    src="/icons/add_circle_outline.svg"
+                    className="text-icon size-6"
+                  />
+                </IconButton>
+              </div>
+            </Tooltip>
+            <Tooltip content="Share bet link">
+              <div>
+                <IconButton isRounded>
+                  <Svg src="/icons/launch.svg" className="text-icon" />
+                </IconButton>
+              </div>
+            </Tooltip>
           </Flex>
         </Flex>
         <Flex className="items-center">

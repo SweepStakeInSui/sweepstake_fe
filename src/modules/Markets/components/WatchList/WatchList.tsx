@@ -8,6 +8,7 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { Tooltip } from '@/components/ui/tooltip';
 import ViewAll from '@/modules/Home/components/ViewAll';
 
 import { mockWatchList } from '../../../../mocks/mockWatchList';
@@ -28,15 +29,19 @@ const MarketsWatchList = () => {
           Watch List
         </Typography.Heading>
 
-        <IconButton
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="aspect-1 size-10"
-        >
-          <Svg
-            src="/icons/circle_right.svg"
-            className={isSidebarOpen ? 'rotate-180' : ''}
-          />
-        </IconButton>
+        <Tooltip content="Expand Watchlist" side="right">
+          <div>
+            <IconButton
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="aspect-1 size-10"
+            >
+              <Svg
+                src="/icons/circle_right.svg"
+                className={isSidebarOpen ? 'rotate-180' : ''}
+              />
+            </IconButton>
+          </div>
+        </Tooltip>
       </Flex>
 
       <ScrollArea className="h-full pr-3 overflow-x-hidden no-scrollbar">
