@@ -2,10 +2,10 @@
 
 import type { ColumnDef } from '@tanstack/react-table';
 
+import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import type { ActivityProps } from '@/types/table';
 
@@ -23,10 +23,8 @@ export const columns: ColumnDef<ActivityProps>[] = [
       return (
         <Flex className="justify-between space-x-2">
           <Flex>
-            <Avatar size="md" isRounded={false}>
-              <AvatarImage src={image} />
-              <AvatarFallback />
-            </Avatar>
+            <CustomAvatar src={image} />
+
             <div>{name}</div>
           </Flex>
           <Button variant={status === 'Yes' ? 'bet_yes' : 'bet_no'}>

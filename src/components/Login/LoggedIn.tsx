@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { CustomAvatar } from '@/components/common/CustomAvatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { menuListLogin } from '@/constants/navList';
-import { mockAvatar } from '@/mocks/mockAvatar';
 import { mockNotifications } from '@/mocks/mockNotifications';
 
 import Flex from '../common/Flex';
@@ -20,7 +20,6 @@ import Svg from '../common/Svg';
 import Typography from '../common/Typography';
 import { useWallet } from '../connectWallet/useWallet';
 import { SearchHeaderMobile } from '../Search';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { ScrollArea } from '../ui/scroll-area';
 
@@ -49,10 +48,7 @@ const NotifItem = ({
           <div className="absolute right-0 top-0 bg-[#EB201E] rounded-full size-1.5" />
         )}
         <div className="relative">
-          <Avatar>
-            <AvatarImage src={mockAvatar} />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <CustomAvatar />
           <div className="absolute bottom-0 right-0 translate-x-[20%] translate-y-[20%]">
             {(() => {
               switch (type) {
