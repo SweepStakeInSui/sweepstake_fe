@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { CustomAvatar } from '@/components/common/CustomAvatar';
 import { Badge } from '@/components/ui/badge';
 
 import Flex from '../Flex';
@@ -46,10 +46,7 @@ const Comment = ({
 }: ICommentProps) => {
   return (
     <div className="flex space-x-4 mb-4" key={id}>
-      <Avatar>
-        <AvatarImage src={avatar} alt={author} />
-        <AvatarFallback className="rounded-sm">{author[0]}</AvatarFallback>
-      </Avatar>
+      <CustomAvatar src={avatar} isRounded />
       <div className="flex-1">
         <Flex className="items-center gap-2">
           <h4 className="font-bold">{author}</h4>
