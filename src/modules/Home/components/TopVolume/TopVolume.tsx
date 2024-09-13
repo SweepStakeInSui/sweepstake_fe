@@ -59,7 +59,7 @@ export default function TopVolume({ data }: Readonly<TopVolumeProps>) {
         </Typography.Heading>
         <ViewAll link="/" />
       </Flex>
-      <div className="grid grid-rows-5 grid-flow-col gap-4">
+      <div className="grid grid-rows-10 lg:grid-rows-5 grid-flow-col gap-4">
         {data.map((item) => (
           <TopVolumeItem key={item.id} {...item} />
         ))}

@@ -287,6 +287,12 @@
   body {
     @apply bg-bg-primary text-base;
   }
+  .hidden-lg {
+    @apply !hidden lg:!flex;
+  }
+  .hidden-sm {
+    @apply !flex lg:!hidden;
+  }
 }
 
 html *::-webkit-scrollbar {

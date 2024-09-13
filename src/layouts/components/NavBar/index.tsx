@@ -16,8 +16,9 @@ import { UserService } from '@/services/userService';
 import { selectProfile } from '@/store/profileSlice';
 import type { ProfileTypes } from '@/types/profile';
 
-import { SearchHeader } from '@/components/Search';
+import { SearchHeader, SearchHeaderMobile } from '@/components/Search';
 import HomeLogo from '../HomeLogo';
+import { MenuHeader } from '@/components/common/Menu';
 
 export default function NavBar(): React.ReactElement {
   const router = useRouter();
@@ -32,14 +33,14 @@ export default function NavBar(): React.ReactElement {
   });
   return (
     <header className="sticky top-0 left-0 w-full bg-dyb-5/85 dark:bg-dyb-95/85 backdrop-blur-sm z-50">
-      <Container>
+      <Container size="sm">
         <Flex className="justify-between w-full py-4">
           <Flex className="gap-x-4">
             <Link href="/">
               <HomeLogo variant="squared" />
             </Link>
 
-            <Flex className="gap-x-0">
+            <Flex className="gap-x-0 hidden-lg">
               {navList.map((item) => (
                 <Button
                   key={item.name}
@@ -53,9 +54,17 @@ export default function NavBar(): React.ReactElement {
             </Flex>
           </Flex>
 
-          <Flex className="grow justify-end gap-x-5">
-            <SearchHeader />
+          <Flex className="grow justify-end gap-x-2 lg:gap-x-5">
+            <div className="hidden-lg flex-grow ">
+              <SearchHeader />
+            </div>
             {isLoggedIn ? <LoggedIn /> : <ConnectButton />}
+            {!isLoggedIn && (
+              <div className="hidden-sm">
+                <SearchHeaderMobile />
+                <MenuHeader />
+              </div>
+            )}
           </Flex>
         </Flex>
       </Container>

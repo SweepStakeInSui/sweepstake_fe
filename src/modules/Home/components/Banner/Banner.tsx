@@ -6,7 +6,7 @@ import Typography from '@/components/common/Typography';
 
 const Banner = () => {
   return (
-    <div className="py-6 mx-auto mb-10 justify-center flex-col flex items-center bg-dyb-5 relative">
+    <div className="py-6 mx-auto justify-center flex-col flex items-center bg-dyb-5 relative">
       <div className="relative h-10 aspect-[167/40]">
         <Image src="/logos/logo.png" alt="logo" fill />
       </div>

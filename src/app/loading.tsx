@@ -14,9 +14,9 @@ const Loading = () => {
       <Skeleton className="w-full h-[91px]" />
       <SliderSkeleton />
 
-      <Container>
+      <Container size="sm">
         <VoteCardGridSkeleton />
-        <div className="grid grid-cols-2 py-8 bg-white relative overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 py-8 bg-white relative overflow-hidden">
           <RecentActivitySkeleton />
           <TopVolumeSkeleton />
         </div>

@@ -5,7 +5,7 @@ interface ICreateBetLayout {
 }
 
 const CreateBetLayout = ({ children }: ICreateBetLayout) => {
-  return <Container px={0}>{children}</Container>;
+  return <Container size="sm">{children}</Container>;
 };
 
 export default CreateBetLayout;
