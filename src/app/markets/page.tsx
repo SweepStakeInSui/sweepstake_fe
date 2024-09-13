@@ -1,16 +1,11 @@
-import { Suspense } from 'react';
-
 import MarketsModule from '@/modules/Markets';
 
 import MarketsLayout from './layout';
-import Loading from './loading';
 
-export default function Election() {
+export default function MarketsPage() {
   return (
     <MarketsLayout>
-      <Suspense fallback={<Loading />}>
-        <MarketsModule />
-      </Suspense>
+      <MarketsModule />
     </MarketsLayout>
   );
 }
