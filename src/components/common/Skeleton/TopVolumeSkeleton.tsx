@@ -24,7 +24,7 @@ const TopVolumeSkeleton = () => {
       <Flex className="justify-between">
         <Skeleton className="w-[100px] h-6" />
       </Flex>
-      <div className="grid grid-rows-5 grid-flow-col gap-4">
+      <div className="grid grid-rows-10 lg:grid-rows-5 grid-flow-col gap-4">
         {[...Array(10)].map((_, index) => (
           <TopVolumeItemSkeleton key={index.toString()} />
         ))}

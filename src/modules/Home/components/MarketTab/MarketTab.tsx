@@ -5,6 +5,7 @@ import { SwiperSlide } from 'swiper/react';
 import Container from '@/components/common/Container';
 import SwiperCustom from '@/components/common/SwipperCustom';
 import { Button } from '@/components/ui/button';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 const marketMainTab = [
   {
@@ -123,21 +124,27 @@ const marketSubTab = [
 
 const MarketTab = () => {
   return (
-    <Container>
-      <ul className="flex gap-x-4 text-tab-btnNo font-medium justify-center mt-5 mb-3">
-        {marketMainTab.map((item) => (
-          <li className="py-[6px] cursor-pointer relative group" key={item.id}>
-            <p
-              className={`${item.active && 'text-tab-btnNo-selected font-semibold active:text-tab-btnNo-textPress'}`}
+    <Container size="sm">
+      <ScrollArea>
+        <ul className="flex gap-x-4 text-tab-btnNo font-medium justify-center my-3">
+          {marketMainTab.map((item) => (
+            <li
+              className="py-[6px] cursor-pointer relative group"
+              key={item.id}
             >
-              {item.type}
-            </p>
-            <p
-              className={`absolute  bottom-0 ${item.active ? 'bg-tab-btnNo-selected w-full ' : 'w-0 group-hover:w-full bg-tab-btnNo'} h-[2px]  transition-all duration-150 ease-linear`}
-            />
-          </li>
-        ))}
-      </ul>
+              <p
+                className={`whitespace-nowrap ${item.active && 'text-tab-btnNo-selected  font-semibold active:text-tab-btnNo-textPress'}`}
+              >
+                {item.type}
+              </p>
+              <p
+                className={`absolute  bottom-0 ${item.active ? 'bg-tab-btnNo-selected w-full ' : 'w-0 group-hover:w-full bg-tab-btnNo'} h-[2px]  transition-all duration-150 ease-linear`}
+              />
+            </li>
+          ))}
+        </ul>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
       <div className="mt-3 mb-5 mx-auto">
         <SwiperCustom slidesPerView="auto" spaceBetween={12} size={28}>
           {marketSubTab.map((item) => (

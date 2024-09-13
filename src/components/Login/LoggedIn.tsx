@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next-nprogress-bar';
 
 import {
   DropdownMenu,
@@ -8,17 +7,19 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { menuListLogin } from '@/constants/navList';
 import { mockAvatar } from '@/mocks/mockAvatar';
 import { mockNotifications } from '@/mocks/mockNotifications';
 
 import Flex from '../common/Flex';
+import { MenuItem } from '../common/Menu/MenuHeader';
 import Stack from '../common/Stack';
 import Svg from '../common/Svg';
 import Typography from '../common/Typography';
 import { useWallet } from '../connectWallet/useWallet';
+import { SearchHeaderMobile } from '../Search';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { ScrollArea } from '../ui/scroll-area';
@@ -164,45 +165,15 @@ const NotifItem = ({
 
 const LoggedIn = () => {
   const { onDisconnect } = useWallet();
-  const router = useRouter();
-  const menuListLogin = [
-    {
-      slug: 'profile',
-      title: 'Account',
-      icon: <Svg src="/icons/mood.svg" />,
-    },
-    {
-      slug: 'watchlist',
-      title: 'Watch List',
-      icon: <Svg src="/icons/star_outline.svg" />,
-    },
-    {
-      slug: 'leaderboard',
-      title: 'Leaderboard',
-      icon: <Svg src="/icons/leaderboard.svg" />,
-    },
-    {
-      slug: 'activity',
-      title: 'My Activity',
-      icon: <Svg src="/icons/timeline.svg" />,
-    },
-
-    {
-      slug: 'disconnect',
-      title: 'Disconnect',
-      icon: <Svg src="/icons/Disconnect.svg" />,
-      onClick: onDisconnect,
-    },
-  ];
   return (
     <Flex>
       <Link href="/create-bet">
-        <Button className="gap-x-2">
-          <Svg src="/icons/add.svg" />
+        <Button className="gap-x-2" size="lg">
+          <Svg src="/icons/add.svg" className="hidden-lg" />
           Create bet
         </Button>
       </Link>
-
+      <SearchHeaderMobile />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative size-11 p-0">
@@ -253,10 +224,10 @@ const LoggedIn = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          className="w-[370px] px-2.5 py-3 bg-bg-surface"
+          className="w-[370px] px-2.5 py-3 bg-bg-surface "
           align="end"
         >
-          <div className="p-4  text-text bg-r-10 rounded-sm relative overflow-hidden">
+          <div className="p-4 text-text bg-r-10 rounded-sm relative overflow-hidden">
             <Flex className=" z-10 relative mb-0.5">
               <Typography.Text
                 size={13}
@@ -310,10 +281,9 @@ const LoggedIn = () => {
               />
             </div>
           </div>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem className="py-3 flex justify-between">
-              <Link href="/" className="flex gap-x-2.5 items-center">
+          <DropdownMenuGroup className="mt-1">
+            <DropdownMenuItem className="py-3 flex justify-between cursor-pointer">
+              <Link href="/" className="flex gap-x-2.5 items-center ">
                 <span className="size-6 flex items-center justify-center">
                   <Svg src="/icons/my_bet.svg" />
                 </span>
@@ -327,28 +297,9 @@ const LoggedIn = () => {
               </Link>
             </DropdownMenuItem>
 
-            {menuListLogin.map((item) => (
-              <DropdownMenuItem
-                className="py-3 cursor-pointer"
-                key={item.slug}
-                onClick={
-                  item.onClick
-                    ? item.onClick
-                    : () => router.push(`/${item.slug}`)
-                }
-              >
-                <div className="flex gap-x-2.5 items-center w-full">
-                  <span className="size-6 flex items-center justify-center">
-                    {item.icon}
-                  </span>
-                  <Typography.Text
-                    size={15}
-                    weight="medium"
-                    className="text-text"
-                  >
-                    {item.title}
-                  </Typography.Text>
-                </div>
+            {menuListLogin(onDisconnect).map((item) => (
+              <DropdownMenuItem key={item.slug}>
+                <MenuItem item={item} />
               </DropdownMenuItem>
             ))}
           </DropdownMenuGroup>

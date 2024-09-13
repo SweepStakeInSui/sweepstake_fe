@@ -8,7 +8,7 @@ import { ActivityItem } from '../Home/components/RecentActivity';
 const ActivityModule = () => {
   const data = mockRecentActivities;
   return (
-    <Container className="max-w-screen-lg py-10">
+    <Container className="max-w-screen-lg py-10" size="sm">
       <Typography.Heading size={32} className="text-text my-4">
         Recent Activity
       </Typography.Heading>

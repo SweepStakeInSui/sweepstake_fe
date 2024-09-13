@@ -5,9 +5,5 @@ export default function MarketsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <Container px={0} className="bg-bg-surface">
-      {children}
-    </Container>
-  );
+  return <Container className="bg-bg-surface">{children}</Container>;
 }

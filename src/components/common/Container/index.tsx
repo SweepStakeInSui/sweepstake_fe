@@ -3,19 +3,25 @@ import { cn } from '@/lib/utils';
 interface ContainerProps {
   children: React.ReactNode;
   className?: string;
-  px?: 0 | 40 | 80 | 140;
+  size?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 }
 
+const sizeClasses = {
+  none: 'px-0',
+  xs: 'px-5 sm:px-10',
+  sm: 'px-5 sm:px-20',
+  md: 'px-12',
+  lg: 'px-16',
+  xl: 'px-20',
+  '2xl': 'px-24',
+};
 export default function Container({
   children,
   className,
-  px = 40,
+  size = 'none',
 }: Readonly<ContainerProps>) {
   return (
-    <div
-      style={{ paddingLeft: `${px}px`, paddingRight: `${px}px` }}
-      className={cn(`container mx-auto`, className)}
-    >
+    <div className={cn(`container mx-auto ${sizeClasses[size]}`, className)}>
       {children}
     </div>
   );

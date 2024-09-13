@@ -34,8 +34,8 @@ function HomeSlide({
   desc,
 }: Readonly<IHomeSlide>) {
   return (
-    <div className=" p-7 w-[50rem] h-[23.4rem] rounded-md relative grid grid-cols-12 bg-bg-surface ">
-      <Stack className="relative z-10 col-span-6">
+    <div className=" p-7 w-fit lg:w-[50rem] h-[23.4rem] rounded-xl relative grid grid-cols-12 bg-bg-surface ">
+      <Stack className="relative z-10 col-span-12 lg:col-span-6">
         <Stack>
           <Typography.Heading size={20} weight="bold" className="text-text">
             {title}
@@ -72,7 +72,7 @@ function HomeSlide({
           </Button>
         </Flex>
       </Stack>
-      <Stack className="relative z-10 col-span-6 justify-between gap-y-11">
+      <Stack className="relative z-10 col-span-6 justify-between gap-y-11 hidden-lg">
         <Stack>
           <Typography.Heading className="text-text" size={24}>
             {desc.title}
@@ -116,7 +116,8 @@ function SwiperButtonPrev({
             className="text-inherit rotate-180"
           />
         </span>
-        {prevTitle}
+        <span className="hidden-lg">{prevTitle}</span>
+        <span className="hidden-sm">Previous</span>
       </Typography.Text>
     </button>
   );
@@ -137,7 +138,8 @@ function SwiperButtonNext({
   return (
     <button onClick={() => swiper.slideNext()}>
       <Typography.Text size={12} className="text-text-subtle inline-flex">
-        {`${nextTile} `}
+        <span className="hidden-lg">{`${nextTile} `}</span>
+        <span className="hidden-sm">Next</span>
         <span className="w-4 h-4">
           <Svg
             key="next"
@@ -164,7 +166,7 @@ export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
   };
 
   return (
-    <Stack className="hero-slide bg-slider-home pb-3">
+    <Stack className="hero-slide bg-slider-home pb-3 px-5 lg:px-0">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         pagination={pagination}
@@ -176,8 +178,22 @@ export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
         loop
         spaceBetween={16}
         slidesPerView="auto"
-        centeredSlides
+        // centeredSlides
         className="hero_swipper"
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 0,
+          },
+          480: {
+            slidesPerView: 2.5,
+            spaceBetween: 30,
+          },
+          768: {
+            slidesPerView: 2.5,
+            spaceBetween: 30,
+          },
+        }}
         onSlideChange={(swiper) => setRealIndex(swiper.realIndex)}
       >
         {slides.map((slide) => {
@@ -190,14 +206,14 @@ export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
 
         <div className="relative py-3 w-screen h-12 text-text-subtle mt-2">
           <Container className="relative w-full h-full">
-            <div className="relative z-20 w-fit">
+            <div className="relative z-20 w-fit lg:pl-4">
               <SwiperButtonPrev
                 key={`prev_${realIndex}`}
                 activeIndex={realIndex}
                 slides={slides}
               />
             </div>
-            <div className="absolute top-0 right-6 z-10 w-fit translate-y-[-12%]">
+            <div className="absolute top-0 right-12 lg:right-6 z-10 w-fit translate-y-[-12%]">
               <SwiperButtonNext
                 key={`next_${realIndex}`}
                 activeIndex={realIndex}

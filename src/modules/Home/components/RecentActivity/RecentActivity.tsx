@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import type { RecentActivityType } from '@/types/recentActivity';
 
-import RecentActivityItemSkeleton from '../../../../components/common/Skeleton/RecentActivitySkeleton';
 import ViewAll from '../ViewAll';
 
 export function ActivityItem({
@@ -19,20 +18,22 @@ export function ActivityItem({
   contract,
 }: Readonly<RecentActivityType>) {
   return (
-    <Flex className="justify-between p-2 overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
+    <Flex className="justify-between p-2 flex-wrap overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
       <Flex className="gap-x-2">
         <Avatar>
           <AvatarImage src={avatar} />
           <AvatarFallback />
         </Avatar>
         <Stack className="gap-px">
-          <Flex className="gap-x-1">
-            <Typography.Text size={15} weight="bold" className="text-text">
-              {username}
-            </Typography.Text>
-            <Typography.Text size={15} className="text-text">
-              bought
-            </Typography.Text>
+          <Flex className="gap-x-1 flex-wrap">
+            <Flex>
+              <Typography.Text size={15} weight="bold" className="text-text">
+                {username}
+              </Typography.Text>
+              <Typography.Text size={15} className="text-text">
+                bought
+              </Typography.Text>
+            </Flex>
             <Badge variant={`${bidding ? 'bet_yes' : 'bet_no'}`}>
               Yes {price} • {betname} • {contract} contracts
             </Badge>
@@ -40,12 +41,11 @@ export function ActivityItem({
           <Typography.Text className="text-text-subtle" size={13}>
             {title}
           </Typography.Text>
+          <Typography.Text size={13} className="text-text-subtle">
+            {date}
+          </Typography.Text>
         </Stack>
       </Flex>
-
-      <Typography.Text size={13} className="text-text-subtle">
-        {date}
-      </Typography.Text>
     </Flex>
   );
 }
@@ -65,7 +65,7 @@ export default function RecentActivity({
         </Typography.Heading>
         <ViewAll link="/" />
       </Flex>
-      <RecentActivityItemSkeleton />
+      {/* <RecentActivityItemSkeleton /> */}
       <Stack className="gap-4">
         {data.map((item) => (
           <ActivityItem key={item.id} {...item} />

@@ -12,7 +12,7 @@ import { VolumeLeaderboard } from './components/Volume';
 const LeaderboardModule = () => {
   const tabs = ['Day', 'Week', 'Month', 'All'];
   return (
-    <Container className="max-w-screen-lg py-10">
+    <Container className="max-w-screen-lg py-10" size="sm">
       <Typography.Heading size={32} className="text-text my-4">
         Leaderboard
       </Typography.Heading>
