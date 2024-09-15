@@ -23,9 +23,9 @@ export function ActivityItem({
     <Flex className="justify-between p-2 flex-wrap overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
       <Flex className="gap-x-2">
         <CustomAvatar src={avatar} />
-        <Stack className="gap-px">
-          <Flex className="gap-x-1 flex-wrap">
-            <Flex>
+        <Stack className="gap-1">
+          <Flex className="gap-1 flex-wrap">
+            <Flex className="gap-1">
               <Typography.Text size={15} weight="bold" className="text-text">
                 {username}
               </Typography.Text>

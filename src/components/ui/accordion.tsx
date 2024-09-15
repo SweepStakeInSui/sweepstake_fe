@@ -30,7 +30,7 @@ const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
 >(({ className, children, hasChevron = false, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex">
+  <div className="flex w-full">
     <AccordionPrimitive.Trigger
       asChild
       ref={ref}
@@ -50,7 +50,7 @@ const AccordionTrigger = React.forwardRef<
         )}
       </div>
     </AccordionPrimitive.Trigger>
-  </AccordionPrimitive.Header>
+  </div>
 ));
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 

@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import useWindowSize from '@/hooks/common/useWindowSize';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
 import { useSectionIndicatorSignal } from '../../useSectionIndicatorSignal';
@@ -49,6 +50,7 @@ const MarketsActionForm = () => {
   const [selectedValue, setSelectedValue] = useState('market');
 
   const { activeSection } = useSectionIndicatorSignal();
+  const { isMobile } = useWindowSize();
 
   const tabsProfile = [
     { id: 1, value: 'buy', title: 'Buy' },
@@ -56,7 +58,7 @@ const MarketsActionForm = () => {
   ];
 
   return (
-    <Stack className="sticky gap-y-0 border-l border-solid border-borderSubtle p-3 top-[4.75rem] w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto">
+    <Stack className="sticky gap-y-0 border-l border-solid border-borderSubtle p-3 top-2 lg:top-[4.75rem] w-full lg:w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto">
       <Stack className="gap-4 p-3">
         <Flex className="items-center gap-3 mb-2">
           <Avatar isRounded={false} className="w-[2.5rem] h-auto aspect-1">
@@ -102,28 +104,32 @@ const MarketsActionForm = () => {
         </div>
       </Stack>
 
-      <hr className="border-borderSubtle my-5" />
+      {!isMobile && (
+        <>
+          <hr className="border-borderSubtle my-5" />
 
-      <Stack>
-        {sections.map((section) => (
-          <Button
-            key={section.id}
-            variant="ghost"
-            className={`
+          <Stack>
+            {sections.map((section) => (
+              <Button
+                key={section.id}
+                variant="ghost"
+                className={`
           w-full justify-start text-16 ${activeSection.value === section.id ? 'text-text-support-red' : 'text-text'}`}
-            onClick={() => {
-              const element = document.getElementById(section.id);
-              if (!element) return;
-              window.scroll({
-                top: element.offsetTop - 70,
-                behavior: 'smooth',
-              });
-            }}
-          >
-            {section.label}
-          </Button>
-        ))}
-      </Stack>
+                onClick={() => {
+                  const element = document.getElementById(section.id);
+                  if (!element) return;
+                  window.scroll({
+                    top: element.offsetTop - 70,
+                    behavior: 'smooth',
+                  });
+                }}
+              >
+                {section.label}
+              </Button>
+            ))}
+          </Stack>
+        </>
+      )}
     </Stack>
   );
 };

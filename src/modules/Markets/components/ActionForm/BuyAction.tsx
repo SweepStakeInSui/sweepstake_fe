@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { DatePicker } from '@/components/common/DatePicker';
 import Flex from '@/components/common/Flex';
@@ -18,6 +19,7 @@ import {
 } from '@/components/ui/select';
 import { TimePicker } from '@/components/ui/time-picker';
 import { Tooltip } from '@/components/ui/tooltip';
+import { setBet } from '@/store/betSlice';
 
 interface IBuyActionProps {
   isLimit: boolean;
@@ -51,8 +53,21 @@ const TooltipPrice = () => {
     </Stack>
   );
 };
+
 const BuyAction = ({ isLimit }: IBuyActionProps) => {
   const [isSetExpiration, setIsSetExpiration] = useState(false);
+  const dispatch = useDispatch();
+  const { id, yes, no, type } = useSelector((state: any) => state.bet);
+
+  const onNoClick = (event: any) => {
+    event?.stopPropagation();
+    dispatch(setBet({ type: 0, id, yes, no }));
+  };
+
+  const onYesClick = (event: any) => {
+    event?.stopPropagation();
+    dispatch(setBet({ type: 1, id, yes, no }));
+  };
 
   return (
     <div>
@@ -69,11 +84,19 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
             </Tooltip>
           </Flex>
           <Flex>
-            <Button className="w-full" variant="bet_yes">
-              Yes 72
+            <Button
+              className="w-full"
+              variant={`bet_yes${type ? '_active' : ''}`}
+              onClick={onYesClick}
+            >
+              Yes {yes}
             </Button>
-            <Button variant="bet_no" className="w-full">
-              No 29
+            <Button
+              variant={`bet_no${!type ? '_active' : ''}`}
+              className="w-full"
+              onClick={onNoClick}
+            >
+              No {no}
             </Button>
           </Flex>
         </Stack>

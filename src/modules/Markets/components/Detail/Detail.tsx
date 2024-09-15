@@ -1,22 +1,19 @@
+import Image from 'next/image';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
 import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
+import useWindowSize from '@/hooks/common/useWindowSize';
 import { mockAvatar } from '@/mocks/mockAvatar';
+import { setBet } from '@/store/betSlice';
 
 import { MarketTiles } from '../MarketTiles';
 
@@ -33,6 +30,8 @@ const statistic = [
     desc: 'SpaceXlauches in 2023',
     percent: 86,
     fluctuate: 13,
+    yes: 78,
+    no: 29,
     bids: [
       {
         price: '0.511',
@@ -76,6 +75,8 @@ const statistic = [
     desc: 'SpaceXlauches in 2023',
     percent: 86,
     fluctuate: 13,
+    yes: 10,
+    no: 90,
     bids: [
       {
         price: '0.511',
@@ -119,6 +120,8 @@ const statistic = [
     desc: 'SpaceXlauches in 2023',
     percent: 86,
     fluctuate: 13,
+    yes: 50,
+    no: 50,
     bids: [
       {
         price: '0.511',
@@ -159,6 +162,23 @@ const statistic = [
 ];
 
 export default function MarketsDetail() {
+  const { isMobile } = useWindowSize();
+  const dispatch = useDispatch();
+  const { id, type } = useSelector((state: any) => state.bet);
+
+  console.log('betState', { id, type });
+
+  useEffect(() => {
+    dispatch(
+      setBet({
+        id: statistic[0]?.id,
+        type: 1,
+        yes: statistic[0]?.yes,
+        no: statistic[0]?.no,
+      }),
+    );
+  }, [statistic]);
+
   return (
     <Paper>
       <Stack className="gap-y-0">
@@ -185,13 +205,17 @@ export default function MarketsDetail() {
         </Flex>
         <Flex className="items-start justify-between gap-3 mb-2">
           <Flex className="gap-3">
-            <Avatar isRounded={false} className="w-[3.75rem] h-auto aspect-1">
-              <AvatarImage src={mockAvatar} />
-              <AvatarFallback />
-            </Avatar>
-            <Typography.Heading size={28}>
-              Despicable Me 4&quot; Rotten Tomatoes score about ten?
-            </Typography.Heading>
+            <div className="relative size-[3.75rem] aspect-1 rounded-md overflow-hidden">
+              <Image src={mockAvatar} fill alt="" objectFit="cover" />
+            </div>
+            {!isMobile && (
+              <Typography.Heading
+                size={28}
+                className="line-clamp-2 shrink-[999]"
+              >
+                Despicable Me 4&quot; Rotten Tomatoes score about ten?
+              </Typography.Heading>
+            )}
           </Flex>
 
           <Flex className="gap-0">
@@ -214,6 +238,11 @@ export default function MarketsDetail() {
             </Tooltip>
           </Flex>
         </Flex>
+        {isMobile && (
+          <Typography.Heading size={28} className="line-clamp-2 shrink-[999]">
+            Despicable Me 4&quot; Rotten Tomatoes score about ten?
+          </Typography.Heading>
+        )}
         <Flex className="items-center">
           <Typography.Heading className="text-text" size={20}>
             24.2
@@ -245,30 +274,20 @@ export default function MarketsDetail() {
 
       <Stack className="gap-3">
         <Stack className="gap-0">
-          <Flex className="w-full justify-between border-b border-borderSublest">
-            <Select defaultValue="2024">
-              <SelectTrigger className="bg-transparent border-none w-fit gap-2 pl-0 text-13 text-text-subtle">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="2024">2024</SelectItem>
-                  <SelectItem value="2023">2023</SelectItem>
-                  <SelectItem value="2022">2022</SelectItem>
-                  <SelectItem value="2021">2021</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+          {!isMobile && (
+            <Flex className="w-full justify-between border-b border-borderSublest py-1">
+              <Typography.Text size={13} className="text-text-subtle">
+                Outcome
+              </Typography.Text>
 
-            <Flex className="w-[21.25rem] justify-between">
-              <Typography.Text size={13} className="text-text-subtle">
-                %Chance
-              </Typography.Text>
-              <Typography.Text size={13} className="text-text-subtle">
-                13,000 vol
-              </Typography.Text>
+              <Flex className="w-[21.25rem]">
+                <Typography.Text size={13} className="text-text-subtle">
+                  %Chance
+                </Typography.Text>
+              </Flex>
             </Flex>
-          </Flex>
+          )}
+
           <MarketTiles data={statistic} />
         </Stack>
 
