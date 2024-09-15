@@ -76,7 +76,7 @@ export default function MarketsRulesSummary({
                   : 'Category: '}
               </Typography.Text>
               {categories?.map((category, index) => (
-                <>
+                <Flex key={category + index.toString()}>
                   <Typography.Text
                     size={13}
                     className="text-icon-support-blue"
@@ -87,7 +87,7 @@ export default function MarketsRulesSummary({
                   {categories.length - 1 !== index && (
                     <Separator orientation="vertical" className="size-1" />
                   )}
-                </>
+                </Flex>
               ))}
             </Flex>
           </Flex>

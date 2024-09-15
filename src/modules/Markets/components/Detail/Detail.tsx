@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
@@ -11,6 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
 import useWindowSize from '@/hooks/common/useWindowSize';
 import { mockAvatar } from '@/mocks/mockAvatar';
+import { setBet } from '@/store/betSlice';
 
 import { MarketTiles } from '../MarketTiles';
 
@@ -27,6 +30,8 @@ const statistic = [
     desc: 'SpaceXlauches in 2023',
     percent: 86,
     fluctuate: 13,
+    yes: 78,
+    no: 29,
     bids: [
       {
         price: '0.511',
@@ -70,6 +75,8 @@ const statistic = [
     desc: 'SpaceXlauches in 2023',
     percent: 86,
     fluctuate: 13,
+    yes: 10,
+    no: 90,
     bids: [
       {
         price: '0.511',
@@ -113,6 +120,8 @@ const statistic = [
     desc: 'SpaceXlauches in 2023',
     percent: 86,
     fluctuate: 13,
+    yes: 50,
+    no: 50,
     bids: [
       {
         price: '0.511',
@@ -154,6 +163,22 @@ const statistic = [
 
 export default function MarketsDetail() {
   const { isMobile } = useWindowSize();
+  const dispatch = useDispatch();
+  const { id, type } = useSelector((state: any) => state.bet);
+
+  console.log('betState', { id, type });
+
+  useEffect(() => {
+    dispatch(
+      setBet({
+        id: statistic[0]?.id,
+        type: 1,
+        yes: statistic[0]?.yes,
+        no: statistic[0]?.no,
+      }),
+    );
+  }, [statistic]);
+
   return (
     <Paper>
       <Stack className="gap-y-0">
@@ -250,7 +275,7 @@ export default function MarketsDetail() {
       <Stack className="gap-3">
         <Stack className="gap-0">
           {!isMobile && (
-            <Flex className="w-full justify-between border-b border-borderSublest">
+            <Flex className="w-full justify-between border-b border-borderSublest py-1">
               <Typography.Text size={13} className="text-text-subtle">
                 Outcome
               </Typography.Text>
