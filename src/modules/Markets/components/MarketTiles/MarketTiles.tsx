@@ -42,17 +42,18 @@ const MarketTile = ({
   return (
     <AccordionItem value={id}>
       <AccordionTrigger>
-        <Flex className="w-full justify-between">
-          <Stack className="items-start">
-            <Typography.Text size={15} weight="medium">
-              {title}
-            </Typography.Text>
-            <Typography.Text size={13} className="text-text-subtle">
-              {desc}
-            </Typography.Text>
-          </Stack>
-          <Flex className="w-[21.25rem] justify-between">
-            <Flex className="w-[6.875rem] items-center gap-1">
+        <div className="flex flex-col lg:flex-row justify-between w-full">
+          <Flex className="w-full justify-between p-3 lg:p-0">
+            <Stack className="items-start">
+              <Typography.Text size={15} weight="medium">
+                {title}
+              </Typography.Text>
+              <Typography.Text size={13} className="text-text-subtle">
+                {desc}
+              </Typography.Text>
+            </Stack>
+
+            <Flex className="lg:w-[9.875rem] items-center gap-1">
               <Typography.Text size={18} weight="medium">
                 {percent}%
               </Typography.Text>
@@ -60,16 +61,16 @@ const MarketTile = ({
                 +{fluctuate}
               </Typography.Text>
             </Flex>
-            <Flex className="w-[14.375rem]">
-              <Button variant="bet_yes" className="w-full">
-                Yes 72¢
-              </Button>
-              <Button variant="bet_no" className="w-full">
-                No 29¢
-              </Button>
-            </Flex>
           </Flex>
-        </Flex>
+          <Flex className="w-full lg:w-[14.375rem] justify-center p-3 lg:p-0">
+            <Button variant="bet_yes" className="w-full">
+              Yes 72¢
+            </Button>
+            <Button variant="bet_no" className="w-full">
+              No 29¢
+            </Button>
+          </Flex>
+        </div>
       </AccordionTrigger>
       <AccordionContent>
         <Table>

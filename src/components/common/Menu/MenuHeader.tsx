@@ -92,6 +92,7 @@ const ActionUser: React.FC = () => {
 
 const MenuHeader = () => {
   const { onDisconnect } = useWallet();
+  const router = useRouter();
   return (
     <div>
       <Drawer direction="right">
@@ -112,19 +113,22 @@ const MenuHeader = () => {
           <Stack className="gap-y-3 mt-3">
             <Flex>
               {navList.map((nav) => (
-                <Stack
+                <button
+                  onClick={() => router.push(nav.href)}
                   key={nav.href}
-                  className="basis-1/3 items-center bg-bg-sublest rounded-sm py-4"
+                  className="basis-1/3"
                 >
-                  <Svg src={nav.icon} />
-                  <Typography.Text
-                    size={13}
-                    className="text-text-subtle"
-                    weight="semibold"
-                  >
-                    {nav.name}
-                  </Typography.Text>
-                </Stack>
+                  <Stack className="basis-1/3 items-center bg-bg-sublest rounded-sm py-4">
+                    <Svg src={nav.icon} />
+                    <Typography.Text
+                      size={13}
+                      className="text-text-subtle"
+                      weight="semibold"
+                    >
+                      {nav.name}
+                    </Typography.Text>
+                  </Stack>
+                </button>
               ))}
             </Flex>
             <ActionUser />

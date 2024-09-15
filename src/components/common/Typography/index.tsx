@@ -66,7 +66,7 @@ function Heading({
 }: Readonly<IHeadingProps>) {
   const headingClasses = {
     20: 'text-20',
-    24: 'text-base lg:text-24',
+    24: 'text-24',
     28: 'text-28 leading-8',
     32: 'text-32',
     48: 'text-48',

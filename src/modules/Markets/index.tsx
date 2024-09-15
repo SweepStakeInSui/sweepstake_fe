@@ -7,12 +7,10 @@ import { SectionIndicator } from '@/components/common/SectionIndicatorWrapper';
 import Stack from '@/components/common/Stack';
 
 import { MarketsAbout } from './components/About';
-import { MarketsActionForm } from './components/ActionForm';
 import { MarketsDetail } from './components/Detail';
 import { LevelSection } from './components/LevelSection';
 import { MarketsRelateMarket } from './components/RelateMarket';
 import { MarketsRulesSummary } from './components/RulesSummary';
-import { MarketsWatchList } from './components/WatchList';
 
 export default function MarketsModule() {
   const topPageRef = useRef<HTMLDivElement>(null);
@@ -23,7 +21,7 @@ export default function MarketsModule() {
 
   return (
     <Flex className="items-start gap-0">
-      <MarketsWatchList />
+      {/* <MarketsWatchList /> */}
 
       <Flex className="transition-all shrink-[100] items-start w-full gap-0">
         <Stack className="shrink-[100] max-w-[49.375rem] w-full mx-auto gap-y-8">
@@ -37,9 +35,7 @@ export default function MarketsModule() {
               openOn="2021-09-20"
               closeOn="2021-09-20"
               payoutOn="2021-09-20"
-              series="2021-09-20"
-              event="2021-09-20"
-              market="2021-09-20"
+              categories={['']}
             />
           </SectionIndicator>
 
@@ -58,7 +54,7 @@ export default function MarketsModule() {
           </SectionIndicator>
         </Stack>
 
-        <MarketsActionForm />
+        {/* <MarketsActionForm /> */}
       </Flex>
     </Flex>
   );
