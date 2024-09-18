@@ -6,7 +6,6 @@ import Container from '@/components/common/Container';
 import SwiperCustom from '@/components/common/SwipperCustom';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import Typography from '@/components/common/Typography';
 
 const marketMainTab = [
   {
