@@ -37,7 +37,6 @@ export function TopVolumeItem({
           </Typography.Text>
           <Flex className="text-text-subtle">
             <Typography.Text size={13}>{price}</Typography.Text>
-            <span>.</span>
             <Typography.Text size={13}>12k trades</Typography.Text>
           </Flex>
         </Stack>
@@ -55,7 +54,7 @@ export default function TopVolume({ data }: Readonly<TopVolumeProps>) {
     <Stack className="gap-4 z-10">
       <Flex className="justify-between">
         <Typography.Heading size={24} weight="semibold">
-          Top Volume This Week
+          Leaderboard
         </Typography.Heading>
         <ViewAll link="/" />
       </Flex>

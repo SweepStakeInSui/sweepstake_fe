@@ -21,29 +21,31 @@ export function ActivityItem({
 }: Readonly<RecentActivityType>) {
   return (
     <Flex className="justify-between p-2 flex-wrap overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
-      <Flex className="gap-x-2">
-        <CustomAvatar src={avatar} />
-        <Stack className="gap-1">
-          <Flex className="gap-1 flex-wrap">
-            <Flex className="gap-1">
-              <Typography.Text size={15} weight="bold" className="text-text">
-                {username}
-              </Typography.Text>
-              <Typography.Text size={15} className="text-text">
-                bought
-              </Typography.Text>
+      <Flex className="justify-between w-full">
+        <Flex className="gap-x-2">
+          <CustomAvatar src={avatar} />
+          <Stack className="gap-1">
+            <Flex className="gap-1 flex-wrap">
+              <Flex className="gap-1">
+                <Typography.Text size={15} weight="bold" className="text-text">
+                  {username}
+                </Typography.Text>
+                <Typography.Text size={15} className="text-text">
+                  bought
+                </Typography.Text>
+              </Flex>
+              <Badge variant={`${bidding ? 'bet_yes' : 'bet_no'}`}>
+                Yes {price} • {betname} • {contract} contracts
+              </Badge>
             </Flex>
-            <Badge variant={`${bidding ? 'bet_yes' : 'bet_no'}`}>
-              Yes {price} • {betname} • {contract} contracts
-            </Badge>
-          </Flex>
-          <Typography.Text className="text-text-subtle" size={13}>
-            {title}
-          </Typography.Text>
-          <Typography.Text size={13} className="text-text-subtle">
-            {date}
-          </Typography.Text>
-        </Stack>
+            <Typography.Text className="text-text-subtle" size={13}>
+              {title}
+            </Typography.Text>
+          </Stack>
+        </Flex>
+        <Typography.Text size={13} className="text-text-subtle">
+          {date}
+        </Typography.Text>
       </Flex>
     </Flex>
   );

@@ -10,7 +10,7 @@ import VoteCard from './VoteCard';
 
 const VoteCardGrid = () => {
   return (
-    <div className="bg-bg-surface">
+    <div>
       <div className="grid grid-cols-autoFill w-full gap-4 py-5 lg:gap-6 lg:py-6">
         <VoteCard />
         <VoteCard />
