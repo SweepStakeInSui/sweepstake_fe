@@ -106,7 +106,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
         <Button
           variant="terriary"
           size="icon"
-          className="hidden-sm flex-grow-0"
+          className="hidden-PC flex-grow-0"
           onClick={handleCloseDrawer}
         >
           <Svg src="/icons/arrow_back_ios.svg" />
@@ -141,7 +141,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
             )}
           </div>
           <div
-            className={`max-h-[328px] hidden-lg overflow-y-auto p-2 rounded-md shadow-search-header overflow-x-hidden absolute bg-bg-surface w-full top-13 transition-all duration-300 ${
+            className={`max-h-[328px] hidden-mobile overflow-y-auto p-2 rounded-md shadow-search-header overflow-x-hidden absolute bg-bg-surface w-full top-13 transition-all duration-300 ${
               isFocused ? 'opacity-100 visible' : 'opacity-0 invisible'
             }`}
           >
@@ -149,7 +149,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
           </div>
         </div>
       </Flex>
-      <ScrollArea className="hidden-sm ">
+      <ScrollArea className="hidden-PC ">
         <Flex className="mt-4 mb-2">
           <Typography.Text
             size={13}

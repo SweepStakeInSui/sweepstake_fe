@@ -77,21 +77,6 @@ export default class SuiRPC {
     }
   }
 
-  // async requestSui(account: string): Promise<any> {
-  //   try {
-  //     const host = getFaucetHost(configs.network);
-
-  //     const response = await requestSuiFromFaucetV1({
-  //       host,
-  //       recipient: account,
-  //     });
-
-  //     console.log('Response from faucet:', response);
-  //   } catch (error) {
-  //     console.error('Error requesting SUI:', error);
-  //   }
-  // }
-
   async getBalance(): Promise<any> {
     try {
       const keypair = await this.getKeyPair();

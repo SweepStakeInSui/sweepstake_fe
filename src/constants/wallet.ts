@@ -1,0 +1,1 @@
+export const LOCAL_STORE_WALLET = 'WALLET_SWEEPSTAKE';

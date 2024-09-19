@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { isValidSuiAddress } from '@mysten/sui.js/utils';
-import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -33,11 +32,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
-import type { ProfileTypes } from '@/types/profile';
+import useBalance from '@/hooks/useBalance';
+
+import { Withdraw } from '../Withdraw';
 
 const Balance = () => {
-  const queryClient = useQueryClient();
-  const profile = queryClient.getQueryData<ProfileTypes>(['user-infor']);
+  const balance = useBalance();
   const formSchema = z.object({
     amount: z.coerce
       .number({
@@ -55,6 +55,10 @@ const Balance = () => {
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      amount: undefined,
+      address: '',
+    },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -69,7 +73,9 @@ const Balance = () => {
             Balance
           </Typography.Text>
           <Tooltip content="Refresh balance">
-            <Svg src="/icons/refresh.svg" />
+            <div className="cursor-pointer">
+              <Svg src="/icons/refresh.svg" />
+            </div>
           </Tooltip>
         </Flex>
         <Typography.Heading
@@ -77,24 +83,31 @@ const Balance = () => {
           weight="semibold"
           className="flex mb-5 mt-2"
         >
-          $<FormatNumber number={profile?.volume || 0} />
+          $<FormatNumber number={balance || 0} />
         </Typography.Heading>
 
+        <Withdraw>
+          <Button variant="secondary" className="w-full" size="medium">
+            <Typography.Text className="text-text-inverse">
+              Withdraw
+            </Typography.Text>
+          </Button>
+        </Withdraw>
         <Dialog>
-          <DialogTrigger className="w-full" asChild>
+          <DialogTrigger className="w-full mt-4" asChild>
             <div className="w-full">
               <Button variant="secondary" className="w-full" size="medium">
                 <Typography.Text className="text-text-inverse">
-                  Withdraw
+                  Deposit
                 </Typography.Text>
               </Button>
             </div>
           </DialogTrigger>
-          <DialogContent className="w-[500px]" hideCloseButton>
+          <DialogContent className="w-[500px] " hideCloseButton>
             <DialogHeader>
-              <DialogTitle>Withdraw USDT (Sui)</DialogTitle>
+              <DialogTitle>Deposit USDT (Sui)</DialogTitle>
               <DialogDescription>
-                Please input USDT amount and address to withdraw.
+                Please input USDT amount and address to deposit.
               </DialogDescription>
               <div className="pt-4">
                 <Flex className="p-3 bg-b-5 rounded-sm">

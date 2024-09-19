@@ -16,7 +16,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import { Tooltip } from '@/components/ui/tooltip';
 import { menuListLogin, navList } from '@/constants/navList';
+import useBalance from '@/hooks/useBalance';
 
 import Flex from '../Flex';
 import Stack from '../Stack';
@@ -38,7 +40,7 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
 
   return (
     <button
-      className={`py-3 cursor-pointer hover:bg-bg-hovered ${className}`}
+      className={`py-3 cursor-pointer w-full hover:bg-bg-hovered ${className}`}
       onClick={item.onClick ? item.onClick : () => router.push(`/${item.slug}`)}
     >
       <div className="flex gap-x-2.5 items-center w-full">
@@ -52,35 +54,41 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
     </button>
   );
 };
-const ActionUser: React.FC = () => {
+export const ActionUser: React.FC = () => {
+  const balance = useBalance();
   return (
     <div className="p-4 text-text bg-r-10 rounded-sm relative overflow-hidden">
       <Flex className="z-10 relative mb-0.5">
         <Typography.Text size={13} weight="medium" className="text-text-subtle">
-          Balance
+          Portfolio
         </Typography.Text>
-        <Svg src="/icons/refresh.svg" className="cursor-pointer" />
+        <Tooltip content="Refresh balance">
+          <div className="cursor-pointer">
+            <Svg src="/icons/refresh.svg" />
+          </div>
+        </Tooltip>
       </Flex>
       <Typography.Heading weight="semibold" size={24} className="text-text">
-        $0
+        ${balance}
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">
-        <Button variant="ghost" size="medium" className="flex-1 bg-white">
+        <Button variant="primary" size="medium" className="flex-1">
           <Link href="/deposit">
-            <Typography.Text size={14} weight="semibold" className="text-text">
-              Deposit
+            <Typography.Text
+              size={14}
+              weight="semibold"
+              className="text-text-inverse"
+            >
+              Transfer
             </Typography.Text>
           </Link>
         </Button>
         <Button variant="ghost" size="medium" className="flex-1 bg-white">
-          <Link href="/withdraw">
+          <Link href="/deposit">
             <Typography.Text size={14} weight="semibold" className="text-text">
               Withdraw
             </Typography.Text>
           </Link>
-        </Button>
-        <Button variant="ghost" size="icon" className="bg-white">
-          <Svg src="/icons/history.svg" />
         </Button>
       </Flex>
       <div className="absolute bottom-1 -left-2 mix-blend-color-burn blur-sm z-0">

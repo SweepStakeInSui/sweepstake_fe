@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getAccessToken, getRefreshToken, removeCookieToken, setCookieToken } from '@/utils/token';
 import { ProfileTypes } from '@/types/profile';
+import { LOCAL_STORE_WALLET } from '@/constants/wallet';
 export type ProfileState = {
   accessToken: string;
   refreshToken: string;
@@ -30,6 +31,7 @@ export const profileSlice = createSlice({
     },
     logout: (state) => {
       removeCookieToken();
+      localStorage.removeItem(LOCAL_STORE_WALLET);
       state.accessToken = '';
       state.refreshToken = '';
       state.isLoggedIn = false;
@@ -42,7 +44,7 @@ export const profileSlice = createSlice({
     },
     userData: (state, { payload }) => {
       const { profile } = payload;
-      state.profile = profile;
+      state.profile = profile as ProfileTypes;
     },
   },
 });
