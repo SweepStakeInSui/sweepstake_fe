@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { CustomAvatar } from '@/components/common/CustomAvatar';
 import { Badge } from '@/components/ui/badge';
 
 import Flex from '../Flex';
@@ -46,24 +46,23 @@ const Comment = ({
 }: ICommentProps) => {
   return (
     <div className="flex space-x-4 mb-4" key={id}>
-      <Avatar>
-        <AvatarImage src={avatar} alt={author} />
-        <AvatarFallback className="rounded-sm">{author[0]}</AvatarFallback>
-      </Avatar>
+      <CustomAvatar src={avatar} isRounded />
       <div className="flex-1">
-        <Flex className="items-center gap-2">
-          <h4 className="font-bold">{author}</h4>
-          <span className="text-sm text-text-subtle">
-            {new Date(timestamp).toLocaleString()}
-          </span>
+        <Flex className="flex-col lg:flex-row items-start lg:items-center mb-1">
+          <Flex className="justify-between">
+            <h4 className="font-bold">{author}</h4>
+            <span className="text-13 text-text-subtle">
+              {new Date(timestamp).toLocaleString()}
+            </span>
+          </Flex>
           {isMinimal && !isReplies && (
             <Badge variant="bet_yes">Yes • Micheal Jack • 62% Chance</Badge>
           )}
         </Flex>
-        <p className="mb-2">
+        <Typography.Text size={15} className="mb-2">
           {replyTo && <span className="font-bold">@{replyTo} </span>}
           {content}
-        </p>
+        </Typography.Text>
 
         {!isMinimal && !isReplies && (
           <LinkBox

@@ -5,10 +5,10 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -83,17 +83,18 @@ const EditProfile = () => {
                   </Flex>
                 ) : (
                   <div className="relative w-fit h-fit mx-auto">
-                    <Avatar
-                      isRounded
-                      size="size2xl"
+                    <button
                       onClick={() => {
                         fileInputRef.current?.click();
                       }}
-                      className="cursor-pointer mb-4 "
                     >
-                      <AvatarImage src={form.getValues('avatar')} />
-                      <AvatarFallback className="rounded-sm" />
-                    </Avatar>
+                      <CustomAvatar
+                        src={form.getValues('avatar')}
+                        size="size2xl"
+                        className="cursor-pointer mb-4"
+                      />
+                    </button>
+
                     <Flex className="absolute bg-blk-a85/80 gap-x-0.5 rounded-full px-2 h-[26px] -bottom-1.5 left-1/2 -translate-x-1/2">
                       <Typography.Text
                         className="text-text-inverse"

@@ -1,7 +1,9 @@
+'use client';
+
+import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import type { RecentActivityType } from '@/types/recentActivity';
 
@@ -20,13 +22,10 @@ export function ActivityItem({
   return (
     <Flex className="justify-between p-2 flex-wrap overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
       <Flex className="gap-x-2">
-        <Avatar>
-          <AvatarImage src={avatar} />
-          <AvatarFallback />
-        </Avatar>
-        <Stack className="gap-px">
-          <Flex className="gap-x-1 flex-wrap">
-            <Flex>
+        <CustomAvatar src={avatar} />
+        <Stack className="gap-1">
+          <Flex className="gap-1 flex-wrap">
+            <Flex className="gap-1">
               <Typography.Text size={15} weight="bold" className="text-text">
                 {username}
               </Typography.Text>

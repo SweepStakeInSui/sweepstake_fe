@@ -43,3 +43,13 @@ export const menuListLogin = (onDisconnect: () => void) => [
     onClick: onDisconnect,
   },
 ];
+
+export const CONSTANT_ROUTES = {
+  HOME: '/',
+  MARKETS: '/markets',
+  CREATE_BET: '/create-bet',
+  PROFILE: '/profile',
+  WATCHLIST: '/watchlist',
+  LEADERBOARD: '/leaderboard',
+  ACTIVITY: '/activity',
+};

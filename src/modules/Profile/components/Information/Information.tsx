@@ -1,10 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
+import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { ProfileTypes } from '@/types/profile';
 
 import { EditProfile } from '../EditProfile';
@@ -16,10 +16,12 @@ const Information = () => {
   return (
     <Flex className="justify-between p-2 items-start">
       <Flex className="gap-x-6">
-        <Avatar size="xl" isRounded>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback />
-        </Avatar>
+        <CustomAvatar
+          address={profile?.address}
+          src={profile?.avatar}
+          size="xl"
+          isRounded
+        />
         <Stack className="justify-between">
           <Stack className="gap-y-0.5">
             <Typography.Heading>Nickname</Typography.Heading>
