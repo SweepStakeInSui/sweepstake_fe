@@ -54,7 +54,7 @@ const EditProfile = () => {
   const isLoading = false;
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant="terriary" className="gap-x-1">
           <Svg src="/icons/edit.svg" />
           Edit profile

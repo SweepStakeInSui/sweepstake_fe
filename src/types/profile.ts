@@ -7,4 +7,5 @@ export type ProfileTypes = {
   volume: number;
   winRate?: number;
   rank?: number;
+  balance?: number;
 };

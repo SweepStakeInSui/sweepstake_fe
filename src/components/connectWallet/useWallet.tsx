@@ -15,12 +15,12 @@ import React, {
 import { useDispatch } from 'react-redux';
 
 import configs from '@/configs';
+import { LOCAL_STORE_WALLET } from '@/constants/wallet';
 import { ConnectionType } from '@/enums/ConnectionType';
 import { AuthService } from '@/services/authService';
 import { login, logout } from '@/store/profileSlice';
 import SuiRPC from '@/utils/SuiRPC';
 
-const LOCAL_STORE_WALLET = 'WALLET_SWEEPSTAKE';
 const clientId =
   'BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ';
 interface WalletContextProps {

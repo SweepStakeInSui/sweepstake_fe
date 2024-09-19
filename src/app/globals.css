@@ -287,10 +287,10 @@
   body {
     @apply bg-bg-primary text-base;
   }
-  .hidden-lg {
+  .hidden-mobile {
     @apply !hidden lg:!flex;
   }
-  .hidden-sm {
+  .hidden-PC {
     @apply !flex lg:!hidden;
   }
 }

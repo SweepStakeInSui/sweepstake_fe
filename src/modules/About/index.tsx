@@ -14,18 +14,6 @@ import { setCookieToken } from '@/utils/token';
 export default function AboutModule() {
   const { mutateAsync: signTransaction } = useSignTransaction();
   const client = useSuiClient();
-  // const [digest, setDigest] = useState('');
-  // const getBalance = async () => {
-  //   if (account) {
-  //     const client = new SuiClient({ url: getFullnodeUrl('testnet') });
-  //     const balance = await client.getBalance({
-  //       owner: account.address,
-  //     });
-  //     console.log(balance);
-
-  //     return balance;
-  //   }
-  // };
   const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction({
     execute: async ({ bytes, signature }) =>
       client.executeTransactionBlock({

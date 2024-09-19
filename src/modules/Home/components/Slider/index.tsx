@@ -72,7 +72,7 @@ function HomeSlide({
           </Button>
         </Flex>
       </Stack>
-      <Stack className="relative z-10 col-span-6 justify-between gap-y-11 hidden-lg">
+      <Stack className="relative z-10 col-span-6 justify-between gap-y-11 hidden-mobile">
         <Stack>
           <Typography.Heading className="text-text" size={24}>
             {desc.title}
@@ -116,8 +116,8 @@ function SwiperButtonPrev({
             className="text-inherit rotate-180"
           />
         </span>
-        <span className="hidden-lg">{prevTitle}</span>
-        <span className="hidden-sm">Previous</span>
+        <span className="hidden-mobile">{prevTitle}</span>
+        <span className="hidden-PC">Previous</span>
       </Typography.Text>
     </button>
   );
@@ -138,8 +138,8 @@ function SwiperButtonNext({
   return (
     <button onClick={() => swiper.slideNext()}>
       <Typography.Text size={12} className="text-text-subtle inline-flex">
-        <span className="hidden-lg">{`${nextTile} `}</span>
-        <span className="hidden-sm">Next</span>
+        <span className="hidden-mobile">{`${nextTile} `}</span>
+        <span className="hidden-PC">Next</span>
         <span className="w-4 h-4">
           <Svg
             key="next"

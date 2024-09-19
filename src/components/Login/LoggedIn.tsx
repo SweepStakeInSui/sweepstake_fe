@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 import {
@@ -14,7 +13,7 @@ import { mockAvatar } from '@/mocks/mockAvatar';
 import { mockNotifications } from '@/mocks/mockNotifications';
 
 import Flex from '../common/Flex';
-import { MenuItem } from '../common/Menu/MenuHeader';
+import { ActionUser, MenuItem } from '../common/Menu/MenuHeader';
 import Stack from '../common/Stack';
 import Svg from '../common/Svg';
 import Typography from '../common/Typography';
@@ -169,11 +168,13 @@ const LoggedIn = () => {
     <Flex>
       <Link href="/create-bet">
         <Button className="gap-x-2" size="lg">
-          <Svg src="/icons/add.svg" className="hidden-lg" />
+          <Svg src="/icons/add.svg" className="hidden-mobile" />
           Create bet
         </Button>
       </Link>
-      <SearchHeaderMobile />
+      <div className="hidden-PC">
+        <SearchHeaderMobile />
+      </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative size-11 p-0">
@@ -227,60 +228,7 @@ const LoggedIn = () => {
           className="w-[370px] px-2.5 py-3 bg-bg-surface "
           align="end"
         >
-          <div className="p-4 text-text bg-r-10 rounded-sm relative overflow-hidden">
-            <Flex className=" z-10 relative mb-0.5">
-              <Typography.Text
-                size={13}
-                weight="medium"
-                className="text-text-subtle"
-              >
-                Balance
-              </Typography.Text>
-              <Svg src="/icons/refresh.svg" className="cursor-pointer" />
-            </Flex>
-            <Typography.Heading
-              weight="semibold"
-              size={24}
-              className="text-text "
-            >
-              $0
-            </Typography.Heading>
-            <Flex className="mt-5 relative z-10">
-              <Button variant="ghost" size="medium" className="flex-1 bg-white">
-                <Link href="/deposit">
-                  <Typography.Text
-                    size={14}
-                    weight="semibold"
-                    className="text-text"
-                  >
-                    Deposit
-                  </Typography.Text>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="medium" className="flex-1 bg-white">
-                <Link href="/deposit">
-                  <Typography.Text
-                    size={14}
-                    weight="semibold"
-                    className="text-text"
-                  >
-                    Withdraw
-                  </Typography.Text>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" className="bg-white">
-                <Svg src="/icons/history.svg" />
-              </Button>
-            </Flex>
-            <div className="absolute bottom-1 -left-2 mix-blend-color-burn blur-sm z-0">
-              <Image
-                src="/icons/Flare.svg"
-                alt="flare"
-                width={147}
-                height={108}
-              />
-            </div>
-          </div>
+          <ActionUser />
           <DropdownMenuGroup className="mt-1">
             <DropdownMenuItem className="py-3 flex justify-between cursor-pointer">
               <Link href="/" className="flex gap-x-2.5 items-center ">

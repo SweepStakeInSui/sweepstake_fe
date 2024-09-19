@@ -6,7 +6,6 @@ import {
   useWallets,
 } from '@mysten/dapp-kit';
 import Image from 'next/image';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ConnectionType } from '@/enums/ConnectionType';
@@ -27,7 +26,6 @@ const SuiDappKit = () => {
   const account = useCurrentAccount();
   const dispatch = useDispatch();
   const loginSuiWallets = async () => {
-    setWallet(ConnectionType.SuiWallet);
     if (account) {
       const nonce = await AuthService.getNonce(account.address);
       await signPersonalMessage(
@@ -42,7 +40,7 @@ const SuiDappKit = () => {
             );
 
             dispatch(login({ accessToken, refreshToken }));
-            setWallet(ConnectionType.Web3Auth);
+            setWallet(ConnectionType.SuiWallet);
           },
         },
       );
@@ -54,11 +52,11 @@ const SuiDappKit = () => {
         <div key={wallet.name}>
           <div
             className="w-full"
-            onClick={() => {
+            onClick={async () => {
               connect(
                 { wallet },
                 {
-                  onSuccess: () => loginSuiWallets(),
+                  onSuccess: async () => await loginSuiWallets(),
                 },
               );
             }}

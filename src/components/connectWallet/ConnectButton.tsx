@@ -23,7 +23,7 @@ const ConnectButton = () => {
       <DialogTrigger asChild>
         <Button size="lg">
           <Flex>
-            <Svg src="/icons/Wallet.svg" className="hidden-lg" />
+            <Svg src="/icons/Wallet.svg" className="hidden-mobile" />
             Connect Wallet
           </Flex>
         </Button>
