@@ -35,8 +35,10 @@ const PreviewBetModule = ({ data }: IPreviewBetModuleProps) => {
 
         <PreviewBetRulesSummary
           desc={data.rule}
-          openOn={format(new Date(data.startTime), 'MMM dd, yyyy')}
-          closeOn={format(new Date(data.endTime), 'MMM dd, yyyy')}
+          startDate={format(new Date(data.startTime), 'MMM dd, yyyy')}
+          startClock={format(new Date(data.startTime), 'HH:mm')}
+          endDate={format(new Date(data.endTime), 'MMM dd, yyyy')}
+          endClock={format(new Date(data.endTime), 'HH:mm')}
           payoutOn={format(new Date(data.endTime), 'MMM dd, yyyy')}
           categories={data.categories.reduce<string[]>((prev, curr) => {
             prev.push(curr.label as string);
