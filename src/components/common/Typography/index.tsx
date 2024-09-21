@@ -10,8 +10,10 @@ export default function Typography({
   return <Tag>{children}</Tag>;
 }
 
+export type TypographyTextSize = 10 | 12 | 13 | 14 | 15 | 16 | 18;
+
 interface ITextProps extends ITypographyProps {
-  size?: 10 | 12 | 13 | 14 | 15 | 16 | 18;
+  size?: TypographyTextSize;
   weight?: 'regular' | 'medium' | 'semibold' | 'bold';
   className?: string;
 }
