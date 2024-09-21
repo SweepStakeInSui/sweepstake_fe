@@ -20,6 +20,6 @@ export const betSlice = createSlice({
 });
 
 export const { setBet } = betSlice.actions;
-export const selectProfile = (state: any): any => state.bet;
+export const selectBet = (state: any): any => state.bet;
 
 export default betSlice.reducer;

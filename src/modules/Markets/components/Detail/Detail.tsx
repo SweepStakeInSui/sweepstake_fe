@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
-import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
@@ -180,7 +179,7 @@ export default function MarketsDetail() {
   }, [statistic]);
 
   return (
-    <Paper>
+    <div>
       <Stack className="gap-y-0">
         <Flex className="mb-3">
           <Flex className="gap-1">
@@ -253,7 +252,7 @@ export default function MarketsDetail() {
               className="text-text inline-flex items-center gap-1"
               size={15}
             >
-              forscast{' '}
+              chance{' '}
               <Typography.Text
                 tag="span"
                 className="text-text-support-green"
@@ -301,6 +300,6 @@ export default function MarketsDetail() {
           </span>
         </Button>
       </Stack>
-    </Paper>
+    </div>
   );
 }

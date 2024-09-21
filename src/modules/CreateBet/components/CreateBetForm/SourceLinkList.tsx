@@ -1,89 +1,49 @@
-import { ImageUploader } from '@components/common/ImageUploader';
 import Stack from '@components/common/Stack';
 import Svg from '@components/common/Svg';
 import Typography from '@components/common/Typography';
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
-import { Label } from '@components/ui/label';
-import { Switch } from '@components/ui/switch';
 import React from 'react';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
-interface IOutcomePanelProps {
+interface ISourcePanelProps {
   index: number;
 }
 
-const OutcomePanel = ({ index }: IOutcomePanelProps) => {
-  const { control, setValue } = useFormContext();
-  const [showUploadImg, setShowUploadImg] = React.useState(false);
-
-  const handleSwitchChange = (checked: boolean) => {
-    setShowUploadImg(checked);
-    if (!checked) {
-      setValue(`outcomes.${index}.picture`, null);
-    }
-  };
+const SourcePanel = ({ index }: ISourcePanelProps) => {
+  const { control } = useFormContext();
 
   return (
     <Stack className="border border-borderSubtle rounded-md rounded-br-none rounded-bl-none p-4 gap-4 bg-bg-container relative z-[1]">
       <Stack className="gap-1">
         <Typography.Text size={13} className="text-text-subtle">
-          Outcome#{index + 1}
+          Link title
         </Typography.Text>
         <Controller
-          name={`outcomes.${index}.outcome`}
+          name={`sources.${index}.title`}
           control={control}
-          render={({ field }) => (
-            <Input {...field} placeholder="Input outcome" />
-          )}
+          render={({ field }) => <Input {...field} placeholder="Link title" />}
         />
       </Stack>
       <Stack className="gap-1">
         <Typography.Text size={13} className="text-text-subtle">
-          Sub Outcome
+          Link URL
         </Typography.Text>
         <Controller
-          name={`outcomes.${index}.subOutcome`}
+          name={`sources.${index}.url`}
           control={control}
-          render={({ field }) => (
-            <Input {...field} placeholder="Input sub outcome" />
-          )}
+          render={({ field }) => <Input {...field} placeholder="Link URL" />}
         />
       </Stack>
-
-      <div className="flex items-center space-x-2">
-        <Switch
-          id={index.toString()}
-          checked={showUploadImg}
-          onCheckedChange={handleSwitchChange}
-        />
-        <Label htmlFor={index.toString()} className="text-13 text-text-subtle">
-          With Image
-        </Label>
-      </div>
-
-      <div className={`${showUploadImg ? 'block' : 'hidden'}`}>
-        <Controller
-          name={`outcomes.${index}.picture`}
-          control={control}
-          render={({ field }) => (
-            <ImageUploader
-              {...field}
-              desc="Image maximum 10MB"
-              customKey={`image-uploader-${index}`}
-            />
-          )}
-        />
-      </div>
     </Stack>
   );
 };
 
-const OutcomeList = () => {
+const SourceList = () => {
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'outcomes',
+    name: 'sources',
   });
 
   return (
@@ -93,8 +53,8 @@ const OutcomeList = () => {
           <div key={item.id} className="group">
             <Controller
               control={control}
-              name={`outcomes.${index}`}
-              render={({ field }) => <OutcomePanel index={index} {...field} />}
+              name={`sources.${index}`}
+              render={({ field }) => <SourcePanel index={index} {...field} />}
             />
             <Button
               variant="ghost"
@@ -106,7 +66,7 @@ const OutcomeList = () => {
                 className="text-text-support-red"
               />
               <Typography.Text size={13} className="text-text-support-red">
-                Remove Outcome
+                Remove Source
               </Typography.Text>
             </Button>
           </div>
@@ -117,16 +77,16 @@ const OutcomeList = () => {
         variant="terriary"
         className="px-3 py-2 gap-x-1 mx-auto"
         onClick={() => {
-          append({ outcome: '', subOutcome: '', picture: null });
+          append({ title: '', url: '' });
         }}
       >
         <Svg src="/icons/add.svg" className="size-4" />
         <Typography.Text size={13} className="text-text-subtle">
-          Add outcome
+          Add Source
         </Typography.Text>
       </Button>
     </Stack>
   );
 };
 
-export default OutcomeList;
+export default SourceList;

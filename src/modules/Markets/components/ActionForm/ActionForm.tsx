@@ -58,7 +58,7 @@ const MarketsActionForm = () => {
   ];
 
   return (
-    <Stack className="sticky gap-y-0 border-l border-solid border-borderSubtle p-3 top-2 lg:top-[4.75rem] w-full lg:w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto">
+    <Stack className="no-scrollbar sticky gap-y-0 border-l border-solid border-borderSubtle p-3 top-2 lg:top-[4.75rem] w-full lg:w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto">
       <Stack className="gap-4 p-3">
         <Flex className="items-center gap-3 mb-2">
           <Avatar isRounded={false} className="w-[2.5rem] h-auto aspect-1">

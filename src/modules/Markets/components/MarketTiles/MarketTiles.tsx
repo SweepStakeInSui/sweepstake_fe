@@ -63,10 +63,10 @@ const MarketTile = ({
 
   return (
     <AccordionItem value={id}>
-      <Flex className="flex flex-col lg:flex-row justify-between w-full">
+      <Flex className="flex flex-col lg:flex-row justify-between w-full gap-0">
         <AccordionTrigger className="w-full">
           <div className="flex flex-col lg:flex-row justify-between w-full">
-            <Flex className="w-full justify-between p-3 lg:p-0">
+            <Flex className="w-full justify-between p-0">
               <Stack className="items-start">
                 <Typography.Text size={15} weight="medium">
                   {title}
@@ -87,7 +87,7 @@ const MarketTile = ({
             </Flex>
           </div>
         </AccordionTrigger>
-        <Flex className="w-full lg:w-[14.375rem] justify-center p-3 lg:p-0">
+        <Flex className="w-full lg:w-[14.375rem] justify-center pb-4 lg:pb-0">
           <DrawerTrigger asChild>
             <Button
               variant={`bet_yes${type && storedId === id ? '_active' : ''}`}

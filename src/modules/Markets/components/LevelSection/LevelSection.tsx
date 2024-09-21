@@ -1,7 +1,6 @@
 import { SelectValue } from '@radix-ui/react-select';
 import React, { useState } from 'react';
 
-import Paper from '@/components/common/Paper';
 import {
   Select,
   SelectContent,
@@ -37,7 +36,7 @@ const LevelSection = () => {
   const selectedTab = tabs.find((item) => item.value === select);
 
   return (
-    <Paper>
+    <div>
       <Select defaultValue={select} onValueChange={setSelect}>
         <SelectTrigger className="w-fit border-none text-24 font-semibold mb-4 gap-2 pl-0">
           <SelectValue placeholder="Ideas" />
@@ -51,7 +50,7 @@ const LevelSection = () => {
         </SelectContent>
       </Select>
       {selectedTab ? selectedTab.panel : null}
-    </Paper>
+    </div>
   );
 };
 

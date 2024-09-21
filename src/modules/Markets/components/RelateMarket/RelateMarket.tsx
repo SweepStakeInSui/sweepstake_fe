@@ -1,7 +1,6 @@
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 import Flex from '@/components/common/Flex';
-import Paper from '@/components/common/Paper';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -9,7 +8,7 @@ import { bets } from '@/mocks/mockBet';
 
 export default function MarketsRelateMarket() {
   return (
-    <Paper>
+    <div>
       <Typography.Heading size={24} weight="semibold" className="mb-4">
         Relate Market
       </Typography.Heading>
@@ -21,7 +20,11 @@ export default function MarketsRelateMarket() {
             <AvatarFallback />
           </Avatar>
           <div className="text-left">
-            <Typography.Text size={15} className="text-text mb-[2px]">
+            <Typography.Text
+              size={15}
+              weight="semibold"
+              className="text-text mb-[2px]"
+            >
               {bet.name}
             </Typography.Text>
             <Flex className="gap-x-1">
@@ -51,6 +54,6 @@ export default function MarketsRelateMarket() {
           See more
         </Button>
       </div>
-    </Paper>
+    </div>
   );
 }

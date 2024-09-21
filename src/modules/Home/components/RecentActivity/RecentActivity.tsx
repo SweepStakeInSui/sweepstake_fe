@@ -21,7 +21,7 @@ export function ActivityItem({
 }: Readonly<RecentActivityType>) {
   return (
     <Flex className="justify-between p-2 flex-wrap overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
-      <Flex className="justify-between w-full">
+      <Flex className="justify-between w-full flex-col items-start lg:items-center lg:flex-row">
         <Flex className="gap-x-2">
           <CustomAvatar src={avatar} />
           <Stack className="gap-1">
@@ -38,12 +38,18 @@ export function ActivityItem({
                 Yes {price} • {betname} • {contract} contracts
               </Badge>
             </Flex>
-            <Typography.Text className="text-text-subtle" size={13}>
+            <Typography.Text
+              className="text-text-subtle line-clamp-1 lg:line-clamp-2"
+              size={13}
+            >
               {title}
             </Typography.Text>
           </Stack>
         </Flex>
-        <Typography.Text size={13} className="text-text-subtle">
+        <Typography.Text
+          size={13}
+          className="text-text-subtle text-end lg:text-start w-full"
+        >
           {date}
         </Typography.Text>
       </Flex>
