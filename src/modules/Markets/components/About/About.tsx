@@ -1,5 +1,4 @@
 import Flex from '@/components/common/Flex';
-import Paper from '@/components/common/Paper';
 import { SourceLinks } from '@/components/common/SourceLinks';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
@@ -10,7 +9,7 @@ interface IMarketsAboutProps {
 
 export default function MarketsAbout({ desc }: Readonly<IMarketsAboutProps>) {
   return (
-    <Paper>
+    <div>
       <Typography.Heading size={24} className="mb-2">
         About
       </Typography.Heading>
@@ -24,17 +23,17 @@ export default function MarketsAbout({ desc }: Readonly<IMarketsAboutProps>) {
           Sources from{' '}
           <SourceLinks
             sources={[
-              { label: 'GitHub', link: 'https://github.com' },
-              { label: 'DataHub.io', link: 'https://datahub.io' },
-              { label: 'Data.gov', link: 'https://data.gov' },
+              { title: 'GitHub', url: 'https://github.com' },
+              { title: 'DataHub.io', url: 'https://datahub.io' },
+              { title: 'Data.gov', url: 'https://data.gov' },
               {
-                label: 'U.S. Energy Information Administration (EIA)',
-                link: 'https://www.eia.gov',
+                title: 'U.S. Energy Information Administration (EIA)',
+                url: 'https://www.eia.gov',
               },
             ]}
           />
         </Typography.Text>
       </Flex>
-    </Paper>
+    </div>
   );
 }

@@ -35,9 +35,13 @@ export function TopVolumeItem({
           <Typography.Text size={15} weight="bold" className="text-text">
             {username}
           </Typography.Text>
-          <Flex className="text-text-subtle">
-            <Typography.Text size={13}>{price}</Typography.Text>
-            <Typography.Text size={13}>12k trades</Typography.Text>
+          <Flex>
+            <Typography.Text size={13} className="text-text-subtle">
+              {price}
+            </Typography.Text>
+            <Typography.Text size={13} className="text-text-subtle">
+              12k trades
+            </Typography.Text>
           </Flex>
         </Stack>
       </Flex>

@@ -46,7 +46,7 @@ function HomeSlide({
                 {forcast}
               </Typography.Text>
               <Typography.Text className="text-text-subtle" size={12}>
-                forcast
+                chance
               </Typography.Text>
               <Typography.Text className="text-text-support-green" size={12}>
                 {percent}%
@@ -205,8 +205,8 @@ export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
         })}
 
         <div className="relative py-3 w-screen h-12 text-text-subtle mt-2">
-          <Container className="relative w-full h-full translate-y-[20%]">
-            <div className="relative z-20 w-fit pl-4">
+          <Container className="relative w-full h-full translate-y-[20%] z-20">
+            <div className="relative w-fit pl-4">
               <SwiperButtonPrev
                 key={`prev_${realIndex}`}
                 activeIndex={realIndex}

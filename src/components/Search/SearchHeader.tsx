@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
@@ -96,10 +96,28 @@ interface SearchHeaderProps {
 const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [valueSearch, setValueSearch] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>(null);
   //   const debouncedSearch = useDebounce(valueSearch);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValueSearch(e.target.value);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '/' && document.activeElement !== inputRef.current) {
+        e.preventDefault();
+        inputRef.current?.focus();
+        setIsFocused(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <div className="w-full">
       <Flex className="justify-end">
@@ -125,6 +143,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             onChange={handleSearch}
+            ref={inputRef}
           />
           <div className="text-text-sublest absolute right-3 top-1/2 -translate-y-1/2">
             {valueSearch ? (

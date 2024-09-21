@@ -10,7 +10,12 @@ import CancelableOption from './CancelableOption';
 
 const ClearIndicator = (props: ClearIndicatorProps<TOption, true>) => {
   const {
-    children = <Svg src="/icons/close.svg" className="cursor-pointer" />,
+    children = (
+      <Svg
+        src="/icons/close.svg"
+        className="size-3 cursor-pointer text-icon-subtle"
+      />
+    ),
     getStyles,
     innerProps: { ref, ...restInnerProps },
   } = props;
