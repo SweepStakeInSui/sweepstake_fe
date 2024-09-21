@@ -9,16 +9,20 @@ import { Separator } from '../../../../components/ui/separator';
 
 interface IRulesSummaryProps {
   desc: string;
-  openOn: string;
-  closeOn: string;
+  startDate: string;
+  startClock: string;
+  endDate: string;
+  endClock: string;
   payoutOn: string;
   categories?: string[];
 }
 
 export default function PreviewBetRulesSummary({
   desc,
-  openOn,
-  closeOn,
+  startDate,
+  startClock,
+  endDate,
+  endClock,
   payoutOn,
   categories,
 }: Readonly<IRulesSummaryProps>) {
@@ -37,10 +41,10 @@ export default function PreviewBetRulesSummary({
           <Svg src="/icons/lock_open.svg" />
           <Stack>
             <Typography.Text size={15} weight="medium">
-              Opened on {openOn}
+              Opened on {startDate}
             </Typography.Text>
             <Typography.Text size={13} className="text-text-subtle">
-              {format(new Date(openOn), 'HH:mm')}
+              {startClock}
             </Typography.Text>
           </Stack>
         </Flex>
@@ -48,10 +52,10 @@ export default function PreviewBetRulesSummary({
           <Svg src="/icons/lock_outline.svg" />
           <Stack>
             <Typography.Text size={15} weight="medium">
-              Closes by {closeOn}
+              Closes by {endDate}
             </Typography.Text>
             <Typography.Text size={13} className="text-text-subtle">
-              10:00PM EDT
+              {endClock}
             </Typography.Text>
           </Stack>
         </Flex>
