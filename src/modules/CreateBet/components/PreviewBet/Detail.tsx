@@ -3,13 +3,12 @@ import Image from 'next/image';
 
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
-import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import useWindowSize from '@/hooks/common/useWindowSize';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
 import type { IOutcomeData } from '../../../../services/markets/types';
@@ -27,8 +26,10 @@ export default function PreviewBetDetail({
   betType,
   outcomes,
 }: Readonly<IPreviewBetDetailProps>) {
+  const { isMobile } = useWindowSize();
+
   return (
-    <Paper>
+    <div>
       <Stack className="gap-y-0">
         <Flex className="mb-3">
           <Flex className="gap-1">
@@ -53,11 +54,12 @@ export default function PreviewBetDetail({
         </Flex>
         <Flex className="items-start justify-between gap-3 mb-2">
           <Flex className="gap-3">
-            <Avatar isRounded={false} className="w-[3.75rem] h-auto aspect-1">
-              <AvatarImage src={mockAvatar} />
-              <AvatarFallback />
-            </Avatar>
-            <Typography.Heading size={28}>{title || '--'}</Typography.Heading>
+            <div className="relative size-[3.75rem] aspect-1 rounded-md overflow-hidden">
+              <Image src={mockAvatar} fill alt="" objectFit="cover" />
+            </div>
+            {!isMobile && (
+              <Typography.Heading size={28}>{title || '--'}</Typography.Heading>
+            )}
           </Flex>
 
           <Flex className="gap-0">
@@ -72,6 +74,11 @@ export default function PreviewBetDetail({
             </IconButton>
           </Flex>
         </Flex>
+        {isMobile && (
+          <Typography.Heading size={28} className="line-clamp-2 shrink-[999]">
+            {title || '--'}
+          </Typography.Heading>
+        )}
         <Flex className="items-center">
           <Typography.Heading className="text-text" size={20}>
             --%
@@ -113,23 +120,84 @@ export default function PreviewBetDetail({
             return (
               <Stack className="gap-3">
                 <Stack className="gap-0">
-                  <Flex className="w-full justify-between border-b border-borderSublest px-4 py-3">
-                    <Typography.Text size={13} className="text-text-subtle">
-                      Outcomes
-                    </Typography.Text>
+                  {!isMobile && (
+                    <Flex className="w-full justify-between border-b border-borderSublest py-1">
+                      <Typography.Text size={13} className="text-text-subtle">
+                        Outcome
+                      </Typography.Text>
 
-                    <Flex className="w-[21.25rem] justify-between">
-                      <Typography.Text size={13} className="text-text-subtle">
-                        %Chance
-                      </Typography.Text>
-                      <Typography.Text size={13} className="text-text-subtle">
-                        {' '}
-                      </Typography.Text>
+                      <Flex className="w-[21.25rem]">
+                        <Typography.Text size={13} className="text-text-subtle">
+                          %Chance
+                        </Typography.Text>
+                      </Flex>
                     </Flex>
-                  </Flex>
+                  )}
+
+                  {outcomes.map((outcome, index) => {
+                    return (
+                      <Flex
+                        key={outcome.outcome + index.toString()}
+                        className="flex flex-col lg:flex-row gap-0 justify-between w-full py-4 border-b border-borderSublest"
+                      >
+                        <div className="w-full">
+                          <div className="flex flex-col lg:flex-row justify-between w-full">
+                            <Flex className="w-full justify-between pb-3 lg:pb-0">
+                              <Flex>
+                                <div className="relative size-11 rounded-md overflow-hidden">
+                                  {outcome.picture ? (
+                                    <Image
+                                      src={URL.createObjectURL(outcome.picture)}
+                                      alt={outcome.outcome}
+                                      fill
+                                      className="object-cover"
+                                    />
+                                  ) : (
+                                    <div className="w-full h-full bg-gray-300" />
+                                  )}
+                                </div>
+                                <Stack className="items-start">
+                                  <Typography.Text size={15} weight="medium">
+                                    {outcome.outcome}
+                                  </Typography.Text>
+                                  <Typography.Text
+                                    size={13}
+                                    className="text-text-subtle"
+                                  >
+                                    {outcome.subOutcome}
+                                  </Typography.Text>
+                                </Stack>
+                              </Flex>
+
+                              <Flex className="lg:w-[9.875rem] items-center gap-1">
+                                <Typography.Text size={18} weight="medium">
+                                  --%
+                                </Typography.Text>
+                                <Typography.Text
+                                  size={13}
+                                  className="text-text-support-green"
+                                >
+                                  --
+                                </Typography.Text>
+                              </Flex>
+                            </Flex>
+                          </div>
+                        </div>
+                        <Flex className="w-full lg:w-[14.375rem] justify-center">
+                          <Button variant="bet_yes" className="w-full">
+                            Yes
+                          </Button>
+
+                          <Button variant="bet_no" className="w-full">
+                            No
+                          </Button>
+                        </Flex>
+                      </Flex>
+                    );
+                  })}
                 </Stack>
 
-                {outcomes.map((outcome, index) => (
+                {/* {outcomes.map((outcome, index) => (
                   <Flex
                     className="w-full justify-between"
                     key={outcome.outcome + index.toString()}
@@ -172,13 +240,13 @@ export default function PreviewBetDetail({
                       </Flex>
                     </Flex>
                   </Flex>
-                ))}
+                ))} */}
               </Stack>
             );
           default:
             return null;
         }
       })()}
-    </Paper>
+    </div>
   );
 }

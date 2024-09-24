@@ -8,13 +8,18 @@ export type TCreateBetData = {
   outcomes: IOutcomeData[];
   rule: string;
   about: string;
-  sources: string;
+  sources: ISourceData[];
 };
 
 export type IOutcomeData = {
   outcome: string;
   subOutcome: string;
   picture?: File;
+};
+
+export type ISourceData = {
+  title: string;
+  url: string;
 };
 
 export type TCrateBetFormData = {

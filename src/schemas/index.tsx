@@ -23,7 +23,12 @@ export const createBetSchemas = z.object({
   ),
   rule: z.string(),
   about: z.string(),
-  sources: z.string(),
+  sources: z.array(
+    z.object({
+      title: z.string(),
+      url: z.string(),
+    }),
+  ),
 });
 
 // {

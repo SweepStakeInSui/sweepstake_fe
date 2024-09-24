@@ -28,7 +28,7 @@ const ConnectButton = () => {
           </Flex>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md pb-10">
+      <DialogContent className="max-w-[338px] lg:max-w-md lg:pb-10 rounded-lg">
         <DialogHeader>
           <DialogTitle>Connect Wallet</DialogTitle>
           <DialogDescription>Choose your wallet to connect</DialogDescription>

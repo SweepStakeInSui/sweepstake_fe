@@ -28,7 +28,7 @@ export default function Footer() {
     },
   ];
   return (
-    <footer className="py-5 lg:py-10 border-solid border-t-[1px] border-borderSubtle bg-bg-surface">
+    <footer className="py-5 lg:py-10 border-solid border-t-[1px] border-borderSubtle bg-bg-primary">
       <Container size="sm">
         <Flex className="h-full justify-between items-start flex-wrap gap-8">
           <Stack>

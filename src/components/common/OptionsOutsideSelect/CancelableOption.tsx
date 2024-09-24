@@ -24,7 +24,7 @@ const CancelableOption = ({
         )}
       </div>
       <button name={value} onClick={onRemove} aria-label="Remove">
-        <Svg src="/icons/close.svg" />
+        <Svg src="/icons/close.svg" className="size-3" />
       </button>
     </div>
   );
