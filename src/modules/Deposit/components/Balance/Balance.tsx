@@ -109,14 +109,6 @@ const Balance = () => {
               <DialogDescription>
                 Please input USDT amount and address to deposit.
               </DialogDescription>
-              <div className="pt-4">
-                <Flex className="p-3 bg-b-5 rounded-sm">
-                  <Svg src="/icons/info.svg" />
-                  <Typography.Text className="text-text-support-blue" size={15}>
-                    Only send to a USDT address on Sui network.
-                  </Typography.Text>
-                </Flex>
-              </div>
             </DialogHeader>
             <Form {...form}>
               <form

@@ -72,23 +72,23 @@ export const ActionUser: React.FC = () => {
         ${balance}
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">
-        <Button variant="primary" size="medium" className="flex-1">
-          <Link href="/deposit">
-            <Typography.Text
-              size={14}
-              weight="semibold"
-              className="text-text-inverse"
-            >
-              Transfer
-            </Typography.Text>
-          </Link>
-        </Button>
-        <Button variant="ghost" size="medium" className="flex-1 bg-white">
+        <Button
+          variant="ghost"
+          size="medium"
+          className="flex-1 bg-opacity-85 bg-wht-a80"
+        >
           <Link href="/deposit">
             <Typography.Text size={14} weight="semibold" className="text-text">
               Withdraw
             </Typography.Text>
           </Link>
+        </Button>
+        <Button
+          variant="ghost"
+          size="medium"
+          className="bg-opacity-85 bg-wht-a80"
+        >
+          <Svg src="icons/history.svg" />
         </Button>
       </Flex>
       <div className="absolute bottom-1 -left-2 mix-blend-color-burn blur-sm z-0">
