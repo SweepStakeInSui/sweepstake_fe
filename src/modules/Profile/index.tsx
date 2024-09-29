@@ -29,7 +29,7 @@ const Profile = () => {
   ];
   return (
     <Container className="max-w-[49.375rem] py-10">
-      <Stack className="gap-y-5">
+      <Stack className="gap-y-5 px-5 lg:px-0">
         <Information />
         <Statistics />
         <Tabs defaultValue={tab} className="w-full">

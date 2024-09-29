@@ -50,13 +50,11 @@ const MarketTile = ({
   const { id: storedId, type } = useSelector((state: any) => state.bet);
 
   const onNoClick = (event: any) => {
-    event?.preventDefault();
     event?.stopPropagation();
     dispatch(setBet({ type: 0, id, yes, no }));
   };
 
   const onYesClick = (event: any) => {
-    event?.preventDefault();
     event?.stopPropagation();
     dispatch(setBet({ type: 1, id, yes, no }));
   };

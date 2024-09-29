@@ -14,7 +14,7 @@ const Information = () => {
   const profile = queryClient.getQueryData<ProfileTypes>(['user-infor']);
 
   return (
-    <Flex className="justify-between p-2 items-start">
+    <Flex className="justify-between items-start">
       <Flex className="gap-x-6">
         <CustomAvatar
           address={profile?.address}

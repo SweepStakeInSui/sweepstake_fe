@@ -51,7 +51,7 @@ export function ActivityItem({
         </Flex>
         <Typography.Text
           size={13}
-          className="text-text-subtle text-end lg:text-start w-fit"
+          className="text-text-subtle text-end lg:text-start w-full lg:w-[unset]"
         >
           {date}
         </Typography.Text>

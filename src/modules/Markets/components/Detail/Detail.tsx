@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
@@ -163,9 +163,6 @@ const statistic = [
 export default function MarketsDetail() {
   const { isMobile } = useWindowSize();
   const dispatch = useDispatch();
-  const { id, type } = useSelector((state: any) => state.bet);
-
-  console.log('betState', { id, type });
 
   useEffect(() => {
     dispatch(
