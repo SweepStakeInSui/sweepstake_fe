@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { VisuallyHidden } from 'react-aria';
 
 import Svg from '../common/Svg';
-import { Button } from '../ui/button';
 import {
   Drawer,
   DrawerContent,
@@ -27,9 +26,12 @@ const SearchHeaderMobile = () => {
       onOpenChange={setIsDrawerOpen}
     >
       <DrawerTrigger asChild>
-        <Button variant="terriary" size="lg" className="px-2.5">
-          <Svg src="/icons/search.svg" width={24} height={24} />
-        </Button>
+        <Svg
+          src="/icons/search.svg"
+          width={24}
+          height={24}
+          className="self-center"
+        />
       </DrawerTrigger>
       <DrawerContent className="h-full w-full">
         <DrawerHeader className="text-left">

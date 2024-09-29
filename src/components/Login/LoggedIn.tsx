@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useState } from 'react';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
 import {
@@ -160,6 +161,7 @@ const NotifItem = ({
 
 const LoggedIn = () => {
   const { onDisconnect } = useWallet();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   return (
     <Flex>
       <Link href="/create-bet">
@@ -171,7 +173,7 @@ const LoggedIn = () => {
       <div className="hidden-PC">
         <SearchHeaderMobile />
       </div>
-      <DropdownMenu>
+      <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative size-11 p-0">
             <Svg src="/icons/notif.svg" />
@@ -242,7 +244,10 @@ const LoggedIn = () => {
             </DropdownMenuItem>
 
             {menuListLogin(onDisconnect).map((item) => (
-              <DropdownMenuItem key={item.slug}>
+              <DropdownMenuItem
+                key={item.slug}
+                onSelect={() => setIsDropdownOpen(false)}
+              >
                 <MenuItem item={item} />
               </DropdownMenuItem>
             ))}

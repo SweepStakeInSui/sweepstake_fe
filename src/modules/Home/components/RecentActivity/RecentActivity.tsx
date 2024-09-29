@@ -20,9 +20,9 @@ export function ActivityItem({
   contract,
 }: Readonly<RecentActivityType>) {
   return (
-    <Flex className="justify-between p-2 flex-wrap overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
-      <Flex className="justify-between w-full flex-col items-start lg:items-center lg:flex-row">
-        <Flex className="gap-x-2">
+    <Flex className="justify-between lg:p-2 flex-wrap overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
+      <Flex className="justify-between w-full items-start lg:items-center lg:flex-row ">
+        <Flex className="gap-x-2 flex-1">
           <CustomAvatar src={avatar} />
           <Stack className="gap-1">
             <Flex className="gap-1 flex-wrap">
@@ -34,7 +34,10 @@ export function ActivityItem({
                   bought
                 </Typography.Text>
               </Flex>
-              <Badge variant={`${bidding ? 'bet_yes' : 'bet_no'}`}>
+              <Badge
+                variant={`${bidding ? 'bet_yes' : 'bet_no'}`}
+                className="line-clamp-1"
+              >
                 Yes {price} • {betname} • {contract} contracts
               </Badge>
             </Flex>
@@ -48,7 +51,7 @@ export function ActivityItem({
         </Flex>
         <Typography.Text
           size={13}
-          className="text-text-subtle text-end lg:text-start w-full"
+          className="text-text-subtle text-end lg:text-start w-fit"
         >
           {date}
         </Typography.Text>
@@ -70,7 +73,7 @@ export default function RecentActivity({
         <Typography.Heading size={24} weight="semibold">
           Recent Activity
         </Typography.Heading>
-        <ViewAll link="/" />
+        <ViewAll link="/activity" />
       </Flex>
       {/* <RecentActivityItemSkeleton /> */}
       <Stack className="gap-4">

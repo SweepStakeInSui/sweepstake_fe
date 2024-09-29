@@ -357,11 +357,31 @@ html *::-webkit-scrollbar-track {
 .swiper-pagination-bullet-active {
   background-color: #9075fe !important;
 }
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
+}
+.swiper-header {
+  height: 138px !important;
+}
+.swiper-header .swiper-slide.swiper-slide-next.swiper-slide-prev.swiper-action {
+  transform: translate3d(0px, calc(90% - 138px), -100px) rotateZ(0deg) scale(1) !important;
+}
+.swiper-header .swiper-slide.swiper-slide-next.swiper-action {
+  transform: translate3d(0px, calc(-10% - 138px), -100px) rotateZ(0deg) scale(1) !important;
+}
+
+.swiper-deposit {
+  height: 160px !important;
+}
+.swiper-deposit
+  .swiper-slide.swiper-slide-next.swiper-slide-prev.swiper-action {
+  transform: translate3d(0px, calc(90% - 160px), -100px) rotateZ(0deg) scale(1) !important;
+}
+.swiper-deposit .swiper-slide.swiper-slide-next.swiper-action {
+  transform: translate3d(0px, calc(-10% - 160px), -100px) rotateZ(0deg) scale(1) !important;
 }

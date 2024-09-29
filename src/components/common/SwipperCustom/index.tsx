@@ -40,50 +40,39 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
   };
   const handleSlideChange = () => {
     const swiperInstance = swiperRef.current.swiper;
-    const { slides } = swiperInstance;
-    const slideWidth = slides[0].offsetWidth;
-    const containerWidth = swiperInstance.wrapperEl.clientWidth;
-    const slidesToShow = Math.floor(containerWidth / slideWidth);
-    setShowPrevButton(!swiperInstance.isBeginning);
-    setShowNextButton(!swiperInstance.isEnd && slides.length > slidesToShow);
-  };
 
-  // useEffect(() => {
-  //   if (
-  //     swiperRef.current &&
-  //     swiperRef.current.swiper.slides.length <=
-  //       swiperRef.current.swiper.params.slidesPerView
-  //   ) {
-  //     setShowNextButton(false);
-  //   }
-  // }, [children]);
+    setShowPrevButton(!swiperInstance.isBeginning);
+    setShowNextButton(!swiperInstance.isEnd);
+  };
   const swiperProps: any = {
     navigation: true,
     modules: [Navigation],
     spaceBetween,
     ref: swiperRef,
+    slidesPerGroup: 2,
     onSlideChange: handleSlideChange,
-    breakpoints:
-      slidesPerView === 'auto'
-        ? {}
-        : {
-            0: {
-              slidesPerView: 1.3,
-              spaceBetween: 30,
-            },
-            480: {
-              slidesPerView: 1.3,
-              spaceBetween: 30,
-            },
-            768: {
-              slidesPerView: 2.5,
-              spaceBetween: 30,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 12,
-            },
-          },
+    slidesPerView: 'auto',
+    // breakpoints:
+    //   slidesPerView === 'auto'
+    //     ? {}
+    //     : {
+    //         0: {
+    //           slidesPerView: 1.3,
+    //           spaceBetween: 30,
+    //         },
+    //         480: {
+    //           slidesPerView: 1.3,
+    //           spaceBetween: 30,
+    //         },
+    //         768: {
+    //           slidesPerView: 2.5,
+    //           spaceBetween: 30,
+    //         },
+    //         1024: {
+    //           slidesPerView: 4,
+    //           spaceBetween: 12,
+    //         },
+    //       },
   };
 
   if (slidesPerView !== 'auto') {
