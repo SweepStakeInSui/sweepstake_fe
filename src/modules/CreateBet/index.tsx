@@ -7,7 +7,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
-import useWindowSize from '@/hooks/common/useWindowSize';
 
 import Flex from '../../components/common/Flex';
 import { StatusModal } from '../../components/common/StatusModal';
@@ -22,7 +21,6 @@ import { PreviewBetModule } from './components/PreviewBet';
 
 const CreateBetModule = () => {
   // STATES
-  const { isMobile } = useWindowSize();
   const [confirmCreateBetModalOpen, setConfirmCreateBetModalOpen] =
     React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -97,9 +95,9 @@ const CreateBetModule = () => {
   };
 
   return (
-    <FormProvider {...methods}>
-      {isMobile ? (
-        <Container size="sm" className="bg-bg-sublest py-5">
+    <>
+      <FormProvider {...methods}>
+        <Container size="sm" className="bg-bg-sublest py-5 block lg:hidden">
           <Stack className="gap-y-5">
             <Typography.Heading size={28}>Create Bet</Typography.Heading>
             <Flex>
@@ -168,8 +166,7 @@ const CreateBetModule = () => {
             )}
           </Stack>
         </Container>
-      ) : (
-        <>
+        <div className="hidden lg:block">
           <Flex className="relative transition-all shrink-[100] items-start w-full gap-0 bg-bg-primary">
             <PreviewBetModule data={deferredFormData} />
             <CreateBetFormModule />
@@ -182,29 +179,29 @@ const CreateBetModule = () => {
             <Button onClick={methods.handleSubmit(handleCreateBet)}>
               Create Bet
             </Button>
-            <StatusModal
-              open={confirmCreateBetModalOpen}
-              onOpenChange={setConfirmCreateBetModalOpen}
-              isLoading={loading}
-              status={status}
-              title={(() => {
-                if (loading) return 'Your Bet Being Created';
-                if (status === 'success') return 'Bet Created';
-                if (status === 'fail') return 'Bet Creation Failed';
-                return '';
-              })()}
-              message={(() => {
-                if (loading) return 'Your bet is being created.';
-                if (status === 'success') return 'Your bet has been created.';
-                if (status === 'fail') return 'Your bet has not been created.';
-                return '';
-              })()}
-              txs={txsString}
-            />
           </div>
-        </>
-      )}
-    </FormProvider>
+        </div>
+      </FormProvider>
+      <StatusModal
+        open={confirmCreateBetModalOpen}
+        onOpenChange={setConfirmCreateBetModalOpen}
+        isLoading={loading}
+        status={status}
+        title={(() => {
+          if (loading) return 'Your Bet Being Created';
+          if (status === 'success') return 'Bet Created';
+          if (status === 'fail') return 'Bet Creation Failed';
+          return '';
+        })()}
+        message={(() => {
+          if (loading) return 'Your bet is being created.';
+          if (status === 'success') return 'Your bet has been created.';
+          if (status === 'fail') return 'Your bet has not been created.';
+          return '';
+        })()}
+        txs={txsString}
+      />
+    </>
   );
 };
 export default CreateBetModule;

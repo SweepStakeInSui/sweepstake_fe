@@ -2,9 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useRouter } from 'next-nprogress-bar';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { VisuallyHidden } from 'react-aria';
 import { useSelector } from 'react-redux';
 import { EffectCards } from 'swiper/modules';
@@ -209,7 +208,7 @@ export const ActionUser: React.FC = () => {
         slidesPerView={1}
         ref={swiperRef}
         loop
-        className="mySwiper swiper-header"
+        className="mySwiper swiper-header mt-6"
       >
         <SwiperSlide className="swiper-action">
           <Wallet handleNextSlide={handleNextSlide} />
@@ -225,12 +224,6 @@ export const ActionUser: React.FC = () => {
 const MenuHeader = () => {
   const { onDisconnect } = useWallet();
   const router = useRouter();
-  const pathname = usePathname();
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   return (
     <Drawer direction="right">

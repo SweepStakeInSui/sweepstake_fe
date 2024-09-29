@@ -8,7 +8,6 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import useWindowSize from '@/hooks/common/useWindowSize';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
 import type { IOutcomeData } from '../../../../services/markets/types';
@@ -26,8 +25,6 @@ export default function PreviewBetDetail({
   betType,
   outcomes,
 }: Readonly<IPreviewBetDetailProps>) {
-  const { isMobile } = useWindowSize();
-
   return (
     <div>
       <Stack className="gap-y-0">
@@ -57,9 +54,10 @@ export default function PreviewBetDetail({
             <div className="relative size-[3.75rem] aspect-1 rounded-md overflow-hidden">
               <Image src={mockAvatar} fill alt="" objectFit="cover" />
             </div>
-            {!isMobile && (
-              <Typography.Heading size={28}>{title || '--'}</Typography.Heading>
-            )}
+
+            <Typography.Heading size={28} className="hidden-mobile">
+              {title || '--'}
+            </Typography.Heading>
           </Flex>
 
           <Flex className="gap-0">
@@ -74,11 +72,14 @@ export default function PreviewBetDetail({
             </IconButton>
           </Flex>
         </Flex>
-        {isMobile && (
-          <Typography.Heading size={28} className="line-clamp-2 shrink-[999]">
-            {title || '--'}
-          </Typography.Heading>
-        )}
+
+        <Typography.Heading
+          size={28}
+          className="hidden-PC line-clamp-2 shrink-[999]"
+        >
+          {title || '--'}
+        </Typography.Heading>
+
         <Flex className="items-center">
           <Typography.Heading className="text-text" size={20}>
             --%
@@ -120,19 +121,17 @@ export default function PreviewBetDetail({
             return (
               <Stack className="gap-3">
                 <Stack className="gap-0">
-                  {!isMobile && (
-                    <Flex className="w-full justify-between border-b border-borderSublest py-1">
-                      <Typography.Text size={13} className="text-text-subtle">
-                        Outcome
-                      </Typography.Text>
+                  <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
+                    <Typography.Text size={13} className="text-text-subtle">
+                      Outcome
+                    </Typography.Text>
 
-                      <Flex className="w-[21.25rem]">
-                        <Typography.Text size={13} className="text-text-subtle">
-                          %Chance
-                        </Typography.Text>
-                      </Flex>
+                    <Flex className="w-[21.25rem]">
+                      <Typography.Text size={13} className="text-text-subtle">
+                        %Chance
+                      </Typography.Text>
                     </Flex>
-                  )}
+                  </Flex>
 
                   {outcomes.map((outcome, index) => {
                     return (

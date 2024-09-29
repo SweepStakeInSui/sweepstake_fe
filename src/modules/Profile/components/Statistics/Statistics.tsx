@@ -9,11 +9,9 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
-import useWindowSize from '@/hooks/common/useWindowSize';
 import type { ProfileTypes } from '@/types/profile';
 
 const Statistics = () => {
-  const { isMobile } = useWindowSize();
   const queryClient = useQueryClient();
   const profile = queryClient.getQueryData<ProfileTypes>(['user-infor']);
   return (
@@ -54,13 +52,11 @@ const Statistics = () => {
             $<FormatNumber number={profile?.pnl || 0} />
           </Typography.Heading>
         </Stack>
-        {!isMobile && <Separator orientation="vertical" />}
+        <Separator orientation="vertical" className="hidden-mobile" />
       </li>
-      {isMobile && (
-        <li className="col-span-2">
-          <Separator />
-        </li>
-      )}
+      <li className="col-span-2 hidden-PC">
+        <Separator />
+      </li>
       <li className="flex justify-between">
         <Stack className="gap-1">
           <Typography.Text
