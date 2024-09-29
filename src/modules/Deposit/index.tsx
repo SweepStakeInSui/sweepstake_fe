@@ -7,7 +7,7 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import withAuth from '@/components/withAuth';
 
-import { Balance } from './components/Balance';
+import { ActionDeposit } from './components/Action';
 import { Guide } from './components/Guide';
 import { History } from './components/History';
 
@@ -19,7 +19,7 @@ const DepositModule = () => {
           <Guide />
           <History />
         </Stack>
-        <Balance />
+        <ActionDeposit />
       </Flex>
     </Container>
   );
