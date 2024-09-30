@@ -38,7 +38,7 @@ const StatusModal = ({
 }: IStatusModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[388px] lg:max-w-[480px] rounded-lg">
         <DialogHeader className="mb-3">
           <DialogTitle>
             <Stack className="justify-center items-center">

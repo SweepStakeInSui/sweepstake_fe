@@ -16,7 +16,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import useWindowSize from '@/hooks/common/useWindowSize';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
 import { useSectionIndicatorSignal } from '../../useSectionIndicatorSignal';
@@ -50,7 +49,6 @@ const MarketsActionForm = () => {
   const [selectedValue, setSelectedValue] = useState('market');
 
   const { activeSection } = useSectionIndicatorSignal();
-  const { isMobile } = useWindowSize();
 
   const tabsProfile = [
     { id: 1, value: 'buy', title: 'Buy' },
@@ -104,32 +102,30 @@ const MarketsActionForm = () => {
         </div>
       </Stack>
 
-      {!isMobile && (
-        <>
-          <hr className="border-borderSubtle my-5" />
+      <Stack className="gap-4 hidden-mobile">
+        <hr className="border-borderSubtle my-5" />
 
-          <Stack>
-            {sections.map((section) => (
-              <Button
-                key={section.id}
-                variant="ghost"
-                className={`
+        <Stack>
+          {sections.map((section) => (
+            <Button
+              key={section.id}
+              variant="ghost"
+              className={`
           w-full justify-start text-16 ${activeSection.value === section.id ? 'text-text-support-red' : 'text-text'}`}
-                onClick={() => {
-                  const element = document.getElementById(section.id);
-                  if (!element) return;
-                  window.scroll({
-                    top: element.offsetTop - 70,
-                    behavior: 'smooth',
-                  });
-                }}
-              >
-                {section.label}
-              </Button>
-            ))}
-          </Stack>
-        </>
-      )}
+              onClick={() => {
+                const element = document.getElementById(section.id);
+                if (!element) return;
+                window.scroll({
+                  top: element.offsetTop - 70,
+                  behavior: 'smooth',
+                });
+              }}
+            >
+              {section.label}
+            </Button>
+          ))}
+        </Stack>
+      </Stack>
     </Stack>
   );
 };

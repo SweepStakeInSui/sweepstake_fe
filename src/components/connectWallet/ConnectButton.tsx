@@ -28,12 +28,12 @@ const ConnectButton = () => {
           </Flex>
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[338px] lg:max-w-md lg:pb-10 rounded-lg">
+      <DialogContent className="max-w-[338px] lg:max-w-md rounded-lg">
         <DialogHeader>
           <DialogTitle>Connect Wallet</DialogTitle>
           <DialogDescription>Choose your wallet to connect</DialogDescription>
         </DialogHeader>
-        <div className="flex items-center space-x-2 mt-5">
+        <div className="flex items-center space-x-2 p-4 lg:pt-5 lg:pb-10 lg:px-6">
           <Stack className="w-full gap-y-4 ">
             <SuiDappKit />
             <Web3AuthConnect setOpen={setOpen} />

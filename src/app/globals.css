@@ -306,6 +306,7 @@
 html *::-webkit-scrollbar {
   border-radius: 0;
   width: 6px;
+  height: 6px;
 }
 html *::-webkit-scrollbar-thumb {
   border-radius: 4px;

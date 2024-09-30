@@ -1,5 +1,6 @@
 import React from 'react';
 
+import CopiableAddress from '@/components/common/CopiableAddress/CopiableAddress';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
@@ -48,12 +49,10 @@ const Guide = () => {
           </div>
         ))}
       </Flex>
-      <Flex className="h-12 items-center bg-dyb-5 border border-borderSubtle rounded-lg px-3">
-        <Typography.Text className="text-text" size={15}>
-          0x825AE76B945F4713c4d6A9a27eA78a3C0dA147e6
-        </Typography.Text>
-        <Svg src="/icons/content_copy.svg" />
-      </Flex>
+      <CopiableAddress
+        address="0x825AE76B945F4713c4d6A9a27eA78a3C0dA147e6"
+        className="h-12 items-center px-3 bg-dyb-5 border border-borderSubtle rounded-lg"
+      />
       <Separator className="bg-borderSubtle" />
     </Stack>
   );

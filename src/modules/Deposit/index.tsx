@@ -14,12 +14,13 @@ import { History } from './components/History';
 const DepositModule = () => {
   return (
     <Container className="py-10 max-w-screen-xl">
-      <Flex className="items-start">
+      <Flex className="block items-start lg:flex lg:flex-row-reverse">
+        <ActionDeposit />
+
         <Stack>
           <Guide />
           <History />
         </Stack>
-        <ActionDeposit />
       </Flex>
     </Container>
   );

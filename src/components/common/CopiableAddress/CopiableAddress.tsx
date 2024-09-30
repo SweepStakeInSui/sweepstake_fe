@@ -35,9 +35,13 @@ const CopiableAddress = ({
 
   return (
     <Flex className={className}>
-      <Typography.Text size={size}>{address}</Typography.Text>
+      <div className="min-w-0 flex-1 lg:flex-none">
+        <Typography.Text size={size} className="truncate">
+          {address}
+        </Typography.Text>
+      </div>
       <Tooltip content={isCopied ? 'Copied' : 'Copy'}>
-        <div>
+        <div className="inline-block">
           <IconButton onClick={handleCopy}>
             <Svg src="/icons/copy.svg" />
           </IconButton>
