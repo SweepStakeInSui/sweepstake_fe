@@ -7,19 +7,20 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import withAuth from '@/components/withAuth';
 
-import { Balance } from './components/Balance';
+import { ActionDeposit } from './components/Action';
 import { Guide } from './components/Guide';
 import { History } from './components/History';
 
 const DepositModule = () => {
   return (
     <Container className="py-10 max-w-screen-xl">
-      <Flex className="items-start">
+      <Flex className="block items-start lg:flex lg:flex-row-reverse">
+        <ActionDeposit />
+
         <Stack>
           <Guide />
           <History />
         </Stack>
-        <Balance />
       </Flex>
     </Container>
   );

@@ -60,8 +60,11 @@ const EditProfile = () => {
           Edit profile
         </Button>
       </DialogTrigger>
-      <DialogContent className="p-0 bg-bg-surface">
-        <DialogHeader className="py-4 px-6">
+      <DialogContent
+        hideCloseButton
+        className="max-w-[388px] lg:max-w-md rounded-lg"
+      >
+        <DialogHeader>
           <DialogTitle>
             <Typography.Heading className="text-text">
               Edit Profile
@@ -74,15 +77,15 @@ const EditProfile = () => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="px-6 py-4">
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="p-4 lg:px-6 lg:py-5">
               <div>
                 {isLoading ? (
                   <Flex className="size-32 bg-blk-a85/60 justify-center rounded-full mx-auto">
                     <ReloadIcon className="text-white animate-spin" />
                   </Flex>
                 ) : (
-                  <div className="relative w-fit h-fit mx-auto">
+                  <div className="relative w-fit h-fit mx-auto mb-6">
                     <button
                       onClick={() => {
                         fileInputRef.current?.click();
@@ -154,7 +157,7 @@ const EditProfile = () => {
                 )}
               />
             </div>
-            <DialogFooter className="sm:justify-end bg-dyb-0 px-6 py-4 border-t-[1px] rounded-b-lg">
+            <DialogFooter className="lg:mt-5">
               <DialogClose asChild>
                 <Button type="button" variant="terriary" size="lg">
                   Cancel

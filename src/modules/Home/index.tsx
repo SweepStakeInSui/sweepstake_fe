@@ -86,12 +86,17 @@ export default function HomeModule() {
       <Slider slides={mockSlides} />
       <Container size="sm">
         <VoteCardGrid />
-        <div className="grid grid-cols-1 lg:grid-cols-2 py-8 bg-white relative overflow-hidden gap-10">
-          <RecentActivity data={mockRecentActivities} />
-          <TopVolume data={mockTopVolumeThisWeek} />
-          <div className="absolute w-1/2 h-full left-1/2 -translate-x-1/2 top-1/2 blur-2xl bg-top-home opacity-10 rounded-full z-0" />
-        </div>
       </Container>
+
+      <div className="bg-bg-surface">
+        <Container size="sm">
+          <div className="grid grid-cols-1 lg:grid-cols-2 py-8 relative overflow-hidden gap-10">
+            <RecentActivity data={mockRecentActivities} />
+            <TopVolume data={mockTopVolumeThisWeek} />
+            <div className="absolute w-1/2 h-full left-1/2 -translate-x-1/2 top-1/2 blur-2xl bg-top-home opacity-10 rounded-full z-0" />
+          </div>
+        </Container>
+      </div>
     </section>
   );
 }

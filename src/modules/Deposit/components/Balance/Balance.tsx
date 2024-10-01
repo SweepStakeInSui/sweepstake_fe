@@ -66,8 +66,8 @@ const Balance = () => {
     toast.success(values.amount);
   }
   return (
-    <div className="py-5 sticky top-16">
-      <div className="px-5 pb-4 pt-5 bg-dyb-5 rounded-lg w-[283px]">
+    <div className="px-5 lg:px-0 py-5 lg:sticky top-16 w-full lg:w-[unset]">
+      <div className="px-5 pb-4 pt-5 bg-dyb-5 rounded-lg w-full lg:w-[283px]">
         <Flex className="gap-x-1">
           <Typography.Text className="text-text-subtle" size={13}>
             Balance

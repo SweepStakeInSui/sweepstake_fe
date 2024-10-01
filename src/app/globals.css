@@ -60,12 +60,16 @@
     /* Background Colors */
     --bg-primary: #fcfcfc;
     --bg-surface: var(--wht-a100);
+    --bg-surface85: var(--wht-a85);
     --bg-sublest: var(--dyb-5);
     --bg-hovered: var(--dyb-5);
     --bg-container: #ffffff;
     --bg-inverse: var(--dyb-95);
     --bg-inverse-subtle: var(--dyb-70);
     --bg-inverse-sublest: var(--dyb-50);
+    --bg-red: var(--r-50);
+    --bg-dyb: var(--dyb-10);
+
     /* Border Colors */
     --border-main: var(--dyb-15);
     --border-subtle: var(--dyb-10);
@@ -197,12 +201,16 @@
     --icon-support-blue: var(--b-40);
     --bg-primary: var(--dyb-95);
     --bg-surface: var(--blk-a100);
+    --bg-surface85: var(--blk-a85);
     --bg-sublest: var(--dyb-95);
     --bg-hovered: var(--wht-a5);
     --bg-container: var(--dyb-90);
     --bg-inverse: var(--dyb-5);
     --bg-inverse-subtle: var(--dyb-30);
     --bg-inverse-sublest: var(--dyb-50);
+    --bg-red: var(--r-40);
+    --bg-dyb: var(--dyb-10);
+
     /* Border Colors */
     --border-main: var(--wht-a15);
     --border-subtle: var(--wht-a10);
@@ -298,6 +306,7 @@
 html *::-webkit-scrollbar {
   border-radius: 0;
   width: 6px;
+  height: 6px;
 }
 html *::-webkit-scrollbar-thumb {
   border-radius: 4px;
@@ -349,11 +358,31 @@ html *::-webkit-scrollbar-track {
 .swiper-pagination-bullet-active {
   background-color: #9075fe !important;
 }
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
+}
+.swiper-header {
+  height: 138px !important;
+}
+.swiper-header .swiper-slide.swiper-slide-next.swiper-slide-prev.swiper-action {
+  transform: translate3d(0px, calc(90% - 138px), -100px) rotateZ(0deg) scale(1) !important;
+}
+.swiper-header .swiper-slide.swiper-slide-next.swiper-action {
+  transform: translate3d(0px, calc(-10% - 138px), -100px) rotateZ(0deg) scale(1) !important;
+}
+
+.swiper-deposit {
+  height: 160px !important;
+}
+.swiper-deposit
+  .swiper-slide.swiper-slide-next.swiper-slide-prev.swiper-action {
+  transform: translate3d(0px, calc(90% - 160px), -100px) rotateZ(0deg) scale(1) !important;
+}
+.swiper-deposit .swiper-slide.swiper-slide-next.swiper-action {
+  transform: translate3d(0px, calc(-10% - 160px), -100px) rotateZ(0deg) scale(1) !important;
 }

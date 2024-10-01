@@ -25,6 +25,8 @@ export default function NavBar(): React.ReactElement {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(selectProfile);
+  console.log(isLoggedIn);
+
   const { data } = useQuery<ProfileTypes>({
     queryKey: ['user-infor'],
     queryFn: async () => {
@@ -40,7 +42,7 @@ export default function NavBar(): React.ReactElement {
   }, [isLoggedIn, data]);
 
   return (
-    <header className="sticky top-0 left-0 w-full bg-bg-surface border-b border-borderSubtle border-solid z-50">
+    <header className="sticky top-0 left-0 w-full backdrop-blur-md bg-bg-surface85 border-b border-borderSubtle border-solid z-50">
       <Container size="sm">
         <Flex className="justify-between w-full py-4">
           <Flex className="gap-x-4">

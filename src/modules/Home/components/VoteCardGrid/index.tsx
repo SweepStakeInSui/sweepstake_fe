@@ -10,7 +10,7 @@ import VoteCard from './VoteCard';
 
 const VoteCardGrid = () => {
   return (
-    <div className="bg-bg-surface">
+    <div>
       <div className="grid grid-cols-autoFill w-full gap-4 py-5 lg:gap-6 lg:py-6">
         <VoteCard />
         <VoteCard />
@@ -23,25 +23,19 @@ const VoteCardGrid = () => {
         <VoteCard />
       </div>
       <Flex className="mt-3 mb-6 mx-auto gap-x-3 justify-center">
-        <Typography.Text className="text-text-subtle" size={13}>
-          And 130k bets waiting for you
-        </Typography.Text>
         <div className="relative">
           <Button variant="see_more_red" className="w-fit p-0">
             <Flex className="gap-x-1">
               <Link href="/" className="font-semibold">
                 <Typography.Text
-                  className="text-text-support-red flex items-center gap-x-1"
+                  className="flex items-center gap-x-1 text-text-subtle"
                   size={14}
                   weight="semibold"
                 >
-                  See all
+                  See all 130k bets
                 </Typography.Text>
               </Link>
-              <Svg
-                src="/icons/arrow_forward_ios.svg"
-                className="text-text-support-red"
-              />
+              <Svg src="/icons/arrow_forward_ios.svg" className="mt-1" />
             </Flex>
           </Button>
         </div>

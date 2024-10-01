@@ -42,6 +42,8 @@ privateAxiosClient.interceptors.response.use(
         await TokenServices.updateRefreshToken();
         return await privateAxiosClient(originalConfig);
       } catch (_error) {
+        console.log(_error);
+
         store.dispatch(
           updateCookieToken({
             accessToken: '',

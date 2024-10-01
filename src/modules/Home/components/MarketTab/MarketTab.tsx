@@ -133,7 +133,7 @@ const MarketTab = () => {
               key={item.id}
             >
               <p
-                className={`whitespace-nowrap ${item.active && 'text-tab-btnNo-selected  font-semibold active:text-tab-btnNo-textPress'}`}
+                className={`whitespace-nowrap text-14 text-tab-btnNo ${item.active && 'text-tab-btnNo-selected font-semibold active:text-tab-btnNo-textPress'}`}
               >
                 {item.type}
               </p>

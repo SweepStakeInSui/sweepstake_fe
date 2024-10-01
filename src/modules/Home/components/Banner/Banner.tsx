@@ -12,7 +12,7 @@ const Banner = () => {
       </div>
       <Typography.Heading
         size={24}
-        className="text-text-subtle"
+        className="!text-15 lg:!text-24"
         weight="normal"
       >
         Your next generation prediction market

@@ -1,5 +1,4 @@
 import Flex from '@/components/common/Flex';
-import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
@@ -21,7 +20,7 @@ export default function MarketsRulesSummary({
   categories,
 }: Readonly<IRulesSummaryProps>) {
   return (
-    <Paper>
+    <div>
       <Stack className="gap-0">
         <Typography.Heading
           tag="h5"
@@ -34,7 +33,7 @@ export default function MarketsRulesSummary({
         <Typography.Text size={15} className="text-text-subtle mb-5">
           {desc}
         </Typography.Text>
-        <Stack className="border-borderSublest rounded-md border mb-5">
+        <Stack className="border-borderSublest rounded-md border">
           <Flex className="px-4 py-3 border-b border-borderSublest items-start">
             <Svg src="/icons/lock_open.svg" />
             <Stack>
@@ -46,7 +45,7 @@ export default function MarketsRulesSummary({
               </Typography.Text>
             </Stack>
           </Flex>
-          <Flex className="px-4 py-3 items-start">
+          <Flex className="px-4 py-3 items-start border-b border-borderSublest">
             <Svg src="/icons/lock_outline.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
@@ -93,6 +92,6 @@ export default function MarketsRulesSummary({
           </Flex>
         </Stack>
       </Stack>
-    </Paper>
+    </div>
   );
 }

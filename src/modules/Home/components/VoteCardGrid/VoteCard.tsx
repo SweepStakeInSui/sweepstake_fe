@@ -114,12 +114,16 @@ const VoteCard = () => {
               Richest person in the world at the end of the year?
             </Typography.Text>
             <Flex className="text-text-sublest mt-1">
-              <Typography.Text size={12}>32,900k bet</Typography.Text>
+              <Typography.Text size={12} className="text-text-sublest">
+                32,900k bet
+              </Typography.Text>
               <div className="w-px bg-borderSubtle h-2.5" />
-              <Flex className="gap-0">
+              <Button variant="ghost" className="gap-0.5 p-0">
                 <Svg src="/icons/add_circle_outline.svg" />
-                <Typography.Text size={12}>Add to watch list</Typography.Text>
-              </Flex>
+                <Typography.Text size={12} className="text-text-sublest">
+                  Add to watch list
+                </Typography.Text>
+              </Button>
             </Flex>
           </div>
         </Flex>

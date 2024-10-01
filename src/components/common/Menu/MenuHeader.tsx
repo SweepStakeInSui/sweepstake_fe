@@ -3,8 +3,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next-nprogress-bar';
-import React from 'react';
+import React, { useRef } from 'react';
 import { VisuallyHidden } from 'react-aria';
+import { useSelector } from 'react-redux';
+import { EffectCards } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useWallet } from '@/components/connectWallet/useWallet';
 import { Button } from '@/components/ui/button';
@@ -19,6 +22,7 @@ import {
 import { Tooltip } from '@/components/ui/tooltip';
 import { menuListLogin, navList } from '@/constants/navList';
 import useBalance from '@/hooks/useBalance';
+import { selectProfile } from '@/store/profileSlice';
 
 import Flex from '../Flex';
 import Stack from '../Stack';
@@ -34,7 +38,9 @@ interface MenuItemProps {
   };
   className?: string;
 }
-
+interface ActionProps {
+  handleNextSlide: () => void;
+}
 export const MenuItem = ({ item, className }: MenuItemProps) => {
   const router = useRouter();
 
@@ -54,41 +60,128 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
     </button>
   );
 };
-export const ActionUser: React.FC = () => {
-  const balance = useBalance();
+const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
+  const { profile } = useSelector(selectProfile);
   return (
-    <div className="p-4 text-text bg-r-10 rounded-sm relative overflow-hidden">
-      <Flex className="z-10 relative mb-0.5">
-        <Typography.Text size={13} weight="medium" className="text-text-subtle">
-          Portfolio
-        </Typography.Text>
-        <Tooltip content="Refresh balance">
-          <div className="cursor-pointer">
-            <Svg src="/icons/refresh.svg" />
-          </div>
-        </Tooltip>
+    <div className="p-4 text-text bg-b-10 rounded-sm relative overflow-hidden">
+      <Flex className="z-10 relative mb-0.5 justify-between">
+        <Flex>
+          <Typography.Text
+            size={13}
+            weight="medium"
+            className="text-text-subtle"
+          >
+            Wallet Balance
+          </Typography.Text>
+          <Tooltip content="Refresh balance">
+            <div className="cursor-pointer">
+              <Svg src="/icons/refresh.svg" />
+            </div>
+          </Tooltip>
+        </Flex>
+        <button onClick={handleNextSlide}>
+          <Svg
+            src="/icons/swap_vert.svg"
+            width={24}
+            height={24}
+            className="text-[#666666]"
+          />
+        </button>
       </Flex>
       <Typography.Heading weight="semibold" size={24} className="text-text">
-        ${balance}
+        ${profile?.balance}
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">
-        <Button variant="primary" size="medium" className="flex-1">
+        <Button variant="primary" size="medium" className="flex-1 ">
           <Link href="/deposit">
             <Typography.Text
               size={14}
               weight="semibold"
               className="text-text-inverse"
             >
+              Deposit
+            </Typography.Text>
+          </Link>
+        </Button>
+        <Button
+          variant="ghost"
+          size="medium"
+          className="flex-1 bg-opacity-85 bg-wht-a80"
+        >
+          <Link href="/deposit">
+            <Typography.Text size={14} weight="semibold" className="text-text">
               Transfer
             </Typography.Text>
           </Link>
         </Button>
-        <Button variant="ghost" size="medium" className="flex-1 bg-white">
+        <Button
+          variant="ghost"
+          size="medium"
+          className="bg-opacity-85 bg-wht-a80"
+        >
+          <Svg src="icons/history.svg" />
+        </Button>
+      </Flex>
+      <div className="absolute bottom-1 -left-2 mix-blend-color-burn blur-sm z-0">
+        <Image
+          src="/icons/FlareBlue.svg"
+          alt="flare"
+          width={147}
+          height={108}
+        />
+      </div>
+    </div>
+  );
+};
+const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
+  const balance = useBalance();
+  return (
+    <div className="p-4 text-text bg-r-10 rounded-sm relative overflow-hidden">
+      <Flex className="z-10 relative mb-0.5 justify-between">
+        <Flex>
+          <Typography.Text
+            size={13}
+            weight="medium"
+            className="text-text-subtle"
+          >
+            Portfolio
+          </Typography.Text>
+          <Tooltip content="Refresh balance">
+            <div className="cursor-pointer">
+              <Svg src="/icons/refresh.svg" />
+            </div>
+          </Tooltip>
+        </Flex>
+        <button onClick={handleNextSlide}>
+          <Svg
+            src="/icons/swap_vert.svg"
+            width={24}
+            height={24}
+            className="text-[#666666]"
+          />
+        </button>
+      </Flex>
+      <Typography.Heading weight="semibold" size={24} className="text-text">
+        ${balance}
+      </Typography.Heading>
+      <Flex className="mt-5 relative z-10">
+        <Button
+          variant="ghost"
+          size="medium"
+          className="flex-1 bg-opacity-85 bg-wht-a80"
+        >
           <Link href="/deposit">
             <Typography.Text size={14} weight="semibold" className="text-text">
               Withdraw
             </Typography.Text>
           </Link>
+        </Button>
+        <Button
+          variant="ghost"
+          size="medium"
+          className="bg-opacity-85 bg-wht-a80"
+        >
+          <Svg src="icons/history.svg" />
         </Button>
       </Flex>
       <div className="absolute bottom-1 -left-2 mix-blend-color-burn blur-sm z-0">
@@ -97,34 +190,64 @@ export const ActionUser: React.FC = () => {
     </div>
   );
 };
+export const ActionUser: React.FC = () => {
+  const swiperRef = useRef<any>(null);
+  const handleNextSlide = () => {
+    console.log(swiperRef.current);
+
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
+  return (
+    <div>
+      <Swiper
+        effect="cards"
+        modules={[EffectCards]}
+        direction="vertical"
+        slidesPerView={1}
+        ref={swiperRef}
+        loop
+        className="mySwiper swiper-header mt-6"
+      >
+        <SwiperSlide className="swiper-action">
+          <Wallet handleNextSlide={handleNextSlide} />
+        </SwiperSlide>
+        <SwiperSlide className="swiper-action">
+          <Portfolio handleNextSlide={handleNextSlide} />
+        </SwiperSlide>
+      </Swiper>
+    </div>
+  );
+};
 
 const MenuHeader = () => {
   const { onDisconnect } = useWallet();
   const router = useRouter();
+
   return (
-    <div>
-      <Drawer direction="right">
-        <DrawerTrigger asChild>
-          <Button variant="ghost" className="size-11 p-0">
-            <Svg src="/icons/menu.svg" />
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent className="h-full w-full px-5 py-3">
-          <DrawerHeader className="text-left p-0">
-            <VisuallyHidden>
-              <DrawerTitle>Menu</DrawerTitle>
-            </VisuallyHidden>
-            <DrawerClose className="flex justify-end">
-              <Svg src="/icons/close.svg" />
-            </DrawerClose>
-          </DrawerHeader>
-          <Stack className="gap-y-3 mt-3">
-            <Flex>
-              {navList.map((nav) => (
+    <Drawer direction="right">
+      <DrawerTrigger asChild>
+        <Button variant="ghost" className="size-11 p-0">
+          <Svg src="/icons/menu.svg" />
+        </Button>
+      </DrawerTrigger>
+      <DrawerContent className="h-full w-full px-5 py-3">
+        <DrawerHeader className="text-left p-0">
+          <VisuallyHidden>
+            <DrawerTitle>Menu</DrawerTitle>
+          </VisuallyHidden>
+          <DrawerClose className="flex justify-end">
+            <Svg src="/icons/close.svg" />
+          </DrawerClose>
+        </DrawerHeader>
+        <Stack className="gap-y-3 mt-3">
+          <Flex>
+            {navList.map((nav) => (
+              <DrawerClose key={nav.href} className="basis-1/3">
                 <button
                   onClick={() => router.push(nav.href)}
-                  key={nav.href}
-                  className="basis-1/3"
+                  className="w-full"
                 >
                   <Stack className="basis-1/3 items-center bg-bg-sublest rounded-sm py-4">
                     <Svg src={nav.icon} />
@@ -137,16 +260,18 @@ const MenuHeader = () => {
                     </Typography.Text>
                   </Stack>
                 </button>
-              ))}
-            </Flex>
-            <ActionUser />
+              </DrawerClose>
+            ))}
+          </Flex>
+          <ActionUser />
+          <DrawerClose>
             {menuListLogin(onDisconnect).map((item) => (
               <MenuItem key={item.slug} item={item} />
             ))}
-          </Stack>
-        </DrawerContent>
-      </Drawer>
-    </div>
+          </DrawerClose>
+        </Stack>
+      </DrawerContent>
+    </Drawer>
   );
 };
 

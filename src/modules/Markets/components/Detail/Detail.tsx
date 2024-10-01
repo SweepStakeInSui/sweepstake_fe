@@ -1,17 +1,15 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
-import Paper from '@/components/common/Paper';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
-import useWindowSize from '@/hooks/common/useWindowSize';
 import { mockAvatar } from '@/mocks/mockAvatar';
 import { setBet } from '@/store/betSlice';
 
@@ -162,11 +160,7 @@ const statistic = [
 ];
 
 export default function MarketsDetail() {
-  const { isMobile } = useWindowSize();
   const dispatch = useDispatch();
-  const { id, type } = useSelector((state: any) => state.bet);
-
-  console.log('betState', { id, type });
 
   useEffect(() => {
     dispatch(
@@ -180,7 +174,7 @@ export default function MarketsDetail() {
   }, [statistic]);
 
   return (
-    <Paper>
+    <div>
       <Stack className="gap-y-0">
         <Flex className="mb-3">
           <Flex className="gap-1">
@@ -208,14 +202,12 @@ export default function MarketsDetail() {
             <div className="relative size-[3.75rem] aspect-1 rounded-md overflow-hidden">
               <Image src={mockAvatar} fill alt="" objectFit="cover" />
             </div>
-            {!isMobile && (
-              <Typography.Heading
-                size={28}
-                className="line-clamp-2 shrink-[999]"
-              >
-                Despicable Me 4&quot; Rotten Tomatoes score about ten?
-              </Typography.Heading>
-            )}
+            <Typography.Heading
+              size={28}
+              className="line-clamp-2 shrink-[999] hidden-mobile"
+            >
+              Despicable Me 4&quot; Rotten Tomatoes score about ten?
+            </Typography.Heading>
           </Flex>
 
           <Flex className="gap-0">
@@ -238,11 +230,12 @@ export default function MarketsDetail() {
             </Tooltip>
           </Flex>
         </Flex>
-        {isMobile && (
-          <Typography.Heading size={28} className="line-clamp-2 shrink-[999]">
-            Despicable Me 4&quot; Rotten Tomatoes score about ten?
-          </Typography.Heading>
-        )}
+        <Typography.Heading
+          size={28}
+          className="hidden-PC line-clamp-2 shrink-[999]"
+        >
+          Despicable Me 4&quot; Rotten Tomatoes score about ten?
+        </Typography.Heading>
         <Flex className="items-center">
           <Typography.Heading className="text-text" size={20}>
             24.2
@@ -253,7 +246,7 @@ export default function MarketsDetail() {
               className="text-text inline-flex items-center gap-1"
               size={15}
             >
-              forscast{' '}
+              chance{' '}
               <Typography.Text
                 tag="span"
                 className="text-text-support-green"
@@ -274,19 +267,17 @@ export default function MarketsDetail() {
 
       <Stack className="gap-3">
         <Stack className="gap-0">
-          {!isMobile && (
-            <Flex className="w-full justify-between border-b border-borderSublest py-1">
-              <Typography.Text size={13} className="text-text-subtle">
-                Outcome
-              </Typography.Text>
+          <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
+            <Typography.Text size={13} className="text-text-subtle">
+              Outcome
+            </Typography.Text>
 
-              <Flex className="w-[21.25rem]">
-                <Typography.Text size={13} className="text-text-subtle">
-                  %Chance
-                </Typography.Text>
-              </Flex>
+            <Flex className="w-[21.25rem]">
+              <Typography.Text size={13} className="text-text-subtle">
+                %Chance
+              </Typography.Text>
             </Flex>
-          )}
+          </Flex>
 
           <MarketTiles data={statistic} />
         </Stack>
@@ -301,6 +292,6 @@ export default function MarketsDetail() {
           </span>
         </Button>
       </Stack>
-    </Paper>
+    </div>
   );
 }

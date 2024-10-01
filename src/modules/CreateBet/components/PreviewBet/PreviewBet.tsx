@@ -14,26 +14,35 @@ interface IPreviewBetModuleProps {
 
 const PreviewBetModule = ({ data }: IPreviewBetModuleProps) => {
   return (
-    <Stack className="gap-y-0 shrink-[100] max-w-[49.375rem] w-full mx-auto my-10">
-      <Typography.Heading size={28} className="mb-6">
-        Create Your Bet
-      </Typography.Heading>
-      <Typography.Heading size={20} className="text-text-sublest mb-2">
-        Preview
-      </Typography.Heading>
-      <Stack className="gap-y-8 bg-bg-surface">
+    <Stack className="gap-y-0 shrink-[100] max-w-[49.375rem] w-full mx-auto lg:my-10 px-0 lg:px-5">
+      <div className="hidden lg:block">
+        <Typography.Heading size={28} className="mb-6">
+          Create Your Bet
+        </Typography.Heading>
+        <Typography.Heading size={20} className="text-text-sublest mb-2">
+          Preview
+        </Typography.Heading>
+      </div>
+
+      <Stack className="gap-y-8 bg-bg-surface rounded-lg p-5">
         <PreviewBetDetail {...data} />
+
         <PreviewBetRulesSummary
           desc={data.rule}
-          openOn={format(new Date(data.startTime), 'MMM dd, yyyy')}
-          closeOn={format(new Date(data.endTime), 'MMM dd, yyyy')}
+          startDate={format(new Date(data.startTime), 'MMM dd, yyyy')}
+          startClock={format(new Date(data.startTime), 'HH:mm')}
+          endDate={format(new Date(data.endTime), 'MMM dd, yyyy')}
+          endClock={format(new Date(data.endTime), 'HH:mm')}
           payoutOn={format(new Date(data.endTime), 'MMM dd, yyyy')}
           categories={data.categories.reduce<string[]>((prev, curr) => {
             prev.push(curr.label as string);
             return prev;
           }, [])}
         />
-        <PreviewBetAbout desc={data.about} sources={data.sources} />
+
+        {data.about && (
+          <PreviewBetAbout desc={data.about} sources={data.sources} />
+        )}
       </Stack>
     </Stack>
   );

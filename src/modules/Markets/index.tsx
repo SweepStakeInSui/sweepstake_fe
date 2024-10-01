@@ -1,14 +1,15 @@
 'use client';
 
 import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import { SectionIndicator } from '@/components/common/SectionIndicatorWrapper';
 import Stack from '@/components/common/Stack';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
-import useWindowSize from '@/hooks/common/useWindowSize';
 import { MarketsActionForm } from '@/modules/Markets/components/ActionForm';
 import { MarketsWatchList } from '@/modules/Markets/components/WatchList';
+import { selectProfile } from '@/store/profileSlice';
 
 import { MarketsAbout } from './components/About';
 import { MarketsDetail } from './components/Detail';
@@ -23,15 +24,19 @@ export default function MarketsModule() {
   const relateMarketRef = useRef<HTMLDivElement>(null);
   const ideaRef = useRef<HTMLDivElement>(null);
 
-  const { isMobile } = useWindowSize();
+  const { isLoggedIn } = useSelector(selectProfile);
 
   return (
     <Drawer>
       <Flex className="items-start gap-0">
-        {!isMobile && <MarketsWatchList />}
+        {isLoggedIn && (
+          <div className="hidden-mobile">
+            <MarketsWatchList />
+          </div>
+        )}
 
         <Flex className="transition-all shrink-[100] items-start w-full gap-0">
-          <Stack className="shrink-[100] max-w-[49.375rem] w-full mx-auto gap-y-8">
+          <Stack className="shrink-[100] max-w-[49.375rem] w-full mx-auto gap-y-8 p-5">
             <SectionIndicator section="/" ref={topPageRef}>
               <MarketsDetail />
             </SectionIndicator>
@@ -61,13 +66,12 @@ export default function MarketsModule() {
             </SectionIndicator>
           </Stack>
 
-          {isMobile ? (
-            <DrawerContent>
-              <MarketsActionForm />
-            </DrawerContent>
-          ) : (
+          <DrawerContent className="block lg:hidden">
             <MarketsActionForm />
-          )}
+          </DrawerContent>
+          <div className="hidden lg:block">
+            <MarketsActionForm />
+          </div>
         </Flex>
       </Flex>
     </Drawer>
