@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
@@ -21,6 +22,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { bets } from '@/mocks/mockBet';
+import type { TBetItem } from '@/services/markets/types';
 
 import Stack from '../../../../components/common/Stack';
 import { Skeleton } from '../../../../components/ui/skeleton';
@@ -93,13 +95,24 @@ export const VoteCardSkeleton = () => {
   );
 };
 
-const VoteCard = () => {
+interface VoteCardProps {
+  data: TBetItem;
+}
+
+const VoteCard = ({ data }: VoteCardProps) => {
+  const router = useRouter();
+
+  const { name } = data;
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState('');
 
   const bet = bets.find((item) => item.name === value) || bets[0];
   return (
-    <div className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface hover:shadow-card-bet-home transition-all duration-150">
+    <div
+      role="presentation"
+      className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface cursor-pointer hover:shadow-card-bet-home transition-all duration-150"
+      onClick={() => router.push(`/markets/${data.id}`)}
+    >
       <div className="relative">
         <Flex className="gap-x-4">
           <Image
@@ -111,7 +124,7 @@ const VoteCard = () => {
           />
           <div>
             <Typography.Text size={15} className="text-text">
-              Richest person in the world at the end of the year?
+              {name}
             </Typography.Text>
             <Flex className="text-text-sublest mt-1">
               <Typography.Text size={12} className="text-text-sublest">

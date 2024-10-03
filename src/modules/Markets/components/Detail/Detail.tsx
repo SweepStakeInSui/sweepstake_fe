@@ -159,7 +159,11 @@ const statistic = [
   },
 ];
 
-export default function MarketsDetail() {
+interface IMarketsDetailProps {
+  title: string;
+}
+
+export default function MarketsDetail({ title }: IMarketsDetailProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -206,7 +210,7 @@ export default function MarketsDetail() {
               size={28}
               className="line-clamp-2 shrink-[999] hidden-mobile"
             >
-              Despicable Me 4&quot; Rotten Tomatoes score about ten?
+              {title}
             </Typography.Heading>
           </Flex>
 

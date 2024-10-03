@@ -1,5 +1,7 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -9,6 +11,7 @@ import Stack from '@/components/common/Stack';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
 import { MarketsActionForm } from '@/modules/Markets/components/ActionForm';
 import { MarketsWatchList } from '@/modules/Markets/components/WatchList';
+import { getMarketDetailsService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
 
 import { MarketsAbout } from './components/About';
@@ -17,7 +20,11 @@ import { LevelSection } from './components/LevelSection';
 import { MarketsRelateMarket } from './components/RelateMarket';
 import { MarketsRulesSummary } from './components/RulesSummary';
 
-export default function MarketsModule() {
+interface MarketsModuleProps {
+  id: string;
+}
+
+export default function MarketsModule({ id }: MarketsModuleProps) {
   const topPageRef = useRef<HTMLDivElement>(null);
   const ruleSummaryRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -25,6 +32,13 @@ export default function MarketsModule() {
   const ideaRef = useRef<HTMLDivElement>(null);
 
   const { isLoggedIn } = useSelector(selectProfile);
+
+  const { data: marketDetailData } = useQuery({
+    queryKey: ['marketDetail', id],
+    queryFn: async () => getMarketDetailsService(id),
+  });
+
+  console.log(marketDetailData);
 
   return (
     <Drawer>
@@ -38,23 +52,35 @@ export default function MarketsModule() {
         <Flex className="transition-all shrink-[100] items-start w-full gap-0">
           <Stack className="shrink-[100] max-w-[49.375rem] w-full mx-auto gap-y-8 p-5">
             <SectionIndicator section="/" ref={topPageRef}>
-              <MarketsDetail />
+              <MarketsDetail title={marketDetailData?.name || ''} />
             </SectionIndicator>
 
             <SectionIndicator section="rule-summary" ref={ruleSummaryRef}>
               <MarketsRulesSummary
-                desc="If SpaceX has more than 120 launches in 2024, then the market resolves to Yes. Outcome verified from Federal Aviation Administration."
-                openOn="2021-09-20"
-                closeOn="2021-09-20"
+                desc={marketDetailData?.conditions_str || ''}
+                openOn={
+                  marketDetailData?.startTime
+                    ? format(
+                        new Date(marketDetailData.startTime * 1000),
+                        'yyyy-MM-dd',
+                      )
+                    : ''
+                }
+                closeOn={
+                  marketDetailData?.endTime
+                    ? format(
+                        new Date(marketDetailData.endTime * 1000),
+                        'yyyy-MM-dd',
+                      )
+                    : ''
+                }
                 payoutOn="2021-09-20"
                 categories={['']}
               />
             </SectionIndicator>
 
             <SectionIndicator section="about" ref={aboutRef}>
-              <MarketsAbout
-                desc={`The "Deadpool & Wolverine" movie, directed by Shawn Levy and starring Ryan Reynolds and Hugh Jackman, is set to release on July 26, 2024. The film's trailer, which premiered during the Super Bowl, broke the record for the most viewed trailer in the first 24 hours with 365 million views. The "Deadpool" franchise has consistently received high Rotten Tomatoes scores, with the first film holding an 85% critics score and the second film holding an 84% critics score.`}
-              />
+              <MarketsAbout desc={marketDetailData?.description || ''} />
             </SectionIndicator>
 
             <SectionIndicator section="relate-market" ref={relateMarketRef}>

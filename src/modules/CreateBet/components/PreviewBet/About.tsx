@@ -6,7 +6,7 @@ import type { ISourceData } from '@/services/markets/types';
 
 interface IPreviewBetAboutProps {
   desc: string;
-  sources: ISourceData[];
+  sources?: ISourceData[];
 }
 
 export default function PreviewBetAbout({
@@ -22,7 +22,7 @@ export default function PreviewBetAbout({
         {desc}
       </Typography.Text>
 
-      {sources.length > 0 && (
+      {sources && sources.length > 0 && (
         <Flex className="p-3 items-start rounded-md bg-dyb-0 border border-borderSublest">
           <Svg src="/icons/link.svg" className="size-5" />
           <Typography.Text size={15} className="text-text-subtle">

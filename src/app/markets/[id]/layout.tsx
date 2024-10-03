@@ -1,4 +1,4 @@
-import Container from '../../components/common/Container';
+import Container from '@/components/common/Container';
 
 export default function MarketsLayout({
   children,

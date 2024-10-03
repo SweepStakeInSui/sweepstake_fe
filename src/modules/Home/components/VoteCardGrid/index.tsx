@@ -5,22 +5,19 @@ import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
+import type { TBetItem } from '@/services/markets/types';
 
 import VoteCard from './VoteCard';
 
-const VoteCardGrid = () => {
+interface VoteCardGridProps {
+  data?: TBetItem[];
+}
+
+const VoteCardGrid = ({ data }: VoteCardGridProps) => {
   return (
     <div>
       <div className="grid grid-cols-autoFill w-full gap-4 py-5 lg:gap-6 lg:py-6">
-        <VoteCard />
-        <VoteCard />
-        <VoteCard />
-        <VoteCard />
-        <VoteCard />
-        <VoteCard />
-        <VoteCard />
-        <VoteCard />
-        <VoteCard />
+        {data?.map((market) => <VoteCard key={market.id} data={market} />)}
       </div>
       <Flex className="mt-3 mb-6 mx-auto gap-x-3 justify-center">
         <div className="relative">
