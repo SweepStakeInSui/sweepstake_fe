@@ -8,6 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
+import withAuth from '@/components/withAuth';
 import { createMarketService } from '@/services/markets';
 
 import Flex from '../../components/common/Flex';
@@ -211,4 +212,4 @@ const CreateBetModule = () => {
     </>
   );
 };
-export default CreateBetModule;
+export default withAuth(CreateBetModule);
