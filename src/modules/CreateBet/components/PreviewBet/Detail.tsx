@@ -13,14 +13,14 @@ import { mockAvatar } from '@/mocks/mockAvatar';
 import type { IOutcomeData } from '../../../../services/markets/types';
 
 interface IPreviewBetDetailProps {
-  title: string;
+  name: string;
   startTime: number;
-  betType: string;
-  outcomes: IOutcomeData[];
+  betType?: string;
+  outcomes?: IOutcomeData[];
 }
 
 export default function PreviewBetDetail({
-  title,
+  name,
   startTime,
   betType,
   outcomes,
@@ -56,7 +56,7 @@ export default function PreviewBetDetail({
             </div>
 
             <Typography.Heading size={28} className="hidden-mobile">
-              {title || '--'}
+              {name || '--'}
             </Typography.Heading>
           </Flex>
 
@@ -77,7 +77,7 @@ export default function PreviewBetDetail({
           size={28}
           className="hidden-PC line-clamp-2 shrink-[999]"
         >
-          {title || '--'}
+          {name || '--'}
         </Typography.Heading>
 
         <Flex className="items-center">
@@ -133,7 +133,7 @@ export default function PreviewBetDetail({
                     </Flex>
                   </Flex>
 
-                  {outcomes.map((outcome, index) => {
+                  {outcomes?.map((outcome, index) => {
                     return (
                       <Flex
                         key={outcome.outcome + index.toString()}

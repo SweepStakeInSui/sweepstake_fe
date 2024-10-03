@@ -71,7 +71,7 @@ const CreateBetFormModule = () => {
         <Stack className="gap-y-2">
           <Typography.Text size={15}>Bet Title</Typography.Text>
           <Controller
-            name="title"
+            name="name"
             control={control}
             render={({ field }) => (
               <Input
@@ -166,7 +166,7 @@ const CreateBetFormModule = () => {
           <Typography.Text size={15}>Rule (Optional)</Typography.Text>
           <Controller
             control={control}
-            name="rule"
+            name="conditions"
             render={({ field }) => <Textarea {...field} />}
           />
         </Stack>
@@ -175,7 +175,7 @@ const CreateBetFormModule = () => {
           <Typography.Text size={15}>About (Optional)</Typography.Text>
           <Controller
             control={control}
-            name="about"
+            name="description"
             render={({ field }) => <Textarea {...field} />}
           />
         </Stack>

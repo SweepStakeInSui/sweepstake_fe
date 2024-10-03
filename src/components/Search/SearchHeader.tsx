@@ -1,10 +1,14 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useDebounce } from '@/hooks';
+import { getSearchMarketService } from '@/services/markets';
+import type { TBetItem } from '@/services/markets/types';
 
 import { SkeletonSearch } from '../common/Skeleton';
 import Svg from '../common/Svg';
@@ -44,27 +48,27 @@ export const ResultsItem = ({
     </Flex>
   );
 };
-interface SearchResult {
-  content: string;
-  price: string;
-}
-const searchResults = [
-  {
-    content: 'Roaring Kitty charged in 2024?',
-    price: '$123,90',
-  },
-  {
-    content: 'Richest person in the world at the end year?',
-    price: '$323,90',
-  },
-  {
-    content: 'Roaring Kitty charged in 2002?',
-    price: '$1993,20',
-  },
-];
+// interface SearchResult {
+//   content: string;
+//   price: string;
+// }
+// const searchResults = [
+//   {
+//     content: 'Roaring Kitty charged in 2024?',
+//     price: '$123,90',
+//   },
+//   {
+//     content: 'Richest person in the world at the end year?',
+//     price: '$323,90',
+//   },
+//   {
+//     content: 'Roaring Kitty charged in 2002?',
+//     price: '$1993,20',
+//   },
+// ];
 interface SearchResultsProps {
   isLoading: boolean;
-  results: SearchResult[];
+  results?: TBetItem[];
 }
 
 const SearchResults = ({ isLoading, results }: SearchResultsProps) => {
@@ -72,7 +76,7 @@ const SearchResults = ({ isLoading, results }: SearchResultsProps) => {
     return <SkeletonSearch />;
   }
 
-  if (results.length === 0) {
+  if (results?.length === 0) {
     return (
       <p className="text-center text-sm text-gray-500">No results found</p>
     );
@@ -80,11 +84,11 @@ const SearchResults = ({ isLoading, results }: SearchResultsProps) => {
 
   return (
     <div>
-      {results.map((result, index) => (
+      {results?.map((result) => (
         <ResultsItem
-          key={index}
-          content={result.content}
-          price={result.price}
+          key={result.id}
+          content={result.name}
+          price="0" // TODO: update later
         />
       ))}
     </div>
@@ -97,10 +101,25 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [valueSearch, setValueSearch] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
-  //   const debouncedSearch = useDebounce(valueSearch);
+  const debouncedSearch = useDebounce(valueSearch);
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValueSearch(e.target.value);
   };
+
+  const {
+    mutate: searchMutate,
+    isPending: isSearchLoading,
+    data: searchData,
+  } = useMutation({
+    mutationFn: (params: FilterParams) => getSearchMarketService(params),
+  });
+
+  useEffect(() => {
+    if (debouncedSearch) {
+      searchMutate({ name: debouncedSearch });
+    }
+  }, [debouncedSearch, searchMutate]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -164,7 +183,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
               isFocused ? 'opacity-100 visible' : 'opacity-0 invisible'
             }`}
           >
-            <SearchResults isLoading={false} results={searchResults} />
+            <SearchResults isLoading={isSearchLoading} results={searchData} />
           </div>
         </div>
       </Flex>
@@ -178,7 +197,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
             Search result
           </Typography.Text>
         </Flex>
-        <SearchResults isLoading={false} results={searchResults} />
+        <SearchResults isLoading={isSearchLoading} results={searchData} />
       </ScrollArea>
     </div>
   );

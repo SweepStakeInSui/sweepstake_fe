@@ -1,5 +1,6 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import { addWeeks } from 'date-fns';
 import React, { useDeferredValue } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -7,6 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
+import { createMarketService } from '@/services/markets';
 
 import Flex from '../../components/common/Flex';
 import { StatusModal } from '../../components/common/StatusModal';
@@ -23,7 +25,6 @@ const CreateBetModule = () => {
   // STATES
   const [confirmCreateBetModalOpen, setConfirmCreateBetModalOpen] =
     React.useState(false);
-  const [loading, setLoading] = React.useState(false);
   const [status, setStatus] = React.useState<'idle' | 'success' | 'fail'>(
     'idle',
   );
@@ -32,7 +33,7 @@ const CreateBetModule = () => {
 
   const methods = useForm<IFormattedCreateBetData>({
     defaultValues: {
-      title: '',
+      name: '',
       startDate: new Date(),
       startClock: epochToDate(toEpoch(new Date())),
       startTime: dateToMilliseconds(new Date()),
@@ -53,45 +54,49 @@ const CreateBetModule = () => {
           picture: undefined,
         },
       ],
-      rule: '',
-      about: '',
+      description: '',
       sources: [],
+      colaterralToken: '',
     },
   });
   const formValues = methods.watch();
   const deferredFormData = useDeferredValue(formValues);
 
+  //
+  const {
+    mutate: createBetMutation,
+    isPending: isCreateBetLoading,
+    isSuccess: isCreateBetSuccess,
+    isError: isCreateBetError,
+    data: createBetData,
+  } = useMutation({
+    mutationFn: (data: IFormattedCreateBetData) => createMarketService(data),
+    onSuccess: () => {
+      setStatus('success');
+      setTxsString('fakeTXSString');
+    },
+    onError: () => {
+      setStatus('fail');
+    },
+  });
+
   // FUNCTIONS
   const handleCreateBet = (data: IFormattedCreateBetData) => {
     const { startClock, startDate, endClock, endDate } = data;
-    const startTimeFormatted =
-      dateToMilliseconds(startDate, true) + timeToMilliseconds(startClock);
-    const endTimeFormatted =
-      dateToMilliseconds(endDate, true) + timeToMilliseconds(endClock);
+    const startTimeSeconds =
+      (dateToMilliseconds(startDate, true) + timeToMilliseconds(startClock)) /
+      1000;
+    const endTimeSeconds =
+      (dateToMilliseconds(endDate, true) + timeToMilliseconds(endClock)) / 1000;
 
     const formattedData = {
       ...data,
-      startTime: startTimeFormatted,
-      endTime: endTimeFormatted,
+      startTime: startTimeSeconds,
+      endTime: endTimeSeconds,
     };
 
     setConfirmCreateBetModalOpen(true);
-    console.log('Data before loading:', formattedData);
-
-    setLoading(true);
-    setStatus('idle');
-
-    // Mock sending data
-    setTimeout(() => {
-      setLoading(false);
-      // Randomly set success or fail
-      const isSuccess = Math.random() > 0.5;
-      setStatus(isSuccess ? 'success' : 'fail');
-
-      if (isSuccess) {
-        setTxsString('success');
-      }
-    }, 1000);
+    createBetMutation(formattedData);
   };
 
   return (
@@ -185,18 +190,20 @@ const CreateBetModule = () => {
       <StatusModal
         open={confirmCreateBetModalOpen}
         onOpenChange={setConfirmCreateBetModalOpen}
-        isLoading={loading}
+        isLoading={isCreateBetLoading}
         status={status}
         title={(() => {
-          if (loading) return 'Your Bet Being Created';
-          if (status === 'success') return 'Bet Created';
-          if (status === 'fail') return 'Bet Creation Failed';
+          if (isCreateBetLoading) return 'Your Bet Being Created';
+          if (isCreateBetSuccess && createBetData.statusCode === 200)
+            return 'Bet Created';
+          if (isCreateBetError) return 'Bet Creation Failed';
           return '';
         })()}
         message={(() => {
-          if (loading) return 'Your bet is being created.';
-          if (status === 'success') return 'Your bet has been created.';
-          if (status === 'fail') return 'Your bet has not been created.';
+          if (isCreateBetLoading) return 'Your bet is being created.';
+          if (isCreateBetSuccess && createBetData.statusCode === 200)
+            return 'Your bet has been created.';
+          if (isCreateBetError) return 'Your bet has not been created.';
           return '';
         })()}
         txs={txsString}
