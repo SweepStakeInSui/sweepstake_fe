@@ -31,6 +31,8 @@ privateAxiosClient.interceptors.request.use(
 privateAxiosClient.interceptors.response.use(
   (response) => response,
   async (error) => {
+    console.log(error);
+
     const originalConfig = error?.config;
     if (
       error?.response?.status === 401 &&

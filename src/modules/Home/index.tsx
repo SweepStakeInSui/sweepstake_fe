@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import Container from '@/components/common/Container';
 import { mockRecentActivities } from '@/mocks/mockRecentAcitivities';
 import { mockTopVolumeThisWeek } from '@/mocks/mockTopVolumeThisWeek';
-import { getMarketService } from '@/services/markets';
+import { marketService } from '@/services/markets';
 
 import { Banner } from './components/Banner';
 import { MarketTab } from './components/MarketTab';
@@ -86,7 +86,7 @@ const mockSlides = [
 export default function HomeModule() {
   const { data: marketListData } = useQuery({
     queryKey: ['market-list'],
-    queryFn: async () => getMarketService({ page: 1, limit: 12 }),
+    queryFn: async () => marketService.getMarketService({ page: 1, limit: 12 }),
   });
 
   return (

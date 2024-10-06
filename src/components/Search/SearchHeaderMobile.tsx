@@ -30,7 +30,7 @@ const SearchHeaderMobile = () => {
           src="/icons/search.svg"
           width={24}
           height={24}
-          className="self-center"
+          className="self-center cursor-pointer"
         />
       </DrawerTrigger>
       <DrawerContent className="h-full w-full">

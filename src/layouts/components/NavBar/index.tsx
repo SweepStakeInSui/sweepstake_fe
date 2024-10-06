@@ -25,7 +25,7 @@ export default function NavBar(): React.ReactElement {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(selectProfile);
-  console.log(isLoggedIn);
+  console.log('checkLoggin', isLoggedIn);
 
   const { data } = useQuery<ProfileTypes>({
     queryKey: ['user-infor'],

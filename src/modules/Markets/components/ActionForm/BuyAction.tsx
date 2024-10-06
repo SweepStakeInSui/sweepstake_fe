@@ -28,7 +28,7 @@ const TooltipPrice = () => {
   return (
     <Stack className=" max-w-96">
       <div>
-        <Typography.Text className="text-[#EBEBEB]" size={15}>
+        <Typography.Text className="!text-[#EBEBEB]" size={15}>
           What do the prices mean?
         </Typography.Text>
         <Typography.Text size={13} className="text-text-subtle">
@@ -40,7 +40,7 @@ const TooltipPrice = () => {
         </Typography.Text>
       </div>
       <div>
-        <Typography.Text className="text-[#EBEBEB]" size={15}>
+        <Typography.Text className="!text-[#EBEBEB]" size={15}>
           Why don&#39;t they add up to 100?
         </Typography.Text>
         <Typography.Text size={13} className="text-text-subtle">
