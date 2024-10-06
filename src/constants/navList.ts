@@ -22,6 +22,11 @@ export const menuListLogin = (onDisconnect: () => void) => [
     icon: '/icons/mood.svg',
   },
   {
+    slug: 'my-bets',
+    title: 'My Bets',
+    icon: '/icons/my_bet.svg',
+  },
+  {
     slug: 'watchlist',
     title: 'Watch List',
     icon: '/icons/star_outline.svg',
