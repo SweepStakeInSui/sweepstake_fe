@@ -1,4 +1,6 @@
-import Back from '@/components/common/Back';
+import Link from 'next/link';
+import React, { useState } from 'react';
+
 import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
@@ -22,8 +24,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { mockNotifications } from '@/mocks/mockNotifications';
-import Link from 'next/link';
-import React, { useState } from 'react';
 
 interface INotifItemProps {
   user?: {
@@ -214,9 +214,7 @@ export const NotificationDrawer = () => {
   return (
     <Drawer direction="right">
       <DrawerTrigger asChild>
-        <button
-          className={`px-2 py-3 lg:py-2 cursor-pointer rounded-md w-full hover:bg-bg-hovered`}
-        >
+        <button className="px-2 py-3 lg:py-2 cursor-pointer rounded-md w-full hover:bg-bg-hovered">
           <div className="flex gap-x-2.5 items-center w-full">
             <span className="size-6 flex items-center justify-center">
               <Svg src="/icons/notif.svg" />

@@ -10,6 +10,7 @@ import { EffectCards } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useWallet } from '@/components/connectWallet/useWallet';
+import { NotificationDrawer } from '@/components/Login/Notification';
 import { Button } from '@/components/ui/button';
 import {
   Drawer,
@@ -19,6 +20,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tooltip } from '@/components/ui/tooltip';
 import { menuListLogin, navList } from '@/constants/navList';
 import useBalance from '@/hooks/useBalance';
@@ -28,15 +37,6 @@ import Flex from '../Flex';
 import Stack from '../Stack';
 import Svg from '../Svg';
 import Typography from '../Typography';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { NotificationDrawer } from '@/components/Login/Notification';
 
 interface MenuItemProps {
   item: {

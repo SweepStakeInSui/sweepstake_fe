@@ -1,11 +1,12 @@
 import Link from 'next/link';
 
+import { NotificationDropdown } from '@/components/Login/Notification';
+
 import Flex from '../common/Flex';
 import MenuHeader from '../common/Menu/MenuHeader';
 import Svg from '../common/Svg';
 import { SearchHeaderMobile } from '../Search';
 import { Button } from '../ui/button';
-import { NotificationDropdown } from '@/components/Login/Notification';
 
 const LoggedIn = () => {
   return (
