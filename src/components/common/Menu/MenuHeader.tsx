@@ -28,6 +28,15 @@ import Flex from '../Flex';
 import Stack from '../Stack';
 import Svg from '../Svg';
 import Typography from '../Typography';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { NotificationDrawer } from '@/components/Login/Notification';
 
 interface MenuItemProps {
   item: {
@@ -46,7 +55,7 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
 
   return (
     <button
-      className={`py-3 cursor-pointer w-full hover:bg-bg-hovered ${className}`}
+      className={`px-2 py-3 lg:py-2 cursor-pointer rounded-md w-full hover:bg-bg-hovered ${className}`}
       onClick={item.onClick ? item.onClick : () => router.push(`/${item.slug}`)}
     >
       <div className="flex gap-x-2.5 items-center w-full">
@@ -222,56 +231,95 @@ export const ActionUser: React.FC = () => {
 };
 
 const MenuHeader = () => {
+  const { profile } = useSelector(selectProfile);
   const { onDisconnect } = useWallet();
   const router = useRouter();
 
   return (
-    <Drawer direction="right">
-      <DrawerTrigger asChild>
-        <Button variant="ghost" className="size-11 p-0">
-          <Svg src="/icons/menu.svg" />
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent className="h-full w-full px-5 py-3">
-        <DrawerHeader className="text-left p-0">
-          <VisuallyHidden>
-            <DrawerTitle>Menu</DrawerTitle>
-          </VisuallyHidden>
-          <DrawerClose className="flex justify-end">
-            <Svg src="/icons/close.svg" />
-          </DrawerClose>
-        </DrawerHeader>
-        <Stack className="gap-y-3 mt-3">
-          <Flex>
-            {navList.map((nav) => (
-              <DrawerClose key={nav.href} className="basis-1/3">
-                <button
-                  onClick={() => router.push(nav.href)}
-                  className="w-full"
-                >
-                  <Stack className="basis-1/3 items-center bg-bg-sublest rounded-sm py-4">
-                    <Svg src={nav.icon} />
-                    <Typography.Text
-                      size={13}
-                      className="text-text-subtle"
-                      weight="semibold"
-                    >
-                      {nav.name}
-                    </Typography.Text>
-                  </Stack>
-                </button>
+    <>
+      <div className="hidden-mobile">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="size-11 p-0">
+              <Svg src="/icons/menu.svg" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="w-[370px] px-2.5 py-3 bg-bg-surface "
+            align="end"
+          >
+            <ActionUser />
+            <DropdownMenuGroup className="mt-1">
+              {menuListLogin(onDisconnect).map((item) => (
+                <DropdownMenuItem key={item.slug}>
+                  <MenuItem item={item} />
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <div className="hidden-PC">
+        <Drawer direction="right">
+          <DrawerTrigger asChild>
+            <Button variant="ghost" className="size-11 p-0">
+              <Svg src="/icons/menu.svg" />
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent className="h-full w-full px-5 py-3">
+            <DrawerHeader className="text-left p-0">
+              <VisuallyHidden>
+                <DrawerTitle>Menu</DrawerTitle>
+              </VisuallyHidden>
+              <DrawerClose className="flex justify-end">
+                <Svg src="/icons/close.svg" />
               </DrawerClose>
-            ))}
-          </Flex>
-          <ActionUser />
-          <DrawerClose>
-            {menuListLogin(onDisconnect).map((item) => (
-              <MenuItem key={item.slug} item={item} />
-            ))}
-          </DrawerClose>
-        </Stack>
-      </DrawerContent>
-    </Drawer>
+            </DrawerHeader>
+            <ScrollArea className="overflow-y-auto">
+              <Stack className="gap-y-3 mt-3">
+                <Flex>
+                  {navList.map((nav) => (
+                    <DrawerClose key={nav.href} className="basis-1/3">
+                      <button
+                        onClick={() => router.push(nav.href)}
+                        className="w-full"
+                      >
+                        <Stack className="basis-1/3 items-center bg-bg-sublest rounded-sm py-4">
+                          <Svg src={nav.icon} />
+                          <Typography.Text
+                            size={13}
+                            className="text-text-subtle"
+                            weight="semibold"
+                          >
+                            {nav.name}
+                          </Typography.Text>
+                        </Stack>
+                      </button>
+                    </DrawerClose>
+                  ))}
+                </Flex>
+
+                {profile?.address && (
+                  <>
+                    <ActionUser />
+
+                    <div>
+                      <NotificationDrawer />
+
+                      <DrawerClose>
+                        {menuListLogin(onDisconnect).map((item) => (
+                          <MenuItem key={item.slug} item={item} />
+                        ))}
+                      </DrawerClose>
+                    </div>
+                  </>
+                )}
+              </Stack>
+            </ScrollArea>
+          </DrawerContent>
+        </Drawer>
+      </div>
+    </>
   );
 };
 
