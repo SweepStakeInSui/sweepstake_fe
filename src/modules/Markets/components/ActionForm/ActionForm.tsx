@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
+import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -111,7 +112,7 @@ const MarketsActionForm = () => {
               key={section.id}
               variant="ghost"
               className={`
-          w-full justify-start text-16 ${activeSection.value === section.id ? 'text-text-support-red' : 'text-text'}`}
+          w-full group flex justify-between text-16 ${activeSection.value === section.id ? 'text-text-support-red' : 'text-text'}`}
               onClick={() => {
                 const element = document.getElementById(section.id);
                 if (!element) return;
@@ -122,6 +123,10 @@ const MarketsActionForm = () => {
               }}
             >
               {section.label}
+              <Svg
+                src="icons/arrow_right_alt.svg"
+                className="group-hover:opacity-100 opacity-0 transition-all duration-250"
+              />
             </Button>
           ))}
         </Stack>

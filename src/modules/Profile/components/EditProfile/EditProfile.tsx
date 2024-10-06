@@ -45,7 +45,7 @@ const EditProfile = () => {
       username: 'Unnamed',
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onUpdateProfile(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     // console.log(values);
@@ -77,7 +77,7 @@ const EditProfile = () => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onUpdateProfile)}>
             <div className="p-4 lg:px-6 lg:py-5">
               <div>
                 {isLoading ? (

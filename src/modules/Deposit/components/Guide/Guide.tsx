@@ -26,6 +26,9 @@ const Guide = () => {
             Deposit USDT (Sui)
           </Typography.Heading>
           <Svg src="/icons/LeadingSlot.svg" />
+          <Typography.Heading size={28} weight="semibold">
+            to Your Wallet
+          </Typography.Heading>
         </Flex>
         <Typography.Text size={14} className="text-text-subtle">
           Send USDT (on Sui) to the address below from an exchange or wallet and

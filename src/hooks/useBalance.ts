@@ -8,7 +8,7 @@ import configs from '@/configs';
 import { selectProfile } from '@/store/profileSlice';
 
 type AddressProps = {
-  address?: string;
+  address: string;
 };
 const formatBalance = (balance: CoinBalance) => {
   return Number.parseInt(balance.totalBalance) / Number(MIST_PER_SUI);

@@ -10,6 +10,7 @@ const withAuth = <P extends object>(Component: FC<P>) => {
   const Auth: FC<P> = (props: P) => {
     const router = useRouter();
     const { isLoggedIn } = useSelector(selectProfile);
+    console.log(isLoggedIn, 'withAuth');
 
     // If the user is not logged in, navigate to the home page
     if (!isLoggedIn) {

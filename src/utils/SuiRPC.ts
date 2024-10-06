@@ -3,6 +3,7 @@ import { getFullnodeUrl, SuiClient } from '@mysten/sui.js/client';
 import { Ed25519Keypair } from '@mysten/sui.js/keypairs/ed25519';
 import { TransactionBlock } from '@mysten/sui.js/transactions';
 import { MIST_PER_SUI } from '@mysten/sui.js/utils';
+import type { SignatureWithBytes } from '@mysten/sui/cryptography';
 import type { IProvider } from '@web3auth/base';
 
 import configs from '@/configs';
@@ -56,6 +57,15 @@ export default class SuiRPC {
       console.error('Error in createBet:', error);
       return error as string;
     }
+  }
+
+  async requestDeposit(txBytes: string): Promise<SignatureWithBytes> {
+    const keyPair = await this.getKeyPair();
+    const tx = await TransactionBlock.from(txBytes).sign({
+      signer: keyPair,
+      client: this.suiClient,
+    });
+    return tx;
   }
 
   async getChainId(): Promise<string> {

@@ -11,7 +11,7 @@ import Stack from '@/components/common/Stack';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
 import { MarketsActionForm } from '@/modules/Markets/components/ActionForm';
 import { MarketsWatchList } from '@/modules/Markets/components/WatchList';
-import { getMarketDetailsService } from '@/services/markets';
+import { marketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
 
 import { MarketsAbout } from './components/About';
@@ -35,7 +35,7 @@ export default function MarketsModule({ id }: MarketsModuleProps) {
 
   const { data: marketDetailData } = useQuery({
     queryKey: ['marketDetail', id],
-    queryFn: async () => getMarketDetailsService(id),
+    queryFn: async () => marketService.getMarketDetailsService(id),
   });
 
   console.log(marketDetailData);

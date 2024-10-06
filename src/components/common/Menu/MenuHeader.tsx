@@ -32,6 +32,7 @@ import { Tooltip } from '@/components/ui/tooltip';
 import { menuListLogin, navList } from '@/constants/navList';
 import useBalance from '@/hooks/useBalance';
 import { selectProfile } from '@/store/profileSlice';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 import Flex from '../Flex';
 import Stack from '../Stack';
@@ -98,11 +99,11 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
         </button>
       </Flex>
       <Typography.Heading weight="semibold" size={24} className="text-text">
-        ${profile?.balance}
+        ${handleBignumber.divideDecimal(profile?.balance!)}
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">
-        <Button variant="primary" size="medium" className="flex-1 ">
-          <Link href="/deposit">
+        <Link href="/deposit" className="flex-1 ">
+          <Button variant="primary" size="medium" className="w-full">
             <Typography.Text
               size={14}
               weight="semibold"
@@ -110,23 +111,23 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
             >
               Deposit
             </Typography.Text>
-          </Link>
-        </Button>
-        <Button
-          variant="ghost"
-          size="medium"
-          className="flex-1 bg-opacity-85 bg-wht-a80"
-        >
-          <Link href="/deposit">
+          </Button>
+        </Link>
+        <Link href="/deposit" className="flex-1 ">
+          <Button
+            variant="ghost"
+            size="medium"
+            className="bg-opacity-85 w-full bg-wht-a80"
+          >
             <Typography.Text size={14} weight="semibold" className="text-text">
               Transfer
             </Typography.Text>
-          </Link>
-        </Button>
+          </Button>
+        </Link>
         <Button
           variant="ghost"
           size="medium"
-          className="bg-opacity-85 bg-wht-a80"
+          className="bg-opacity-85 bg-wht-a80 "
         >
           <Svg src="icons/history.svg" />
         </Button>
@@ -174,17 +175,18 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
         ${balance}
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">
-        <Button
-          variant="ghost"
-          size="medium"
-          className="flex-1 bg-opacity-85 bg-wht-a80"
-        >
-          <Link href="/deposit">
+        <Link href="/deposit" className="flex-1">
+          <Button
+            variant="ghost"
+            size="medium"
+            className="w-full bg-opacity-85 bg-wht-a80"
+          >
             <Typography.Text size={14} weight="semibold" className="text-text">
               Withdraw
             </Typography.Text>
-          </Link>
-        </Button>
+          </Button>
+        </Link>
+
         <Button
           variant="ghost"
           size="medium"
@@ -202,8 +204,6 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
 export const ActionUser: React.FC = () => {
   const swiperRef = useRef<any>(null);
   const handleNextSlide = () => {
-    console.log(swiperRef.current);
-
     if (swiperRef.current) {
       swiperRef.current.swiper.slideNext();
     }
