@@ -4,7 +4,8 @@ import { SwiperSlide } from 'swiper/react';
 
 import Container from '@/components/common/Container';
 import SwiperCustom from '@/components/common/SwipperCustom';
-import { Button } from '@/components/ui/button';
+import { TabBtn } from '@/components/common/Tab/TabBtn';
+import TabText from '@/components/common/Tab/TabText';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 const marketMainTab = [
@@ -128,19 +129,13 @@ const MarketTab = () => {
       <ScrollArea>
         <ul className="flex gap-x-4 text-tab-btnNo font-medium justify-center my-3">
           {marketMainTab.map((item) => (
-            <li
-              className="py-[6px] cursor-pointer relative group"
+            <TabText
+              variant={item.active ? 'selected' : 'default'}
               key={item.id}
+              className="cursor-pointer"
             >
-              <p
-                className={`whitespace-nowrap text-14 text-tab-btnNo ${item.active && 'text-tab-btnNo-selected font-semibold active:text-tab-btnNo-textPress'}`}
-              >
-                {item.type}
-              </p>
-              <p
-                className={`absolute  bottom-0 ${item.active ? 'bg-tab-btnNo-selected w-full ' : 'w-0 group-hover:w-full bg-tab-btnNo'} h-[2px]  transition-all duration-150 ease-linear`}
-              />
-            </li>
+              {item.type}
+            </TabText>
           ))}
         </ul>
         <ScrollBar orientation="horizontal" />
@@ -150,14 +145,14 @@ const MarketTab = () => {
           {marketSubTab.map((item) => (
             <SwiperSlide
               key={item.id}
-              className={`swiper-tab cursor-pointer ${item.type === 'Top' ? 'bg-tab-btnYes-bgSelected text-text-inverse' : 'bg-elevation-a200 text-elevation-a900 '} rounded-lg`}
+              className="swiper-tab cursor-pointer rounded-lg"
             >
-              <Button
-                variant={`${item.active ? 'secondary' : 'sub_btn'}`}
+              <TabBtn
+                variant={item.active ? 'selected' : 'default'}
                 className="flex gap-x-1 items-center"
               >
-                <p className="w-fit text-nowrap font-semibold">{item.type}</p>
-              </Button>
+                <p className="w-fit text-nowrap font-semibold ">{item.type}</p>
+              </TabBtn>
             </SwiperSlide>
           ))}
         </SwiperCustom>

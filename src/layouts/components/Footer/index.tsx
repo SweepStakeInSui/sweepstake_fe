@@ -20,11 +20,7 @@ export default function Footer() {
     },
     {
       title: 'PRODUCTS',
-      items: [
-        'Viction Wallet (Extension)',
-        'Viction Wallet (iOS)',
-        'VicMaster',
-      ],
+      items: ['Sui Wallet (Extension)', 'Sui Wallet (iOS)', 'SuiMaster'],
     },
   ];
   return (

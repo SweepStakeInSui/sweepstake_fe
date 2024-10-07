@@ -25,6 +25,8 @@ const config = {
         'conic-gradient(from 346deg at 55.38% 52.84%, #5BAAF3 20.13%, #F029C4 11.87%, #FF8181 25.27%)',
       'slider-home':
         'linear-gradient(134deg, #E1EFF5 2.25%, rgba(250, 237, 249, 0.61) 52.75%, #FADCDC 100%)',
+      'slider-home-dark':
+        'linear-gradient(134deg, #061B23 2.25%, rgba(28, 4, 27, 0.61) 52.75%, #160101 100%)',
       'linear-profile':
         'linear-gradient(133deg, #E6F4FA -2.1%, rgba(250, 245, 237, 0.61) 51.84%, #FFEDED 102.3%)',
     },
@@ -107,14 +109,21 @@ const config = {
         bg: {
           primary: 'var(--bg-primary)',
           surface: 'var(--bg-surface)',
-          surface85: 'var(--bg-surface85)', 
+          isublested: 'var(--bg-isublested)',
+          disable: 'var(--bg-disable)',
+          surface85: 'var(--bg-surface85)',
           sublest: 'var(--bg-sublest)',
           hovered: 'var(--bg-hovered)',
           container: 'var(--bg-container)',
           inverse: 'var(--bg-inverse)',
           inverseSubtle: 'var(--bg-inverse-subtle)',
           inverseSublest: 'var(--bg-inverse-sublest)',
+          matcha: 'var(--bg-matcha)',
+          blue: 'var(--bg-blue)',
           red: 'var(--bg-red)',
+          green: 'var(--bg-green)',
+          port: 'var(--bg-port)',
+          balance: 'var(--bg-balance)',
           dyb: 'var(--bg-dyb)',
         },
         borderMain: 'var(--border-main)',
@@ -163,17 +172,17 @@ const config = {
           },
         },
         tab: {
-          btnYes: {
-            DEFAULT: 'var(--tab-btn-yes-default)',
-            bgSelected: 'var(--tab-btn-yes-bg-selected)',
-            bgHover: 'var(--tab-btn-yes-bg-hover)',
+          filled: {
+            DEFAULT: 'var(--tab-filled-BG-Selected)',
+            bgSelected: 'var(--tab-filled-BG-Selected)',
+            bgHover: 'var(--tab-stroke-Hover)',
             bgPress: 'var(--tab-btn-yes-bg-press)',
           },
-          btnNo: {
-            DEFAULT: 'var(--tab-btn-no-default)',
-            selected: 'var(--tab-btn-no-selected)',
-            hover: 'var(--tab-btn-no-hover)',
-            textPress: 'var(--tab-btn-no-text-press)',
+          underline: {
+            DEFAULT: 'var(--tab-underline-default)',
+            hover: 'var(--tab-underline-hover)',
+            selected: 'var(--tab-underline-selected)',
+            textPress: 'var(--tab-underline-press)',
           },
         },
         searchFilter: {
@@ -181,13 +190,13 @@ const config = {
             DEFAULT: 'var(--search-filter-bg-default)',
             hover: 'var(--search-filter-bg-hover)',
             focus: 'var(--search-filter-bg-focus)',
-            disable: 'var(--search-filter-bg-disable)',
+            fill: 'var(--search-filter-bg-fill)',
           },
           border: {
             DEFAULT: 'var(--search-filter-border-default)',
             hover: 'var(--search-filter-border-hover)',
             focus: 'var(--search-filter-border-focus)',
-            disable: 'var(--search-filter-border-disable)',
+            fill: 'var(--search-filter-border-fill)',
           },
         },
         field: {
@@ -205,6 +214,12 @@ const config = {
             focus: 'var(--field-border-focus)',
             disable: 'var(--field-border-disable)',
           },
+        },
+        bagde: {
+          infor: 'var(--badge-infor-BG)',
+          save: 'var(--badge-save-BG)',
+          warn: 'var(--badge-warn-BG)',
+          danger: 'var(--badge-danger-BG)',
         },
         ...colors,
       },
@@ -251,7 +266,8 @@ const config = {
       boxShadow: {
         'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)',
         'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)',
-        'search-header': '0px 1px 0px 1px rgba(0, 0, 0, 0.01), 0px 2px 8px 0px rgba(0, 0, 0, 0.12)',
+        'search-header':
+          '0px 1px 0px 1px rgba(0, 0, 0, 0.01), 0px 2px 8px 0px rgba(0, 0, 0, 0.12)',
         'card-bet-home': '0px 4px 12px 0px rgba(0, 0, 0, 0.06)',
         'leaderboard-shadow': '0px 6px 17px 0px rgba(44, 41, 211, 0.05)',
         'create-bet-shadow': '0px -3px 9px 0px #00000014',

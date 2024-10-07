@@ -12,6 +12,7 @@ import {
 import Flex from '../common/Flex';
 import Stack from '../common/Stack';
 import Svg from '../common/Svg';
+import Typography from '../common/Typography';
 import { Web3AuthConnect } from '../Login';
 import SuiDappKit from '../Login/SuiDappKit';
 import { Button } from '../ui/button';

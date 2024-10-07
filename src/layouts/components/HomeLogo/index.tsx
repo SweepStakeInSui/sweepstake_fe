@@ -1,28 +1,14 @@
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 interface IHomeLogoProps {
   className?: string;
   variant?: 'default' | 'squared';
 }
 
-export default function HomeLogo({
-  className,
-  variant,
-}: Readonly<IHomeLogoProps>) {
-  const router = useRouter();
-
+export default function HomeLogo({ variant }: Readonly<IHomeLogoProps>) {
   return (
-    <Button
-      variant="ghost"
-      className={cn('p-0', className)}
-      onClick={() => {
-        router.push('/');
-      }}
-    >
+    <Link href="/">
       {(!variant || variant === 'default') && (
         <div className="relative h-10 aspect-[167/40]">
           <Image src="/logos/logo.png" alt="logo" fill />
@@ -33,6 +19,6 @@ export default function HomeLogo({
           <Image src="/logos/square-logo.png" alt="logo" fill />
         </div>
       )}
-    </Button>
+    </Link>
   );
 }

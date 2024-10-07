@@ -17,7 +17,7 @@ export default function MarketsAbout({ desc }: Readonly<IMarketsAboutProps>) {
         {desc}
       </Typography.Text>
 
-      <Flex className="p-3 items-start rounded-md bg-dyb-0 border border-borderSublest">
+      <Flex className="p-3 items-start rounded-md bg-bg-sublest border border-borderSublest">
         <Svg src="/icons/link.svg" className="size-5" />
         <Typography.Text size={15} className="text-text-subtle">
           Sources from{' '}
