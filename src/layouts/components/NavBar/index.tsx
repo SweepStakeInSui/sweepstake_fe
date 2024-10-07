@@ -52,14 +52,13 @@ export default function NavBar(): React.ReactElement {
 
             <Flex className="gap-x-0 hidden-mobile">
               {navList.map((item) => (
-                <Button
+                <Link
+                  href={item.href}
                   key={item.name}
-                  variant="ghost"
-                  onClick={() => router.push(item.href)}
-                  className="px-3"
+                  className="px-3 text-text-subtle text-[13px] font-semibold"
                 >
                   {item.name}
-                </Button>
+                </Link>
               ))}
             </Flex>
           </Flex>

@@ -7,7 +7,6 @@ import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -108,11 +107,11 @@ const MarketsActionForm = () => {
 
         <Stack>
           {sections.map((section) => (
-            <Button
+            <button
+              type="button"
               key={section.id}
-              variant="ghost"
               className={`
-          w-full group flex justify-between text-16 ${activeSection.value === section.id ? 'text-text-support-red' : 'text-text'}`}
+          w-full group flex justify-between p-3 hover:bg-bg-hovered rounded-lg text-16 ${activeSection.value === section.id ? 'text-text' : 'text-text-sublest'}`}
               onClick={() => {
                 const element = document.getElementById(section.id);
                 if (!element) return;
@@ -127,7 +126,7 @@ const MarketsActionForm = () => {
                 src="icons/arrow_right_alt.svg"
                 className="group-hover:opacity-100 opacity-0 transition-all duration-250"
               />
-            </Button>
+            </button>
           ))}
         </Stack>
       </Stack>

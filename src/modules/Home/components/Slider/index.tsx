@@ -166,7 +166,7 @@ export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
   };
 
   return (
-    <Stack className="hero-slide bg-slider-home pb-3">
+    <Stack className="hero-slide bg-slider-home dark:bg-slider-home-dark pb-3">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         pagination={pagination}

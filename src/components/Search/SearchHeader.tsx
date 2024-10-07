@@ -180,7 +180,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
             )}
           </div>
           <div
-            className={`max-h-[328px] hidden-mobile overflow-y-auto p-2 rounded-md shadow-search-header overflow-x-hidden absolute bg-bg-surface w-full top-13 transition-all duration-300 ${
+            className={`max-h-[328px] min-h-[200px] hidden-mobile overflow-y-auto p-2 rounded-md shadow-search-header overflow-x-hidden absolute bg-bg-surface w-full top-13 transition-all duration-300 ${
               isFocused ? 'opacity-100 visible' : 'opacity-0 invisible'
             }`}
           >

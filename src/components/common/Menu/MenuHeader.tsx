@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next-nprogress-bar';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { VisuallyHidden } from 'react-aria';
 import { useSelector } from 'react-redux';
 import { EffectCards } from 'swiper/modules';
@@ -37,6 +37,7 @@ import { handleBignumber } from '@/utils/handleBignumber';
 import Flex from '../Flex';
 import Stack from '../Stack';
 import Svg from '../Svg';
+import { ThemeToggle } from '../ThemeToggle';
 import Typography from '../Typography';
 
 interface MenuItemProps {
@@ -53,11 +54,20 @@ interface ActionProps {
 }
 export const MenuItem = ({ item, className }: MenuItemProps) => {
   const router = useRouter();
-
+  const handleClick = () => {
+    if (item.slug === 'darkTheme') {
+      return;
+    }
+    if (item.onClick) {
+      item.onClick();
+    } else {
+      router.push(`/${item.slug}`);
+    }
+  };
   return (
     <button
-      className={`px-2 py-3 lg:py-2 cursor-pointer rounded-md w-full hover:bg-bg-hovered ${className}`}
-      onClick={item.onClick ? item.onClick : () => router.push(`/${item.slug}`)}
+      className={`px-2 py-3 lg:py-2 cursor-pointer flex rounded-md w-full hover:bg-bg-hovered ${className}`}
+      onClick={handleClick}
     >
       <div className="flex gap-x-2.5 items-center w-full">
         <span className="size-6 flex items-center justify-center">
@@ -67,6 +77,7 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
           {item.title}
         </Typography.Text>
       </div>
+      {item.slug === 'darkTheme' && <ThemeToggle />}
     </button>
   );
 };
@@ -231,14 +242,14 @@ export const ActionUser: React.FC = () => {
 };
 
 const MenuHeader = () => {
-  const { profile } = useSelector(selectProfile);
+  const { isLoggedIn } = useSelector(selectProfile);
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const { onDisconnect } = useWallet();
   const router = useRouter();
-
   return (
     <>
       <div className="hidden-mobile">
-        <DropdownMenu>
+        <DropdownMenu open={isOpenMenu} onOpenChange={setIsOpenMenu}>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="size-11 p-0">
               <Svg src="/icons/menu.svg" />
@@ -251,7 +262,14 @@ const MenuHeader = () => {
             <ActionUser />
             <DropdownMenuGroup className="mt-1">
               {menuListLogin(onDisconnect).map((item) => (
-                <DropdownMenuItem key={item.slug}>
+                <DropdownMenuItem
+                  key={item.slug}
+                  onSelect={(event) => {
+                    if (item.close === true) {
+                      event.preventDefault();
+                    }
+                  }}
+                >
                   <MenuItem item={item} />
                 </DropdownMenuItem>
               ))}
@@ -299,7 +317,7 @@ const MenuHeader = () => {
                   ))}
                 </Flex>
 
-                {profile?.address && (
+                {isLoggedIn && (
                   <>
                     <ActionUser />
 

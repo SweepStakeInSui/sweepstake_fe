@@ -24,10 +24,7 @@ const AvatarRank: React.FC<AvatarRankProps> = ({ id, avatar }) => {
         {iconSrc ? (
           <Svg src={iconSrc} />
         ) : (
-          <Flex className="bg-blk-a80 size-5 justify-center text-text-inverse rounded-full">
-            {/* <Typography.Text size={12} weight="semibold">
-              {id}
-            </Typography.Text> */}
+          <Flex className="bg-blk-a80 size-5 justify-center text-white rounded-full">
             <p className="text-[11px] font-semibold">{id}</p>
           </Flex>
         )}
