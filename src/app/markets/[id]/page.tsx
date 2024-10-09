@@ -1,5 +1,5 @@
 import MarketsLayout from '@/app/markets/[id]/layout';
-import MarketsModule from '@/modules/Markets';
+import MarketDetailsModule from '@/modules/MarketDetails';
 
 interface MarketsPageProps {
   params: {
@@ -11,7 +11,7 @@ export default function MarketsPage({ params }: MarketsPageProps) {
   const { id } = params;
   return (
     <MarketsLayout>
-      <MarketsModule id={id} />
+      <MarketDetailsModule id={id} />
     </MarketsLayout>
   );
 }

@@ -20,6 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import useWindowSize from '@/hooks/common/useWindowSize';
 import { setBet } from '@/store/betSlice';
 
 interface IMarketTitleProps {
@@ -47,15 +48,18 @@ const MarketTile = ({
   no,
 }: IMarketTitleProps) => {
   const dispatch = useDispatch();
+  const { isMobile } = useWindowSize();
   const { id: storedId, type } = useSelector((state: any) => state.bet);
 
-  const onNoClick = (event: any) => {
+  const onNoClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event?.stopPropagation();
+    if (!isMobile) event?.preventDefault();
     dispatch(setBet({ type: 0, id, yes, no }));
   };
 
-  const onYesClick = (event: any) => {
+  const onYesClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event?.stopPropagation();
+    if (!isMobile) event?.preventDefault();
     dispatch(setBet({ type: 1, id, yes, no }));
   };
 

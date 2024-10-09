@@ -1,105 +1,97 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { format } from 'date-fns';
-import { useRef } from 'react';
-import { useSelector } from 'react-redux';
 
-import Flex from '@/components/common/Flex';
-import { SectionIndicator } from '@/components/common/SectionIndicatorWrapper';
-import Stack from '@/components/common/Stack';
-import { Drawer, DrawerContent } from '@/components/ui/drawer';
-import { MarketsActionForm } from '@/modules/Markets/components/ActionForm';
-import { MarketsWatchList } from '@/modules/Markets/components/WatchList';
+import Container from '@/components/common/Container';
+import { Banner } from '@/modules/Home/components/Banner';
+import { MarketTab } from '@/modules/Home/components/MarketTab';
+import HomeSlider from '@/modules/Home/components/Slider';
+import VoteCardGrid from '@/modules/Home/components/VoteCardGrid';
 import { marketService } from '@/services/markets';
-import { selectProfile } from '@/store/profileSlice';
 
-import { MarketsAbout } from './components/About';
-import { MarketsDetail } from './components/Detail';
-import { LevelSection } from './components/LevelSection';
-import { MarketsRelateMarket } from './components/RelateMarket';
-import { MarketsRulesSummary } from './components/RulesSummary';
+const mockSlides = [
+  {
+    title: 'Despicable Me 0" Rotten Tomatoes score about ten?',
+    forcast: 14,
+    percent: 12,
+    vol: 1200000,
+    desc: {
+      title: 'Texas braces for Beryl',
+      content:
+        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
+    },
+  },
+  {
+    title: 'Despicable Me 1 Rotten Tomatoes score about ten?',
+    forcast: 14,
+    percent: 12,
+    vol: 1200000,
+    desc: {
+      title: 'Texas braces for Beryl',
+      content:
+        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
+    },
+  },
+  {
+    title: 'Despicable Me 2" Rotten Tomatoes score about ten?',
+    forcast: 14,
+    percent: 12,
+    vol: 1200000,
+    desc: {
+      title: 'Texas braces for Beryl',
+      content:
+        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
+    },
+  },
+  {
+    title: 'Despicable Me 3" Rotten Tomatoes score about ten?',
+    forcast: 14,
+    percent: 12,
+    vol: 1200000,
+    desc: {
+      title: 'Texas braces for Beryl',
+      content:
+        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
+    },
+  },
+  {
+    title: 'Despicable Me 4" Tomatoes score about ten?',
+    forcast: 14,
+    percent: 12,
+    vol: 1200000,
+    desc: {
+      title: 'Texas braces for Beryl',
+      content:
+        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
+    },
+  },
+  {
+    title: 'Despicable Me 5" Rotten Tomatoes score about ten?',
+    forcast: 14,
+    percent: 12,
+    vol: 1200000,
+    desc: {
+      title: 'Texas braces for Beryl',
+      content:
+        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
+    },
+  },
+];
 
-interface MarketsModuleProps {
-  id: string;
-}
-
-export default function MarketsModule({ id }: MarketsModuleProps) {
-  const topPageRef = useRef<HTMLDivElement>(null);
-  const ruleSummaryRef = useRef<HTMLDivElement>(null);
-  const aboutRef = useRef<HTMLDivElement>(null);
-  const relateMarketRef = useRef<HTMLDivElement>(null);
-  const ideaRef = useRef<HTMLDivElement>(null);
-
-  const { isLoggedIn } = useSelector(selectProfile);
-
-  const { data: marketDetailData } = useQuery({
-    queryKey: ['marketDetail', id],
-    queryFn: async () => marketService.getMarketDetailsService(id),
+export default function MarketsModule() {
+  const { data: marketListData } = useQuery({
+    queryKey: ['market-list'],
+    queryFn: async () => marketService.getMarketService({ page: 1, limit: 12 }),
   });
 
-  console.log(marketDetailData);
-
   return (
-    <Drawer>
-      <Flex className="items-start gap-0">
-        {isLoggedIn && (
-          <div className="hidden-mobile">
-            <MarketsWatchList />
-          </div>
-        )}
-
-        <Flex className="transition-all shrink-[100] items-start w-full gap-0">
-          <Stack className="shrink-[100] max-w-[49.375rem] w-full mx-auto gap-y-8 p-5">
-            <SectionIndicator section="/" ref={topPageRef}>
-              <MarketsDetail title={marketDetailData?.name || ''} />
-            </SectionIndicator>
-
-            <SectionIndicator section="rule-summary" ref={ruleSummaryRef}>
-              <MarketsRulesSummary
-                desc={marketDetailData?.conditions_str || ''}
-                openOn={
-                  marketDetailData?.startTime
-                    ? format(
-                        new Date(marketDetailData.startTime * 1000),
-                        'yyyy-MM-dd',
-                      )
-                    : ''
-                }
-                closeOn={
-                  marketDetailData?.endTime
-                    ? format(
-                        new Date(marketDetailData.endTime * 1000),
-                        'yyyy-MM-dd',
-                      )
-                    : ''
-                }
-                payoutOn="2021-09-20"
-                categories={['']}
-              />
-            </SectionIndicator>
-
-            <SectionIndicator section="about" ref={aboutRef}>
-              <MarketsAbout desc={marketDetailData?.description || ''} />
-            </SectionIndicator>
-
-            <SectionIndicator section="relate-market" ref={relateMarketRef}>
-              <MarketsRelateMarket />
-            </SectionIndicator>
-
-            <SectionIndicator section="idea" ref={ideaRef}>
-              <LevelSection />
-            </SectionIndicator>
-          </Stack>
-
-          <DrawerContent className="block lg:hidden">
-            <MarketsActionForm />
-          </DrawerContent>
-          <div className="hidden lg:block">
-            <MarketsActionForm />
-          </div>
-        </Flex>
-      </Flex>
-    </Drawer>
+    <section>
+      <Banner />
+      <MarketTab showSubTabs />
+      <HomeSlider slides={mockSlides} />
+      <Container size="sm">
+        <VoteCardGrid data={marketListData?.items} />
+      </Container>
+    </section>
   );
 }

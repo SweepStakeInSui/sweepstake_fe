@@ -16,15 +16,27 @@ import { Web3AuthConnect } from '../Login';
 import SuiDappKit from '../Login/SuiDappKit';
 import { Button } from '../ui/button';
 
-const ConnectButton = () => {
+interface IConnectButtonProps {
+  hasIcon?: boolean;
+  content?: string;
+  className?: string;
+}
+
+const ConnectButton = ({
+  hasIcon = true,
+  content = 'Connect Wallet',
+  className,
+}: IConnectButtonProps) => {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="lg">
+        <Button size="lg" className={className}>
           <Flex>
-            <Svg src="/icons/Wallet.svg" className="hidden-mobile" />
-            Connect Wallet
+            {hasIcon && (
+              <Svg src="/icons/Wallet.svg" className="hidden-mobile" />
+            )}
+            {content}
           </Flex>
         </Button>
       </DialogTrigger>

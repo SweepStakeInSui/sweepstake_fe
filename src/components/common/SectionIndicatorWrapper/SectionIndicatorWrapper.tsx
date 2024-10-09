@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import type { PropsWithChildren, ReactElement, ReactNode } from 'react';
 import { forwardRef, useRef } from 'react';
 
-import { useSectionIndicatorSignal } from '@/modules/Markets/useSectionIndicatorSignal';
+import { useSectionIndicatorSignal } from '@/modules/MarketDetails/useSectionIndicatorSignal';
 import type { TSection } from '@/types/common';
 
 interface Props extends PropsWithChildren {
