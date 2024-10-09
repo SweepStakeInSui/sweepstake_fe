@@ -146,7 +146,7 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
   });
 
   return (
-    <div className="px-5 pb-4 pt-5 bg-dyb-5 rounded-lg w-[283px] border border-borderSubtle">
+    <div className="px-5 pb-4 pt-5 bg-bg-sublest rounded-lg w-[283px] border border-borderSubtle">
       <Flex className="justify-between">
         <Flex className="gap-x-1">
           <Typography.Text className="text-text-subtle" size={13}>
@@ -198,7 +198,10 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
                 <div className="rounded-md border border-borderSubtle overflow-hidden relative">
                   {options.map((option, index) => (
                     <Fragment key={option.title}>
-                      <Flex className="p-4 bg-dyb-0 gap-x-4" key={option.title}>
+                      <Flex
+                        className="p-4 bg-field-background gap-x-4"
+                        key={option.title}
+                      >
                         <Typography.Text
                           size={13}
                           className="text-text-sublest font-normal w-8"
@@ -270,7 +273,7 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
                   )}
                 />
               </div>
-              <DialogFooter className="bg-dyb-0">
+              <DialogFooter>
                 <DialogClose asChild>
                   <Button type="button" variant="terriary" size="lg">
                     Cancel

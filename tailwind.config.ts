@@ -29,6 +29,8 @@ const config = {
         'linear-gradient(134deg, #061B23 2.25%, rgba(28, 4, 27, 0.61) 52.75%, #160101 100%)',
       'linear-profile':
         'linear-gradient(133deg, #E6F4FA -2.1%, rgba(250, 245, 237, 0.61) 51.84%, #FFEDED 102.3%)',
+      'linear-profile-dark':
+        'linear-gradient(133deg, #1B2C33 -2.1%, rgba(31, 28, 24, 0.61) 51.84%, #231212 102.3%)',
     },
     container: {
       center: true,
@@ -271,6 +273,8 @@ const config = {
         'card-bet-home': '0px 4px 12px 0px rgba(0, 0, 0, 0.06)',
         'leaderboard-shadow': '0px 6px 17px 0px rgba(44, 41, 211, 0.05)',
         'create-bet-shadow': '0px -3px 9px 0px #00000014',
+        dialog:
+          '0px 1px 0px 0px rgba(0, 0, 0, 0.02), 0px 2px 8px 0px rgba(0, 0, 0, 0.12)',
       },
     },
   },

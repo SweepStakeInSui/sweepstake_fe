@@ -66,7 +66,7 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
   };
   return (
     <button
-      className={`px-2 py-3 lg:py-2 cursor-pointer flex rounded-md w-full hover:bg-bg-hovered ${className}`}
+      className={`px-2 py-3 lg:py-2 cursor-pointer flex rounded-md w-full ${className}`}
       onClick={handleClick}
     >
       <div className="flex gap-x-2.5 items-center w-full">
@@ -77,14 +77,14 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
           {item.title}
         </Typography.Text>
       </div>
-      {item.slug === 'darkTheme' && <ThemeToggle />}
+      {item.slug === 'darkTheme' && <ThemeToggle option="switch" />}
     </button>
   );
 };
 const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const { profile } = useSelector(selectProfile);
   return (
-    <div className="p-4 text-text bg-b-10 rounded-sm relative overflow-hidden">
+    <div className="p-4 text-text bg-b-10 dark:bg-bg-balance rounded-sm relative overflow-hidden">
       <Flex className="z-10 relative mb-0.5 justify-between">
         <Flex>
           <Typography.Text
@@ -115,20 +115,14 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
       <Flex className="mt-5 relative z-10">
         <Link href="/deposit" className="flex-1 ">
           <Button variant="primary" size="medium" className="w-full">
-            <Typography.Text
-              size={14}
-              weight="semibold"
-              className="text-text-inverse"
-            >
-              Deposit
-            </Typography.Text>
+            Deposit
           </Button>
         </Link>
         <Link href="/deposit" className="flex-1 ">
           <Button
             variant="ghost"
             size="medium"
-            className="bg-opacity-85 w-full bg-wht-a80"
+            className=" w-full bg-wht-a80/80 dark:bg-wht-a20/20"
           >
             <Typography.Text size={14} weight="semibold" className="text-text">
               Transfer
@@ -138,7 +132,7 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
         <Button
           variant="ghost"
           size="medium"
-          className="bg-opacity-85 bg-wht-a80 "
+          className="bg-wht-a80/80 dark:bg-wht-a20/20"
         >
           <Svg src="icons/history.svg" />
         </Button>
@@ -157,7 +151,7 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
 const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const balance = useBalance();
   return (
-    <div className="p-4 text-text bg-r-10 rounded-sm relative overflow-hidden">
+    <div className="p-4 text-text bg-r-10 dark:bg-r-95 rounded-sm relative overflow-hidden">
       <Flex className="z-10 relative mb-0.5 justify-between">
         <Flex>
           <Typography.Text
@@ -190,7 +184,7 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
           <Button
             variant="ghost"
             size="medium"
-            className="w-full bg-opacity-85 bg-wht-a80"
+            className="w-full bg-wht-a80/80 dark:bg-wht-a20/20"
           >
             <Typography.Text size={14} weight="semibold" className="text-text">
               Withdraw
@@ -201,7 +195,7 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
         <Button
           variant="ghost"
           size="medium"
-          className="bg-opacity-85 bg-wht-a80"
+          className="bg-opacity-85 bg-wht-a80/80 dark:bg-wht-a20/20"
         >
           <Svg src="icons/history.svg" />
         </Button>

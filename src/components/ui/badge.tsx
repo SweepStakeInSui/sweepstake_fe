@@ -12,8 +12,7 @@ const badgeVariants = cva(
           'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
         bet_yes:
           'border-transparent bg-btn-betYes text-text-support-match hover:bg-secondary/80',
-        bet_no:
-          'border-transparent bg-btn-betNo text-text-support-blue hover:bg-destructive/80',
+        bet_no: 'border-transparent bg-btn-betNo text-text-support-blue ',
         outline: 'text-foreground',
       },
     },

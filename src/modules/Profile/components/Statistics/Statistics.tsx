@@ -15,7 +15,7 @@ const Statistics = () => {
   const queryClient = useQueryClient();
   const profile = queryClient.getQueryData<ProfileTypes>(['user-infor']);
   return (
-    <ul className="grid grid-cols-2 lg:grid-cols-4 gap-y-3 p-6 bg-linear-profile rounded-lg">
+    <ul className="grid grid-cols-2 lg:grid-cols-4 gap-y-3 p-6 bg-linear-profile dark:bg-linear-profile-dark dark:border dark:border-[#313133] rounded-lg">
       <li className="flex justify-between">
         <Stack className="gap-1">
           <Typography.Text

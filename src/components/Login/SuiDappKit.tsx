@@ -73,10 +73,7 @@ const SuiDappKit = () => {
                     height={20}
                     alt="Sui_Icon"
                   />
-                  <Typography.Text
-                    className="text-text-inverse"
-                    weight="semibold"
-                  >
+                  <Typography.Text className="text-white" weight="semibold">
                     Connect With Sui Wallet
                   </Typography.Text>
                 </Flex>

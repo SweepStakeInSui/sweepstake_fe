@@ -112,7 +112,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const { isValid } = form.formState;
 
   return (
-    <div className="px-5 pb-4 pt-5 bg-dyb-5 rounded-lg w-[283px] border border-borderSubtle">
+    <div className="px-5 pb-4 pt-5 bg-bg-sublest rounded-lg w-[283px] border border-borderSubtle">
       <Flex className="justify-between">
         <Flex className="gap-x-1">
           <Typography.Text className="text-text-subtle" size={13}>
@@ -271,7 +271,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
                   )}
                 />
               </Stack>
-              <DialogFooter className="bg-dyb-0">
+              <DialogFooter>
                 <DialogClose asChild>
                   <Button type="button" variant="terriary" size="lg">
                     Cancel

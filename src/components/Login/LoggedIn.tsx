@@ -13,7 +13,7 @@ const LoggedIn = () => {
     <Flex>
       <Link href="/create-bet">
         <Button className="gap-x-2" size="lg">
-          <Svg src="/icons/add.svg" className="hidden-mobile" />
+          <Svg src="/icons/add.svg" className="hidden-mobile !text-white" />
           Create bet
         </Button>
       </Link>

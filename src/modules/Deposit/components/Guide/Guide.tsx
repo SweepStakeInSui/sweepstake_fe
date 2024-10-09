@@ -54,7 +54,7 @@ const Guide = () => {
       </Flex>
       <CopiableAddress
         address="0x825AE76B945F4713c4d6A9a27eA78a3C0dA147e6"
-        className="h-12 items-center px-3 bg-dyb-5 border border-borderSubtle rounded-lg"
+        className="h-12 items-center px-3 bg-bg-sublest border border-borderSubtle rounded-lg"
       />
       <Separator className="bg-borderSubtle" />
     </Stack>

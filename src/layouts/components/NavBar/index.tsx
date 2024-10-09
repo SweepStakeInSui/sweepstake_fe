@@ -20,6 +20,7 @@ import { SearchHeader, SearchHeaderMobile } from '@/components/Search';
 import HomeLogo from '../HomeLogo';
 import { MenuHeader } from '@/components/common/Menu';
 import { useEffect } from 'react';
+import { ThemeToggle } from '@/components/common/ThemeToggle';
 
 export default function NavBar(): React.ReactElement {
   const router = useRouter();
@@ -67,7 +68,14 @@ export default function NavBar(): React.ReactElement {
             <div className="hidden-mobile flex-grow ">
               <SearchHeader />
             </div>
-            {isLoggedIn ? <LoggedIn /> : <ConnectButton />}
+            {isLoggedIn ? (
+              <LoggedIn />
+            ) : (
+              <Flex>
+                <ConnectButton />
+                <ThemeToggle option="toggle" />
+              </Flex>
+            )}
             {!isLoggedIn && (
               <div className="hidden-PC">
                 <SearchHeaderMobile />
