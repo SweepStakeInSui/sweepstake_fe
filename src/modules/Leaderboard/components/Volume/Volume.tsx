@@ -9,7 +9,7 @@ import Wraper from '../Wraper';
 const VolumeLeaderboard = () => {
   return (
     <Wraper>
-      <Flex className="bg-org-5 py-3 px-2">
+      <Flex className="bg-org-5 dark:bg-bagde-warn py-3 px-2">
         <Svg src="/icons/bar_chart.svg" />
         <Typography.Heading className="text-text" size={20} weight="semibold">
           Volume

@@ -223,10 +223,10 @@
     --bg-inverse: var(--dyb-5);
     --bg-inverse-subtle: var(--dyb-30);
     --bg-inverse-sublest: var(--dyb-50);
-    --bg-matcha: rgba(23, 164, 178, 0.8);
-    --bg-blue: rgba(33, 99, 253, 0.8);
-    --bg-red: rgba(235, 32, 30, 0.8);
-    --bg-green: rgba(61, 160, 3, 0.8);
+    --bg-matcha: rgba(23, 164, 178, 0.08);
+    --bg-blue: rgba(33, 99, 253, 0.08);
+    --bg-red: rgba(235, 32, 30, 0.08);
+    --bg-green: rgba(61, 160, 3, 0.08);
     --bg-port: #360404;
     --bg-balance: #0f1f44;
     --bg-dyb: var(--dyb-10);
@@ -312,10 +312,10 @@
     --field-border-disable: var(--wht-a15);
 
     /* Badge */
-    --badge-infor-BG: rgba(1, 70, 244, 0.8);
-    --badge-save-BG: rgba(61, 160, 3, 0.8);
-    --badge-warn-BG: rgba(227, 175, 44, 0.8);
-    --badge-danger-BG: rgba(235, 32, 30, 0.8);
+    --badge-infor-BG: rgba(1, 70, 244, 0.08);
+    --badge-save-BG: rgba(61, 160, 3, 0.08);
+    --badge-warn-BG: rgba(227, 175, 44, 0.08);
+    --badge-danger-BG: rgba(235, 32, 30, 0.08);
   }
 }
 

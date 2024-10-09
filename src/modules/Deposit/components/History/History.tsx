@@ -29,7 +29,7 @@ import { Tooltip } from '@/components/ui/tooltip';
 const HistoryItem = () => {
   return (
     <Flex className="justify-between">
-      <div className="size-8 rounded-full bg-dyb-5 flex justify-center items-center flex-shrink-0">
+      <div className="size-8 rounded-full bg-bg-sublest flex justify-center items-center flex-shrink-0">
         <Svg src="/icons/arrow_upward.svg" />
       </div>
       <div className="flex-1">

@@ -10,7 +10,7 @@ const tabVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-tab-filled border border-borderMain text-text-subtle hover:border-tab-filled-bgHover active:bg-tab-filled-bgPress',
+          'bg-bg-surface border border-borderMain text-text-subtle hover:border-tab-filled-bgHover active:bg-tab-filled-bgPress',
         selected:
           'bg-tab-filled-bgSelected text-text-inverse hover:bg-tab-filled-bgSelected active:bg-tab-filled-bgSelected',
       },

@@ -9,7 +9,7 @@ import Wraper from '../Wraper';
 const ProfitLeaderboard = () => {
   return (
     <Wraper>
-      <Flex className="bg-pu-5 py-3 px-2">
+      <Flex className="bg-pu-5 dark:bg-[rgba(155,1,245,0.08)] py-3 px-2">
         <Svg src="/icons/attach_money.svg" />
         <Typography.Heading className="text-text" size={20} weight="semibold">
           Profit
