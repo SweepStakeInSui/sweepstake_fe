@@ -32,10 +32,10 @@ const TimePicker = ({ value, onChange }: ITimePickerProps) => {
     <div className="customTimePicker_wrapper">
       <DatePicker
         selected={date}
-        showIcon
         showTimeSelectOnly
         showTimeSelect
         showPopperArrow={false}
+        showIcon
         icon={
           <Svg
             src="/icons/clock.svg"
@@ -45,8 +45,15 @@ const TimePicker = ({ value, onChange }: ITimePickerProps) => {
         onChange={handleSelect}
         timeIntervals={30}
         timeCaption="Time"
-        dateFormat="h:mm aa"
-        customInput={<Input className="customTimePicker_input" />}
+        timeFormat="HH:mm"
+        dateFormat="HH:mm"
+        customInput={
+          <Input
+            className="customTimePicker_input"
+            type="time"
+            pattern="[0-9]{2}:[0-9]{2}"
+          />
+        }
         popperPlacement="bottom-end"
         popperClassName="customTimePicker_popper"
         wrapperClassName="customTimePicker"

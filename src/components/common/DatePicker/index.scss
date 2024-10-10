@@ -68,3 +68,12 @@
 .react-datepicker__triangle {
   display: none;
 } */
+
+.react-datepicker {
+  background-color: var(--bg-surface);
+  color: var(--text);
+  * {
+    background-color: var(--bg-surface);
+    color: var(--text);
+  }
+}

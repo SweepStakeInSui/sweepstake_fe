@@ -21,7 +21,7 @@ import { TimePicker } from '@/components/ui/time-picker';
 import { Tooltip } from '@/components/ui/tooltip';
 import { setBet } from '@/store/betSlice';
 
-interface IBuyActionProps {
+interface ISellActionProps {
   isLimit: boolean;
 }
 const TooltipPrice = () => {
@@ -44,7 +44,7 @@ const TooltipPrice = () => {
           Why don&#39;t they add up to 100?
         </Typography.Text>
         <Typography.Text size={13} className="text-text-subtle">
-          Slight offsets happen due to market uncertainty. Imagine buying
+          Slight offsets happen due to market uncertainty. Imagine selling
           lemonade at a stand. You offer $1, the highest you’d pay (bid). The
           seller sets their lowest price $1.20 (ask). The $0.20 gap leaves room
           for bargaining (spread).
@@ -54,7 +54,7 @@ const TooltipPrice = () => {
   );
 };
 
-const BuyAction = ({ isLimit }: IBuyActionProps) => {
+const SellAction = ({ isLimit }: ISellActionProps) => {
   const [isSetExpiration, setIsSetExpiration] = useState(false);
   const dispatch = useDispatch();
   const { id, yes, no, type } = useSelector((state: any) => state.bet);
@@ -232,4 +232,4 @@ Projected payout 2 hours after closing."
   );
 };
 
-export default BuyAction;
+export default SellAction;
