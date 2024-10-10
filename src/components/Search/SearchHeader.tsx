@@ -151,7 +151,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
         </Button>
         <div className="relative w-full flex-1 lg:max-w-[380px]">
           <Svg
-            src="/icons/search.svg"
+            src="/icons/Search.svg"
             className="absolute top-1/2 -translate-y-1/2 left-3"
           />
           <Input

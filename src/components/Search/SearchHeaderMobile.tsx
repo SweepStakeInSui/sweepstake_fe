@@ -26,12 +26,14 @@ const SearchHeaderMobile = () => {
       onOpenChange={setIsDrawerOpen}
     >
       <DrawerTrigger asChild>
-        <Svg
-          src="/icons/search.svg"
-          width={24}
-          height={24}
-          className="self-center cursor-pointer"
-        />
+        <div>
+          <Svg
+            src="/icons/Search.svg"
+            width={24}
+            height={24}
+            className="self-center cursor-pointer"
+          />
+        </div>
       </DrawerTrigger>
       <DrawerContent className="h-full w-full">
         <DrawerHeader className="text-left">

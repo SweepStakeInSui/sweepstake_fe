@@ -82,7 +82,7 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
     <div className="relative swiper-custom">
       <button
         type="button"
-        className={`flex items-center justify-center  text-dark1 swiper-button-prev-custom  ${
+        className={`flex items-center justify-center text-dark1 swiper-button-prev-custom !bg-bg-surface dark:!border dark:!border-borderMain  ${
           !showPrevButton && 'hidden'
         }`}
         style={{
@@ -97,7 +97,7 @@ const SwiperCustom: React.FC<SwiperCustomProps> = ({
       <Swiper {...swiperProps}>{children}</Swiper>
       <button
         type="button"
-        className={`flex items-center justify-center  text-dark1 swiper-button-next-custom  ${
+        className={`flex items-center justify-center  text-dark1 swiper-button-next-custom !bg-bg-surface dark:!border dark:!border-borderMain ${
           !showNextButton && 'hidden'
         }`}
         style={{

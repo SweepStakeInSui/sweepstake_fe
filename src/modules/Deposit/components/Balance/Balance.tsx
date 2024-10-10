@@ -6,6 +6,7 @@ import { Transaction } from '@mysten/sui/transactions';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import type { z } from 'zod';
 
 import Flex from '@/components/common/Flex';
@@ -40,7 +41,7 @@ import configs from '@/configs';
 import { ConnectionType } from '@/enums/ConnectionType';
 import useBalance from '@/hooks/useBalance';
 import { UserService } from '@/services/userService';
-import type { ProfileTypes } from '@/types/profile';
+import { selectProfile } from '@/store/profileSlice';
 import { handleBignumber } from '@/utils/handleBignumber';
 import SuiRPC from '@/utils/SuiRPC';
 
@@ -51,7 +52,7 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const balance = useBalance();
   const { walletType, provider } = useWallet();
   const queryClient = useQueryClient();
-  const profile = queryClient.getQueryData<ProfileTypes>(['user-infor']);
+  const { profile } = useSelector(selectProfile);
   const [depositModalOpen, setDepositModalOpen] = useState(false);
   const [txsString, setTxsString] = useState('');
   const [status, setStatus] = useState<'idle' | 'success' | 'fail'>('idle');
@@ -140,10 +141,6 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
     depositMutation(values);
   }
   const { isValid } = form.formState;
-  console.log({
-    balance,
-    profile,
-  });
 
   return (
     <div className="px-5 pb-4 pt-5 bg-bg-sublest rounded-lg w-[283px] border border-borderSubtle">
@@ -293,19 +290,19 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
         isLoading={isDepositLoading}
         status={status}
         title={(() => {
-          if (isDepositLoading) return 'Your Deposit Is Being Processed';
+          if (isDepositLoading) return 'Your transfer Is Being Processed';
           if (isDepositSuccess && depositData.statusCode === 200)
-            return 'Deposit Successful';
-          if (isDepositError) return 'Deposit Failed';
+            return 'Transfer Successful';
+          if (isDepositError) return 'Transfer Failed';
           return '';
         })()}
         message={(() => {
           if (isDepositLoading)
-            return 'Your deposit is currently being processed.';
+            return 'Your transfer is currently being processed.';
           if (isDepositSuccess && depositData.statusCode === 200)
-            return 'Your deposit has been successfully processed.';
+            return 'Your transfer has been successfully processed.';
           if (isDepositError)
-            return 'There was an error processing your deposit.';
+            return 'There was an error processing your transfer.';
           return '';
         })()}
         txs={txsString}

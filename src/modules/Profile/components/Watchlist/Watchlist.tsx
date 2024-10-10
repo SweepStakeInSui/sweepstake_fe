@@ -1,17 +1,22 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { mockAvatar } from '@/mocks/mockAvatar';
+import { removeWatchList, selectWatchList } from '@/store/watchListSlice';
 
 const Watchlist = () => {
+  const { items } = useSelector(selectWatchList);
+  const dispatch = useDispatch();
+
   return (
     <div>
-      {Array.from({ length: 6 }, (_, index) => (
+      {items.map((item) => (
         <Flex
-          key={index}
+          key={item.id}
           className="items-start gap-3 px-2 py-3 justify-between"
         >
           <Flex>
@@ -21,7 +26,7 @@ const Watchlist = () => {
             </Avatar>
             <div>
               <Typography.Text size={15} className="line-clamp-2">
-                Richest person in the world at the end of this dang year?
+                {item.name}
               </Typography.Text>
               <Typography.Text size={13} className="inline-flex gap-2">
                 <span className="text-text-subtle">Micheal Jack</span>
@@ -30,7 +35,13 @@ const Watchlist = () => {
               </Typography.Text>
             </div>
           </Flex>
-          <Button variant="ghost" className="p-0">
+          <Button
+            variant="ghost"
+            className="p-0"
+            onClick={() => {
+              dispatch(removeWatchList({ id: item.id }));
+            }}
+          >
             Remove
           </Button>
         </Flex>

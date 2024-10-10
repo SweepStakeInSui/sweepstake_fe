@@ -35,6 +35,7 @@ import { selectProfile } from '@/store/profileSlice';
 import { handleBignumber } from '@/utils/handleBignumber';
 
 import Flex from '../Flex';
+import { FormatNumber } from '../FormatNumber';
 import Stack from '../Stack';
 import Svg from '../Svg';
 import { ThemeToggle } from '../ThemeToggle';
@@ -82,7 +83,8 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
   );
 };
 const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
-  const { profile } = useSelector(selectProfile);
+  const balance = useBalance();
+
   return (
     <div className="p-4 text-text bg-b-10 dark:bg-bg-balance rounded-sm relative overflow-hidden">
       <Flex className="z-10 relative mb-0.5 justify-between">
@@ -109,8 +111,12 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
           />
         </button>
       </Flex>
-      <Typography.Heading weight="semibold" size={24} className="text-text">
-        ${handleBignumber.divideDecimal(profile?.balance!)}
+      <Typography.Heading
+        weight="semibold"
+        size={24}
+        className="text-text flex"
+      >
+        $<FormatNumber number={balance || 0} />
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">
         <Link href="/deposit" className="flex-1 ">
@@ -149,7 +155,8 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
   );
 };
 const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
-  const balance = useBalance();
+  const { profile } = useSelector(selectProfile);
+
   return (
     <div className="p-4 text-text bg-r-10 dark:bg-r-95 rounded-sm relative overflow-hidden">
       <Flex className="z-10 relative mb-0.5 justify-between">
@@ -157,7 +164,7 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
           <Typography.Text
             size={13}
             weight="medium"
-            className="text-text-subtle"
+            className="text-text-subtle "
           >
             Portfolio
           </Typography.Text>
@@ -176,8 +183,15 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
           />
         </button>
       </Flex>
-      <Typography.Heading weight="semibold" size={24} className="text-text">
-        ${balance}
+      <Typography.Heading
+        weight="semibold"
+        size={24}
+        className="text-text flex"
+      >
+        $
+        <FormatNumber
+          number={handleBignumber.divideDecimal(profile.balance) || 0}
+        />
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">
         <Link href="/deposit" className="flex-1">

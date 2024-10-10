@@ -1,19 +1,16 @@
-import { useQueryClient } from '@tanstack/react-query';
-import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
-import type { ProfileTypes } from '@/types/profile';
+import { selectProfile } from '@/store/profileSlice';
 import { briefDocument } from '@/utils/formatText';
 
 import { EditProfile } from '../EditProfile';
 
 const Information = () => {
-  const queryClient = useQueryClient();
-  const profile = queryClient.getQueryData<ProfileTypes>(['user-infor']);
-  console.log(profile?.avatar);
+  const { profile } = useSelector(selectProfile);
 
   return (
     <Flex className="justify-between items-start">
@@ -29,7 +26,7 @@ const Information = () => {
             <Typography.Heading>Nickname</Typography.Heading>
             <div className="bg-bg-sublest rounded-full py-0.5 px-2 flex justify-center">
               <Typography.Text size={13}>
-                {briefDocument(profile!.address, 5, 5)}
+                {briefDocument(profile.address, 5, 5)}
               </Typography.Text>
             </div>
           </Stack>

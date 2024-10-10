@@ -1,5 +1,6 @@
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
@@ -10,11 +11,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Tooltip } from '@/components/ui/tooltip';
 import ViewAll from '@/modules/Home/components/ViewAll';
+import { removeWatchList, selectWatchList } from '@/store/watchListSlice';
 
 import { mockWatchList } from '../../../../mocks/mockWatchList';
 
 const MarketsWatchList = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { items } = useSelector(selectWatchList);
+  const dispatch = useDispatch();
+  console.log(items);
 
   return (
     <aside
@@ -26,7 +31,7 @@ const MarketsWatchList = () => {
           size={20}
           className={`absolute left-0 ${isSidebarOpen ? 'scale-1' : 'scale-0'} transition-all`}
         >
-          Watch List
+          Watchlist
         </Typography.Heading>
 
         <Tooltip content="Expand Watchlist" side="right">
@@ -45,9 +50,8 @@ const MarketsWatchList = () => {
       </Flex>
 
       <ScrollArea className="h-full pr-3 overflow-x-hidden no-scrollbar">
-        {mockWatchList.slice(4).map((item, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <div key={index.toString()} className="mb-4">
+        {items.map((item) => (
+          <div key={item.id} className="mb-4">
             <Stack
               className={`${isSidebarOpen ? 'mb-11' : 'mb-4'} transition-all`}
             >
@@ -56,12 +60,15 @@ const MarketsWatchList = () => {
                   isRounded={false}
                   className="w-[2.5rem] h-auto aspect-1"
                 >
-                  <AvatarImage src={item.avatar} />
+                  <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback />
                 </Avatar>
                 <Button
                   variant="ghost"
                   className={`p-0 ${isSidebarOpen ? 'scale-1' : 'scale-0'}`}
+                  onClick={() => {
+                    dispatch(removeWatchList({ id: item.id }));
+                  }}
                 >
                   Remove
                 </Button>
@@ -70,16 +77,12 @@ const MarketsWatchList = () => {
                 className={`overflow-hidden ${isSidebarOpen ? 'scale-1' : 'scale-0 h-0'}`}
               >
                 <Typography.Text size={15} className="line-clamp-2">
-                  {item.title}
+                  {item.name}
                 </Typography.Text>
                 <Typography.Text size={13} className="inline-flex gap-2">
-                  <span className="text-text-subtle">{item.author}</span>
-                  <span className="text-text-support-match">
-                    {item.priceChange}
-                  </span>
-                  <span className="text-text-support-green">
-                    +{item.priceChangePercentage}
-                  </span>
+                  <span className="text-text-subtle">Jhonny</span>
+                  <span className="text-text-support-match">11</span>
+                  <span className="text-text-support-green">+2</span>
                 </Typography.Text>
               </div>
             </Stack>
