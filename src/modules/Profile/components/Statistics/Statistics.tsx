@@ -1,6 +1,5 @@
-import { useQueryClient } from '@tanstack/react-query';
-import React from 'react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+import { useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import { FormatNumber } from '@/components/common/FormatNumber';
@@ -9,11 +8,11 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
-import type { ProfileTypes } from '@/types/profile';
+import { selectProfile } from '@/store/profileSlice';
 
 const Statistics = () => {
-  const queryClient = useQueryClient();
-  const profile = queryClient.getQueryData<ProfileTypes>(['user-infor']);
+  const { profile } = useSelector(selectProfile);
+
   return (
     <ul className="grid grid-cols-2 lg:grid-cols-4 gap-y-3 p-6 bg-linear-profile dark:bg-linear-profile-dark dark:border dark:border-[#313133] rounded-lg">
       <li className="flex justify-between">

@@ -19,7 +19,6 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ option }) => {
       </Button>
     );
   }
-  console.log(theme);
 
   return (
     <div>

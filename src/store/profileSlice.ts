@@ -1,6 +1,11 @@
 /* eslint-disable */
 import { createSlice } from '@reduxjs/toolkit';
-import { getAccessToken, getRefreshToken, removeCookieToken, setCookieToken } from '@/utils/token';
+import {
+  getAccessToken,
+  getRefreshToken,
+  removeCookieToken,
+  setCookieToken,
+} from '@/utils/token';
 import { ProfileTypes } from '@/types/profile';
 import { LOCAL_STORE_WALLET } from '@/constants/wallet';
 export type ProfileState = {
@@ -14,7 +19,7 @@ const isLoggedIn = Boolean(accessToken);
 
 export const profileSlice = createSlice({
   name: 'profile',
-  
+
   initialState: {
     accessToken: accessToken,
     refreshToken: getRefreshToken(),
@@ -37,10 +42,10 @@ export const profileSlice = createSlice({
       state.isLoggedIn = false;
     },
     updateCookieToken(state, { payload }) {
-      const { accessToken, refreshToken } = payload;
+      const { accessToken, refreshToken, isLoggedIn } = payload;
       state.accessToken = accessToken;
       state.refreshToken = refreshToken;
-      state.isLoggedIn = true;
+      state.isLoggedIn = isLoggedIn;
     },
     userData: (state, { payload }) => {
       const { profile } = payload;

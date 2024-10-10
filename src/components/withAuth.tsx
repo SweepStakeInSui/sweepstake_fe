@@ -1,3 +1,5 @@
+/* eslint consistent-return: off */
+
 'use client';
 
 import { useRouter } from 'next-nprogress-bar';
@@ -15,7 +17,7 @@ const withAuth = <P extends object>(Component: FC<P>) => {
     // If the user is not logged in, navigate to the home page
     if (!isLoggedIn) {
       router.push('/');
-      return null;
+      return;
     }
 
     // If logged in, render the root component with props

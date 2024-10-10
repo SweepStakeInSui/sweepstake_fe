@@ -28,7 +28,7 @@ export const menuListLogin = (onDisconnect: () => void) => [
   },
   {
     slug: 'watchlist',
-    title: 'Watch List',
+    title: 'Watchlist',
     icon: '/icons/star_outline.svg',
   },
   {

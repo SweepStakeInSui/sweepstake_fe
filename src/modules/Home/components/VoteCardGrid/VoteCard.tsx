@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
+import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
@@ -131,12 +132,7 @@ const VoteCard = ({ data }: VoteCardProps) => {
                 32,900k bet
               </Typography.Text>
               <div className="w-px bg-borderSubtle h-2.5" />
-              <Button variant="ghost" className="gap-0.5 p-0">
-                <Svg src="/icons/add_circle_outline.svg" />
-                <Typography.Text size={12} className="text-text-sublest">
-                  Add to watch list
-                </Typography.Text>
-              </Button>
+              <AddWatchListButton bet={data} showText />
             </Flex>
           </div>
         </Flex>

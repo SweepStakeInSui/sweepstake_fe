@@ -18,12 +18,13 @@ import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import NextAdapterApp from 'next-query-params/app';
 import { Suspense } from 'react';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { QueryParamProvider } from 'use-query-params';
 
 import { ConnectWalletProvider } from '@/components/connectWallet/useWallet';
 import configs from '@/configs';
 import { ThemeProvider } from '@/contexts/themeContext';
-import store from '@/store';
+import store, { persistor } from '@/store';
 
 // Config options for the networks you want to connect to
 const { networkConfig } = createNetworkConfig({
@@ -70,21 +71,23 @@ export default function Providers({ children }: Readonly<ProvidersProps>) {
         <QueryParamProvider adapter={NextAdapterApp}>
           <QueryClientProvider client={queryClient}>
             <Provider store={store}>
-              <SuiClientProvider
-                networks={networkConfig}
-                defaultNetwork={configs.network}
-              >
-                <WalletProvider autoConnect storageKey="mysten-dapp-wallet">
-                  <ConnectWalletProvider>{children}</ConnectWalletProvider>
-                </WalletProvider>
-              </SuiClientProvider>
-              <ProgressBar
-                height="2px"
-                color="#EB201E"
-                options={{ showSpinner: false }}
-                shallowRouting
-              />
-              <ReactQueryDevtools />
+              <PersistGate loading={null} persistor={persistor}>
+                <SuiClientProvider
+                  networks={networkConfig}
+                  defaultNetwork={configs.network}
+                >
+                  <WalletProvider autoConnect storageKey="mysten-dapp-wallet">
+                    <ConnectWalletProvider>{children}</ConnectWalletProvider>
+                  </WalletProvider>
+                </SuiClientProvider>
+                <ProgressBar
+                  height="2px"
+                  color="#EB201E"
+                  options={{ showSpinner: false }}
+                  shallowRouting
+                />
+                <ReactQueryDevtools />
+              </PersistGate>
             </Provider>
           </QueryClientProvider>
         </QueryParamProvider>

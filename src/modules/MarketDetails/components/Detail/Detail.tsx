@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import Flex from '@/components/common/Flex';
 import IconButton from '@/components/common/IconButton';
 import Stack from '@/components/common/Stack';
@@ -11,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
 import { mockAvatar } from '@/mocks/mockAvatar';
+import type { TBetItem } from '@/services/markets/types';
 import { setBet } from '@/store/betSlice';
 
 import { MarketTiles } from '../MarketTiles';
@@ -160,10 +162,10 @@ const statistic = [
 ];
 
 interface IMarketsDetailProps {
-  title: string;
+  bet: TBetItem;
 }
 
-export default function MarketsDetail({ title }: IMarketsDetailProps) {
+export default function MarketsDetail({ bet }: IMarketsDetailProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -176,6 +178,7 @@ export default function MarketsDetail({ title }: IMarketsDetailProps) {
       }),
     );
   }, [statistic]);
+  console.log(bet);
 
   return (
     <div>
@@ -206,25 +209,13 @@ export default function MarketsDetail({ title }: IMarketsDetailProps) {
             <div className="relative size-[3.75rem] aspect-1 rounded-md overflow-hidden">
               <Image src={mockAvatar} fill alt="" objectFit="cover" />
             </div>
-            <Typography.Heading
-              size={28}
-              className="line-clamp-2 shrink-[999] hidden-mobile"
-            >
-              {title}
+            <Typography.Heading size={28} className="line-clamp-2 shrink-[999]">
+              {bet.name}
             </Typography.Heading>
           </Flex>
 
           <Flex className="gap-0">
-            <Tooltip content="Add to library">
-              <div>
-                <IconButton isRounded>
-                  <Svg
-                    src="/icons/add_circle_outline.svg"
-                    className="text-icon size-6"
-                  />
-                </IconButton>
-              </div>
-            </Tooltip>
+            <AddWatchListButton bet={bet} showText={false} size={24} />
             <Tooltip content="Share bet link">
               <div>
                 <IconButton isRounded>
@@ -234,12 +225,6 @@ export default function MarketsDetail({ title }: IMarketsDetailProps) {
             </Tooltip>
           </Flex>
         </Flex>
-        <Typography.Heading
-          size={28}
-          className="hidden-PC line-clamp-2 shrink-[999]"
-        >
-          Despicable Me 4&quot; Rotten Tomatoes score about ten?
-        </Typography.Heading>
         <Flex className="items-center">
           <Typography.Heading className="text-text" size={20}>
             24.2
