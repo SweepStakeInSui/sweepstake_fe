@@ -123,7 +123,11 @@ const marketSubTab = [
   },
 ];
 
-const MarketTab = () => {
+interface MarketTabProps {
+  showSubTabs?: boolean;
+}
+
+const MarketTab = ({ showSubTabs }: MarketTabProps) => {
   return (
     <Container size="sm">
       <ScrollArea>
@@ -140,23 +144,27 @@ const MarketTab = () => {
         </ul>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-      <div className="mt-3 mb-5 mx-auto">
-        <SwiperCustom slidesPerView="auto" spaceBetween={12} size={28}>
-          {marketSubTab.map((item) => (
-            <SwiperSlide
-              key={item.id}
-              className="swiper-tab cursor-pointer rounded-lg"
-            >
-              <TabBtn
-                variant={item.active ? 'selected' : 'default'}
-                className="flex gap-x-1 items-center"
+      {showSubTabs && (
+        <div className="mt-3 mb-5 mx-auto">
+          <SwiperCustom slidesPerView="auto" spaceBetween={12} size={28}>
+            {marketSubTab.map((item) => (
+              <SwiperSlide
+                key={item.id}
+                className="swiper-tab cursor-pointer rounded-lg"
               >
-                <p className="w-fit text-nowrap font-semibold ">{item.type}</p>
-              </TabBtn>
-            </SwiperSlide>
-          ))}
-        </SwiperCustom>
-      </div>
+                <TabBtn
+                  variant={item.active ? 'selected' : 'default'}
+                  className="flex gap-x-1 items-center"
+                >
+                  <p className="w-fit text-nowrap font-semibold ">
+                    {item.type}
+                  </p>
+                </TabBtn>
+              </SwiperSlide>
+            ))}
+          </SwiperCustom>
+        </div>
+      )}
     </Container>
   );
 };

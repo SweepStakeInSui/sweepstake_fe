@@ -96,7 +96,7 @@ const MarketsActionForm = () => {
               <BuyAction isLimit={selectedValue === 'limit'} />
             </TabsContent>
             <TabsContent value="sell" className="mt-0">
-              <SellAction />
+              <SellAction isLimit={selectedValue === 'limit'} />
             </TabsContent>
           </Tabs>
         </div>

@@ -1,0 +1,11 @@
+services:
+  lp:
+    build:
+      context: .
+    restart: unless-stopped
+    container_name: sweepstake-fe
+    env_file:
+      - .env.production
+    tty: true
+    ports:
+      - ${HOST}:${PORT}:${PORT}
