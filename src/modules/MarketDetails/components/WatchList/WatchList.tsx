@@ -19,7 +19,6 @@ const MarketsWatchList = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { items } = useSelector(selectWatchList);
   const dispatch = useDispatch();
-  console.log(items);
 
   return (
     <aside

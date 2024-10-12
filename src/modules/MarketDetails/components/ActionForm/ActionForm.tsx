@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
@@ -16,6 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { BetOutcomeType } from '@/enums/bet-status';
 import { mockAvatar } from '@/mocks/mockAvatar';
 
 import { useSectionIndicatorSignal } from '../../useSectionIndicatorSignal';
@@ -47,6 +49,7 @@ const sections = [
 
 const MarketsActionForm = () => {
   const [selectedValue, setSelectedValue] = useState('market');
+  const { type } = useSelector((state: any) => state.bet);
 
   const { activeSection } = useSectionIndicatorSignal();
 
@@ -64,7 +67,15 @@ const MarketsActionForm = () => {
             <AvatarFallback />
           </Avatar>
           <Typography.Text>
-            <span className="text-text-support-match">Bet Yes</span>
+            <span
+              className={
+                type === BetOutcomeType.YES
+                  ? `text-text-support-match`
+                  : 'text-text-support-blue'
+              }
+            >
+              Bet {type === BetOutcomeType.YES ? 'Yes' : 'No'}
+            </span>
             <span>・Before Aug 9</span>
           </Typography.Text>
         </Flex>

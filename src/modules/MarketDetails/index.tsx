@@ -2,16 +2,18 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import { SectionIndicator } from '@/components/common/SectionIndicatorWrapper';
 import Stack from '@/components/common/Stack';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
+import { BetOutcomeType } from '@/enums/bet-status';
 import { MarketsActionForm } from '@/modules/MarketDetails/components/ActionForm';
 import { MarketsWatchList } from '@/modules/MarketDetails/components/WatchList';
 import { marketService } from '@/services/markets';
+import { setBet } from '@/store/betSlice';
 import { selectProfile } from '@/store/profileSlice';
 
 import { MarketsAbout } from './components/About';
@@ -31,12 +33,41 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
   const relateMarketRef = useRef<HTMLDivElement>(null);
   const ideaRef = useRef<HTMLDivElement>(null);
 
+  const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(selectProfile);
 
   const { data: marketDetailData } = useQuery({
     queryKey: ['marketDetail', id],
     queryFn: async () => marketService.getMarketDetailsService(id),
   });
+
+  // Init bet state when marketDetailData is loaded
+  useEffect(() => {
+    if (!marketDetailData) return;
+    const yesOutcome = marketDetailData.outcomes.find(
+      (outcome) => outcome.type === BetOutcomeType.YES,
+    );
+    const noOutcome = marketDetailData.outcomes.find(
+      (outcome) => outcome.type === BetOutcomeType.NO,
+    );
+
+    dispatch(
+      setBet({
+        id: marketDetailData.id,
+        outcomeYesId: marketDetailData.outcomes.find(
+          (outcome) => outcome.type === BetOutcomeType.YES,
+        )?.id,
+        outcomeNoId: marketDetailData.outcomes.find(
+          (outcome) => outcome.type === BetOutcomeType.NO,
+        )?.id,
+        type: BetOutcomeType.YES,
+        bidPriceYes: yesOutcome?.bidPrice || 0,
+        bidPriceNo: noOutcome?.bidPrice || 0,
+        askPriceYes: yesOutcome?.askPrice || 0,
+        askPriceNo: noOutcome?.askPrice || 0,
+      }),
+    );
+  }, [marketDetailData]);
 
   return (
     <Drawer>

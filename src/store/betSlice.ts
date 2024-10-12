@@ -1,25 +1,46 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { BetOutcomeType } from '@/enums/bet-status';
+
+// export type BetState = {
+//   id: string;
+//   outcomeYesId: string;
+//   outcomeNoId: string;
+//   type: BetOutcomeType;
+//   bidPriceYes: number;
+//   bidPriceNo: number;
+//   askPriceYes: number;
+//   askPriceNo: number;
+// };
+
 export const betSlice = createSlice({
   name: 'bet',
 
   initialState: {
     id: '',
-    type: 1,
-    yes: 0,
-    no: 0,
+    outcomeYesId: '',
+    outcomeNoId: '',
+    type: BetOutcomeType.YES,
+    bidPriceYes: 0,
+    bidPriceNo: 0,
+    askPriceYes: 0,
+    askPriceNo: 0,
   },
   reducers: {
     setBet: (state, { payload }) => {
       state.id = payload.id;
+      state.outcomeYesId = payload.outcomeYesId;
+      state.outcomeNoId = payload.outcomeNoId;
       state.type = payload.type;
-      state.yes = payload.yes;
-      state.no = payload.no;
+      state.bidPriceYes = payload.bidPriceYes;
+      state.bidPriceNo = payload.bidPriceNo;
+      state.askPriceYes = payload.askPriceYes;
+      state.askPriceNo = payload.askPriceNo;
     },
   },
 });
 
 export const { setBet } = betSlice.actions;
-export const selectBet = (state: any): any => state.bet;
+export const selectBet = (state: any) => state.bet;
 
 export default betSlice.reducer;
