@@ -8,7 +8,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
-import withAuth from '@/components/withAuth';
 import { marketService } from '@/services/markets';
 
 import Flex from '../../components/common/Flex';
@@ -26,9 +25,6 @@ const CreateBetModule = () => {
   // STATES
   const [confirmCreateBetModalOpen, setConfirmCreateBetModalOpen] =
     React.useState(false);
-  const [status, setStatus] = React.useState<'idle' | 'success' | 'fail'>(
-    'idle',
-  );
   const [step, setStep] = React.useState(false);
   const [txsString, setTxsString] = React.useState('');
 
@@ -74,11 +70,7 @@ const CreateBetModule = () => {
     mutationFn: (data: IFormattedCreateBetData) =>
       marketService.createMarketService(data),
     onSuccess: () => {
-      setStatus('success');
       setTxsString('fakeTXSString');
-    },
-    onError: () => {
-      setStatus('fail');
     },
   });
 
@@ -189,11 +181,13 @@ const CreateBetModule = () => {
           </div>
         </div>
       </FormProvider>
+
       <StatusModal
         open={confirmCreateBetModalOpen}
         onOpenChange={setConfirmCreateBetModalOpen}
         isLoading={isCreateBetLoading}
-        status={status}
+        isSuccess={isCreateBetSuccess}
+        isError={isCreateBetError}
         title={(() => {
           if (isCreateBetLoading) return 'Your Bet Being Created';
           if (isCreateBetSuccess && createBetData.statusCode === 200)
@@ -213,4 +207,4 @@ const CreateBetModule = () => {
     </>
   );
 };
-export default withAuth(CreateBetModule);
+export default CreateBetModule;

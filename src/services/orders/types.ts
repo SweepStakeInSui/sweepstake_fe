@@ -1,7 +1,7 @@
 export interface IPostOrderRequest {
   outcomeId: string;
-  amount: number;
-  price: number;
+  amount: string;
+  price: string;
   type: string;
   signature: string;
 }
