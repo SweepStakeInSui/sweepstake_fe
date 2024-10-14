@@ -17,9 +17,13 @@ import {
 } from '@/components/ui/popover';
 import { bets } from '@/mocks/mockBet';
 
-import Flex from '../common/Flex';
-import Typography from '../common/Typography';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import Flex from '../../../../components/common/Flex';
+import Typography from '../../../../components/common/Typography';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '../../../../components/ui/avatar';
 
 interface BetItemProps {
   bet: {
@@ -70,6 +74,7 @@ const SelectBet = () => {
       <PopoverTrigger asChild>
         <button
           role="combobox"
+          aria-controls="bet-options"
           aria-expanded={open}
           aria-label="Select bet"
           className="w-full justify-between flex border rounded-md border-borderSubtle p-2 items-center"

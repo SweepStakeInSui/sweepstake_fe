@@ -73,8 +73,6 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
     dispatch(setBet({ type: 1, id, yes, no }));
   };
 
-  console.log(profile);
-
   return (
     <div>
       <Stack className="gap-0">

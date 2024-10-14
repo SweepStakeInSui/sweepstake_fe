@@ -138,10 +138,11 @@ const VoteCard = ({ data }: VoteCardProps) => {
         </Flex>
         <div className="my-4 relative">
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
+            <PopoverTrigger asChild onClick={(e) => e.stopPropagation()}>
               <button
                 role="combobox"
                 aria-expanded={open}
+                aria-controls="bet-options"
                 aria-label="Select bet"
                 className="w-full justify-between flex border rounded-md border-borderSubtle p-2 items-center"
               >
@@ -156,7 +157,10 @@ const VoteCard = ({ data }: VoteCardProps) => {
                 />
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-[--radix-popover-trigger-width] max-h-[--radix-popover-content-available-height] p-1">
+            <PopoverContent
+              className="w-[--radix-popover-trigger-width] max-h-[--radix-popover-content-available-height] p-1"
+              onClick={(e) => e.stopPropagation()}
+            >
               <Command>
                 <CommandList>
                   <CommandGroup>

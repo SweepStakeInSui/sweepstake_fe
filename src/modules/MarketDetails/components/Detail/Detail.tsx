@@ -177,8 +177,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
         no: statistic[0]?.no,
       }),
     );
-  }, [statistic]);
-  console.log(bet);
+  }, [dispatch]);
 
   return (
     <div>

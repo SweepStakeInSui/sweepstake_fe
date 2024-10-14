@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import CopiableAddress from '@/components/common/CopiableAddress/CopiableAddress';
 import Flex from '@/components/common/Flex';
@@ -6,8 +7,10 @@ import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Separator } from '@/components/ui/separator';
+import { selectProfile } from '@/store/profileSlice';
 
 const Guide = () => {
+  const { profile } = useSelector(selectProfile);
   const steps = [
     {
       title: 'Step 1:',
@@ -21,7 +24,7 @@ const Guide = () => {
   return (
     <Stack className="p-5 gap-y-6">
       <Stack>
-        <Flex>
+        <Flex className="flex-wrap">
           <Typography.Heading size={28} weight="semibold">
             Deposit USDT (Sui)
           </Typography.Heading>
@@ -53,7 +56,7 @@ const Guide = () => {
         ))}
       </Flex>
       <CopiableAddress
-        address="0x825AE76B945F4713c4d6A9a27eA78a3C0dA147e6"
+        address={profile?.address}
         className="h-12 items-center px-3 bg-bg-sublest border border-borderSubtle rounded-lg"
       />
       <Separator className="bg-borderSubtle" />

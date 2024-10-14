@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import type { ControllerRenderProps } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { Button } from '../../ui/button';
 import Flex from '../Flex';
@@ -40,7 +41,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
     if (file && file.size <= 10 * 1024 * 1024) {
       onChange(file);
     } else {
-      console.error('File size exceeds 10MB limit');
+      toast.error('File size exceeds 10MB limit');
     }
 
     event.target.value = '';

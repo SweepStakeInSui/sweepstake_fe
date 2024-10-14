@@ -1,5 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
@@ -18,31 +20,27 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { mockNotifications } from '@/mocks/mockNotifications';
+import { notificationService } from '@/services/notificationService';
+import { selectProfile } from '@/store/profileSlice';
+import type { NotificationItem } from '@/types/notification';
+import { formatDate } from '@/utils/formatDate';
 
 interface INotifItemProps {
   user?: {
     name?: string;
     avatar: string;
   };
-  type: 'comment' | 'like' | 'betNo' | 'betYes';
-  timestamp: string;
+  type: 'comment' | 'like' | 'betNo' | 'betYes' | 'withdraw' | 'deposit';
+  date: string;
   isRead?: boolean;
   content?: string;
 }
 
-const NotifItem = ({
-  user,
-  type,
-  timestamp,
-  isRead,
-  content,
-}: INotifItemProps) => {
+const NotifItem = ({ user, type, date, isRead, content }: INotifItemProps) => {
   return (
     <Link href="/" className="w-full">
       <Flex className="relative gap-x-2.5 items-center">
@@ -73,6 +71,7 @@ const NotifItem = ({
                     </div>
                   );
                 case 'betNo':
+                case 'withdraw':
                   return (
                     <div className="p-1 bg-b-50 rounded-full">
                       <Svg
@@ -82,6 +81,7 @@ const NotifItem = ({
                     </div>
                   );
                 case 'betYes':
+                case 'deposit':
                   return (
                     <div className="p-1 bg-ma-50 rounded-full">
                       <Svg
@@ -132,6 +132,17 @@ const NotifItem = ({
                     order has been filled
                   </Typography.Text>
                 );
+              case 'withdraw':
+              case 'deposit':
+                return (
+                  <Typography.Text
+                    size={15}
+                    weight="medium"
+                    className="text-text"
+                  >
+                    {content}
+                  </Typography.Text>
+                );
               case 'betYes':
                 return (
                   <Typography.Text
@@ -153,14 +164,44 @@ const NotifItem = ({
             weight="medium"
             className="text-text-sublest"
           >
-            {new Date(timestamp).toLocaleDateString()}
+            {date}
           </Typography.Text>
         </Stack>
       </Flex>
     </Link>
   );
 };
-
+const NotiData = () => {
+  const { isLoggedIn } = useSelector(selectProfile);
+  const { data: dataNotification } = useQuery({
+    queryKey: ['getNotification'],
+    queryFn: async () => {
+      const res = await notificationService.getNotification({
+        page: 1,
+        limit: 20,
+      });
+      return res;
+    },
+    enabled: isLoggedIn,
+  });
+  return (
+    <div>
+      {dataNotification?.items.map((item: NotificationItem) => (
+        <Flex
+          key={item.id}
+          className="py-3 flex justify-between hover:bg-bg-hovered rounded-sm"
+        >
+          <NotifItem
+            type={item.type}
+            date={formatDate.formatDateFromTimestamp(item.timestamp)}
+            content={item.message}
+            isRead
+          />
+        </Flex>
+      ))}
+    </div>
+  );
+};
 export const NotificationDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -189,20 +230,7 @@ export const NotificationDropdown = () => {
         </DropdownMenuLabel>
         <DropdownMenuGroup>
           <ScrollArea>
-            {mockNotifications.map((item) => (
-              <DropdownMenuItem
-                key={item.id}
-                className="py-3 flex justify-between"
-              >
-                <NotifItem
-                  user={item.user}
-                  type={item.type as 'comment' | 'like' | 'betYes' | 'betNo'}
-                  timestamp={item.timestamp}
-                  content={item.content}
-                  isRead={item.isRead}
-                />
-              </DropdownMenuItem>
-            ))}
+            <NotiData />
           </ScrollArea>
         </DropdownMenuGroup>
       </DropdownMenuContent>
@@ -241,17 +269,7 @@ export const NotificationDrawer = () => {
           </DrawerClose>
         </DrawerHeader>
         <ScrollArea>
-          {mockNotifications.map((item) => (
-            <Flex key={item.id} className="py-3 flex justify-between">
-              <NotifItem
-                user={item.user}
-                type={item.type as 'comment' | 'like' | 'betYes' | 'betNo'}
-                timestamp={item.timestamp}
-                content={item.content}
-                isRead={item.isRead}
-              />
-            </Flex>
-          ))}
+          <NotiData />
         </ScrollArea>
       </DrawerContent>
     </Drawer>
