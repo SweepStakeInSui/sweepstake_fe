@@ -14,13 +14,17 @@ import { Activity } from '../Activity';
 import { MarketsComments } from '../Comments';
 import { TopHolders } from '../TopHolders';
 
-const LevelSection = () => {
+interface ILevelSectionProps {
+  id: string;
+}
+
+const LevelSection = ({ id }: ILevelSectionProps) => {
   const [select, setSelect] = useState<string>('ideas');
   const tabs = [
     {
       label: 'Ideas',
       value: 'ideas',
-      panel: <MarketsComments />,
+      panel: <MarketsComments id={id} />,
     },
     {
       label: 'Top Holders',

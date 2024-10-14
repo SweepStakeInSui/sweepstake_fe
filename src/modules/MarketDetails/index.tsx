@@ -99,7 +99,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
             </SectionIndicator>
 
             <SectionIndicator section="idea" ref={ideaRef}>
-              <LevelSection />
+              <LevelSection id={id} />
             </SectionIndicator>
           </Stack>
 

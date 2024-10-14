@@ -5,6 +5,8 @@ import type {
   TBetDetails,
   TBetItem,
   TCreateBetResponse,
+  TCreateCommentData,
+  TgetCommentListService,
 } from '@/services/markets/types';
 
 const getMarketService = async (
@@ -32,9 +34,28 @@ const getMarketDetailsService = async (id: string): Promise<TBetItem> => {
   const response = await publicAxiosClient.get(`/market/${id}`);
   return response.data.data;
 };
+
+const createCommentService = async (
+  body: TCreateCommentData,
+): Promise<void> => {
+  const response = await privateAxiosClient.post(`/market/comments`, body);
+  return response.data.data;
+};
+
+const getCommentListService = async (
+  params: TgetCommentListService,
+): Promise<void> => {
+  const response = await publicAxiosClient.get(`/market/comments`, {
+    params,
+  });
+  return response.data.data;
+};
+
 export const marketService = {
   getMarketService,
   createMarketService,
   getSearchMarketService,
   getMarketDetailsService,
+  createCommentService,
+  getCommentListService,
 };
