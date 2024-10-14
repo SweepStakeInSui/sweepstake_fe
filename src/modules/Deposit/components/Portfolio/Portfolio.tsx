@@ -70,7 +70,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const [txsString, setTxsString] = React.useState('');
   const { profile } = useSelector(selectProfile);
   const withdrawSchema = createWithdrawSchema(
-    +handleBignumber.divideDecimal(profile.balance),
+    +handleBignumber.divideDecimal(profile?.balance),
   );
   const form = useForm<z.infer<typeof withdrawSchema>>({
     resolver: zodResolver(withdrawSchema),
@@ -105,7 +105,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const { isValid } = form.formState;
 
   return (
-    <div className="px-5 pb-4 pt-5 bg-bg-sublest rounded-lg w-[283px] border border-borderSubtle">
+    <div className="px-5 pb-4 pt-5 bg-bg-sublest rounded-lg w-full lg:w-[283px] border border-borderSubtle">
       <Flex className="justify-between">
         <Flex className="gap-x-1">
           <Typography.Text className="text-text-subtle" size={13}>

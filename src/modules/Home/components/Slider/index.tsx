@@ -11,9 +11,9 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { SelectBet } from '@/components/SelectBet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { SelectBet } from '@/modules/Home/components/SelectBet';
 
 interface IHomeSlide {
   title: string;
@@ -105,7 +105,7 @@ function SwiperButtonPrev({
   useEffect(() => {
     const prevIndex = activeIndex === 0 ? slides.length - 1 : activeIndex - 1;
     setPrevTitle(slides[prevIndex].title);
-  }, [activeIndex]);
+  }, [activeIndex, slides]);
 
   return (
     <button onClick={() => swiper.slidePrev()}>
@@ -133,7 +133,7 @@ function SwiperButtonNext({
   useEffect(() => {
     const nextIndex = activeIndex === slides.length - 1 ? 0 : activeIndex + 1;
     setNextTile(slides[nextIndex].title);
-  }, [activeIndex]);
+  }, [activeIndex, slides]);
 
   return (
     <button onClick={() => swiper.slideNext()}>

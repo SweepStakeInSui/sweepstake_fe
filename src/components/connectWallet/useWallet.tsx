@@ -22,7 +22,7 @@ import { login, logout } from '@/store/profileSlice';
 import SuiRPC from '@/utils/SuiRPC';
 
 const clientId =
-  'BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ';
+  'BB_0JmJ47swnx-mQw-YL8HWv4_fVhKR3bt7GDIxy_qTKjl8eVkzAqCdLdMfw57EbhglY0zCnS75vy4ssnYZHIEA';
 interface WalletContextProps {
   walletType: ConnectionType | null;
   web3auth: Web3Auth | null;
@@ -42,6 +42,7 @@ export const ConnectWalletProvider: React.FC<{ children: React.ReactNode }> = ({
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [provider, setProvider] = useState<IProvider | null>(null);
   const { mutate: disconnect } = useDisconnectWallet();
+
   useEffect(() => {
     const init = async () => {
       try {
@@ -142,13 +143,10 @@ export const ConnectWalletProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (walletType) localStorage.setItem(LOCAL_STORE_WALLET, walletType);
   }, [walletType]);
-  const setWallet = useCallback(
-    (wallet: ConnectionType) => {
-      setWalletType(wallet);
-    },
-    [walletType],
-  );
-  const onDisconnect = async () => {
+  const setWallet = useCallback((wallet: ConnectionType) => {
+    setWalletType(wallet);
+  }, []);
+  const onDisconnect = useCallback(async () => {
     if (walletType === ConnectionType.Web3Auth) {
       if (!web3auth) {
         return;
@@ -159,7 +157,7 @@ export const ConnectWalletProvider: React.FC<{ children: React.ReactNode }> = ({
     }
     dispatch(logout());
     setWalletType(null);
-  };
+  }, [walletType, web3auth, disconnect, dispatch]);
   const contextValue = useMemo(
     () => ({
       walletType,

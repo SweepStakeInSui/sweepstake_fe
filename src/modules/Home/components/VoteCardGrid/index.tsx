@@ -23,13 +23,13 @@ const VoteCardGrid = ({ data }: VoteCardGridProps) => {
         <div className="relative">
           <Button variant="see_more_red" className="w-fit p-0">
             <Flex className="gap-x-1">
-              <Link href="/" className="font-semibold">
+              <Link href="/markets" className="font-semibold">
                 <Typography.Text
                   className="flex items-center gap-x-1 text-text-subtle"
                   size={14}
                   weight="semibold"
                 >
-                  See all 130k bets
+                  See all {data?.length || 0} bets
                 </Typography.Text>
               </Link>
               <Svg src="/icons/arrow_forward_ios.svg" className="mt-1" />

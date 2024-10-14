@@ -31,8 +31,6 @@ privateAxiosClient.interceptors.request.use(
 privateAxiosClient.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error);
-
     const originalConfig = error?.config;
     if (
       error?.response?.status === 401 &&
@@ -44,8 +42,6 @@ privateAxiosClient.interceptors.response.use(
         await TokenServices.updateRefreshToken();
         return await privateAxiosClient(originalConfig);
       } catch (_error) {
-        console.log(_error);
-
         store.dispatch(
           updateCookieToken({
             accessToken: '',

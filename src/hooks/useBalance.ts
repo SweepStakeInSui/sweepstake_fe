@@ -21,7 +21,7 @@ const getBalance = async ({ address }: AddressProps) => {
     });
     return formatBalance(balance);
   }
-  return null;
+  return 0;
 };
 const useBalance = () => {
   const { profile, isLoggedIn } = useSelector(selectProfile);
@@ -32,7 +32,7 @@ const useBalance = () => {
         const balance = await getBalance({ address: profile.address });
         return balance;
       }
-      return null;
+      return 0;
     },
     enabled: isLoggedIn,
   });
