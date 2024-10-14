@@ -1,9 +1,14 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import type { z } from 'zod';
 
 import { DatePicker } from '@/components/common/DatePicker';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
+import { StatusModal } from '@/components/common/StatusModal';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { UpDownButton } from '@/components/common/UpDownButton';
@@ -20,6 +25,14 @@ import {
 } from '@/components/ui/select';
 import { TimePicker } from '@/components/ui/time-picker';
 import { Tooltip } from '@/components/ui/tooltip';
+import {
+  BetOutcomeType,
+  EBetStatusOption,
+  EOrderType,
+} from '@/enums/bet-status';
+import { postOrder } from '@/modules/MarketDetails/components/ActionForm/shema';
+import { orderService } from '@/services/orders';
+import type { IPostOrderRequest } from '@/services/orders/types';
 import { setBet } from '@/store/betSlice';
 import { selectProfile } from '@/store/profileSlice';
 
@@ -58,19 +71,94 @@ const TooltipPrice = () => {
 
 const BuyAction = ({ isLimit }: IBuyActionProps) => {
   const { profile } = useSelector(selectProfile);
-
-  const [isSetExpiration, setIsSetExpiration] = useState(false);
   const dispatch = useDispatch();
-  const { id, yes, no, type } = useSelector((state: any) => state.bet);
 
-  const onNoClick = (event: any) => {
-    event?.stopPropagation();
-    dispatch(setBet({ type: 0, id, yes, no }));
+  // STATES
+  const [placeOrderModalOpen, setPlaceOrderModalOpen] = useState(false);
+  const [txsString, setTxsString] = React.useState('');
+  const [isSetExpiration, setIsSetExpiration] = useState(false);
+  const { id, outcomeYesId, outcomeNoId, type, bidPriceNo, bidPriceYes } =
+    useSelector((state: any) => state.bet);
+
+  const {
+    mutate: placeOrderMutation,
+    isPending: isPlaceOrderLoading,
+    isSuccess: isPlaceOrderSuccess,
+    isError: isPlaceOrderError,
+    data: placeOrderData,
+  } = useMutation({
+    mutationFn: (data: IPostOrderRequest) => orderService.postOrder(data),
+    onSuccess: () => {
+      setTxsString('fakeTXSString');
+    },
+  });
+
+  // FORM HANDLERS
+  const { watch, formState, setValue, register, handleSubmit } = useForm<
+    z.infer<typeof postOrder>
+  >({
+    resolver: zodResolver(postOrder),
+    defaultValues: {
+      outcomeId: '',
+      amount: '0',
+      price: '0',
+      type: EOrderType.FOK,
+      side: EBetStatusOption.BID,
+      slippage: '0',
+      signature: 'signature',
+    },
+  });
+  const { errors } = formState;
+  const price = watch('price');
+  const amount = watch('amount');
+
+  const onSubmit = (data: z.infer<typeof postOrder>) => {
+    const orderData = {
+      outcomeId: type === BetOutcomeType.YES ? outcomeYesId : outcomeNoId,
+      amount: data.amount.toString(),
+      price: isLimit ? '0' : data.price.toString(),
+      type: isLimit ? EOrderType.GTC : EOrderType.FOK,
+      side: EBetStatusOption.BID,
+      slippage: '0',
+      signature: 'signature',
+    };
+
+    setPlaceOrderModalOpen(true);
+    placeOrderMutation(orderData);
   };
 
-  const onYesClick = (event: any) => {
+  // FUNCTIONS
+  const handlePriceIncrement = () => {
+    setValue('price', (Number(price) + 1).toString());
+  };
+
+  const handlePriceDecrement = () => {
+    setValue('price', Math.max(0, Number(price) - 1).toString());
+  };
+
+  const handleAmountIncrement = () => {
+    setValue('amount', (Number(amount) + 1).toString());
+  };
+
+  const handleAmountDecrement = () => {
+    setValue('amount', Math.max(0, Number(amount) - 1).toString());
+  };
+
+  const onBetClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    betType: 'YES' | 'NO',
+  ) => {
     event?.stopPropagation();
-    dispatch(setBet({ type: 1, id, yes, no }));
+    dispatch(
+      setBet({
+        id,
+        outcomeYesId,
+        outcomeNoId,
+        type: BetOutcomeType[betType],
+        bidPriceNo,
+        bidPriceYes,
+      }),
+    );
   };
 
   return (
@@ -91,24 +179,61 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
             <Button
               className="w-full"
               variant={`bet_yes${type ? '_active' : ''}`}
-              onClick={onYesClick}
+              onClick={(e) => onBetClick(e, 'YES')}
             >
-              Yes {yes}
+              Yes {bidPriceYes}
             </Button>
             <Button
               variant={`bet_no${!type ? '_active' : ''}`}
               className="w-full"
-              onClick={onNoClick}
+              onClick={(e) => onBetClick(e, 'NO')}
             >
-              No {no}
+              No {bidPriceNo}
             </Button>
           </Flex>
         </Stack>
 
         {isLimit ? (
           <Stack className="gap-y-7">
-            <UpDownButton label="Limit Price" placeholder="$0" />
-            <UpDownButton label="Share" placeholder="0" />
+            <Stack>
+              <UpDownButton
+                label="Limit Price"
+                placeholder="0"
+                name="price"
+                register={register}
+                onIncrement={handlePriceIncrement}
+                onDecrement={handlePriceDecrement}
+              />
+              {errors.price && (
+                <Typography.Text
+                  size={13}
+                  className="text-text-support-red"
+                  weight="medium"
+                >
+                  {errors.price.message}
+                </Typography.Text>
+              )}
+            </Stack>
+
+            <Stack>
+              <UpDownButton
+                label="Amount"
+                placeholder="0"
+                name="amount"
+                register={register}
+                onIncrement={handleAmountIncrement}
+                onDecrement={handleAmountDecrement}
+              />
+              {errors.amount && (
+                <Typography.Text
+                  size={13}
+                  className="text-text-support-red"
+                  weight="medium"
+                >
+                  {errors.amount.message}
+                </Typography.Text>
+              )}
+            </Stack>
 
             <Flex>
               <Checkbox
@@ -187,7 +312,12 @@ Projected payout 2 hours after closing."
             </Stack>
 
             {profile?.address ? (
-              <Button size="lg" className="w-full">
+              <Button
+                size="lg"
+                className="w-full gap-1"
+                onClick={handleSubmit(onSubmit)}
+              >
+                <Svg src="/icons/add_circle.svg" className="!text-white" />
                 Add Fund
               </Button>
             ) : (
@@ -200,7 +330,25 @@ Projected payout 2 hours after closing."
           </Stack>
         ) : (
           <Stack className="gap-y-7">
-            <UpDownButton label="Price" placeholder="$0" />
+            <Stack>
+              <UpDownButton
+                label="Amount"
+                placeholder="0"
+                name="amount"
+                register={register}
+                onIncrement={handleAmountIncrement}
+                onDecrement={handleAmountDecrement}
+              />
+              {errors.amount && (
+                <Typography.Text
+                  size={13}
+                  className="text-text-support-red"
+                  weight="medium"
+                >
+                  {errors.amount.message}
+                </Typography.Text>
+              )}
+            </Stack>
 
             <Stack className="gap-3">
               <Flex className="justify-between">
@@ -239,7 +387,12 @@ Projected payout 2 hours after closing."
             </Stack>
 
             {profile?.address ? (
-              <Button size="lg" className="w-full">
+              <Button
+                size="lg"
+                className="w-full gap-1"
+                onClick={handleSubmit(onSubmit)}
+              >
+                <Svg src="/icons/add_circle.svg" className="!text-white" />
                 Add Fund
               </Button>
             ) : (
@@ -252,6 +405,28 @@ Projected payout 2 hours after closing."
           </Stack>
         )}
       </Stack>
+      <StatusModal
+        open={placeOrderModalOpen}
+        onOpenChange={setPlaceOrderModalOpen}
+        isLoading={isPlaceOrderLoading}
+        isSuccess={isPlaceOrderSuccess}
+        isError={isPlaceOrderError}
+        title={(() => {
+          if (isPlaceOrderLoading) return 'Your Bet Being Created';
+          if (isPlaceOrderSuccess && placeOrderData.statusCode === 200)
+            return 'Bet Created';
+          if (isPlaceOrderError) return 'Bet Creation Failed';
+          return '';
+        })()}
+        message={(() => {
+          if (isPlaceOrderLoading) return 'Your bet is being created.';
+          if (isPlaceOrderSuccess && placeOrderData.statusCode === 200)
+            return 'Your bet has been created.';
+          if (isPlaceOrderError) return 'Your bet has not been created.';
+          return '';
+        })()}
+        txs={txsString}
+      />
     </div>
   );
 };

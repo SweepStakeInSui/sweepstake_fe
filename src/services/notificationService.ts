@@ -1,4 +1,5 @@
 import privateAxiosClient from '@/app/configs/httpClient/privateAxiosClient';
+import type { NotificationData } from '@/types/notification';
 
 const getNotification = async (
   params: PaginationType,

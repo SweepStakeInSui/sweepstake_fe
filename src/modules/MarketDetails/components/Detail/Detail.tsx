@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import Flex from '@/components/common/Flex';
@@ -13,7 +11,6 @@ import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
 import { mockAvatar } from '@/mocks/mockAvatar';
 import type { TBetItem } from '@/services/markets/types';
-import { setBet } from '@/store/betSlice';
 
 import { MarketTiles } from '../MarketTiles';
 
@@ -166,19 +163,6 @@ interface IMarketsDetailProps {
 }
 
 export default function MarketsDetail({ bet }: IMarketsDetailProps) {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(
-      setBet({
-        id: statistic[0]?.id,
-        type: 1,
-        yes: statistic[0]?.yes,
-        no: statistic[0]?.no,
-      }),
-    );
-  }, [dispatch]);
-
   return (
     <div>
       <Stack className="gap-y-0">

@@ -7,7 +7,7 @@ import type {
 const postOrder = async (
   body: IPostOrderRequest,
 ): Promise<TPostOrderResponse> => {
-  const response = await privateAxiosClient.post(`/market`, body);
+  const response = await privateAxiosClient.post(`/order`, body);
   return response.data;
 };
 

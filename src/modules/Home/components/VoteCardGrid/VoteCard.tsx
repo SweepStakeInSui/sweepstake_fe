@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useState } from 'react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
@@ -101,18 +101,16 @@ interface VoteCardProps {
 }
 
 const VoteCard = ({ data }: VoteCardProps) => {
-  const router = useRouter();
-
   const { name } = data;
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState('');
 
   const bet = bets.find((item) => item.name === value) || bets[0];
   return (
-    <div
+    <Link
+      href={`/markets/${data.id}`}
       role="presentation"
       className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface cursor-pointer hover:shadow-card-bet-home transition-all duration-150"
-      onClick={() => router.push(`/markets/${data.id}`)}
     >
       <div className="relative">
         <Flex className="gap-x-4">
@@ -200,7 +198,7 @@ const VoteCard = ({ data }: VoteCardProps) => {
           </Button>
         </Flex>
       </div>
-    </div>
+    </Link>
   );
 };
 

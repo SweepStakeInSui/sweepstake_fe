@@ -55,7 +55,6 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const { profile } = useSelector(selectProfile);
   const [depositModalOpen, setDepositModalOpen] = useState(false);
   const [txsString, setTxsString] = useState('');
-  const [status, setStatus] = useState<'idle' | 'success' | 'fail'>('idle');
   const [confirmDepositModalOpen, setConfirmDepositModalOpen] = useState(false);
   const { mutateAsync: signTransaction } = useSignTransaction();
   const options = [
@@ -123,7 +122,6 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
       }
     },
     onSuccess: (data) => {
-      setStatus('success');
       setTxsString('fakeTXSString');
       setDepositModalOpen(false);
       queryClient.refetchQueries({
@@ -132,7 +130,6 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
       console.log('Deposit successful:', data);
     },
     onError: (error) => {
-      setStatus('fail');
       console.error('Deposit failed:', error);
     },
   });
@@ -288,7 +285,6 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
         open={confirmDepositModalOpen}
         onOpenChange={setConfirmDepositModalOpen}
         isLoading={isDepositLoading}
-        status={status}
         title={(() => {
           if (isDepositLoading) return 'Your transfer Is Being Processed';
           if (isDepositSuccess && depositData.statusCode === 200)

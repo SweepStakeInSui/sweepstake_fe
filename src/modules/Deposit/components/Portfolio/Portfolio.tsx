@@ -68,9 +68,6 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const [confirmWithdrawModalOpen, setConfirmWithdrawModalOpen] =
     useState(false);
   const [txsString, setTxsString] = React.useState('');
-  const [status, setStatus] = React.useState<'idle' | 'success' | 'fail'>(
-    'idle',
-  );
   const { profile } = useSelector(selectProfile);
   const withdrawSchema = createWithdrawSchema(
     +handleBignumber.divideDecimal(profile?.balance),
@@ -91,15 +88,11 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
   } = useMutation({
     mutationFn: (data: any) => UserService.withdraw(data),
     onSuccess: () => {
-      setStatus('success');
       setTxsString('fakeTXSString');
       setWithdrawModalOpen(false);
       queryClient.refetchQueries({
         queryKey: [['useBalance', profile?.address], ['user-infor']],
       });
-    },
-    onError: () => {
-      setStatus('fail');
     },
   });
   async function onWithdraw(values: z.infer<typeof withdrawSchema>) {
@@ -289,7 +282,6 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
         open={confirmWithdrawModalOpen}
         onOpenChange={setConfirmWithdrawModalOpen}
         isLoading={isWithdrawLoading}
-        status={status}
         title={(() => {
           if (isWithdrawLoading) return 'Your Withdrawal Is Being Processed';
           if (isWithdrawSuccess && withdrawData.statusCode === 200)

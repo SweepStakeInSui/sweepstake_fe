@@ -186,19 +186,23 @@ const NotiData = () => {
   });
   return (
     <div>
-      {dataNotification?.items.map((item: NotificationItem) => (
-        <Flex
-          key={item.id}
-          className="py-3 flex justify-between hover:bg-bg-hovered rounded-sm"
-        >
-          <NotifItem
-            type={item.type}
-            date={formatDate.formatDateFromTimestamp(item.timestamp)}
-            content={item.message}
-            isRead
-          />
-        </Flex>
-      ))}
+      {dataNotification?.items && dataNotification.items.length > 0 ? (
+        dataNotification.items.map((item: NotificationItem) => (
+          <Flex
+            key={item.id}
+            className="py-3 flex justify-between hover:bg-bg-hovered rounded-sm"
+          >
+            <NotifItem
+              type={item.type}
+              date={formatDate.formatDateFromTimestamp(item.timestamp)}
+              content={item.message}
+              isRead
+            />
+          </Flex>
+        ))
+      ) : (
+        <div className="text-center py-3">No notifications available.</div>
+      )}
     </div>
   );
 };

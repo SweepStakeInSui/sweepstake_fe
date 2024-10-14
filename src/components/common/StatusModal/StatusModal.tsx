@@ -21,7 +21,8 @@ interface IStatusModalProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   isLoading?: boolean;
-  status?: string;
+  isSuccess?: boolean;
+  isError?: boolean;
   title?: string;
   message?: string;
   txs?: string;
@@ -31,7 +32,8 @@ const StatusModal = ({
   open,
   onOpenChange,
   isLoading,
-  status,
+  isSuccess,
+  isError,
   title,
   message,
   txs,
@@ -44,8 +46,8 @@ const StatusModal = ({
             <Stack className="justify-center items-center">
               <div className="mb-4 size-15">
                 {isLoading && <LoadingSpinner />}
-                {status === 'success' && <Svg src="/icons/check_modal.svg" />}
-                {status === 'fail' && <Svg src="/icons/cross_modal.svg" />}
+                {isSuccess && <Svg src="/icons/check_modal.svg" />}
+                {isError && <Svg src="/icons/cross_modal.svg" />}
               </div>
               <Typography.Heading size={24} className="text-center">
                 {title}
@@ -59,7 +61,7 @@ const StatusModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        {txs && status === 'success' && (
+        {txs && isSuccess && (
           <DialogFooter>
             <Flex className="w-full flex justify-center">
               <Link
