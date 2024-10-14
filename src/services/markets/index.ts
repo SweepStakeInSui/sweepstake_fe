@@ -4,9 +4,9 @@ import type {
   IFormattedCreateBetData,
   TBetDetails,
   TBetItem,
+  TCommentData,
   TCreateBetResponse,
   TCreateCommentData,
-  TgetCommentListService,
 } from '@/services/markets/types';
 
 const getMarketService = async (
@@ -43,11 +43,9 @@ const createCommentService = async (
 };
 
 const getCommentListService = async (
-  params: TgetCommentListService,
-): Promise<void> => {
-  const response = await publicAxiosClient.get(`/market/comments`, {
-    params,
-  });
+  marketId: string,
+): Promise<TCommentData> => {
+  const response = await publicAxiosClient.get(`/market/comments/${marketId}`);
   return response.data.data;
 };
 

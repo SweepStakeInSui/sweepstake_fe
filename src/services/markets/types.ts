@@ -1,5 +1,3 @@
-import type { TComment } from '@/types/comment';
-
 export type TCreateBetData = {
   thumbnail?: File;
   name: string;
@@ -102,4 +100,24 @@ export type TCommentList = {
 
 export type TgetCommentListService = {
   marketId: string;
+};
+
+export type TCommentData = {
+  items: TComment[];
+  meta: Meta;
+};
+
+export type TComment = {
+  id: string;
+  author: string;
+  avatar?: string;
+  timestamp: string;
+  content: string;
+  replies?: TComment[];
+  favorite?: boolean;
+  saved?: boolean;
+  likeCount?: number;
+  likeByMe?: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
