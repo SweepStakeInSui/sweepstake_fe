@@ -1,7 +1,6 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { format } from 'date-fns';
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -59,6 +58,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
           (outcome) => outcome.type === BetOutcomeType.NO,
         )?.id,
         type: BetOutcomeType.YES,
+        isBid: true,
         bidPriceYes: yesOutcome?.bidPrice || 0,
         bidPriceNo: noOutcome?.bidPrice || 0,
         askPriceYes: yesOutcome?.askPrice || 0,
@@ -83,24 +83,10 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
             <SectionIndicator section="rule-summary" ref={ruleSummaryRef}>
               <MarketsRulesSummary
                 desc={marketDetailData?.conditions_str || ''}
-                openOn={
-                  marketDetailData?.startTime
-                    ? format(
-                        new Date(marketDetailData.startTime * 1000),
-                        'yyyy-MM-dd',
-                      )
-                    : ''
-                }
-                closeOn={
-                  marketDetailData?.endTime
-                    ? format(
-                        new Date(marketDetailData.endTime * 1000),
-                        'yyyy-MM-dd',
-                      )
-                    : ''
-                }
+                openOn={marketDetailData?.startTime}
+                closeOn={marketDetailData?.endTime}
                 payoutOn="2021-09-20"
-                categories={['']}
+                categories={[]}
               />
             </SectionIndicator>
 

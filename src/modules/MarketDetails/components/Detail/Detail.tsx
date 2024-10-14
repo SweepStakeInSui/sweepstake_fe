@@ -1,3 +1,4 @@
+import { Accordion } from '@radix-ui/react-accordion';
 import Image from 'next/image';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
@@ -10,153 +11,14 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
 import { mockAvatar } from '@/mocks/mockAvatar';
+import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
 import type { TBetItem } from '@/services/markets/types';
-
-import { MarketTiles } from '../MarketTiles';
 
 // interface IMarketsDetailProps {
 //   title: string;
 //   chance: number;
 //   percent: number;
 // }
-
-const statistic = [
-  {
-    id: '1',
-    title: 'Before Aug 9',
-    desc: 'SpaceXlauches in 2023',
-    percent: 86,
-    fluctuate: 13,
-    yes: 78,
-    no: 29,
-    bids: [
-      {
-        price: '0.511',
-        size: '11815.88',
-      },
-      {
-        price: '0.513',
-        size: '15701.06',
-      },
-      {
-        price: '0.514',
-        size: '19214.42',
-      },
-      {
-        price: '0.515',
-        size: '716.36',
-      },
-    ],
-    asks: [
-      {
-        price: '0.521',
-        size: '50.08',
-      },
-      {
-        price: '0.52',
-        size: '1137.18',
-      },
-      {
-        price: '0.519',
-        size: '5547.94',
-      },
-      {
-        price: '0.518',
-        size: '566.25',
-      },
-    ],
-  },
-  {
-    id: '2',
-    title: 'Before Aug 9',
-    desc: 'SpaceXlauches in 2023',
-    percent: 86,
-    fluctuate: 13,
-    yes: 10,
-    no: 90,
-    bids: [
-      {
-        price: '0.511',
-        size: '11815.88',
-      },
-      {
-        price: '0.513',
-        size: '15701.06',
-      },
-      {
-        price: '0.514',
-        size: '19214.42',
-      },
-      {
-        price: '0.515',
-        size: '716.36',
-      },
-    ],
-    asks: [
-      {
-        price: '0.521',
-        size: '50.08',
-      },
-      {
-        price: '0.52',
-        size: '1137.18',
-      },
-      {
-        price: '0.519',
-        size: '5547.94',
-      },
-      {
-        price: '0.518',
-        size: '566.25',
-      },
-    ],
-  },
-  {
-    id: '3',
-    title: 'Before Aug 9',
-    desc: 'SpaceXlauches in 2023',
-    percent: 86,
-    fluctuate: 13,
-    yes: 50,
-    no: 50,
-    bids: [
-      {
-        price: '0.511',
-        size: '11815.88',
-      },
-      {
-        price: '0.513',
-        size: '15701.06',
-      },
-      {
-        price: '0.514',
-        size: '19214.42',
-      },
-      {
-        price: '0.515',
-        size: '716.36',
-      },
-    ],
-    asks: [
-      {
-        price: '0.521',
-        size: '50.08',
-      },
-      {
-        price: '0.52',
-        size: '1137.18',
-      },
-      {
-        price: '0.519',
-        size: '5547.94',
-      },
-      {
-        price: '0.518',
-        size: '566.25',
-      },
-    ],
-  },
-];
 
 interface IMarketsDetailProps {
   bet: TBetItem;
@@ -251,7 +113,10 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
             </Flex>
           </Flex>
 
-          <MarketTiles data={statistic} />
+          {/* <MarketTiles data={statistic} /> */}
+          <Accordion type="single" collapsible className="w-full">
+            <MarketTile data={bet} />
+          </Accordion>
         </Stack>
 
         <Button

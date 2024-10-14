@@ -124,6 +124,7 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
     };
 
     setPlaceOrderModalOpen(true);
+    console.log(orderData);
     placeOrderMutation(orderData);
   };
 
@@ -155,6 +156,7 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
         outcomeYesId,
         outcomeNoId,
         type: BetOutcomeType[betType],
+        isBid: true,
         bidPriceNo,
         bidPriceYes,
       }),
@@ -178,13 +180,13 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
           <Flex>
             <Button
               className="w-full"
-              variant={`bet_yes${type ? '_active' : ''}`}
+              variant={`bet_yes${type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
             >
               Yes {bidPriceYes}
             </Button>
             <Button
-              variant={`bet_no${!type ? '_active' : ''}`}
+              variant={`bet_no${type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
             >

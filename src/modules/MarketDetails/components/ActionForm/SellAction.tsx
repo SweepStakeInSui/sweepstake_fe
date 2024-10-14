@@ -155,6 +155,7 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
         outcomeYesId,
         outcomeNoId,
         type: BetOutcomeType[betType],
+        isBid: false,
         askPriceNo,
         askPriceYes,
       }),
@@ -178,13 +179,13 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
           <Flex>
             <Button
               className="w-full"
-              variant={`bet_yes${type ? '_active' : ''}`}
+              variant={`bet_yes${type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
             >
               Yes {askPriceYes}
             </Button>
             <Button
-              variant={`bet_no${!type ? '_active' : ''}`}
+              variant={`bet_no${type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
             >

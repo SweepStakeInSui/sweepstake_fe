@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
@@ -6,8 +8,8 @@ import { Separator } from '@/components/ui/separator';
 
 interface IRulesSummaryProps {
   desc: string;
-  openOn: string;
-  closeOn: string;
+  openOn?: number;
+  closeOn?: number;
   payoutOn: string;
   categories?: string[];
 }
@@ -38,10 +40,11 @@ export default function MarketsRulesSummary({
             <Svg src="/icons/lock_open.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
-                Opened on {openOn}
+                Opened on{' '}
+                {openOn ? format(new Date(openOn * 1000), 'yyyy-MM-dd') : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
-                10:00PM EDT
+                {openOn ? format(new Date(openOn * 1000), 'HH:mm aa') : ''}
               </Typography.Text>
             </Stack>
           </Flex>
@@ -49,10 +52,11 @@ export default function MarketsRulesSummary({
             <Svg src="/icons/lock_outline.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
-                Closes by {closeOn}
+                Closes by
+                {closeOn ? format(new Date(closeOn * 1000), 'yyyy-MM-dd') : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
-                10:00PM EDT
+                {closeOn ? format(new Date(closeOn * 1000), 'HH:mm aa') : ''}
               </Typography.Text>
             </Stack>
           </Flex>
@@ -67,29 +71,32 @@ export default function MarketsRulesSummary({
               </Typography.Text>
             </Stack>
           </Flex>
-          <Flex className="px-4 py-3">
-            <Flex>
-              <Typography.Text size={13} className="text-text-subtle">
-                {categories && categories?.length > 1
-                  ? 'Categories: '
-                  : 'Category: '}
-              </Typography.Text>
-              {categories?.map((category, index) => (
-                <Flex key={category + index.toString()}>
-                  <Typography.Text
-                    size={13}
-                    className="text-icon-support-blue"
-                    key={category + index.toString()}
-                  >
-                    {category}
-                  </Typography.Text>
-                  {categories.length - 1 !== index && (
-                    <Separator orientation="vertical" className="size-1" />
-                  )}
-                </Flex>
-              ))}
+
+          {categories && categories?.length > 0 && (
+            <Flex className="px-4 py-3">
+              <Flex>
+                <Typography.Text size={13} className="text-text-subtle">
+                  {categories && categories?.length > 1
+                    ? 'Categories: '
+                    : 'Category: '}
+                </Typography.Text>
+                {categories?.map((category, index) => (
+                  <Flex key={category + index.toString()}>
+                    <Typography.Text
+                      size={13}
+                      className="text-icon-support-blue"
+                      key={category + index.toString()}
+                    >
+                      {category}
+                    </Typography.Text>
+                    {categories.length - 1 !== index && (
+                      <Separator orientation="vertical" className="size-1" />
+                    )}
+                  </Flex>
+                ))}
+              </Flex>
             </Flex>
-          </Flex>
+          )}
         </Stack>
       </Stack>
     </div>
