@@ -21,6 +21,7 @@ export const betSlice = createSlice({
     outcomeYesId: '',
     outcomeNoId: '',
     type: BetOutcomeType.YES,
+    isBid: true,
     bidPriceYes: 0,
     bidPriceNo: 0,
     askPriceYes: 0,
@@ -32,6 +33,7 @@ export const betSlice = createSlice({
       state.outcomeYesId = payload.outcomeYesId;
       state.outcomeNoId = payload.outcomeNoId;
       state.type = payload.type;
+      state.isBid = payload.isBid;
       state.bidPriceYes = payload.bidPriceYes;
       state.bidPriceNo = payload.bidPriceNo;
       state.askPriceYes = payload.askPriceYes;

@@ -85,3 +85,39 @@ export type TBetItem = {
 export type TBetDetails = {
   items: TBetItem[];
 };
+
+export type TCreateCommentData = {
+  marketId: string;
+  content: string;
+  parentCommentId: string | null;
+};
+
+export type TCommentList = {
+  statusCode: number;
+  data: TComment[];
+  meta: Meta;
+};
+
+export type TgetCommentListService = {
+  marketId: string;
+};
+
+export type TCommentData = {
+  items: TComment[];
+  meta: Meta;
+};
+
+export type TComment = {
+  id: string;
+  author: string;
+  avatar?: string;
+  timestamp: string;
+  content: string;
+  replies?: TComment[];
+  favorite?: boolean;
+  saved?: boolean;
+  likeCount?: number;
+  likeByMe?: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
