@@ -1,10 +1,10 @@
 import { useTheme } from 'next-themes';
 import React from 'react';
 
+import IconButton from '@/components/common/IconButton';
 import { TabsSub, TabsSubList, TabsSubTrigger } from '@/components/ui/tabSub';
 
 import Svg from '../Svg';
-import IconButton from '@/components/common/IconButton';
 
 interface ThemeToggleProps {
   option: 'switch' | 'toggle';
