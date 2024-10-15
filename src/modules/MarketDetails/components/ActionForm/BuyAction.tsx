@@ -320,7 +320,7 @@ Projected payout 2 hours after closing."
                 onClick={handleSubmit(onSubmit)}
               >
                 <Svg src="/icons/add_circle.svg" className="!text-white" />
-                Add Fund
+                Place bet
               </Button>
             ) : (
               <ConnectButton
@@ -395,7 +395,7 @@ Projected payout 2 hours after closing."
                 onClick={handleSubmit(onSubmit)}
               >
                 <Svg src="/icons/add_circle.svg" className="!text-white" />
-                Add Fund
+                Place bet
               </Button>
             ) : (
               <ConnectButton
