@@ -10,15 +10,6 @@ export const createWithdrawSchema = (balance: number) => {
       .refine(
         (value) => {
           const parsed = Number(value);
-          return !Number.isNaN(parsed) && parsed > 0;
-        },
-        {
-          message: 'Amount must be a valid number greater than 0',
-        },
-      )
-      .refine(
-        (value) => {
-          const parsed = Number(value);
           return parsed <= balance;
         },
         {

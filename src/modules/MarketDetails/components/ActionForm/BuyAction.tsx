@@ -35,6 +35,7 @@ import { orderService } from '@/services/orders';
 import type { IPostOrderRequest } from '@/services/orders/types';
 import { setBet } from '@/store/betSlice';
 import { selectProfile } from '@/store/profileSlice';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 interface IBuyActionProps {
   isLimit: boolean;
@@ -70,6 +71,7 @@ const TooltipPrice = () => {
 };
 
 const BuyAction = ({ isLimit }: IBuyActionProps) => {
+  // HOOKS
   const { profile } = useSelector(selectProfile);
   const dispatch = useDispatch();
 
@@ -77,8 +79,7 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
   const [placeOrderModalOpen, setPlaceOrderModalOpen] = useState(false);
   const [txsString, setTxsString] = React.useState('');
   const [isSetExpiration, setIsSetExpiration] = useState(false);
-  const { id, outcomeYesId, outcomeNoId, type, bidPriceNo, bidPriceYes } =
-    useSelector((state: any) => state.bet);
+  const betState = useSelector((state: any) => state.bet);
 
   const {
     mutate: placeOrderMutation,
@@ -94,10 +95,13 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
   });
 
   // FORM HANDLERS
+  const postOrderSchema = postOrder(
+    +handleBignumber.divideDecimal(profile?.balance),
+  );
   const { watch, formState, setValue, register, handleSubmit } = useForm<
-    z.infer<typeof postOrder>
+    z.infer<typeof postOrderSchema>
   >({
-    resolver: zodResolver(postOrder),
+    resolver: zodResolver(postOrderSchema),
     defaultValues: {
       outcomeId: '',
       amount: '0',
@@ -112,9 +116,12 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
   const price = watch('price');
   const amount = watch('amount');
 
-  const onSubmit = (data: z.infer<typeof postOrder>) => {
+  const onSubmit = (data: z.infer<typeof postOrderSchema>) => {
     const orderData = {
-      outcomeId: type === BetOutcomeType.YES ? outcomeYesId : outcomeNoId,
+      outcomeId:
+        betState.type === BetOutcomeType.YES
+          ? betState.outcomeYesId
+          : betState.outcomeNoId,
       amount: data.amount.toString(),
       price: isLimit ? '0' : data.price.toString(),
       type: isLimit ? EOrderType.GTC : EOrderType.FOK,
@@ -124,7 +131,6 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
     };
 
     setPlaceOrderModalOpen(true);
-    console.log(orderData);
     placeOrderMutation(orderData);
   };
 
@@ -152,13 +158,9 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
     event?.stopPropagation();
     dispatch(
       setBet({
-        id,
-        outcomeYesId,
-        outcomeNoId,
+        ...betState,
         type: BetOutcomeType[betType],
         isBid: true,
-        bidPriceNo,
-        bidPriceYes,
       }),
     );
   };
@@ -180,17 +182,17 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
           <Flex>
             <Button
               className="w-full"
-              variant={`bet_yes${type === BetOutcomeType.YES ? '_active' : ''}`}
+              variant={`bet_yes${betState.type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
             >
-              Yes {bidPriceYes}
+              Yes {betState.bidPriceYes}
             </Button>
             <Button
-              variant={`bet_no${type === BetOutcomeType.NO ? '_active' : ''}`}
+              variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
             >
-              No {bidPriceNo}
+              No {betState.bidPriceNo}
             </Button>
           </Flex>
         </Stack>
