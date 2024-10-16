@@ -56,7 +56,7 @@ interface ActionProps {
 export const MenuItem = ({ item, className }: MenuItemProps) => {
   const router = useRouter();
   const handleClick = () => {
-    if (item.slug === 'darkTheme') {
+    if (item.slug === 'theme') {
       return;
     }
     if (item.onClick) {
@@ -78,7 +78,7 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
           {item.title}
         </Typography.Text>
       </div>
-      {item.slug === 'darkTheme' && <ThemeToggle option="switch" />}
+      {item.slug === 'theme' && <ThemeToggle option="switch" />}
     </button>
   );
 };

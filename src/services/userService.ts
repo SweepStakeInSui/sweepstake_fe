@@ -43,10 +43,17 @@ const transactionHistory = async (params: PaginationType) => {
   });
   return response.data.data;
 };
+const positions = async (params: PaginationType) => {
+  const response = await privateAxiosClient.get(`/user/positions`, {
+    params,
+  });
+  return response.data.data;
+};
 export const UserService = {
   getUserInfor,
   deposit,
   withdraw,
   requestDeposit,
   transactionHistory,
+  positions,
 };

@@ -81,7 +81,6 @@ const SearchResults = ({ isLoading, results }: SearchResultsProps) => {
       <p className="text-center text-sm text-gray-500">No results found</p>
     );
   }
-  console.log(results);
 
   return (
     <div className="w-full">

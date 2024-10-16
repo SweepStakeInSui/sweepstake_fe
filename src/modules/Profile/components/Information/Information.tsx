@@ -26,7 +26,7 @@ const Information = () => {
             <Typography.Heading>Nickname</Typography.Heading>
             <div className="bg-bg-sublest rounded-full py-0.5 px-2 flex justify-center">
               <Typography.Text size={13}>
-                {briefDocument(profile.address, 5, 5)}
+                {profile?.address && briefDocument(profile.address, 5, 5)}
               </Typography.Text>
             </div>
           </Stack>

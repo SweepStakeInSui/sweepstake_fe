@@ -29,15 +29,19 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+import Empty from '../Empty';
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  title: string;
   // table: TanstackTable<TData>; //HERE
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  title,
 }: DataTableProps<TData, TValue>) {
   // STATES:
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -122,7 +126,7 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="first-letter:uppercase">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
@@ -138,7 +142,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  <Empty content={`No ${title} found`} />
                 </TableCell>
               </TableRow>
             )}

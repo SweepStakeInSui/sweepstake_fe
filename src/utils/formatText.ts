@@ -1,4 +1,4 @@
-const briefDocument = (doc: String, start: number, end: number) => {
+const briefDocument = (doc: string, start: number, end: number) => {
   return `${doc.slice(0, start)}...${doc.slice(-end)}`;
 };
 
