@@ -90,8 +90,6 @@ export default class SuiRPC {
   async getBalance(): Promise<any> {
     try {
       const keypair = await this.getKeyPair();
-      const address = keypair.toSuiAddress();
-      console.log('Address:', address);
       const suiBalance = await this.suiClient.getBalance({
         owner: keypair.toSuiAddress(),
       });

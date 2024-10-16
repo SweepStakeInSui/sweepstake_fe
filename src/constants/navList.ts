@@ -42,8 +42,8 @@ export const menuListLogin = (onDisconnect: () => void) => [
     icon: '/icons/timeline.svg',
   },
   {
-    slug: 'darkTheme',
-    title: 'Dark Theme',
+    slug: 'theme',
+    title: 'Theme',
     icon: '/icons/Theme.svg',
     close: true,
   },

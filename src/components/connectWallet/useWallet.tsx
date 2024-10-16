@@ -116,7 +116,6 @@ export const ConnectWalletProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
   const loginWeb3Auth = useCallback(async () => {
     if (!web3auth) {
-      console.log('web3auth not initialized yet');
       return;
     }
     try {

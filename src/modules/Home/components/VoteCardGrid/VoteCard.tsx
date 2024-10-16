@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next-nprogress-bar';
 import { useState } from 'react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
@@ -104,11 +104,13 @@ const VoteCard = ({ data }: VoteCardProps) => {
   const { name } = data;
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState('');
-
+  const router = useRouter();
   const bet = bets.find((item) => item.name === value) || bets[0];
   return (
-    <Link
-      href={`/markets/${data.id}`}
+    <div
+      onClick={() => {
+        router.push(`/markets/${data.id}`);
+      }}
       role="presentation"
       className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface cursor-pointer hover:shadow-card-bet-home transition-all duration-150"
     >
@@ -122,7 +124,7 @@ const VoteCard = ({ data }: VoteCardProps) => {
             className="object-cover w-12 h-12 rounded-sm"
           />
           <div>
-            <Typography.Text size={15} className="text-text">
+            <Typography.Text size={15} className="text-text text-left">
               {name}
             </Typography.Text>
             <Flex className="text-text-sublest mt-1">
@@ -198,7 +200,7 @@ const VoteCard = ({ data }: VoteCardProps) => {
           </Button>
         </Flex>
       </div>
-    </Link>
+    </div>
   );
 };
 
