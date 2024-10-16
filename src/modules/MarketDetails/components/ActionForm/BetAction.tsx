@@ -37,7 +37,8 @@ import { setBet } from '@/store/betSlice';
 import { selectProfile } from '@/store/profileSlice';
 import { handleBignumber } from '@/utils/handleBignumber';
 
-interface IBuyActionProps {
+interface IBetActionProps {
+  isBid: boolean;
   isLimit: boolean;
 }
 const TooltipPrice = () => {
@@ -70,7 +71,7 @@ const TooltipPrice = () => {
   );
 };
 
-const BuyAction = ({ isLimit }: IBuyActionProps) => {
+const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
   // HOOKS
   const { profile } = useSelector(selectProfile);
   const dispatch = useDispatch();
@@ -107,7 +108,7 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
       amount: '0',
       price: '0',
       type: EOrderType.FOK,
-      side: EBetStatusOption.BID,
+      side: isBid ? EBetStatusOption.BID : EBetStatusOption.ASK,
       slippage: '0',
       signature: 'signature',
     },
@@ -123,9 +124,9 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
           ? betState.outcomeYesId
           : betState.outcomeNoId,
       amount: data.amount.toString(),
-      price: isLimit ? data.price.toString() : '0',
+      price: isLimit ? '0' : data.price.toString(),
       type: isLimit ? EOrderType.GTC : EOrderType.FOK,
-      side: EBetStatusOption.BID,
+      side: isBid ? EBetStatusOption.BID : EBetStatusOption.ASK,
       slippage: '0',
       signature: 'signature',
     };
@@ -160,7 +161,7 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
       setBet({
         ...betState,
         type: BetOutcomeType[betType],
-        isBid: true,
+        isBid,
       }),
     );
   };
@@ -185,14 +186,14 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
               variant={`bet_yes${betState.type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
             >
-              Yes {betState.bidPriceYes}¢
+              Yes {isBid ? betState.bidPriceYes : betState.askPriceYes}¢
             </Button>
             <Button
               variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
             >
-              No {betState.bidPriceNo}¢
+              No {isBid ? betState.bidPriceNo : betState.askPriceNo}¢
             </Button>
           </Flex>
         </Stack>
@@ -435,4 +436,4 @@ Projected payout 2 hours after closing."
   );
 };
 
-export default BuyAction;
+export default BetAction;

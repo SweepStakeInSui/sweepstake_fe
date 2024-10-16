@@ -109,15 +109,17 @@ export type TCommentData = {
 
 export type TComment = {
   id: string;
-  author: string;
+  username?: string;
+  userId: string;
+  marketId: string;
   avatar?: string;
   timestamp: string;
   content: string;
   replies?: TComment[];
-  favorite?: boolean;
-  saved?: boolean;
-  likeCount?: number;
-  likeByMe?: boolean;
+  likes?: number;
+  likedBy?: string[];
   createdAt: string;
   updatedAt: string;
+  deletedAt?: string;
+  parentComment: Omit<TComment, 'parentComment'>;
 };

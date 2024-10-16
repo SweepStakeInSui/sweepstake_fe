@@ -1,13 +1,11 @@
 import React from 'react';
 
 import { CommentList } from '@/components/common/NestedComments';
-import { mockNestedComments } from '@/mocks/mockComments';
-import type { TComment } from '@/services/markets/types';
 
 const Mention = () => {
   return (
     <div>
-      <CommentList comments={mockNestedComments as TComment[]} isForDisplay />
+      <CommentList comments={[]} isForDisplay />
     </div>
   );
 };

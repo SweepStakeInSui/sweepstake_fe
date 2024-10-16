@@ -11,5 +11,5 @@ interface SvgProps extends Props {
 }
 
 export default function Svg({ className, ...props }: SvgProps) {
-  return <SVG {...props} className={cn(className, 'text-icon')} />;
+  return <SVG {...props} className={cn('text-icon', className)} />;
 }

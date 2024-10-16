@@ -35,6 +35,7 @@ import { orderService } from '@/services/orders';
 import type { IPostOrderRequest } from '@/services/orders/types';
 import { setBet } from '@/store/betSlice';
 import { selectProfile } from '@/store/profileSlice';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 interface ISellActionProps {
   isLimit: boolean;
@@ -77,8 +78,7 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
   const [placeOrderModalOpen, setPlaceOrderModalOpen] = useState(false);
   const [txsString, setTxsString] = React.useState('');
   const [isSetExpiration, setIsSetExpiration] = useState(false);
-  const { id, outcomeYesId, outcomeNoId, type, askPriceNo, askPriceYes } =
-    useSelector((state: any) => state.bet);
+  const betState = useSelector((state: any) => state.bet);
 
   const {
     mutate: placeOrderMutation,
@@ -94,10 +94,13 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
   });
 
   // FORM HANDLERS
+  const postOrderSchema = postOrder(
+    +handleBignumber.divideDecimal(profile?.balance),
+  );
   const { watch, formState, setValue, register, handleSubmit } = useForm<
-    z.infer<typeof postOrder>
+    z.infer<typeof postOrderSchema>
   >({
-    resolver: zodResolver(postOrder),
+    resolver: zodResolver(postOrderSchema),
     defaultValues: {
       outcomeId: '',
       amount: '0',
@@ -112,11 +115,14 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
   const price = watch('price');
   const amount = watch('amount');
 
-  const onSubmit = (data: z.infer<typeof postOrder>) => {
+  const onSubmit = (data: z.infer<typeof postOrderSchema>) => {
     const orderData = {
-      outcomeId: type === BetOutcomeType.YES ? outcomeYesId : outcomeNoId,
+      outcomeId:
+        betState.type === BetOutcomeType.YES
+          ? betState.outcomeYesId
+          : betState.outcomeNoId,
       amount: data.amount.toString(),
-      price: isLimit ? '0' : data.price.toString(),
+      price: isLimit ? data.price.toString() : '0',
       type: isLimit ? EOrderType.GTC : EOrderType.FOK,
       side: EBetStatusOption.ASK,
       slippage: '0',
@@ -151,13 +157,9 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
     event?.stopPropagation();
     dispatch(
       setBet({
-        id,
-        outcomeYesId,
-        outcomeNoId,
+        ...betState,
         type: BetOutcomeType[betType],
         isBid: false,
-        askPriceNo,
-        askPriceYes,
       }),
     );
   };
@@ -179,17 +181,17 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
           <Flex>
             <Button
               className="w-full"
-              variant={`bet_yes${type === BetOutcomeType.YES ? '_active' : ''}`}
+              variant={`bet_yes${betState.type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
             >
-              Yes {askPriceYes}
+              Yes {betState.askPriceYes}
             </Button>
             <Button
-              variant={`bet_no${type === BetOutcomeType.NO ? '_active' : ''}`}
+              variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
             >
-              No {askPriceNo}
+              No {betState.askPriceNo}
             </Button>
           </Flex>
         </Stack>
@@ -319,7 +321,7 @@ Projected payout 2 hours after closing."
                 onClick={handleSubmit(onSubmit)}
               >
                 <Svg src="/icons/add_circle.svg" className="!text-white" />
-                Add Fund
+                Place bet
               </Button>
             ) : (
               <ConnectButton
@@ -394,7 +396,7 @@ Projected payout 2 hours after closing."
                 onClick={handleSubmit(onSubmit)}
               >
                 <Svg src="/icons/add_circle.svg" className="!text-white" />
-                Add Fund
+                Place bet
               </Button>
             ) : (
               <ConnectButton

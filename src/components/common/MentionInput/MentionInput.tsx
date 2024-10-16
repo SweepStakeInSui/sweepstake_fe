@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Mention, MentionsInput } from 'react-mentions';
 
 import s from './style.module.scss';
@@ -63,11 +63,17 @@ interface IMentionInputProps {
     id: string;
     display: string;
   };
+  value: string;
+  onChange: (value: string) => void;
 }
 
-const MentionInput = ({ placeholder, userData }: IMentionInputProps) => {
+const MentionInput = ({
+  value,
+  onChange,
+  placeholder,
+  userData,
+}: IMentionInputProps) => {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
-  const [mentionInput, setMentionInput] = useState<string>('');
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -75,12 +81,16 @@ const MentionInput = ({ placeholder, userData }: IMentionInputProps) => {
     }
   }, [textareaRef]);
 
+  const handleChange = (event: { target: { value: string } }) => {
+    onChange(event.target.value);
+  };
+
   return (
     <div className={s.mentionInput}>
       <MentionsInput
         inputRef={textareaRef}
-        value={mentionInput}
-        onChange={(e) => setMentionInput(e.target.value)}
+        value={value}
+        onChange={handleChange}
         style={mentionsInputStyle}
         placeholder={placeholder}
       >
@@ -95,5 +105,4 @@ const MentionInput = ({ placeholder, userData }: IMentionInputProps) => {
     </div>
   );
 };
-
 export default MentionInput;
