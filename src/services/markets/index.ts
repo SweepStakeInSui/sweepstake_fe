@@ -1,7 +1,8 @@
 import privateAxiosClient from '@/app/configs/httpClient/privateAxiosClient';
 import publicAxiosClient from '@/app/configs/httpClient/publicAxiosClient';
 import type {
-  IFormattedCreateBetData,
+  IFormattedCreateBetParams,
+  IMarketParams,
   TBetDetails,
   TBetItem,
   TCommentData,
@@ -10,14 +11,14 @@ import type {
 } from '@/services/markets/types';
 
 const getMarketService = async (
-  params: PaginationType,
+  params: IMarketParams,
 ): Promise<TBetDetails> => {
   const response = await publicAxiosClient.get(`/market`, { params });
   return response.data.data;
 };
 
 const createMarketService = async (
-  params: IFormattedCreateBetData,
+  params: IFormattedCreateBetParams,
 ): Promise<TCreateBetResponse> => {
   const response = await privateAxiosClient.post(`/market`, params);
   return response.data;

@@ -10,14 +10,7 @@ export const createBetSchemas = z.object({
   startClock: z.number().optional(),
   endDate: z.number(),
   endClock: z.number().optional(),
-  categories: z
-    .array(
-      z.object({
-        label: z.string(),
-        value: z.string(),
-      }),
-    )
-    .optional(),
+  category: z.array(z.string()).optional(),
   betType: z.string().optional(),
   outcomes: z
     .array(
@@ -45,7 +38,7 @@ export const createBetSchemas = z.object({
 //   startClock: number(),
 //   endDate: number(),
 //   endClock: number(),
-//   categories: array(string()),
+//   category: array(string()),
 //   betType: string(),
 //   outcomes: array(
 //     object({

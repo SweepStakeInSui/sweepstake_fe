@@ -60,7 +60,7 @@ export default function TopVolume({ data }: Readonly<TopVolumeProps>) {
         <Typography.Heading size={24} weight="semibold">
           Leaderboard
         </Typography.Heading>
-        <ViewAll link="/" />
+        <ViewAll link="/leaderboard" />
       </Flex>
       <div className="grid grid-rows-10 lg:grid-rows-5 grid-flow-col gap-4">
         {data.map((item) => (

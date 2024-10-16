@@ -155,7 +155,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
             className="absolute top-1/2 -translate-y-1/2 left-3"
           />
           <Input
-            placeholder="Search all of Sweepstack"
+            placeholder="Search all of SweepStakes"
             autoComplete="off"
             type="text"
             value={valueSearch}

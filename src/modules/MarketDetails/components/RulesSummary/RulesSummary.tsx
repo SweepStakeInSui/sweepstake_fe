@@ -11,7 +11,7 @@ interface IRulesSummaryProps {
   openOn?: number;
   closeOn?: number;
   payoutOn: string;
-  categories?: string[];
+  category?: string[];
 }
 
 export default function MarketsRulesSummary({
@@ -19,7 +19,7 @@ export default function MarketsRulesSummary({
   openOn,
   closeOn,
   payoutOn,
-  categories,
+  category,
 }: Readonly<IRulesSummaryProps>) {
   return (
     <div>
@@ -72,24 +72,24 @@ export default function MarketsRulesSummary({
             </Stack>
           </Flex>
 
-          {categories && categories?.length > 0 && (
+          {category && category?.length > 0 && (
             <Flex className="px-4 py-3">
               <Flex>
                 <Typography.Text size={13} className="text-text-subtle">
-                  {categories && categories?.length > 1
-                    ? 'Categories: '
+                  {category && category?.length > 1
+                    ? 'category: '
                     : 'Category: '}
                 </Typography.Text>
-                {categories?.map((category, index) => (
-                  <Flex key={category + index.toString()}>
+                {category?.map((item, index) => (
+                  <Flex key={item + index.toString()}>
                     <Typography.Text
                       size={13}
                       className="text-icon-support-blue"
-                      key={category + index.toString()}
+                      key={item + index.toString()}
                     >
-                      {category}
+                      {item}
                     </Typography.Text>
-                    {categories.length - 1 !== index && (
+                    {category.length - 1 !== index && (
                       <Separator orientation="vertical" className="size-1" />
                     )}
                   </Flex>

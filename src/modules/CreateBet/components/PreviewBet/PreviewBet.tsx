@@ -34,10 +34,7 @@ const PreviewBetModule = ({ data }: IPreviewBetModuleProps) => {
           endDate={format(new Date(data.endTime), 'MMM dd, yyyy')}
           endClock={format(new Date(data.endTime), 'HH:mm')}
           payoutOn={format(new Date(data.endTime), 'MMM dd, yyyy')}
-          categories={data?.categories?.reduce<string[]>((prev, curr) => {
-            prev.push(curr.label as string);
-            return prev;
-          }, [])}
+          category={data?.category}
         />
 
         {data.description && (

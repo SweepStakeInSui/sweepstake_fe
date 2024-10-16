@@ -2,6 +2,7 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
+import type { ICategoryList } from '@/services/categoryService';
 
 import { Separator } from '../../../../components/ui/separator';
 
@@ -12,7 +13,7 @@ interface IRulesSummaryProps {
   endDate: string;
   endClock: string;
   payoutOn: string;
-  categories?: string[];
+  category?: ICategoryList[];
 }
 
 export default function PreviewBetRulesSummary({
@@ -22,8 +23,10 @@ export default function PreviewBetRulesSummary({
   endDate,
   endClock,
   payoutOn,
-  categories,
+  category,
 }: Readonly<IRulesSummaryProps>) {
+  console.log(category);
+
   return (
     <Stack className="gap-0">
       <Typography.Heading tag="h5" size={24} weight="semibold" className="mb-2">
@@ -71,20 +74,18 @@ export default function PreviewBetRulesSummary({
         <Flex className="px-4 py-3">
           <Flex className="flex-wrap">
             <Typography.Text size={13} className="text-text-subtle">
-              {categories && categories?.length > 1
-                ? 'Categories: '
-                : 'Category: '}
+              {category && category?.length > 1 ? 'category: ' : 'Category: '}
             </Typography.Text>
-            {categories?.map((category, index) => (
+            {category?.map((item, index) => (
               <>
                 <Typography.Text
                   size={13}
                   className="text-icon-support-blue"
-                  key={category + index.toString()}
+                  key={item.id}
                 >
-                  {category}
+                  {item.name}
                 </Typography.Text>
-                {categories.length - 1 !== index && (
+                {category.length - 1 !== index && (
                   <Separator orientation="vertical" className="size-1" />
                 )}
               </>

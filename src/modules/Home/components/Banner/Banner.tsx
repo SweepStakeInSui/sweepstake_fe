@@ -1,22 +1,19 @@
 import Image from 'next/image';
-import React from 'react';
 
 import Svg from '@/components/common/Svg';
-import Typography from '@/components/common/Typography';
 
 const Banner = () => {
   return (
     <div className="py-6 mx-auto justify-center flex-col flex items-center bg-bg-primary relative">
-      <div className="relative h-10 aspect-[167/40]">
-        <Image src="/logos/logo.png" alt="logo" fill />
+      <div className="relative aspect-[167/40]">
+        <Image
+          src="/logos/sweepstake_hero.svg"
+          alt="logo"
+          height={64}
+          width={282}
+          className="object-cover"
+        />
       </div>
-      <Typography.Heading
-        size={24}
-        className="!text-15 lg:!text-24 text-text"
-        weight="normal"
-      >
-        Your next generation prediction market
-      </Typography.Heading>
       <Svg
         src="/images/Flare_Banner.svg"
         className="absolute top-0 w-full h-full"
