@@ -9,7 +9,7 @@
   }
 
   textarea {
-    background-color: #fafafa !important;
+    background-color: var(--bg-surface) !important;
     border: rem(1px) solid var(--dyb-5) !important;
     padding: rem(16px) rem(96px) rem(16px) rem(16px) !important;
   }

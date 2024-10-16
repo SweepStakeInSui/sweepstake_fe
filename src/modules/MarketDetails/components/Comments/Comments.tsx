@@ -1,11 +1,22 @@
-import { CommentForm, CommentList } from '@/components/common/NestedComments';
-import { mockNestedComments } from '@/mocks/mockComments';
+import { useQuery } from '@tanstack/react-query';
 
-const MarketsComments = () => {
+import { CommentForm, CommentList } from '@/components/common/NestedComments';
+import { marketService } from '@/services/markets';
+
+interface ICommentsProps {
+  id: string;
+}
+
+const MarketsComments = ({ id }: ICommentsProps) => {
+  const { data: commentsData } = useQuery({
+    queryKey: ['comments', id],
+    queryFn: async () => marketService.getCommentListService(id),
+  });
+
   return (
     <section>
-      <CommentForm />
-      <CommentList comments={mockNestedComments} isMinimal />
+      <CommentForm marketId={id} />
+      <CommentList comments={commentsData?.items || []} isMinimal />
     </section>
   );
 };

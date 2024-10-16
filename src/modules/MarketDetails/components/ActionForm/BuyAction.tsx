@@ -124,6 +124,7 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
     };
 
     setPlaceOrderModalOpen(true);
+    console.log(orderData);
     placeOrderMutation(orderData);
   };
 
@@ -155,6 +156,7 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
         outcomeYesId,
         outcomeNoId,
         type: BetOutcomeType[betType],
+        isBid: true,
         bidPriceNo,
         bidPriceYes,
       }),
@@ -178,13 +180,13 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
           <Flex>
             <Button
               className="w-full"
-              variant={`bet_yes${type ? '_active' : ''}`}
+              variant={`bet_yes${type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
             >
               Yes {bidPriceYes}
             </Button>
             <Button
-              variant={`bet_no${!type ? '_active' : ''}`}
+              variant={`bet_no${type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
             >
@@ -412,17 +414,17 @@ Projected payout 2 hours after closing."
         isSuccess={isPlaceOrderSuccess}
         isError={isPlaceOrderError}
         title={(() => {
-          if (isPlaceOrderLoading) return 'Your Bet Being Created';
+          if (isPlaceOrderLoading) return 'Executing...';
           if (isPlaceOrderSuccess && placeOrderData.statusCode === 200)
-            return 'Bet Created';
-          if (isPlaceOrderError) return 'Bet Creation Failed';
+            return 'Success';
+          if (isPlaceOrderError) return 'Fail';
           return '';
         })()}
         message={(() => {
-          if (isPlaceOrderLoading) return 'Your bet is being created.';
+          if (isPlaceOrderLoading) return 'Your order is being executed.';
           if (isPlaceOrderSuccess && placeOrderData.statusCode === 200)
-            return 'Your bet has been created.';
-          if (isPlaceOrderError) return 'Your bet has not been created.';
+            return 'Execute order successfully.';
+          if (isPlaceOrderError) return 'Something went wrong.';
           return '';
         })()}
         txs={txsString}

@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import type { TComment } from '@/types/comment';
+import type { TComment } from '@/services/markets/types';
 
 import { MentionInput } from '../MentionInput';
 import Comment from './Comment';
@@ -55,7 +55,7 @@ const CommentList = ({
   };
 
   const renderComments = (commentsArray: TComment[], isNested = false) => {
-    return commentsArray.map((comment, index) => (
+    return commentsArray?.map((comment, index) => (
       <Fragment key={comment.id}>
         {!isNested && index > 0 && (
           <hr className="my-3 border-t border-borderSublest" />
@@ -64,6 +64,7 @@ const CommentList = ({
           <div>
             <Comment
               {...comment}
+              timestamp={comment.createdAt}
               onReply={() =>
                 setReplyingTo({ id: comment.id, author: comment.author })
               }
@@ -88,7 +89,7 @@ const CommentList = ({
               <div className="relative ml-8 mt-2" ref={replyTextareaRef}>
                 <MentionInput
                   userData={{ id: '1', display: replyingTo.author }}
-                  placeholder={`Reply to ${replyingTo.author}`}
+                  // placeholder={`Reply to ${replyingTo.author}`}
                 />
                 <Button
                   variant="secondary"
