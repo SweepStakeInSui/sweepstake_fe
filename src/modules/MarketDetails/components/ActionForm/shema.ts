@@ -12,7 +12,7 @@ export const postOrder = (balance: number) =>
       .refine(
         (value) => {
           const parsed = Number(value);
-          return parsed <= balance;
+          return parsed <= Number(balance);
         },
         {
           message: `Amount must be less than or equal to your balance (${balance})`,

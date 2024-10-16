@@ -122,7 +122,7 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
           ? betState.outcomeYesId
           : betState.outcomeNoId,
       amount: data.amount.toString(),
-      price: isLimit ? '0' : data.price.toString(),
+      price: isLimit ? data.price.toString() : '0',
       type: isLimit ? EOrderType.GTC : EOrderType.FOK,
       side: EBetStatusOption.ASK,
       slippage: '0',

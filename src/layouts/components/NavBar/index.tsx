@@ -23,7 +23,6 @@ import HomeLogo from '../HomeLogo';
 export default function NavBar(): React.ReactElement {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(selectProfile);
-  console.log('checkLoggin', isLoggedIn);
 
   const { data } = useQuery<ProfileTypes>({
     queryKey: ['user-infor'],

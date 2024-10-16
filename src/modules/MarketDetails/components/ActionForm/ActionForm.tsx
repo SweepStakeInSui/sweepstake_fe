@@ -19,10 +19,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BetOutcomeType } from '@/enums/bet-status';
 import { mockAvatar } from '@/mocks/mockAvatar';
+import BetAction from '@/modules/MarketDetails/components/ActionForm/BetAction';
 
 import { useSectionIndicatorSignal } from '../../useSectionIndicatorSignal';
-import BuyAction from './BuyAction';
-import SellAction from './SellAction';
 
 const sections = [
   {
@@ -104,10 +103,10 @@ const MarketsActionForm = () => {
               ))}
             </TabsList>
             <TabsContent value="buy" className="mt-0">
-              <BuyAction isLimit={selectedValue === 'limit'} />
+              <BetAction isLimit={selectedValue === 'limit'} isBid />
             </TabsContent>
             <TabsContent value="sell" className="mt-0">
-              <SellAction isLimit={selectedValue === 'limit'} />
+              <BetAction isLimit={selectedValue === 'limit'} isBid={false} />
             </TabsContent>
           </Tabs>
         </div>
@@ -134,7 +133,7 @@ const MarketsActionForm = () => {
             >
               {section.label}
               <Svg
-                src="icons/arrow_right_alt.svg"
+                src="/icons/arrow_right_alt.svg"
                 className="group-hover:opacity-100 opacity-0 transition-all duration-250"
               />
             </button>

@@ -64,7 +64,7 @@ export default function PreviewBetRulesSummary({
               Projected payout on {payoutOn}
             </Typography.Text>
             <Typography.Text size={13} className="text-text-subtle">
-              10:00PM EDT
+              -- EDT
             </Typography.Text>
           </Stack>
         </Flex>
