@@ -8,6 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
+import withAuth from '@/components/withAuth';
 import { marketService } from '@/services/markets';
 
 import Flex from '../../components/common/Flex';
@@ -100,9 +101,9 @@ const CreateBetModule = () => {
           <Stack className="gap-y-5">
             <Typography.Heading size={28}>Create Bet</Typography.Heading>
             <Flex>
-              <div className="flex-1 h-1 w-full bg-bg-red rounded-lg" />
+              <div className="flex-1 h-1 w-full bg-bg-r_50 rounded-lg" />
               <div
-                className={`flex-1 h-1 w-full ${step ? ' bg-bg-red' : 'bg-bg-dyb'} rounded-lg`}
+                className={`flex-1 h-1 w-full ${step ? 'bg-bg-r_50' : 'bg-bg-dyb'} rounded-lg`}
               />
             </Flex>
             {step ? (
@@ -207,4 +208,4 @@ const CreateBetModule = () => {
     </>
   );
 };
-export default CreateBetModule;
+export default withAuth(CreateBetModule);

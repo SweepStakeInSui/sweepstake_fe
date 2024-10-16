@@ -306,7 +306,7 @@ const MenuHeader = () => {
                 <Svg src="/icons/close.svg" />
               </DrawerClose>
             </DrawerHeader>
-            <ScrollArea className="overflow-y-auto">
+            <ScrollArea className="overflow-y-auto w-full">
               <Stack className="gap-y-3 mt-3">
                 <Flex>
                   {navList.map((nav) => (
@@ -337,7 +337,7 @@ const MenuHeader = () => {
                     <div>
                       <NotificationDrawer />
 
-                      <DrawerClose>
+                      <DrawerClose className="w-full">
                         {menuListLogin(onDisconnect).map((item) => (
                           <MenuItem key={item.slug} item={item} />
                         ))}

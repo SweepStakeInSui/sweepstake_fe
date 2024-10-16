@@ -299,6 +299,8 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
           return '';
         })()}
         txs={txsString}
+        isSuccess={isWithdrawSuccess && withdrawData.statusCode === 200}
+        isError={isWithdrawError}
       />
     </div>
   );

@@ -1,34 +1,26 @@
-'use client';
-
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { UseMutateFunction } from '@tanstack/react-query';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { marketService } from '@/services/markets';
+import type { TCreateCommentData } from '@/services/markets/types';
 
 import Flex from '../Flex';
 import Typography from '../Typography';
 
 interface ICommentFormProps {
   marketId: string;
+  onCreate?: UseMutateFunction<void, Error, TCreateCommentData, unknown>;
+  isPending?: boolean;
 }
 
-const CommentForm = ({ marketId }: ICommentFormProps) => {
+const CommentForm = ({ marketId, onCreate, isPending }: ICommentFormProps) => {
   const [commentText, setCommentText] = React.useState('');
-  const queryClient = useQueryClient();
-
-  const createCommentMutation = useMutation({
-    mutationFn: marketService.createCommentService,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments'] });
-    },
-  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createCommentMutation.mutate({
-      parentCommentId: '',
+    onCreate?.({
+      parentCommentId: null,
       content: commentText,
       marketId,
     });
@@ -47,12 +39,8 @@ const CommentForm = ({ marketId }: ICommentFormProps) => {
           <Typography.Text size={13} className="text-text-subtle">
             {800 - commentText.length} left
           </Typography.Text>
-          <Button
-            variant="secondary"
-            type="submit"
-            disabled={createCommentMutation.isPending}
-          >
-            {createCommentMutation.isPending ? 'Posting...' : 'Post'}
+          <Button variant="secondary" type="submit" disabled={isPending}>
+            {isPending ? 'Posting...' : 'Post'}
           </Button>
         </Flex>
       </div>

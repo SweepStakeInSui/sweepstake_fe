@@ -1,22 +1,61 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMemo } from 'react';
 
 import { CommentForm, CommentList } from '@/components/common/NestedComments';
 import { marketService } from '@/services/markets';
+import { formatComments } from '@/utils/formatCommentList';
 
 interface ICommentsProps {
   id: string;
 }
 
 const MarketsComments = ({ id }: ICommentsProps) => {
+  // HOOKS
+  const queryClient = useQueryClient();
+
+  // QUERIES
   const { data: commentsData } = useQuery({
     queryKey: ['comments', id],
     queryFn: async () => marketService.getCommentListService(id),
   });
 
+  const { mutate: createCommentMutate, isPending: isCreateCommentPending } =
+    useMutation({
+      mutationFn: marketService.createCommentService,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['comments'] });
+      },
+    });
+
+  const { mutate: likeCommentMutate, isPending: isLikeCommentPending } =
+    useMutation({
+      mutationFn: marketService.postLikeCommentService,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['comments'] });
+      },
+    });
+
+  // FUNCTIONS
+  const formattedComments = useMemo(
+    () => formatComments(commentsData?.items || []),
+    [commentsData],
+  );
+
   return (
     <section>
-      <CommentForm marketId={id} />
-      <CommentList comments={commentsData?.items || []} isMinimal />
+      <CommentForm
+        marketId={id}
+        onCreate={createCommentMutate}
+        isPending={isCreateCommentPending}
+      />
+      <CommentList
+        marketId={id}
+        comments={formattedComments}
+        isMinimal
+        onCreate={createCommentMutate}
+        onLike={likeCommentMutate}
+        isPending={isCreateCommentPending || isLikeCommentPending}
+      />
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes';
 import React from 'react';
 
-import { Button } from '@/components/ui/button';
+import IconButton from '@/components/common/IconButton';
 import { TabsSub, TabsSubList, TabsSubTrigger } from '@/components/ui/tabSub';
 
 import Svg from '../Svg';
@@ -14,9 +14,13 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ option }) => {
   const onChangeTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
   if (option === 'toggle') {
     return (
-      <Button variant="ghost" onClick={onChangeTheme}>
-        <Svg src="/icons/Moon.svg" width={24} height={24} />
-      </Button>
+      <IconButton isRounded onClick={onChangeTheme} className="w-10">
+        {theme === 'light' ? (
+          <Svg src="/icons/Moon.svg" width={24} height={24} />
+        ) : (
+          <Svg src="/icons/Sun.svg" width={24} height={24} />
+        )}
+      </IconButton>
     );
   }
 

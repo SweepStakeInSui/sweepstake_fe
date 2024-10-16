@@ -1,30 +1,43 @@
+import type { UseMutateFunction } from '@tanstack/react-query';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import type { TComment } from '@/services/markets/types';
+import type { TComment, TCreateCommentData } from '@/services/markets/types';
 
 import { MentionInput } from '../MentionInput';
 import Comment from './Comment';
 
 interface ICommentListProps {
+  marketId?: string;
   comments: TComment[];
   isMinimal?: boolean;
   isForDisplay?: boolean;
+  onCreate?: UseMutateFunction<void, Error, TCreateCommentData, unknown>;
+  onLike?: UseMutateFunction<void, Error, string, unknown>;
+  isPending?: boolean;
 }
 
 const CommentList = ({
+  marketId,
   comments,
   isMinimal = false,
   isForDisplay = false,
+  onCreate,
+  onLike,
+  isPending,
 }: ICommentListProps) => {
+  // STATES
   const [likedComments, setLikedComments] = useState<Set<string>>(new Set());
   const [replyingTo, setReplyingTo] = useState<{
     id: string;
-    author: string;
+    username: string;
   } | null>(null);
+  const [commentText, setCommentText] = useState('');
+
+  // REFS
   const replyTextareaRef = useRef<HTMLDivElement>(null);
 
-  // Functions
+  // FUNCTIONS
   const toggleLike = (commentId: string) => {
     setLikedComments((prevLiked) => {
       const newLiked = new Set(prevLiked);
@@ -35,9 +48,22 @@ const CommentList = ({
       }
       return newLiked;
     });
+    onLike?.(commentId);
   };
 
-  // Effects
+  const handleReply = (parentCommentId: string) => {
+    setReplyingTo(null);
+    if (marketId) {
+      onCreate?.({
+        parentCommentId,
+        content: commentText,
+        marketId,
+      });
+    }
+    setCommentText('');
+  };
+
+  // EFFECTS
   useEffect(() => {
     if (replyingTo && replyTextareaRef.current) {
       replyTextareaRef.current.scrollIntoView({
@@ -47,12 +73,6 @@ const CommentList = ({
       replyTextareaRef.current.focus();
     }
   }, [replyingTo]);
-
-  // TODO: handleReply
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleReply = (_commentId: string, _author: string) => {
-    setReplyingTo(null);
-  };
 
   const renderComments = (commentsArray: TComment[], isNested = false) => {
     return commentsArray?.map((comment, index) => (
@@ -64,9 +84,14 @@ const CommentList = ({
           <div>
             <Comment
               {...comment}
+              likeCount={comment.likes}
+              replyCount={comment.replies?.length}
               timestamp={comment.createdAt}
               onReply={() =>
-                setReplyingTo({ id: comment.id, author: comment.author })
+                setReplyingTo({
+                  id: comment.id,
+                  username: comment.username || comment.userId,
+                })
               }
               onLike={() => toggleLike(comment.id)}
               onShare={() => console.log(`Share comment ${comment.id}`)}
@@ -88,13 +113,16 @@ const CommentList = ({
               comment.replies?.some((reply) => replyingTo.id === reply.id)) && (
               <div className="relative ml-8 mt-2" ref={replyTextareaRef}>
                 <MentionInput
-                  userData={{ id: '1', display: replyingTo.author }}
-                  // placeholder={`Reply to ${replyingTo.author}`}
+                  value={commentText}
+                  onChange={(value) => setCommentText(value)}
+                  userData={{ id: '1', display: replyingTo.username }}
+                  placeholder={`Reply to ${replyingTo.username}`}
                 />
                 <Button
                   variant="secondary"
-                  onClick={() => handleReply(replyingTo.id, replyingTo.author)}
+                  onClick={() => handleReply(replyingTo.id)}
                   className="absolute bottom-3 right-3"
+                  disabled={isPending || !commentText}
                 >
                   Reply
                 </Button>

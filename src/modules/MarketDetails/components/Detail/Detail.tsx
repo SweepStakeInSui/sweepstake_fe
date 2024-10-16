@@ -1,4 +1,4 @@
-import { Accordion } from '@radix-ui/react-accordion';
+// import { Accordion } from '@radix-ui/react-accordion';
 import Image from 'next/image';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
@@ -7,11 +7,11 @@ import IconButton from '@/components/common/IconButton';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
 import { mockAvatar } from '@/mocks/mockAvatar';
-import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
+// import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
 import type { TBetItem } from '@/services/markets/types';
 
 // interface IMarketsDetailProps {
@@ -100,7 +100,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
       </Stack>
 
       <Stack className="gap-3">
-        <Stack className="gap-0">
+        {/* <Stack className="gap-0">
           <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
             <Typography.Text size={13} className="text-text-subtle">
               Outcome
@@ -113,7 +113,6 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
             </Flex>
           </Flex>
 
-          {/* <MarketTiles data={statistic} /> */}
           <Accordion type="single" collapsible className="w-full">
             <MarketTile data={bet} />
           </Accordion>
@@ -127,7 +126,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
           <span>
             <Svg src="/icons/chevron_right.svg" className="rotate-90" />
           </span>
-        </Button>
+        </Button> */}
       </Stack>
     </div>
   );

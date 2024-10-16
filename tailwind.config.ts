@@ -123,6 +123,7 @@ const config = {
           matcha: 'var(--bg-matcha)',
           blue: 'var(--bg-blue)',
           red: 'var(--bg-red)',
+          r_50: 'var(--bg-r-50)',
           green: 'var(--bg-green)',
           port: 'var(--bg-port)',
           balance: 'var(--bg-balance)',

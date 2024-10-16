@@ -72,6 +72,7 @@
     --bg-matcha: var(--ma-5);
     --bg-blue: var(--b-5);
     --bg-red: var(--r-5);
+    --bg-r-50: var(--r-50);
     --bg-green: var(--gr-5);
     --bg-port: var(--r-10);
     --bg-balance: var(--b-5);
@@ -226,6 +227,7 @@
     --bg-matcha: rgba(23, 164, 178, 0.08);
     --bg-blue: rgba(33, 99, 253, 0.08);
     --bg-red: rgba(235, 32, 30, 0.08);
+    --bg-r-50: var(--r-50);
     --bg-green: rgba(61, 160, 3, 0.08);
     --bg-port: #360404;
     --bg-balance: #0f1f44;

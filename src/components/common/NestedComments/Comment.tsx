@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
-import { Badge } from '@/components/ui/badge';
+import { truncate } from '@/utils/truncate';
 
+// import { Badge } from '@/components/ui/badge';
 import Flex from '../Flex';
 import IconButton from '../IconButton';
 import { LinkBox } from '../LinkBox';
@@ -11,7 +12,8 @@ import Typography from '../Typography';
 
 export interface ICommentProps {
   id: string;
-  author: string;
+  username?: string;
+  userId?: string;
   avatar?: string;
   timestamp: string;
   content: string;
@@ -29,7 +31,8 @@ export interface ICommentProps {
 
 const Comment = ({
   id,
-  author,
+  username,
+  userId,
   avatar,
   timestamp,
   content,
@@ -50,14 +53,14 @@ const Comment = ({
       <div className="flex-1">
         <Flex className="flex-col lg:flex-row items-start lg:items-center mb-1">
           <Flex className="justify-between">
-            <h4 className="font-bold">{author}</h4>
+            <h4 className="font-bold">{username || truncate(userId)}</h4>
             <span className="text-13 text-text-subtle">
               {new Date(timestamp).toLocaleString()}
             </span>
           </Flex>
-          {isMinimal && !isReplies && (
+          {/* {isMinimal && !isReplies && (
             <Badge variant="bet_yes">Yes • Micheal Jack • 62% Chance</Badge>
-          )}
+          )} */}
         </Flex>
         <Typography.Text size={15} className="mb-2">
           {replyTo && <span className="font-bold">@{replyTo} </span>}
@@ -85,7 +88,10 @@ const Comment = ({
                 className={likedByMe ? 'bg-red-50' : ''}
               >
                 {likedByMe ? (
-                  <Svg src="/icons/favorite_filled.svg" className="text-r-50" />
+                  <Svg
+                    src="/icons/favorite_filled.svg"
+                    className="!text-r-50"
+                  />
                 ) : (
                   <Svg
                     src="/icons/favorite_border.svg"
@@ -93,15 +99,17 @@ const Comment = ({
                   />
                 )}
               </IconButton>
-              {likeCount && (
-                <Typography.Text className="text-text-subtle">
-                  {likeCount}
-                </Typography.Text>
-              )}
+
+              <Typography.Text className="text-text-subtle">
+                {likeCount}
+              </Typography.Text>
             </Flex>
             <Flex className="gap-1">
               <IconButton isRounded onClick={onReply}>
-                <Svg src="/icons/chat_bubble_outline.svg" />
+                <Svg
+                  src="/icons/chat_bubble_outline.svg"
+                  className="text-text-subtle"
+                />
               </IconButton>
               {replyCount && (
                 <Typography.Text className="text-text-subtle">
@@ -110,7 +118,7 @@ const Comment = ({
               )}
             </Flex>
             <IconButton isRounded onClick={onShare}>
-              <Svg src="/icons/launch.svg" />
+              <Svg src="/icons/launch.svg" className="text-text-subtle" />
             </IconButton>
           </Flex>
         )}

@@ -17,9 +17,9 @@ const getMarketService = async (
 };
 
 const createMarketService = async (
-  body: IFormattedCreateBetData,
+  params: IFormattedCreateBetData,
 ): Promise<TCreateBetResponse> => {
-  const response = await privateAxiosClient.post(`/market`, body);
+  const response = await privateAxiosClient.post(`/market`, params);
   return response.data;
 };
 
@@ -36,9 +36,9 @@ const getMarketDetailsService = async (id: string): Promise<TBetItem> => {
 };
 
 const createCommentService = async (
-  body: TCreateCommentData,
+  params: TCreateCommentData,
 ): Promise<void> => {
-  const response = await privateAxiosClient.post(`/market/comments`, body);
+  const response = await privateAxiosClient.post(`/market/comments`, params);
   return response.data.data;
 };
 
@@ -49,6 +49,11 @@ const getCommentListService = async (
   return response.data.data;
 };
 
+const postLikeCommentService = async (id: string): Promise<void> => {
+  const response = await privateAxiosClient.post(`/market/comments/like/${id}`);
+  return response.data.data;
+};
+
 export const marketService = {
   getMarketService,
   createMarketService,
@@ -56,4 +61,5 @@ export const marketService = {
   getMarketDetailsService,
   createCommentService,
   getCommentListService,
+  postLikeCommentService,
 };

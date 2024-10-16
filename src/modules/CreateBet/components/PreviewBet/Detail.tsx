@@ -195,51 +195,6 @@ export default function PreviewBetDetail({
                     );
                   })}
                 </Stack>
-
-                {/* {outcomes.map((outcome, index) => (
-                  <Flex
-                    className="w-full justify-between"
-                    key={outcome.outcome + index.toString()}
-                  >
-                    <Flex>
-                      <div className="relative size-11 rounded-md overflow-hidden">
-                        {outcome.picture ? (
-                          <Image
-                            src={URL.createObjectURL(outcome.picture)}
-                            alt={outcome.outcome}
-                            fill
-                            className="object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gray-300" />
-                        )}
-                      </div>
-                      <Stack className="items-start">
-                        <Typography.Text size={15} weight="medium">
-                          {outcome.outcome}
-                        </Typography.Text>
-                        <Typography.Text size={13} className="text-text-subtle">
-                          {outcome.subOutcome}
-                        </Typography.Text>
-                      </Stack>
-                    </Flex>
-                    <Flex className="w-[21.25rem] justify-between">
-                      <Flex className="w-[6.875rem] items-center gap-1">
-                        <Typography.Text size={18} weight="medium">
-                          --%
-                        </Typography.Text>
-                      </Flex>
-                      <Flex className="w-[14.375rem]">
-                        <Button variant="bet_yes" className="w-full">
-                          Bet Yes
-                        </Button>
-                        <Button variant="bet_no" className="w-full">
-                          Bet No
-                        </Button>
-                      </Flex>
-                    </Flex>
-                  </Flex>
-                ))} */}
               </Stack>
             );
           default:

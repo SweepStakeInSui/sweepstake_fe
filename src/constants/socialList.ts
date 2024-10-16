@@ -6,12 +6,12 @@ export const socialList = [
   },
   {
     name: 'X/Twitter',
-    icon: 'logos/X-gradient.svg',
+    icon: '/logos/X-gradient.svg',
     href: 'https://twitter.com/SweepstakeMkt',
   },
   {
     name: 'Telegram',
-    icon: 'logos/Telegram-gradient.svg',
+    icon: '/logos/Telegram-gradient.svg',
     href: '',
   },
   {
