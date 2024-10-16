@@ -9,6 +9,7 @@ import {
 } from '@mysten/dapp-kit';
 import { getFullnodeUrl } from '@mysten/sui/client';
 import {
+  defaultShouldDehydrateQuery,
   isServer,
   QueryClient,
   QueryClientProvider,
@@ -42,6 +43,12 @@ function makeQueryClient() {
         refetchOnWindowFocus: false,
         retry: false,
         notifyOnChangeProps: 'all',
+      },
+      dehydrate: {
+        // include pending queries in dehydration
+        shouldDehydrateQuery: (query) =>
+          defaultShouldDehydrateQuery(query) ||
+          query.state.status === 'pending',
       },
     },
   });

@@ -65,7 +65,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
         askPriceNo: noOutcome?.askPrice || 0,
       }),
     );
-  }, [marketDetailData]);
+  }, [marketDetailData, dispatch]);
 
   return (
     <Drawer>

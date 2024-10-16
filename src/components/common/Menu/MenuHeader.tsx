@@ -135,13 +135,16 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
             </Typography.Text>
           </Button>
         </Link>
-        <Button
-          variant="ghost"
-          size="medium"
-          className="bg-wht-a80/80 dark:bg-wht-a20/20"
-        >
-          <Svg src="icons/history.svg" />
-        </Button>
+        {/* TO DO LINK PROFILE ACTIVITY */}
+        <Link href="/deposit">
+          <Button
+            variant="ghost"
+            size="medium"
+            className="bg-wht-a80/80 dark:bg-wht-a20/20"
+          >
+            <Svg src="icons/history.svg" />
+          </Button>
+        </Link>
       </Flex>
       <div className="absolute bottom-1 -left-2 mix-blend-color-burn blur-sm z-0">
         <Image
@@ -205,14 +208,16 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
             </Typography.Text>
           </Button>
         </Link>
-
-        <Button
-          variant="ghost"
-          size="medium"
-          className="bg-opacity-85 bg-wht-a80/80 dark:bg-wht-a20/20"
-        >
-          <Svg src="icons/history.svg" />
-        </Button>
+        {/* TO DO */}
+        <Link href="/deposit">
+          <Button
+            variant="ghost"
+            size="medium"
+            className="bg-opacity-85 bg-wht-a80/80 dark:bg-wht-a20/20"
+          >
+            <Svg src="icons/history.svg" />
+          </Button>
+        </Link>
       </Flex>
       <div className="absolute bottom-1 -left-2 mix-blend-color-burn blur-sm z-0">
         <Image src="/icons/Flare.svg" alt="flare" width={147} height={108} />

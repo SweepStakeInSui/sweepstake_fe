@@ -1,12 +1,18 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import {
+  dehydrate,
+  HydrationBoundary,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import Container from '@/components/common/Container';
 import { Banner } from '@/modules/Home/components/Banner';
 import { MarketTab } from '@/modules/Home/components/MarketTab';
 import HomeSlider from '@/modules/Home/components/Slider';
 import VoteCardGrid from '@/modules/Home/components/VoteCardGrid';
+import { categoryService } from '@/services/categoryService';
 import { marketService } from '@/services/markets';
 
 const mockSlides = [
@@ -78,16 +84,22 @@ const mockSlides = [
   },
 ];
 
-export default function MarketsModule() {
+export default async function MarketsModule() {
+  const queryClient = useQueryClient();
   const { data: marketListData } = useQuery({
     queryKey: ['market-list'],
     queryFn: async () => marketService.getMarketService({ page: 1, limit: 12 }),
   });
-
+  await queryClient.prefetchQuery({
+    queryKey: ['category'],
+    queryFn: categoryService.getCategory,
+  });
   return (
     <section>
       <Banner />
-      <MarketTab showSubTabs />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <MarketTab showSubTabs={false} />
+      </HydrationBoundary>
       <HomeSlider slides={mockSlides} />
       <Container size="sm">
         <VoteCardGrid data={marketListData?.items} />

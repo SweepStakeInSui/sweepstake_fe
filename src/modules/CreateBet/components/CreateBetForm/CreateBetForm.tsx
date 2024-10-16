@@ -6,6 +6,7 @@ import { OptionsOutsideSelect } from '@components/common/OptionsOutsideSelect';
 import { TimePicker } from '@components/common/TimePicker';
 import { Input } from '@components/ui/input';
 import { Textarea } from '@components/ui/textarea';
+import { useQuery } from '@tanstack/react-query';
 import { addWeeks } from 'date-fns';
 import { useEffect } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
@@ -20,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { mockCategories } from '@/mocks/mockCategories';
+import { categoryService } from '@/services/categoryService';
 
 import OutcomeList from './OutcomeList';
 import SourceList from './SourceLinkList';
@@ -56,6 +57,10 @@ const CreateBetFormModule = () => {
       setValue('endDate', endDate);
     }
   }, [startDate, setValue]);
+  const { data: categoryData } = useQuery({
+    queryKey: ['category'],
+    queryFn: categoryService.getCategory,
+  });
 
   return (
     <Stack className="relative lg:sticky gap-y-0 lg:border-l border-solid border-borderSubtle p-4 lg:p-6 lg:pt-10 lg:pb-24 lg:top-[4.75rem] w-full lg:w-[22.8125rem] h-full lg:h-[calc(100vh-4.75rem)] no-scrollbar overflow-auto bg-bg-surface rounded-lg lg:rounded-none">
@@ -117,18 +122,20 @@ const CreateBetFormModule = () => {
 
         <Stack className="gap-y-2">
           <Typography.Text size={15}>Category</Typography.Text>
-          <Controller
-            name="categories"
-            control={control}
-            render={({ field }) => (
-              <OptionsOutsideSelect
-                {...field}
-                isMulti
-                options={mockCategories}
-                placeholder="Select category"
-              />
-            )}
-          />
+          {categoryData && (
+            <Controller
+              name="categories"
+              control={control}
+              render={({ field }) => (
+                <OptionsOutsideSelect
+                  {...field}
+                  isMulti
+                  options={categoryData}
+                  placeholder="Select category"
+                />
+              )}
+            />
+          )}
         </Stack>
 
         <Stack className="gap-y-2">

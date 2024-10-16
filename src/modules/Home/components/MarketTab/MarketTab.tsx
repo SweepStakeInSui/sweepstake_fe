@@ -1,48 +1,16 @@
 'use client';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { SwiperSlide } from 'swiper/react';
+import { StringParam, useQueryParam, withDefault } from 'use-query-params';
 
 import Container from '@/components/common/Container';
 import SwiperCustom from '@/components/common/SwipperCustom';
 import { TabBtn } from '@/components/common/Tab/TabBtn';
 import TabText from '@/components/common/Tab/TabText';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { categoryService } from '@/services/categoryService';
 
-const marketMainTab = [
-  {
-    id: 1,
-    type: 'All',
-    active: true,
-  },
-  {
-    id: 2,
-    type: 'Politics',
-  },
-  {
-    id: 3,
-    type: 'Midle East',
-  },
-  {
-    id: 4,
-    type: 'Sports',
-  },
-  {
-    id: 5,
-    type: 'Crypto',
-  },
-  {
-    id: 6,
-    type: 'Pop Culture',
-  },
-  {
-    id: 7,
-    type: 'Business',
-  },
-  {
-    id: 8,
-    type: 'Science',
-  },
-];
 const marketSubTab = [
   {
     id: 1,
@@ -128,17 +96,27 @@ interface MarketTabProps {
 }
 
 const MarketTab = ({ showSubTabs }: MarketTabProps) => {
+  const { data: dataCategory } = useSuspenseQuery({
+    queryKey: ['category'],
+    queryFn: categoryService.getCategory,
+  });
+  const [cate, setCate] = useQueryParam(
+    'category',
+    withDefault(StringParam, dataCategory[0].name),
+  );
+
   return (
     <Container size="sm">
       <ScrollArea>
         <ul className="flex gap-x-4 text-tab-btnNo font-medium justify-center my-3">
-          {marketMainTab.map((item) => (
+          {dataCategory.map((item) => (
             <TabText
-              variant={item.active ? 'selected' : 'default'}
+              variant={item.name === cate ? 'selected' : 'default'}
               key={item.id}
               className="cursor-pointer"
+              onClick={() => setCate(item.name)}
             >
-              {item.type}
+              {item.name}
             </TabText>
           ))}
         </ul>

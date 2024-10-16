@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Empty from '@/components/common/Empty';
 import Flex from '@/components/common/Flex';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -10,8 +11,11 @@ import { removeWatchList, selectWatchList } from '@/store/watchListSlice';
 
 const Watchlist = () => {
   const { items } = useSelector(selectWatchList);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  if (items.length === 0) {
+    return <Empty content="No watchlist found" />;
+  }
   return (
     <div>
       {items.map((item) => (

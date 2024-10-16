@@ -28,7 +28,7 @@ export const ResultsItem = ({
   price,
 }: Readonly<ResultsItemProps>) => {
   return (
-    <Flex className="cursor-pointer justify-between hover:bg-bg-hovered px-2 py-2.5 rounded-sm">
+    <Flex className="cursor-pointer justify-between hover:bg-bg-hovered px-2 py-2.5 rounded-sm w-full">
       <Flex className="gap-4">
         <Avatar isRounded={false}>
           <AvatarImage src={avatar} />
@@ -81,9 +81,10 @@ const SearchResults = ({ isLoading, results }: SearchResultsProps) => {
       <p className="text-center text-sm text-gray-500">No results found</p>
     );
   }
+  console.log(results);
 
   return (
-    <div>
+    <div className="w-full">
       {results?.map((result) => (
         <ResultsItem
           key={result.id}

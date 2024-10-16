@@ -37,9 +37,16 @@ const withdraw = async (body: WithdrawSchemaType): Promise<WithdrawRespone> => {
   const response = await privateAxiosClient.post(`/user/withdraw`, body);
   return response.data;
 };
+const transactionHistory = async (params: PaginationType) => {
+  const response = await privateAxiosClient.get(`/user/transaction-history`, {
+    params,
+  });
+  return response.data.data;
+};
 export const UserService = {
   getUserInfor,
   deposit,
   withdraw,
   requestDeposit,
+  transactionHistory,
 };

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -28,23 +28,48 @@ import { notificationService } from '@/services/notificationService';
 import { selectProfile } from '@/store/profileSlice';
 import type { NotificationItem } from '@/types/notification';
 import { formatDate } from '@/utils/formatDate';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 interface INotifItemProps {
+  id: string;
   user?: {
     name?: string;
     avatar: string;
   };
-  type: 'comment' | 'like' | 'betNo' | 'betYes' | 'withdraw' | 'deposit';
+  type: 'comment' | 'like' | 'betNo' | 'betYes' | 'withdraw' | 'deposited';
   date: string;
-  isRead?: boolean;
+  status: string;
+  amount?: string;
   content?: string;
 }
 
-const NotifItem = ({ user, type, date, isRead, content }: INotifItemProps) => {
+const NotifItem = ({
+  user,
+  type,
+  date,
+  status,
+  content,
+  amount,
+  id,
+}: INotifItemProps) => {
+  const queryClient = useQueryClient();
+  const { mutate: notificationSeenMutate } = useMutation({
+    mutationFn: (idBet: string) =>
+      notificationService.notificationSeen({ notificationId: idBet }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getNotification'] });
+    },
+  });
+
   return (
-    <Link href="/" className="w-full">
+    <div
+      className="w-full"
+      onClick={() => {
+        notificationSeenMutate(id);
+      }}
+    >
       <Flex className="relative gap-x-2.5 items-center">
-        {!isRead && (
+        {status === '0' && (
           <div className="absolute right-0 top-0 bg-[#EB201E] rounded-full size-1.5" />
         )}
         <div className="relative">
@@ -81,7 +106,7 @@ const NotifItem = ({ user, type, date, isRead, content }: INotifItemProps) => {
                     </div>
                   );
                 case 'betYes':
-                case 'deposit':
+                case 'deposited':
                   return (
                     <div className="p-1 bg-ma-50 rounded-full">
                       <Svg
@@ -133,14 +158,15 @@ const NotifItem = ({ user, type, date, isRead, content }: INotifItemProps) => {
                   </Typography.Text>
                 );
               case 'withdraw':
-              case 'deposit':
+              case 'deposited':
                 return (
                   <Typography.Text
                     size={15}
                     weight="medium"
                     className="text-text"
                   >
-                    {content}
+                    You have {type} {handleBignumber.divideDecimal(amount ?? 0)}{' '}
+                    USDT to your account
                   </Typography.Text>
                 );
               case 'betYes':
@@ -168,7 +194,7 @@ const NotifItem = ({ user, type, date, isRead, content }: INotifItemProps) => {
           </Typography.Text>
         </Stack>
       </Flex>
-    </Link>
+    </div>
   );
 };
 const NotiData = () => {
@@ -178,12 +204,14 @@ const NotiData = () => {
     queryFn: async () => {
       const res = await notificationService.getNotification({
         page: 1,
-        limit: 20,
+        limit: 30,
       });
       return res;
     },
     enabled: isLoggedIn,
   });
+  console.log(dataNotification);
+
   return (
     <div>
       {dataNotification?.items && dataNotification.items.length > 0 ? (
@@ -192,11 +220,14 @@ const NotiData = () => {
             key={item.id}
             className="py-3 flex justify-between hover:bg-bg-hovered rounded-sm"
           >
+            {/* TO DO OBJECT DATA */}
             <NotifItem
+              id={item.id}
               type={item.type}
               date={formatDate.formatDateFromTimestamp(item.timestamp)}
               content={item.message}
-              isRead
+              status={item.status}
+              amount={item.data?.amount}
             />
           </Flex>
         ))
