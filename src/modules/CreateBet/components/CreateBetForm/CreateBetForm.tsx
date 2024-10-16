@@ -124,7 +124,7 @@ const CreateBetFormModule = () => {
           <Typography.Text size={15}>Category</Typography.Text>
           {categoryData && (
             <Controller
-              name="categories"
+              name="category"
               control={control}
               render={({ field }) => (
                 <OptionsOutsideSelect

@@ -1,3 +1,5 @@
+import type { ICategoryList } from '../categoryService';
+
 export type TCreateBetData = {
   thumbnail?: File;
   name: string;
@@ -6,12 +8,16 @@ export type TCreateBetData = {
   conditions?: string;
   startTime: number;
   endTime: number;
-  categories?: string[];
+  category?: string[];
   betType?: string;
   outcomes?: IOutcomeData[];
   sources?: ISourceData[];
 };
-
+export type IMarketParams = {
+  name?: string;
+  user?: string;
+  category?: string;
+} & PaginationType;
 export type IOutcomeData = {
   outcome: string;
   subOutcome: string;
@@ -31,10 +37,13 @@ export type TCrateBetFormData = {
 } & TCreateBetData;
 
 export interface IFormattedCreateBetData
-  extends Omit<TCrateBetFormData, 'categories'> {
-  categories?: TOption[];
+  extends Omit<TCrateBetFormData, 'category'> {
+  category?: ICategoryList[];
 }
-
+export interface IFormattedCreateBetParams
+  extends Omit<TCrateBetFormData, 'category'> {
+  category?: string[];
+}
 export type TCreateBetResponseData = {
   id: string;
   createdAt: Date;

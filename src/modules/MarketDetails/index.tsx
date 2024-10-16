@@ -86,7 +86,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
                 openOn={marketDetailData?.startTime}
                 closeOn={marketDetailData?.endTime}
                 payoutOn="2021-09-20"
-                categories={[]}
+                category={[]}
               />
             </SectionIndicator>
 

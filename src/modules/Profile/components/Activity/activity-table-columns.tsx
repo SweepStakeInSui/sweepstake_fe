@@ -7,9 +7,11 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
-import type { ActivityProps } from '@/types/table';
+import type { IActivityItem } from '@/types/table';
+import { formatDate } from '@/utils/formatDate';
+import { handleBignumber } from '@/utils/handleBignumber';
 
-export const columns: ColumnDef<ActivityProps>[] = [
+export const columns: ColumnDef<IActivityItem>[] = [
   {
     accessorKey: 'type',
     header: 'Type',
@@ -55,12 +57,14 @@ export const columns: ColumnDef<ActivityProps>[] = [
       return <div className="flex justify-end py-2 text-left">Amount</div>;
     },
     cell: ({ row }) => {
-      const { time, amount } = row.original;
+      const { timestamp, amount } = row.original;
       return (
         <Stack className="flex items-end text-left gap-1">
-          <Typography.Text size={15}>${amount}</Typography.Text>
+          <Typography.Text size={15}>
+            ${handleBignumber.divideDecimal(amount)}
+          </Typography.Text>
           <Typography.Text size={13} className="text-text-sublest">
-            {time}
+            {formatDate.formatDateFromTimestamp(timestamp)}
           </Typography.Text>
         </Stack>
       );

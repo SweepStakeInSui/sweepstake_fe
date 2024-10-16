@@ -11,7 +11,7 @@ export default function HomeLogo({ variant }: Readonly<IHomeLogoProps>) {
     <Link href="/">
       {(!variant || variant === 'default') && (
         <div className="relative h-10 aspect-[167/40]">
-          <Image src="/logos/logo.png" alt="logo" fill />
+          <Image src="/logos/sweepstake_footer.svg" alt="logo" fill />
         </div>
       )}
       {variant === 'squared' && (

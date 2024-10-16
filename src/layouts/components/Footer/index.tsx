@@ -20,7 +20,7 @@ export default function Footer() {
           <Stack>
             <HomeLogo />
             <Typography.Text size={13} className="text-text-sublest">
-              Copyright © 2024 SweepStack. All rights reserved.
+              Copyright © 2024 SweepStakes. All rights reserved.
             </Typography.Text>
           </Stack>
           <Stack>

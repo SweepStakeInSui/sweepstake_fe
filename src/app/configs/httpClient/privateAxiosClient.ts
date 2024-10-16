@@ -53,8 +53,8 @@ privateAxiosClient.interceptors.response.use(
         return Promise.reject(_error);
       }
     }
-    store.dispatch(updateCookieToken({ accessToken: null, isLoggedIn: false }));
-    removeCookieToken();
+    // store.dispatch(updateCookieToken({ accessToken: null, isLoggedIn: false }));
+    // removeCookieToken();
     return Promise.reject(error);
   },
 );

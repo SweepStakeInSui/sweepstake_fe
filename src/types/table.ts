@@ -1,4 +1,4 @@
-import type { BetStatus } from '@/enums/bet-status';
+import type { BetOutcomeType } from '@/enums/bet-status';
 
 export interface PositionsProps {
   id: number;
@@ -12,14 +12,17 @@ export interface PositionsProps {
   valueChanges: number;
   valuePercent: number;
 }
-export interface ActivityProps {
-  id: number;
+export interface IActivityItem extends BaseEntity {
   image: string;
   name: string;
   shares: number;
   price: number;
-  status: 'Yes' | 'No';
+  status: BetOutcomeType;
   amount: number;
-  time: string;
-  type: BetStatus;
+  transactionHash: string;
+  timestamp: number;
+}
+export interface ActivityProps {
+  items: IActivityItem[];
+  meta: Meta;
 }

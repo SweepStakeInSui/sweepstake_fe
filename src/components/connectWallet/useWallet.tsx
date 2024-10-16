@@ -64,7 +64,7 @@ export const ConnectWalletProvider: React.FC<{ children: React.ReactNode }> = ({
           adapterSettings: {
             uxMode: 'popup',
             whiteLabel: {
-              appName: 'Sweepstack',
+              appName: 'SweepStakes',
               appUrl: 'https://web3auth.io',
               logoLight: 'https://web3auth.io/images/web3auth-logo.svg',
               logoDark: 'https://web3auth.io/images/web3auth-logo---Dark.svg',

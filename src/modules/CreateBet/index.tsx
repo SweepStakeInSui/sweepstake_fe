@@ -4,17 +4,22 @@ import { useMutation } from '@tanstack/react-query';
 import { addWeeks } from 'date-fns';
 import React, { useDeferredValue } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import withAuth from '@/components/withAuth';
 import { marketService } from '@/services/markets';
+import { selectProfile } from '@/store/profileSlice';
 
 import Flex from '../../components/common/Flex';
 import { StatusModal } from '../../components/common/StatusModal';
 import { Button } from '../../components/ui/button';
-import type { IFormattedCreateBetData } from '../../services/markets/types';
+import type {
+  IFormattedCreateBetData,
+  IFormattedCreateBetParams,
+} from '../../services/markets/types';
 import { dateToMilliseconds } from '../../utils/dateToMilliseconds';
 import { epochToDate } from '../../utils/epochToDate';
 import { timeToMilliseconds } from '../../utils/timeToMilliseconds';
@@ -29,6 +34,8 @@ const CreateBetModule = () => {
   const [step, setStep] = React.useState(false);
   const [txsString, setTxsString] = React.useState('');
 
+  const { isLoggedIn } = useSelector(selectProfile);
+
   const methods = useForm<IFormattedCreateBetData>({
     defaultValues: {
       name: '',
@@ -38,7 +45,7 @@ const CreateBetModule = () => {
       endDate: addWeeks(new Date(), 1),
       endClock: epochToDate(toEpoch(addWeeks(new Date(), 1))),
       endTime: dateToMilliseconds(addWeeks(new Date(), 1)),
-      categories: [],
+      category: [],
       betType: 'yesno',
       outcomes: [
         {
@@ -68,7 +75,7 @@ const CreateBetModule = () => {
     isError: isCreateBetError,
     data: createBetData,
   } = useMutation({
-    mutationFn: (data: IFormattedCreateBetData) =>
+    mutationFn: (data: IFormattedCreateBetParams) =>
       marketService.createMarketService(data),
     onSuccess: () => {
       setTxsString('fakeTXSString');
@@ -77,19 +84,22 @@ const CreateBetModule = () => {
 
   // FUNCTIONS
   const handleCreateBet = (data: IFormattedCreateBetData) => {
-    const { startClock, startDate, endClock, endDate } = data;
+    const { startClock, startDate, endClock, endDate, category } = data;
+
     const startTimeSeconds =
       (dateToMilliseconds(startDate, true) + timeToMilliseconds(startClock)) /
       1000;
     const endTimeSeconds =
       (dateToMilliseconds(endDate, true) + timeToMilliseconds(endClock)) / 1000;
-
+    const categoryNames = (category ?? [{ name: 'All' }]).map(
+      (item) => item.name,
+    );
     const formattedData = {
       ...data,
+      category: categoryNames,
       startTime: startTimeSeconds,
       endTime: endTimeSeconds,
     };
-
     setConfirmCreateBetModalOpen(true);
     createBetMutation(formattedData);
   };
@@ -143,6 +153,7 @@ const CreateBetModule = () => {
                 <Button
                   className="w-full"
                   size="lg"
+                  disabled={isLoggedIn}
                   onClick={methods.handleSubmit(handleCreateBet)}
                 >
                   Create Bet
