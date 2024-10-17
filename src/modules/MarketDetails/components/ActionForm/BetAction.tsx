@@ -112,8 +112,10 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
       slippage: '0',
       signature: 'signature',
     },
+    mode: 'onChange',
   });
   const { errors } = formState;
+  console.log(errors);
   const price = watch('price');
   const amount = watch('amount');
 
@@ -209,7 +211,16 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 onIncrement={handlePriceIncrement}
                 onDecrement={handlePriceDecrement}
               />
-              {errors.price && (
+              {!profile && (
+                <Typography.Text
+                  size={13}
+                  className="text-text-support-red"
+                  weight="medium"
+                >
+                  Connect your wallet to place an order
+                </Typography.Text>
+              )}
+              {profile && errors.price && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -229,7 +240,17 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
               />
-              {errors.amount && (
+              {!profile && (
+                <Typography.Text
+                  size={13}
+                  className="text-text-support-red"
+                  weight="medium"
+                >
+                  Connect your wallet to place an order
+                </Typography.Text>
+              )}
+
+              {profile && errors.amount && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import CopiableAddress from '@/components/common/CopiableAddress/CopiableAddress';
+import CopyButton from '@/components/common/CopyButton/CopyButton';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
@@ -55,7 +55,7 @@ const Guide = () => {
           </div>
         ))}
       </Flex>
-      <CopiableAddress
+      <CopyButton
         address={profile?.address}
         className="h-12 items-center px-3 bg-bg-sublest border border-borderSubtle rounded-lg"
       />
