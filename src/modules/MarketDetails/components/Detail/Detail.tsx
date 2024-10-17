@@ -7,11 +7,12 @@ import IconButton from '@/components/common/IconButton';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-// import { Button } from '@/components/ui/button';
+import { Accordion } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
 import { mockAvatar } from '@/mocks/mockAvatar';
-// import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
+import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
+import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBetOrderBook';
 import type { TBetItem } from '@/services/markets/types';
 
 // interface IMarketsDetailProps {
@@ -27,7 +28,7 @@ interface IMarketsDetailProps {
 export default function MarketsDetail({ bet }: IMarketsDetailProps) {
   return (
     <div>
-      <Stack className="gap-y-0">
+      <Stack className="gap-y-0 mb-4">
         <Flex className="mb-3">
           <Flex className="gap-1">
             <Svg src="/icons/monetization.svg" />
@@ -100,8 +101,8 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
       </Stack>
 
       <Stack className="gap-3">
-        {/* <Stack className="gap-0">
-          <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
+        <Stack className="gap-0">
+          {/* <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
             <Typography.Text size={13} className="text-text-subtle">
               Outcome
             </Typography.Text>
@@ -111,14 +112,16 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
                 %Chance
               </Typography.Text>
             </Flex>
-          </Flex>
+          </Flex> */}
 
-          <Accordion type="single" collapsible className="w-full">
-            <MarketTile data={bet} />
+          <Accordion type="single" collapsible className="lg:hidden w-full">
+            <MarketTile isSingleBet data={bet} />
           </Accordion>
+
+          <SingleBetOrderBook />
         </Stack>
 
-        <Button
+        {/* <Button
           variant="ghost"
           className="text-text-support-blue pl-0 hover:bg-transparent active:bg-transparent"
         >

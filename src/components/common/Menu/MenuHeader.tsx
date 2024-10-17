@@ -142,7 +142,7 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
             size="medium"
             className="bg-wht-a80/80 dark:bg-wht-a20/20"
           >
-            <Svg src="icons/history.svg" />
+            <Svg src="/icons/history.svg" />
           </Button>
         </Link>
       </Flex>
@@ -215,7 +215,7 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
             size="medium"
             className="bg-opacity-85 bg-wht-a80/80 dark:bg-wht-a20/20"
           >
-            <Svg src="icons/history.svg" />
+            <Svg src="/icons/history.svg" />
           </Button>
         </Link>
       </Flex>
