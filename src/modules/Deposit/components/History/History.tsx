@@ -11,21 +11,7 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
-// const EmptyHistory = () => {
-//   return (
-//     <Stack className="items-center py-10 pb-5">
-//       <Image
-//         src={'/images/coinSweepstake.png'}
-//         width={80}
-//         height={80}
-//         alt="coin"
-//       />
-//       <Typography.Text className="text-text-sublest">
-//         No history found
-//       </Typography.Text>
-//     </Stack>
-//   );
-// };
+
 const HistoryItem = () => {
   return (
     <Flex className="justify-between">

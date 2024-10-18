@@ -1,9 +1,11 @@
 import type { UseMutateFunction } from '@tanstack/react-query';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import type { TCreateCommentData } from '@/services/markets/types';
+import { selectProfile } from '@/store/profileSlice';
 
 import Flex from '../Flex';
 import Typography from '../Typography';
@@ -16,6 +18,7 @@ interface ICommentFormProps {
 
 const CommentForm = ({ marketId, onCreate, isPending }: ICommentFormProps) => {
   const [commentText, setCommentText] = React.useState('');
+  const { isLoggedIn } = useSelector(selectProfile);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +42,11 @@ const CommentForm = ({ marketId, onCreate, isPending }: ICommentFormProps) => {
           <Typography.Text size={13} className="text-text-subtle">
             {800 - commentText.length} left
           </Typography.Text>
-          <Button variant="secondary" type="submit" disabled={isPending}>
+          <Button
+            variant="secondary"
+            type="submit"
+            disabled={isPending || !isLoggedIn}
+          >
             {isPending ? 'Posting...' : 'Post'}
           </Button>
         </Flex>

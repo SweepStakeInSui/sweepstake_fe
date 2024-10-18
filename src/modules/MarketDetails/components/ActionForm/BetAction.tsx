@@ -124,7 +124,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
           ? betState.outcomeYesId
           : betState.outcomeNoId,
       amount: data.amount.toString(),
-      price: isLimit ? data.price.toString() : '0',
+      price: isLimit ? handleBignumber.powDecimal(data.price) : '0',
       type: isLimit ? EOrderType.GTC : EOrderType.FOK,
       side: isBid ? EBetStatusOption.BID : EBetStatusOption.ASK,
       slippage: '0',
@@ -186,14 +186,22 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
               variant={`bet_yes${betState.type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
             >
-              Yes {isBid ? betState.bidPriceYes : betState.askPriceYes}¢
+              Yes{' '}
+              {isBid
+                ? handleBignumber.divideDecimal(betState.bidPriceYes)
+                : handleBignumber.divideDecimal(betState.askPriceYes)}
+              ¢
             </Button>
             <Button
               variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
             >
-              No {isBid ? betState.bidPriceNo : betState.askPriceNo}¢
+              No{' '}
+              {isBid
+                ? handleBignumber.divideDecimal(betState.bidPriceNo)
+                : handleBignumber.divideDecimal(betState.askPriceNo)}
+              ¢
             </Button>
           </Flex>
         </Stack>
@@ -414,7 +422,7 @@ Projected payout 2 hours after closing."
         open={placeOrderModalOpen}
         onOpenChange={setPlaceOrderModalOpen}
         isLoading={isPlaceOrderLoading}
-        isSuccess={isPlaceOrderSuccess}
+        isSuccess={isPlaceOrderSuccess && placeOrderData.statusCode === 200}
         isError={isPlaceOrderError}
         title={(() => {
           if (isPlaceOrderLoading) return 'Executing...';

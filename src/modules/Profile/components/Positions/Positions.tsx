@@ -7,10 +7,6 @@ import type { PositionsProps } from '@/types/table';
 
 import { columns } from './positions-table-columns';
 
-// async function getData(): Promise<PositionsProps[]> {
-//   return positionsData;
-// }
-
 export default function Positions() {
   const {
     data: positionsData,
@@ -26,6 +22,7 @@ export default function Positions() {
       return result;
     },
   });
+  console.log(positionsData);
 
   if (isPending) {
     return <div>Loading...</div>;

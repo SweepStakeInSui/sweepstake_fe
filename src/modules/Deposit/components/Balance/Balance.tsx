@@ -127,6 +127,7 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
       queryClient.refetchQueries({
         queryKey: [['useBalance', profile?.address], ['user-infor']],
       });
+      form.reset();
       console.log('Deposit successful:', data);
     },
     onError: (error) => {
@@ -285,6 +286,8 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
         open={confirmDepositModalOpen}
         onOpenChange={setConfirmDepositModalOpen}
         isLoading={isDepositLoading}
+        isError={isDepositError}
+        isSuccess={isDepositSuccess && depositData.statusCode === 200}
         title={(() => {
           if (isDepositLoading) return 'Your transfer Is Being Processed';
           if (isDepositSuccess && depositData.statusCode === 200)

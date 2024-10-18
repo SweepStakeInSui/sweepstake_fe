@@ -8,7 +8,7 @@ const getNotification = async (
   return response.data.data;
 };
 type NotificationBody = {
-  notificationId: string;
+  notificationIds: string[];
 };
 const notificationSeen = async (body: NotificationBody) => {
   const response = await privateAxiosClient.post(`/notification/seen`, body);

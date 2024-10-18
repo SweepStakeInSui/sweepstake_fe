@@ -153,7 +153,7 @@ const CreateBetModule = () => {
                 <Button
                   className="w-full"
                   size="lg"
-                  disabled={isLoggedIn}
+                  disabled={!isLoggedIn}
                   onClick={methods.handleSubmit(handleCreateBet)}
                 >
                   Create Bet
@@ -198,7 +198,7 @@ const CreateBetModule = () => {
         open={confirmCreateBetModalOpen}
         onOpenChange={setConfirmCreateBetModalOpen}
         isLoading={isCreateBetLoading}
-        isSuccess={isCreateBetSuccess}
+        isSuccess={isCreateBetSuccess && createBetData.statusCode === 200}
         isError={isCreateBetError}
         title={(() => {
           if (isCreateBetLoading) return 'Your Bet Being Created';

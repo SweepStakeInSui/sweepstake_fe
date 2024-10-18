@@ -22,12 +22,12 @@ export const menuListLogin = (onDisconnect: () => void) => [
     icon: '/icons/mood.svg',
   },
   {
-    slug: 'my-bets',
+    slug: 'profile?tab=bets_created',
     title: 'My Bets',
     icon: '/icons/my_bet.svg',
   },
   {
-    slug: 'watchlist',
+    slug: 'profile?tab=watchlist',
     title: 'Watchlist',
     icon: '/icons/star_outline.svg',
   },
@@ -37,7 +37,7 @@ export const menuListLogin = (onDisconnect: () => void) => [
     icon: '/icons/leaderboard.svg',
   },
   {
-    slug: 'activity',
+    slug: 'profile?tab=activity',
     title: 'My Activity',
     icon: '/icons/timeline.svg',
   },
@@ -58,9 +58,9 @@ export const menuListLogin = (onDisconnect: () => void) => [
 export const CONSTANT_ROUTES = {
   HOME: '/',
   MARKETS: '/markets',
-  CREATE_BET: '/create-bet',
+  CREATE_BET: '/profile?tab=bets_created',
   PROFILE: '/profile',
-  WATCHLIST: '/watchlist',
+  WATCHLIST: '/profile?tab=watchlist',
   LEADERBOARD: '/leaderboard',
-  ACTIVITY: '/activity',
+  ACTIVITY: '/profile?tab=activity',
 };

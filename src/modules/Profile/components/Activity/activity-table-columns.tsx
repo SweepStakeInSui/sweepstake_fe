@@ -4,6 +4,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
+import { FormatNumber } from '@/components/common/FormatNumber';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
@@ -20,7 +21,7 @@ export const columns: ColumnDef<IActivityItem>[] = [
     accessorKey: 'market',
     header: 'Market',
     cell: ({ row }) => {
-      const { name, status, image } = row.original;
+      const { name, status, image, price } = row.original;
 
       return (
         <Flex className="justify-between space-x-2">
@@ -29,8 +30,14 @@ export const columns: ColumnDef<IActivityItem>[] = [
 
             <div>{name}</div>
           </Flex>
-          <Button variant={status === 'Yes' ? 'bet_yes' : 'bet_no'}>
-            {status}
+          <Button
+            variant={status === 'Yes' ? 'bet_yes' : 'bet_no'}
+            className="flex gap-x-1 items-center]"
+          >
+            <p className="first-letter:!uppercase text-sm font-semibold">
+              {status}
+            </p>
+            <FormatNumber number={handleBignumber.divideDecimal(price)} />$
           </Button>
         </Flex>
       );
@@ -46,7 +53,7 @@ export const columns: ColumnDef<IActivityItem>[] = [
       const { shares } = row.original;
       return (
         <Flex className="justify-end">
-          <Typography.Text size={15}>{shares}</Typography.Text>
+          <Typography.Text size={15}>{shares || '-'}</Typography.Text>
         </Flex>
       );
     },
@@ -60,9 +67,7 @@ export const columns: ColumnDef<IActivityItem>[] = [
       const { timestamp, amount } = row.original;
       return (
         <Stack className="flex items-end text-left gap-1">
-          <Typography.Text size={15}>
-            ${handleBignumber.divideDecimal(amount)}
-          </Typography.Text>
+          <Typography.Text size={15}>{amount}</Typography.Text>
           <Typography.Text size={13} className="text-text-sublest">
             {formatDate.formatDateFromTimestamp(timestamp)}
           </Typography.Text>

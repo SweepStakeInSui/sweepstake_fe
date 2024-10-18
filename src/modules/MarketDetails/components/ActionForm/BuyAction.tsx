@@ -185,14 +185,14 @@ const BuyAction = ({ isLimit }: IBuyActionProps) => {
               variant={`bet_yes${betState.type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
             >
-              Yes {betState.bidPriceYes}¢
+              Yes {handleBignumber.divideDecimal(betState.bidPriceYes)}¢
             </Button>
             <Button
               variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
             >
-              No {betState.bidPriceNo}¢
+              No {handleBignumber.divideDecimal(betState.bidPriceNo)}¢
             </Button>
           </Flex>
         </Stack>

@@ -122,7 +122,7 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
           ? betState.outcomeYesId
           : betState.outcomeNoId,
       amount: data.amount.toString(),
-      price: isLimit ? data.price.toString() : '0',
+      price: isLimit ? handleBignumber.powDecimal(data.price) : '0',
       type: isLimit ? EOrderType.GTC : EOrderType.FOK,
       side: EBetStatusOption.ASK,
       slippage: '0',
@@ -184,14 +184,14 @@ const SellAction = ({ isLimit }: ISellActionProps) => {
               variant={`bet_yes${betState.type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
             >
-              Yes {betState.askPriceYes}
+              Yes {handleBignumber.divideDecimal(betState.askPriceYes)}
             </Button>
             <Button
               variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
             >
-              No {betState.askPriceNo}
+              No {handleBignumber.divideDecimal(betState.askPriceNo)}
             </Button>
           </Flex>
         </Stack>
