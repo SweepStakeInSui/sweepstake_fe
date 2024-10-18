@@ -317,7 +317,7 @@ export const NotificationDrawer = () => {
         <DrawerHeader className="text-left p-0">
           <DrawerClose>
             <Flex className="cursor-pointer">
-              <Svg src="icons/arrow_back_ios.svg" />
+              <Svg src="/icons/arrow_back_ios.svg" />
               <Typography.Text
                 size={13}
                 className="text-text-subtle"

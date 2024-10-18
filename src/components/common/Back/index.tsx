@@ -12,7 +12,7 @@ const Back = () => {
   return (
     <button onClick={() => router.back()}>
       <Flex className="cursor-pointer">
-        <Svg src="icons/arrow_back_ios.svg" />
+        <Svg src="/icons/arrow_back_ios.svg" />
         <Typography.Text
           size={13}
           className="text-text-subtle"

@@ -1,24 +1,19 @@
 // import { Accordion } from '@radix-ui/react-accordion';
+import { format } from 'date-fns';
 import Image from 'next/image';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
+import CopyButton from '@/components/common/CopyButton/CopyButton';
 import Flex from '@/components/common/Flex';
-import IconButton from '@/components/common/IconButton';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-// import { Button } from '@/components/ui/button';
+import { Accordion } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
-import { Tooltip } from '@/components/ui/tooltip';
 import { mockAvatar } from '@/mocks/mockAvatar';
-// import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
+import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
+import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBetOrderBook';
 import type { TBetItem } from '@/services/markets/types';
-
-// interface IMarketsDetailProps {
-//   title: string;
-//   chance: number;
-//   percent: number;
-// }
 
 interface IMarketsDetailProps {
   bet: TBetItem;
@@ -27,7 +22,7 @@ interface IMarketsDetailProps {
 export default function MarketsDetail({ bet }: IMarketsDetailProps) {
   return (
     <div>
-      <Stack className="gap-y-0">
+      <Stack className="gap-y-0 mb-4">
         <Flex className="mb-3">
           <Flex className="gap-1">
             <Svg src="/icons/monetization.svg" />
@@ -45,7 +40,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
               className="text-text-subtle inline-flex items-center gap-1"
               size={15}
             >
-              Aug 21, 2024
+              {format(bet.startTime * 1000, 'MMM dd, yyyy')}
             </Typography.Text>
           </Flex>
         </Flex>
@@ -61,13 +56,12 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
 
           <Flex className="gap-0">
             <AddWatchListButton bet={bet} showText={false} size={24} />
-            <Tooltip content="Share bet link">
-              <div>
-                <IconButton isRounded>
-                  <Svg src="/icons/launch.svg" className="text-icon" />
-                </IconButton>
-              </div>
-            </Tooltip>
+            <CopyButton
+              tooltipContent="Copy bet link"
+              content={window.location.href}
+              icon={<Svg src="/icons/launch.svg" />}
+              iconClassName="p-1"
+            />
           </Flex>
         </Flex>
         <Flex className="items-center">
@@ -100,8 +94,8 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
       </Stack>
 
       <Stack className="gap-3">
-        {/* <Stack className="gap-0">
-          <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
+        <Stack className="gap-0">
+          {/* <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
             <Typography.Text size={13} className="text-text-subtle">
               Outcome
             </Typography.Text>
@@ -111,14 +105,16 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
                 %Chance
               </Typography.Text>
             </Flex>
-          </Flex>
+          </Flex> */}
 
-          <Accordion type="single" collapsible className="w-full">
-            <MarketTile data={bet} />
+          <Accordion type="single" collapsible className="lg:hidden w-full">
+            <MarketTile isSingleBet data={bet} />
           </Accordion>
+
+          <SingleBetOrderBook />
         </Stack>
 
-        <Button
+        {/* <Button
           variant="ghost"
           className="text-text-support-blue pl-0 hover:bg-transparent active:bg-transparent"
         >
