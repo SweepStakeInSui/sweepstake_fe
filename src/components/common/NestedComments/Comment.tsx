@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import React from 'react';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
@@ -9,7 +10,6 @@ import IconButton from '../IconButton';
 import { LinkBox } from '../LinkBox';
 import Svg from '../Svg';
 import Typography from '../Typography';
-import { format } from 'date-fns';
 
 export interface ICommentProps {
   id: string;
