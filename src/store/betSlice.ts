@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { BetOutcomeType } from '@/enums/bet-status';
+import { BetOutcomeType, EBetStatusOption } from '@/enums/bet-status';
 
 // export type BetState = {
 //   id: string;
@@ -21,6 +21,7 @@ export const betSlice = createSlice({
     outcomeYesId: '',
     outcomeNoId: '',
     type: BetOutcomeType.YES,
+    side: EBetStatusOption.BID,
     isBid: true,
     bidPriceYes: 0,
     bidPriceNo: 0,

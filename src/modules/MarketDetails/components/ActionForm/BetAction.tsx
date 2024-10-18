@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import type { z } from 'zod';
@@ -33,8 +33,10 @@ import {
 import { postOrder } from '@/modules/MarketDetails/components/ActionForm/shema';
 import { orderService } from '@/services/orders';
 import type { IPostOrderRequest } from '@/services/orders/types';
+import { UserService } from '@/services/userService';
 import { setBet } from '@/store/betSlice';
 import { selectProfile } from '@/store/profileSlice';
+import type { IPositionsData } from '@/types/table';
 import { handleBignumber } from '@/utils/handleBignumber';
 
 interface IBetActionProps {
@@ -95,9 +97,41 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
     },
   });
 
+  // QUERIES
+  const { data: positionsData } = useQuery({
+    queryKey: ['getPositions'],
+    queryFn: async () => {
+      const result: IPositionsData = await UserService.positions({
+        page: 1,
+        limit: 10,
+      });
+      return result;
+    },
+  });
+
+  const askYesLimit = useMemo(
+    () =>
+      positionsData?.items.find(
+        (pos) => pos.outcomeId === betState.outcomeYesId,
+      )?.balance,
+    [positionsData],
+  );
+
+  const askNoLimit = useMemo(
+    () =>
+      positionsData?.items.find((pos) => pos.outcomeId === betState.outcomeNoId)
+        ?.balance,
+    [positionsData],
+  );
+
   // FORM HANDLERS
   const postOrderSchema = postOrder(
     +handleBignumber.divideDecimal(profile?.balance),
+    isLimit ? EOrderType.FOK : EOrderType.GTC,
+    isBid,
+    betState.type === BetOutcomeType.YES,
+    Number(askYesLimit),
+    Number(askNoLimit),
   );
   const { watch, formState, setValue, register, handleSubmit } = useForm<
     z.infer<typeof postOrderSchema>
@@ -218,7 +252,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 onIncrement={handlePriceIncrement}
                 onDecrement={handlePriceDecrement}
               />
-              {!profile && (
+              {!profile.address && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -227,7 +261,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                   Connect your wallet to place an order
                 </Typography.Text>
               )}
-              {profile && errors.price && (
+              {profile.address && errors.price && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -247,7 +281,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
               />
-              {!profile && (
+              {!profile?.address && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -257,7 +291,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 </Typography.Text>
               )}
 
-              {profile && errors.amount && (
+              {profile?.address && errors.amount && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -372,7 +406,17 @@ Projected payout 2 hours after closing."
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
               />
-              {errors.amount && (
+              {!profile?.address && (
+                <Typography.Text
+                  size={13}
+                  className="text-text-support-red"
+                  weight="medium"
+                >
+                  Connect your wallet to place an order
+                </Typography.Text>
+              )}
+
+              {profile?.address && errors.amount && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
