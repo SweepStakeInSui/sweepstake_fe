@@ -1,9 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useMemo } from 'react';
 
 import { CommentList } from '@/components/common/NestedComments';
-import { useQuery } from '@tanstack/react-query';
-import { formatComments } from '@/utils/formatCommentList';
 import { marketService } from '@/services/markets';
+import { formatComments } from '@/utils/formatCommentList';
 
 const Mention = () => {
   const { data: mentionList } = useQuery({
