@@ -115,7 +115,6 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
     mode: 'onChange',
   });
   const { errors } = formState;
-  console.log(errors);
   const price = watch('price');
   const amount = watch('amount');
 
