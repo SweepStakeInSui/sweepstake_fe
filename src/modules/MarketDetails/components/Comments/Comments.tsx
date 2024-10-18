@@ -1,8 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { CommentForm, CommentList } from '@/components/common/NestedComments';
 import { marketService } from '@/services/markets';
+import { selectProfile } from '@/store/profileSlice';
 import { formatComments } from '@/utils/formatCommentList';
 
 interface ICommentsProps {
@@ -12,6 +14,7 @@ interface ICommentsProps {
 const MarketsComments = ({ id }: ICommentsProps) => {
   // HOOKS
   const queryClient = useQueryClient();
+  const { profile } = useSelector(selectProfile);
 
   // QUERIES
   const { data: commentsData } = useQuery({
@@ -43,11 +46,13 @@ const MarketsComments = ({ id }: ICommentsProps) => {
 
   return (
     <section>
-      <CommentForm
-        marketId={id}
-        onCreate={createCommentMutate}
-        isPending={isCreateCommentPending}
-      />
+      {profile && (
+        <CommentForm
+          marketId={id}
+          onCreate={createCommentMutate}
+          isPending={isCreateCommentPending}
+        />
+      )}
       <CommentList
         marketId={id}
         comments={formattedComments}

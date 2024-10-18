@@ -24,10 +24,11 @@ import type { TBetItem } from '@/services/markets/types';
 import { setBet } from '@/store/betSlice';
 
 interface IMarketTitleProps {
+  isSingleBet?: boolean;
   data: TBetItem;
 }
 
-export const MarketTile = ({ data }: IMarketTitleProps) => {
+export const MarketTile = ({ isSingleBet, data }: IMarketTitleProps) => {
   const dispatch = useDispatch();
   const { isMobile } = useWindowSize();
   const betState = useSelector((state: any) => state.bet);
@@ -62,29 +63,32 @@ export const MarketTile = ({ data }: IMarketTitleProps) => {
   return (
     <AccordionItem value={data.id}>
       <Flex className="flex flex-col lg:flex-row justify-between w-full gap-0">
-        <AccordionTrigger className="w-full">
-          <div className="flex flex-col lg:flex-row justify-between w-full">
-            <Flex className="w-full justify-between p-0">
-              <Stack className="items-start">
-                <Typography.Text size={15} weight="medium">
-                  {data.name}
-                </Typography.Text>
-                <Typography.Text size={13} className="text-text-subtle">
-                  {data.description}
-                </Typography.Text>
-              </Stack>
+        {!isSingleBet && (
+          <AccordionTrigger className="w-full">
+            <div className="flex flex-col lg:flex-row justify-between w-full">
+              <Flex className="w-full justify-between p-0">
+                <Stack className="items-start">
+                  <Typography.Text size={15} weight="medium">
+                    {data.name}
+                  </Typography.Text>
+                  <Typography.Text size={13} className="text-text-subtle">
+                    {data.description}
+                  </Typography.Text>
+                </Stack>
 
-              <Flex className="lg:w-[9.875rem] items-center gap-1">
-                {/* <Typography.Text size={18} weight="medium">
+                <Flex className="lg:w-[9.875rem] items-center gap-1">
+                  {/* <Typography.Text size={18} weight="medium">
                   {percent}%
                 </Typography.Text>
                 <Typography.Text size={13} className="text-text-support-green">
                   +{fluctuate}
                 </Typography.Text> */}
+                </Flex>
               </Flex>
-            </Flex>
-          </div>
-        </AccordionTrigger>
+            </div>
+          </AccordionTrigger>
+        )}
+
         <Flex className="w-full lg:w-[14.375rem] justify-center pb-4 lg:pb-0">
           <DrawerTrigger asChild>
             <Button

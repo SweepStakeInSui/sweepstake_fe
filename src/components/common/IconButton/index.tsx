@@ -7,7 +7,7 @@ interface IconButtonProps extends ButtonProps {
   children?: React.ReactNode;
   isRounded?: boolean;
   className?: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export default function IconButton({

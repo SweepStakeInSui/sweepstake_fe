@@ -9,24 +9,32 @@ import type { TypographyTextSize } from '@/components/common/Typography';
 import Typography from '@/components/common/Typography';
 import { Tooltip } from '@/components/ui/tooltip';
 
-interface ICopiableAddress {
-  address: string | React.ReactNode;
+interface ICopyButton {
+  address?: string | React.ReactNode;
+  content?: string;
+  tooltipContent?: string;
   size?: TypographyTextSize;
   className?: string;
+  iconClassName?: string;
+  icon?: React.ReactNode;
 }
 
-const CopiableAddress = ({
+const CopyButton = ({
   address,
+  content,
+  tooltipContent = 'Copy',
   size = 15,
   className,
-}: ICopiableAddress) => {
+  iconClassName,
+  icon = <Svg src="/icons/copy.svg" />,
+}: ICopyButton) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const handleCopy = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    navigator.clipboard.writeText(address as string);
+    navigator.clipboard.writeText((address as string) || (content as string));
     setIsCopied(true);
     timeoutRef.current = setTimeout(() => {
       setIsCopied(false);
@@ -40,10 +48,15 @@ const CopiableAddress = ({
           {address}
         </Typography.Text>
       </div>
-      <Tooltip content={isCopied ? 'Copied' : 'Copy'}>
+      <Tooltip content={isCopied ? 'Copied' : tooltipContent}>
         <div className="inline-block">
-          <IconButton onClick={handleCopy}>
-            <Svg src="/icons/copy.svg" />
+          <IconButton
+            onClick={handleCopy}
+            isRounded
+            variant="ghost"
+            className={iconClassName}
+          >
+            {icon}
           </IconButton>
         </div>
       </Tooltip>
@@ -51,4 +64,4 @@ const CopiableAddress = ({
   );
 };
 
-export default CopiableAddress;
+export default CopyButton;

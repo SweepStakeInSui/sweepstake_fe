@@ -52,7 +52,7 @@ export default function MarketsRulesSummary({
             <Svg src="/icons/lock_outline.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
-                Closes by
+                Closes by{' '}
                 {closeOn ? format(new Date(closeOn * 1000), 'yyyy-MM-dd') : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">

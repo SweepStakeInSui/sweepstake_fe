@@ -1,5 +1,6 @@
 'use client';
 
+import { format } from 'date-fns';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -46,7 +47,11 @@ const sections = [
   },
 ];
 
-const MarketsActionForm = () => {
+interface MarketsActionFormProps {
+  endDate: number;
+}
+
+const MarketsActionForm = ({ endDate }: MarketsActionFormProps) => {
   const [selectedValue, setSelectedValue] = useState('market');
   const { type } = useSelector((state: any) => state.bet);
 
@@ -75,7 +80,7 @@ const MarketsActionForm = () => {
             >
               Bet {type === BetOutcomeType.YES ? 'Yes' : 'No'}
             </span>
-            <span>・Before Aug 9</span>
+            <span>・Before {format(endDate * 1000, 'MMM dd')}</span>
           </Typography.Text>
         </Flex>
 
