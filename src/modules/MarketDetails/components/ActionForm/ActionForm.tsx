@@ -118,7 +118,7 @@ const MarketsActionForm = ({ endDate }: MarketsActionFormProps) => {
       </Stack>
 
       <Stack className="gap-4 hidden-mobile">
-        <hr className="border-borderSubtle my-5" />
+        <hr className="border-borderSubtle mt-5 mb-1" />
 
         <Stack>
           {sections.map((section) => (
