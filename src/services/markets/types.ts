@@ -88,6 +88,7 @@ export type TBetItem = {
   isActive: boolean;
   colaterralToken: string;
   conditions_str: string;
+  status: string;
   outcomes: TOutcome[];
 };
 
