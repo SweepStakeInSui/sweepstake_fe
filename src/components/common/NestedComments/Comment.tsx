@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import React from 'react';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
@@ -55,7 +56,7 @@ const Comment = ({
           <Flex className="justify-between">
             <h4 className="font-bold">{username || truncate(userId)}</h4>
             <span className="text-13 text-text-subtle">
-              {new Date(timestamp).toLocaleString()}
+              {format(new Date(timestamp), 'dd MMM')}
             </span>
           </Flex>
           {/* {isMinimal && !isReplies && (
@@ -82,11 +83,7 @@ const Comment = ({
         {!isForDisplay && (
           <Flex className="space-x-2">
             <Flex className="gap-1">
-              <IconButton
-                isRounded
-                onClick={onLike}
-                className={likedByMe ? 'bg-red-50' : ''}
-              >
+              <IconButton isRounded onClick={onLike}>
                 {likedByMe ? (
                   <Svg
                     src="/icons/favorite_filled.svg"
@@ -111,11 +108,9 @@ const Comment = ({
                   className="text-text-subtle"
                 />
               </IconButton>
-              {replyCount && (
-                <Typography.Text className="text-text-subtle">
-                  {replyCount}
-                </Typography.Text>
-              )}
+              <Typography.Text className="text-text-subtle">
+                {replyCount}
+              </Typography.Text>
             </Flex>
             <IconButton isRounded onClick={onShare}>
               <Svg src="/icons/launch.svg" className="text-text-subtle" />

@@ -36,6 +36,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
   const { data: marketDetailData } = useQuery({
     queryKey: ['marketDetail', id],
     queryFn: async () => marketService.getMarketDetailsService(id),
+    refetchInterval: 5000,
   });
 
   // Init bet state when marketDetailData is loaded

@@ -55,6 +55,15 @@ const postLikeCommentService = async (id: string): Promise<void> => {
   return response.data.data;
 };
 
+const getUserCommentsService = async (
+  userId: string,
+): Promise<TCommentData> => {
+  const response = await publicAxiosClient.get(
+    `/market/comments/user/${userId}`,
+  );
+  return response.data.data;
+};
+
 export const marketService = {
   getMarketService,
   createMarketService,
@@ -63,4 +72,5 @@ export const marketService = {
   createCommentService,
   getCommentListService,
   postLikeCommentService,
+  getUserCommentsService,
 };

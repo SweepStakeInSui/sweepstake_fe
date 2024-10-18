@@ -26,3 +26,17 @@ export interface ActivityProps {
   items: IActivityItem[];
   meta: Meta;
 }
+
+export interface IPosition {
+  balance: string;
+  createdAt: string;
+  deletedAt: string | null;
+  id: string;
+  outcomeId: string;
+  updatedAt: string;
+  userId: string;
+}
+export interface IPositionsData {
+  items: IPosition[];
+  meta: Meta;
+}
