@@ -14,7 +14,7 @@ const Empty: React.FC<EmptyProps> = ({ content, className }) => {
   return (
     <Stack className={cn('items-center py-10 pb-5', className)}>
       <Image
-        src="/images/coinSweepstake.png"
+        src="/images/coinSweepStake.png"
         width={80}
         height={80}
         alt="coin"

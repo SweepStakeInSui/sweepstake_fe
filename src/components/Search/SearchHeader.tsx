@@ -1,12 +1,14 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useDebounce } from '@/hooks';
+import { mockAvatar } from '@/mocks/mockAvatar';
 import { marketService } from '@/services/markets';
 import type { TBetItem } from '@/services/markets/types';
 
@@ -17,55 +19,6 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { ScrollArea } from '../ui/scroll-area';
 
-interface ResultsItemProps {
-  content?: string;
-  avatar?: string;
-  price?: string;
-}
-export const ResultsItem = ({
-  content,
-  avatar = 'https://github.com/shadcn.png',
-  price,
-}: Readonly<ResultsItemProps>) => {
-  return (
-    <Flex className="cursor-pointer justify-between hover:bg-bg-hovered px-2 py-2.5 rounded-sm w-full">
-      <Flex className="gap-4">
-        <Avatar isRounded={false}>
-          <AvatarImage src={avatar} />
-          <AvatarFallback />
-        </Avatar>
-        <Stack className="gap-2">
-          <Typography.Text size={14} weight="medium" className="text-text">
-            {content as string}
-          </Typography.Text>
-          <div className="text-elevation-a400 gap-x-1 flex items-center">
-            <Typography.Text className=" text-sm">
-              {price as string}
-            </Typography.Text>
-          </div>
-        </Stack>
-      </Flex>
-    </Flex>
-  );
-};
-// interface SearchResult {
-//   content: string;
-//   price: string;
-// }
-// const searchResults = [
-//   {
-//     content: 'Roaring Kitty charged in 2024?',
-//     price: '$123,90',
-//   },
-//   {
-//     content: 'Richest person in the world at the end year?',
-//     price: '$323,90',
-//   },
-//   {
-//     content: 'Roaring Kitty charged in 2002?',
-//     price: '$1993,20',
-//   },
-// ];
 interface SearchResultsProps {
   isLoading: boolean;
   results?: TBetItem[];
@@ -84,13 +37,32 @@ const SearchResults = ({ isLoading, results }: SearchResultsProps) => {
 
   return (
     <div className="w-full">
-      {results?.map((result) => (
-        <ResultsItem
-          key={result.id}
-          content={result.name}
-          price="0" // TODO: update later
-        />
-      ))}
+      {results?.map((result) => {
+        return (
+          <Link key={result.id} href={`/markets/${result.id}`}>
+            <Flex className="cursor-pointer justify-between hover:bg-bg-hovered px-2 py-2.5 rounded-sm w-full">
+              <Flex className="gap-4">
+                <Avatar isRounded={false}>
+                  <AvatarImage src={mockAvatar} />
+                  <AvatarFallback />
+                </Avatar>
+                <Stack className="gap-2">
+                  <Typography.Text
+                    size={14}
+                    weight="medium"
+                    className="text-text"
+                  >
+                    {result.name}
+                  </Typography.Text>
+                  <div className="text-elevation-a400 gap-x-1 flex items-center">
+                    <Typography.Text className="text-sm">0</Typography.Text>
+                  </div>
+                </Stack>
+              </Flex>
+            </Flex>
+          </Link>
+        );
+      })}
     </div>
   );
 };

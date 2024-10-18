@@ -93,6 +93,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
       queryClient.refetchQueries({
         queryKey: [['useBalance', profile?.address], ['user-infor']],
       });
+      form.reset();
     },
   });
   async function onWithdraw(values: z.infer<typeof withdrawSchema>) {

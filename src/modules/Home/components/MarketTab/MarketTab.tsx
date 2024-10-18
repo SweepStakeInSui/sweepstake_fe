@@ -102,7 +102,7 @@ const MarketTab = ({ showSubTabs }: MarketTabProps) => {
   });
   const [cate, setCate] = useQueryParam(
     'category',
-    withDefault(StringParam, dataCategory[0].name),
+    withDefault(StringParam, dataCategory[0]?.name || ' '),
   );
 
   return (

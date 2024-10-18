@@ -135,8 +135,7 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
             </Typography.Text>
           </Button>
         </Link>
-        {/* TO DO LINK PROFILE ACTIVITY */}
-        <Link href="/deposit">
+        <Link href="/profile?tab=activity">
           <Button
             variant="ghost"
             size="medium"
@@ -208,8 +207,7 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
             </Typography.Text>
           </Button>
         </Link>
-        {/* TO DO */}
-        <Link href="/deposit">
+        <Link href="/profile?tab=activity">
           <Button
             variant="ghost"
             size="medium"

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
@@ -26,7 +26,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { notificationService } from '@/services/notificationService';
 import { selectProfile } from '@/store/profileSlice';
-import type { NotificationItem } from '@/types/notification';
+import type { NotificationData, NotificationItem } from '@/types/notification';
 import { formatDate } from '@/utils/formatDate';
 import { handleBignumber } from '@/utils/handleBignumber';
 
@@ -54,8 +54,8 @@ const NotifItem = ({
 }: INotifItemProps) => {
   const queryClient = useQueryClient();
   const { mutate: notificationSeenMutate } = useMutation({
-    mutationFn: (idBet: string) =>
-      notificationService.notificationSeen({ notificationId: idBet }),
+    mutationFn: (idBet: string[]) =>
+      notificationService.notificationSeen({ notificationIds: idBet }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getNotification'] });
     },
@@ -63,9 +63,9 @@ const NotifItem = ({
 
   return (
     <div
-      className="w-full"
+      className="w-full cursor-pointer"
       onClick={() => {
-        notificationSeenMutate(id);
+        notificationSeenMutate([id]);
       }}
     >
       <Flex className="relative gap-x-2.5 items-center">
@@ -182,7 +182,15 @@ const NotifItem = ({
                   </Typography.Text>
                 );
               default:
-                return null;
+                return (
+                  <Typography.Text
+                    size={15}
+                    weight="medium"
+                    className="text-text"
+                  >
+                    {content}
+                  </Typography.Text>
+                );
             }
           })()}
           <Typography.Text
@@ -239,17 +247,34 @@ const NotiData = () => {
 };
 export const NotificationDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const dataNotification: NotificationData | undefined =
+    queryClient.getQueryData(['getNotification']);
+  const [isRead, setIsRead] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (dataNotification?.items) {
+      console.log(123);
+      const allRead = dataNotification.items.every(
+        (item) => item.status !== '0',
+      );
+      setIsRead(allRead);
+    }
+  }, [JSON.stringify(dataNotification)]);
+  console.log(isRead);
 
   return (
     <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative size-11 p-0">
           <Svg src="/icons/notif.svg" />
-          <div className="absolute translate-x-2 -translate-y-2 bg-[#EB201E] rounded-full size-1.5" />
+          {!isRead && (
+            <div className="absolute translate-x-2 -translate-y-2 bg-[#EB201E] rounded-full size-1.5" />
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-[370px] px-2.5 py-3 bg-bg-surface"
+        className="w-[370px] px-2.5 py-3 bg-bg-surface max-h-[65vh] overflow-scroll"
         align="end"
       >
         <DropdownMenuLabel className="flex justify-between items-center">
