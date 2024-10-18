@@ -10,6 +10,7 @@ import IconButton from '../IconButton';
 import { LinkBox } from '../LinkBox';
 import Svg from '../Svg';
 import Typography from '../Typography';
+import { format } from 'date-fns';
 
 export interface ICommentProps {
   id: string;
