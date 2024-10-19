@@ -11,12 +11,12 @@ import { columns } from './bets-created-table-columns';
 const BetsCreated = () => {
   const { profile, isLoggedIn } = useSelector(selectProfile);
   const { data, isPending, isError } = useQuery({
-    queryKey: ['getCreateBetUser', profile?.address],
+    queryKey: ['getCreateBetUser', profile?.id],
     queryFn: async () => {
       const result = await marketService.getMarketService({
         page: 1,
         limit: 30,
-        user: profile.address,
+        user: profile.id,
       });
       return result;
     },
@@ -29,7 +29,6 @@ const BetsCreated = () => {
   if (isError) {
     return <Empty content="No bet found" />;
   }
-  console.log(data);
 
   return (
     <div className="">

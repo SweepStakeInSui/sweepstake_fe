@@ -5,6 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
+import { Toaster } from 'sonner';
 
 import { PlusJakartaFont } from '@/constants/fonts';
 import MyLayout from '@/layouts';
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: Readonly<IRootLayout>) {
           <MyLayout>{children}</MyLayout>
         </Providers>
       </body>
+      <Toaster richColors />
     </html>
   );
 }

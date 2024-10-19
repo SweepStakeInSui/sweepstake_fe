@@ -1,7 +1,7 @@
 export type ProfileTypes = {
-  userName: string;
+  username: string;
   address: string;
-  useID: string;
+  id: string;
   avatar?: string;
   positionsValue?: number;
   pnl: number;

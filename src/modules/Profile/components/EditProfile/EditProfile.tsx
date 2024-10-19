@@ -1,7 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReloadIcon } from '@radix-ui/react-icons';
-import { useRef } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
@@ -29,31 +31,68 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { fileService } from '@/services/fileService';
+import { UserService } from '@/services/userService';
+import { userData } from '@/store/profileSlice';
 
 const formSchema = z.object({
-  avatar: z.string(),
+  avatar: z.string().min(1, { message: 'Avatar is required.' }),
   username: z.string().min(2, {
     message: 'Username must be at least 2 characters.',
   }),
 });
 const EditProfile = () => {
+  const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      avatar: 'https://github.com/shadcn.png',
-      username: 'Unnamed',
+      avatar: '',
+      username: '',
     },
   });
+  const { mutate: updateFileMutation, isPending: isUpdateFileLoading } =
+    useMutation({
+      mutationFn: (file: File) => fileService.uploadFile(file),
+      onSuccess: (data) => {
+        if (data) {
+          form.setValue('avatar', data, {
+            shouldValidate: true,
+          });
+        }
+      },
+    });
+  const { mutate: updateProfileMutation, isPending: isUpdateProfileLoading } =
+    useMutation({
+      mutationFn: ({
+        username,
+        avatar,
+      }: {
+        username: string;
+        avatar: string;
+      }) =>
+        UserService.updateProfile({
+          username,
+          avatar,
+        }),
+      onSuccess: (data) => {
+        dispatch(userData({ profile: data }));
+        setOpen(false);
+        form.reset();
+        toast.success('Profile updated!');
+      },
+    });
   function onUpdateProfile(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    // console.log(values);
-    toast.success(values.username);
+    updateProfileMutation({
+      username: values.username,
+      avatar: values.avatar,
+    });
   }
-  const isLoading = false;
+  const { isValid } = form.formState;
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="terriary" className="gap-x-1">
           <Svg src="/icons/edit.svg" />
@@ -80,7 +119,7 @@ const EditProfile = () => {
           <form onSubmit={form.handleSubmit(onUpdateProfile)}>
             <div className="p-4 lg:px-6 lg:py-5">
               <div>
-                {isLoading ? (
+                {isUpdateFileLoading ? (
                   <Flex className="size-32 bg-blk-a85/60 justify-center rounded-full mx-auto">
                     <ReloadIcon className="text-white animate-spin" />
                   </Flex>
@@ -126,15 +165,7 @@ const EditProfile = () => {
                         onChange={(e) => {
                           const file = e.target.files?.[0];
                           if (file) {
-                            const reader = new FileReader();
-                            reader.onloadend = () => {
-                              if (typeof reader.result === 'string') {
-                                form.setValue('avatar', reader.result, {
-                                  shouldValidate: true,
-                                });
-                              }
-                            };
-                            reader.readAsDataURL(file);
+                            updateFileMutation(file);
                           }
                         }}
                       />
@@ -163,7 +194,12 @@ const EditProfile = () => {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit">Update</Button>
+              <Button
+                type="submit"
+                disabled={!isValid || isUpdateProfileLoading}
+              >
+                Update
+              </Button>
             </DialogFooter>
           </form>
         </Form>

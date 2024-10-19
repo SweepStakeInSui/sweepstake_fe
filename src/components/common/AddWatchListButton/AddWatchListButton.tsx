@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import IconButton from '@/components/common/IconButton';
+import { Button } from '@/components/ui/button';
 import { Tooltip } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import type { TBetItem } from '@/services/markets/types';
@@ -39,8 +39,7 @@ const AddWatchListButton = ({
         content="Remove from watchlist"
         className={cn(showText && 'hidden')}
       >
-        <IconButton
-          isRounded
+        <Button
           variant="ghost"
           className="gap-0.5 p-1"
           onClick={(e) => {
@@ -57,14 +56,13 @@ const AddWatchListButton = ({
               Remove from WL
             </Typography.Text>
           )}
-        </IconButton>
+        </Button>
       </Tooltip>
     );
   }
   return (
     <Tooltip content="Add to watchlist" className={cn(showText && 'hidden')}>
-      <IconButton
-        isRounded
+      <Button
         variant="ghost"
         className="gap-0.5 p-1"
         onClick={(e) => {
@@ -81,7 +79,7 @@ const AddWatchListButton = ({
             Add to watchlist
           </Typography.Text>
         )}
-      </IconButton>
+      </Button>
     </Tooltip>
   );
 };

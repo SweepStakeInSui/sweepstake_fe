@@ -84,7 +84,7 @@ const OptionsOutsideSelect = ({
           value: option.id,
           label: option.name,
         }))}
-        // TO DO Optimize
+        // TODO: Optimize
         onChange={(newValue) => {
           if (onChange) {
             type OptionType = { value: string; label: string };
