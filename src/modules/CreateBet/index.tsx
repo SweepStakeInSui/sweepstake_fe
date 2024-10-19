@@ -10,7 +10,7 @@ import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import withAuth from '@/components/withAuth';
-import { marketService } from '@/services/markets';
+import { MarketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
 
 import Flex from '../../components/common/Flex';
@@ -76,7 +76,7 @@ const CreateBetModule = () => {
     data: createBetData,
   } = useMutation({
     mutationFn: (data: IFormattedCreateBetParams) =>
-      marketService.createMarketService(data),
+      MarketService.createMarket(data),
     onSuccess: () => {
       setTxsString('fakeTXSString');
     },

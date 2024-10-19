@@ -9,7 +9,7 @@ import Stack from '@/components/common/Stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useDebounce } from '@/hooks';
 import { mockAvatar } from '@/mocks/mockAvatar';
-import { marketService } from '@/services/markets';
+import { MarketService } from '@/services/markets';
 import type { TBetItem } from '@/services/markets/types';
 
 import { SkeletonSearch } from '../common/Skeleton';
@@ -85,7 +85,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
     data: searchData,
   } = useMutation({
     mutationFn: (params: FilterParams) =>
-      marketService.getSearchMarketService(params),
+      MarketService.getSearchMarket(params),
   });
 
   useEffect(() => {

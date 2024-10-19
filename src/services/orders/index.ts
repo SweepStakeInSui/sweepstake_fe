@@ -19,7 +19,7 @@ const getOrder = async (params: TOrderParams): Promise<ActivityProps> => {
   const response = await publicAxiosClient.get(`/order`, { params });
   return response.data.data;
 };
-export const orderService = {
+export const OrderService = {
   postOrder,
   getOrder,
 };
