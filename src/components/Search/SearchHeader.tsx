@@ -84,8 +84,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
     isPending: isSearchLoading,
     data: searchData,
   } = useMutation({
-    mutationFn: (params: FilterParams) =>
-      MarketService.getSearchMarket(params),
+    mutationFn: (params: FilterParams) => MarketService.getSearchMarket(params),
   });
 
   useEffect(() => {

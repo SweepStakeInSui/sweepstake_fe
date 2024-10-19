@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
+import Empty from '@/components/common/Empty';
 import { CommentList } from '@/components/common/NestedComments';
 import { MarketService } from '@/services/markets';
-import { formatComments } from '@/utils/formatCommentList';
 import { selectProfile } from '@/store/profileSlice';
-import { useSelector } from 'react-redux';
-import Empty from '@/components/common/Empty';
+import { formatComments } from '@/utils/formatCommentList';
 
 const Mention = () => {
   const { profile } = useSelector(selectProfile);
