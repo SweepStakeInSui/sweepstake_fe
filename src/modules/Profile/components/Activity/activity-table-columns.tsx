@@ -21,14 +21,14 @@ export const columns: ColumnDef<IActivityItem>[] = [
     accessorKey: 'market',
     header: 'Market',
     cell: ({ row }) => {
-      const { name, status, image, price } = row.original;
+      const { outcome, status, image, price } = row.original;
 
       return (
         <Flex className="justify-between space-x-2">
           <Flex>
             <CustomAvatar src={image} />
 
-            <div>{name}</div>
+            <div>{outcome.market.name}</div>
           </Flex>
           <Button
             variant={status === 'Yes' ? 'bet_yes' : 'bet_no'}

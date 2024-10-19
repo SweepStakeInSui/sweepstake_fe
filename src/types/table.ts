@@ -1,16 +1,18 @@
 import type { BetOutcomeType } from '@/enums/bet-status';
+import type {
+  IFormattedCreateBetParams,
+  TOutcome,
+} from '@/services/markets/types';
 
+export interface PositionItemProps extends BaseEntity {
+  balance: string;
+  outcome: TOutcome & { market: IFormattedCreateBetParams };
+  outcomeId: string;
+  userId: string;
+}
 export interface PositionsProps {
-  id: number;
-  image: string;
-  name: string;
-  shares: number;
-  avg: number;
-  current: number;
-  status: 'Yes' | 'No';
-  value: number;
-  valueChanges: number;
-  valuePercent: number;
+  items: PositionItemProps[];
+  meta: Meta;
 }
 export interface IActivityItem extends BaseEntity {
   image: string;
@@ -21,6 +23,7 @@ export interface IActivityItem extends BaseEntity {
   amount: number;
   transactionHash: string;
   timestamp: number;
+  outcome: TOutcome & { market: IFormattedCreateBetParams };
 }
 export interface ActivityProps {
   items: IActivityItem[];

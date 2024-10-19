@@ -2,6 +2,7 @@ import privateAxiosClient from '@/app/configs/httpClient/privateAxiosClient';
 import type { RequestDepositSchemaType } from '@/modules/Deposit/components/Balance/schema/requestDepositSchema';
 import type { WithdrawSchemaType } from '@/modules/Deposit/components/Portfolio/schema/withdrawSchema';
 import type { ProfileTypes } from '@/types/profile';
+import type { PositionsProps } from '@/types/table';
 
 interface DepositParams {
   txBytes: string;
@@ -15,12 +16,24 @@ interface TRequestDepositResponse {
   statusCode: number;
   data: TRequestDepositResponseData;
 }
+
 interface WithdrawRespone {
   statusCode: number;
   data: {};
 }
+interface UpdateProfileParams {
+  username: string;
+  avatar: string;
+}
+
 const getUserInfor = async (): Promise<ProfileTypes> => {
   const response = await privateAxiosClient.get(`/user/profile`);
+  return response.data.data;
+};
+const updateProfile = async (
+  body: UpdateProfileParams,
+): Promise<ProfileTypes> => {
+  const response = await privateAxiosClient.post(`/user/profile`, body);
   return response.data.data;
 };
 const deposit = async (body: DepositParams) => {
@@ -43,7 +56,7 @@ const transactionHistory = async (params: PaginationType) => {
   });
   return response.data.data;
 };
-const positions = async (params: PaginationType) => {
+const positions = async (params: PaginationType): Promise<PositionsProps> => {
   const response = await privateAxiosClient.get(`/user/positions`, {
     params,
   });
@@ -51,6 +64,7 @@ const positions = async (params: PaginationType) => {
 };
 export const UserService = {
   getUserInfor,
+  updateProfile,
   deposit,
   withdraw,
   requestDeposit,

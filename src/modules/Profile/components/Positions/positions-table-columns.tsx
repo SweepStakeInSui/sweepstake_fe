@@ -4,28 +4,31 @@ import type { ColumnDef } from '@tanstack/react-table';
 
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
+import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import type { PositionsProps } from '@/types/table';
+import { mockAvatar } from '@/mocks/mockAvatar';
+import type { PositionItemProps } from '@/types/table';
+import { handleBignumber } from '@/utils/handleBignumber';
 
-export const columns: ColumnDef<PositionsProps>[] = [
+export const columns: ColumnDef<PositionItemProps>[] = [
   {
     accessorKey: 'market',
     header: 'Market',
     cell: ({ row }) => {
-      const { name, status, image } = row.original;
+      const { outcome } = row.original;
 
       return (
         <Flex className="justify-between space-x-2">
           <Flex>
             <Avatar size="md" isRounded={false}>
-              <AvatarImage src={image} />
+              <AvatarImage src={mockAvatar} />
               <AvatarFallback />
             </Avatar>
-            <div>{name}</div>
+            <div>{outcome.market.name}</div>
           </Flex>
-          <Button variant={status === 'Yes' ? 'bet_yes' : 'bet_no'}>
-            {status}
+          <Button variant={outcome.type === 'Yes' ? 'bet_yes' : 'bet_no'}>
+            {outcome.type}
           </Button>
         </Flex>
       );
@@ -34,14 +37,29 @@ export const columns: ColumnDef<PositionsProps>[] = [
   {
     accessorKey: 'shares',
     header: 'Shares',
+    cell: ({ row }) => {
+      const { balance } = row.original;
+      return <Typography.Text>{balance}</Typography.Text>;
+    },
   },
   {
     accessorKey: 'avg',
     header: 'Avg',
+    cell: () => {
+      return <Typography.Text>-¢</Typography.Text>;
+    },
   },
   {
     accessorKey: 'current',
     header: 'Current',
+    cell: ({ row }) => {
+      const { outcome } = row.original;
+      return (
+        <Typography.Text>
+          {handleBignumber.divideDecimal(outcome.bidPrice)}¢
+        </Typography.Text>
+      );
+    },
   },
   {
     accessorKey: 'value',
@@ -49,14 +67,17 @@ export const columns: ColumnDef<PositionsProps>[] = [
       return <div className="flex justify-end py-2 text-right">Value</div>;
     },
     cell: ({ row }) => {
-      const { value, valueChanges, valuePercent } = row.original;
+      const { outcome, balance } = row.original;
 
       return (
         <Stack className="items-end">
-          <div>${value}</div>
-          <Flex className="text-text-support-green font-normal gap-0">
-            <div>{valueChanges}</div>({valuePercent}%)
-          </Flex>
+          <div>
+            ${+balance * +handleBignumber.divideDecimal(outcome.bidPrice)}
+          </div>
+          {/* TODO: Update data */}
+          {/* <Flex className="text-text-support-green font-normal gap-0">
+            <div>0</div>(0%)
+          </Flex> */}
         </Stack>
       );
     },

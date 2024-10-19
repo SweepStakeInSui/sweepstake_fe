@@ -218,7 +218,6 @@ const NotiData = () => {
     },
     enabled: isLoggedIn,
   });
-  console.log(dataNotification);
 
   return (
     <div>
@@ -228,7 +227,7 @@ const NotiData = () => {
             key={item.id}
             className="py-3 flex justify-between hover:bg-bg-hovered rounded-sm"
           >
-            {/* TO DO OBJECT DATA */}
+            {/* TODO: OBJECT DATA */}
             <NotifItem
               id={item.id}
               type={item.type}
@@ -254,14 +253,12 @@ export const NotificationDropdown = () => {
 
   useEffect(() => {
     if (dataNotification?.items) {
-      console.log(123);
       const allRead = dataNotification.items.every(
         (item) => item.status !== '0',
       );
       setIsRead(allRead);
     }
   }, [JSON.stringify(dataNotification)]);
-  console.log(isRead);
 
   return (
     <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>

@@ -23,6 +23,9 @@ privateAxiosClient.interceptors.request.use(
         `Bearer ${accessToken}`,
       );
     }
+    if (config.data instanceof FormData) {
+      Object.assign(config.headers, { 'Content-Type': 'multipart/form-data' });
+    }
     return config;
   },
   (error) => Promise.reject(error),

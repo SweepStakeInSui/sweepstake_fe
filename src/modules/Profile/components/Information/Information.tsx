@@ -17,13 +17,13 @@ const Information = () => {
       <Flex className="gap-x-6">
         <CustomAvatar
           address={profile?.address}
-          src="https://i.seadn.io/gcs/files/a812abfbe7e9033685585b17a7b7caba.png?auto=format&dpr=1&w=750"
+          src={profile?.avatar}
           size="xl"
           isRounded
         />
         <Stack className="justify-between">
           <Stack className="gap-y-0.5">
-            <Typography.Heading>Nickname</Typography.Heading>
+            <Typography.Heading>{profile?.username}</Typography.Heading>
             <div className="bg-bg-sublest rounded-full py-0.5 px-2 flex justify-center">
               <Typography.Text size={13}>
                 {profile?.address && briefDocument(profile.address, 5, 5)}

@@ -129,7 +129,7 @@ const VoteCard = ({ data }: VoteCardProps) => {
             </Typography.Text>
             <Flex className="text-text-sublest mt-1">
               <Typography.Text size={12} className="text-text-sublest">
-                32,900k bet
+                3k bet
               </Typography.Text>
               <div className="w-px bg-borderSubtle h-2.5" />
               <AddWatchListButton bet={data} showText />
