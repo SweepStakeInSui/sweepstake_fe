@@ -8,6 +8,7 @@ import { MentionInput } from '../MentionInput';
 import Comment from './Comment';
 
 interface ICommentListProps {
+  userId?: string;
   marketId?: string;
   comments: TComment[];
   isMinimal?: boolean;
@@ -18,6 +19,7 @@ interface ICommentListProps {
 }
 
 const CommentList = ({
+  userId,
   marketId,
   comments,
   isMinimal = false,
@@ -74,6 +76,18 @@ const CommentList = ({
     }
   }, [replyingTo]);
 
+  useEffect(() => {
+    if (comments.length > 0) {
+      setLikedComments(
+        new Set(
+          comments
+            .filter((comment) => comment.likedBy?.includes(userId as string))
+            .map((comment) => comment.id),
+        ),
+      );
+    }
+  }, [comments]);
+
   const renderComments = (commentsArray: TComment[], isNested = false) => {
     return commentsArray?.map((comment, index) => (
       <Fragment key={comment.id}>
@@ -95,7 +109,10 @@ const CommentList = ({
               }
               onLike={() => toggleLike(comment.id)}
               onShare={() => console.log(`Share comment ${comment.id}`)}
-              likedByMe={likedComments.has(comment.id)}
+              likedByMe={
+                comment.likedBy?.includes(userId as string) ||
+                likedComments.has(comment.id)
+              }
               isMinimal={isMinimal}
               isReplies={isNested}
               isForDisplay={isForDisplay}

@@ -13,9 +13,13 @@ const getPriceErrorMessage = (
       return `Price must be greater than 0 and less than or equal to your balance (${balance})`;
     }
     if (isYes) {
-      return `Price must be greater than 0 and less than ${askYesLimit}`;
+      return !askYesLimit
+        ? 'You must buy first'
+        : `Price must be greater than 0 and less than ${askYesLimit}`;
     }
-    return `Price must be greater than 0 and less than ${askNoLimit}`;
+    return !askNoLimit
+      ? 'You must buy first'
+      : `Price must be greater than 0 and less than ${askNoLimit}`;
   }
   return 'Price must be a valid number greater than or equal to 0';
 };
@@ -31,9 +35,13 @@ const getAmountErrorMessage = (
     return `Amount must be greater than 0 and less than or equal to your balance (${balance})`;
   }
   if (isYes) {
-    return `Amount must be greater than 0 and less than ${askYesLimit}`;
+    return !askYesLimit
+      ? 'You must buy first'
+      : `Amount must be greater than 0 and less than ${askYesLimit}`;
   }
-  return `Amount must be greater than 0 and less than ${askNoLimit}`;
+  return !askNoLimit
+    ? 'You must buy first'
+    : `Amount must be greater than 0 and less than ${askNoLimit}`;
 };
 
 export const postOrder = (
