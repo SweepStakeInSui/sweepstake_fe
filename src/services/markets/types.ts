@@ -87,8 +87,11 @@ export type TBetItem = {
   endTime: number;
   isActive: boolean;
   colaterralToken: string;
+  category: string[];
   conditions_str: string;
   outcomes: TOutcome[];
+  onchainId: string;
+  transactionHash: string;
 };
 
 export type TBetDetails = {
@@ -130,5 +133,5 @@ export type TComment = {
   createdAt: string;
   updatedAt: string;
   deletedAt?: string;
-  parentComment: Omit<TComment, 'parentComment'>;
+  parentComment: TComment | null;
 };

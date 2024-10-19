@@ -6,6 +6,7 @@ import { CommentForm, CommentList } from '@/components/common/NestedComments';
 import { MarketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
 import { formatComments } from '@/utils/formatCommentList';
+import Empty from '@/components/common/Empty';
 
 interface ICommentsProps {
   id: string;
@@ -46,21 +47,27 @@ const MarketsComments = ({ id }: ICommentsProps) => {
 
   return (
     <section>
-      {profile && (
+      {profile?.address && (
         <CommentForm
           marketId={id}
           onCreate={createCommentMutate}
           isPending={isCreateCommentPending}
         />
       )}
-      <CommentList
-        marketId={id}
-        comments={formattedComments}
-        isMinimal
-        onCreate={createCommentMutate}
-        onLike={likeCommentMutate}
-        isPending={isCreateCommentPending || isLikeCommentPending}
-      />
+
+      {formattedComments.length > 0 ? (
+        <CommentList
+          userId={profile?.id}
+          marketId={id}
+          comments={formattedComments}
+          isMinimal
+          onCreate={createCommentMutate}
+          onLike={likeCommentMutate}
+          isPending={isCreateCommentPending || isLikeCommentPending}
+        />
+      ) : (
+        <Empty content="No comments yet" />
+      )}
     </section>
   );
 };
