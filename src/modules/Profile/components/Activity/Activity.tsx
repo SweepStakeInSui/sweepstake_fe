@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { DataTable } from '@/components/common/data-table/data-table';
 import Empty from '@/components/common/Empty';
-import { orderService } from '@/services/orders';
+import { OrderService } from '@/services/orders';
 import type { ActivityProps } from '@/types/table';
 
 import { columns } from './activity-table-columns';
@@ -11,7 +11,7 @@ export default function Activity() {
   const { data, isError, isPending } = useQuery<ActivityProps>({
     queryKey: ['getActivity'],
     queryFn: async () => {
-      const result = await orderService.getOrder({
+      const result = await OrderService.getOrder({
         page: 1,
         limit: 30,
       });

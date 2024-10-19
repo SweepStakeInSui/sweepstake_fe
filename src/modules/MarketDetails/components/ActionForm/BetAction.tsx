@@ -31,7 +31,7 @@ import {
   EOrderType,
 } from '@/enums/bet-status';
 import { postOrder } from '@/modules/MarketDetails/components/ActionForm/shema';
-import { orderService } from '@/services/orders';
+import { OrderService } from '@/services/orders';
 import type { IPostOrderRequest } from '@/services/orders/types';
 import { UserService } from '@/services/userService';
 import { setBet } from '@/store/betSlice';
@@ -91,7 +91,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
     isError: isPlaceOrderError,
     data: placeOrderData,
   } = useMutation({
-    mutationFn: (data: IPostOrderRequest) => orderService.postOrder(data),
+    mutationFn: (data: IPostOrderRequest) => OrderService.postOrder(data),
     onSuccess: () => {
       setTxsString('fakeTXSString');
     },

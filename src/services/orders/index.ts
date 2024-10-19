@@ -15,7 +15,7 @@ const getOrder = async (params: PaginationType): Promise<ActivityProps> => {
   const response = await privateAxiosClient.get(`/order`, { params });
   return response.data.data;
 };
-export const orderService = {
+export const OrderService = {
   postOrder,
   getOrder,
 };

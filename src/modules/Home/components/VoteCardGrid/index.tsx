@@ -8,7 +8,7 @@ import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
-import { marketService } from '@/services/markets';
+import { MarketService } from '@/services/markets';
 
 import VoteCard from './VoteCard';
 
@@ -18,7 +18,7 @@ const VoteCardGrid = () => {
   const { data: marketListData, isError } = useQuery({
     queryKey: ['market-list', cate],
     queryFn: async () =>
-      marketService.getMarketService({ page: 1, limit: 12, category: cate }),
+      MarketService.getMarket({ page: 1, limit: 12, category: cate }),
   });
   if (isError || marketListData?.items.length === 0) {
     return <Empty content="No market found" className="py-30" />;
