@@ -1,7 +1,10 @@
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import React from 'react';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
+import { ROUTE } from '@/constants/routes';
+import { MarketService } from '@/services/markets';
 import { truncate } from '@/utils/truncate';
 
 // import { Badge } from '@/components/ui/badge';
@@ -10,9 +13,6 @@ import IconButton from '../IconButton';
 import { LinkBox } from '../LinkBox';
 import Svg from '../Svg';
 import Typography from '../Typography';
-import { useQuery } from '@tanstack/react-query';
-import { MarketService } from '@/services/markets';
-import { ROUTE } from '@/constants/routes';
 
 export interface ICommentProps {
   id: string;

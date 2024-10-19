@@ -133,9 +133,15 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
     Number(askYesLimit),
     Number(askNoLimit),
   );
-  const { watch, formState, reset, resetField, setValue, register, handleSubmit } = useForm<
-    z.infer<typeof postOrderSchema>
-  >({
+  const {
+    watch,
+    formState,
+    reset,
+    resetField,
+    setValue,
+    register,
+    handleSubmit,
+  } = useForm<z.infer<typeof postOrderSchema>>({
     resolver: zodResolver(postOrderSchema),
     defaultValues: {
       outcomeId: '',
@@ -168,7 +174,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
 
     setPlaceOrderModalOpen(true);
     placeOrderMutation(orderData);
-    reset()
+    reset();
   };
 
   // FUNCTIONS

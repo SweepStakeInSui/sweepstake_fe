@@ -2,11 +2,11 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import Empty from '@/components/common/Empty';
 import { CommentForm, CommentList } from '@/components/common/NestedComments';
 import { MarketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
 import { formatComments } from '@/utils/formatCommentList';
-import Empty from '@/components/common/Empty';
 
 interface ICommentsProps {
   id: string;
