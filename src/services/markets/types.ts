@@ -43,6 +43,7 @@ export interface IFormattedCreateBetData
 export interface IFormattedCreateBetParams
   extends Omit<TCrateBetFormData, 'category'> {
   category?: string[];
+  userId?: string;
 }
 export type TCreateBetResponseData = {
   id: string;

@@ -1,51 +1,53 @@
 'use client';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
+
 import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { Badge } from '@/components/ui/badge';
-import type { RecentActivityType } from '@/types/recentActivity';
+import { OrderService } from '@/services/orders';
+import type { IActivityItem } from '@/types/table';
+import { formatDate } from '@/utils/formatDate';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 import ViewAll from '../ViewAll';
 
-export function ActivityItem({
-  username,
-  avatar = 'https://github.com/shadcn.png',
-  title,
-  bidding,
-  date,
-  price,
-  betname,
-  contract,
-}: Readonly<RecentActivityType>) {
+interface ActivityItemProps {
+  item: IActivityItem;
+}
+export function ActivityItem({ item }: Readonly<ActivityItemProps>) {
   return (
     <Flex className="justify-between lg:p-2 flex-wrap overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
       <Flex className="justify-between w-full items-start lg:items-center lg:flex-row ">
         <Flex className="gap-x-2 flex-1">
-          <CustomAvatar src={avatar} />
+          <CustomAvatar src={item.image} />
           <Stack className="gap-1">
             <Flex className="gap-1 flex-wrap">
               <Flex className="gap-1">
                 <Typography.Text size={15} weight="bold" className="text-text">
-                  {username}
+                  {/* {item.userId} */}
+                  Unnamed
                 </Typography.Text>
                 <Typography.Text size={15} className="text-text">
                   bought
                 </Typography.Text>
               </Flex>
               <Badge
-                variant={`${bidding ? 'bet_yes' : 'bet_no'}`}
+                variant={`${item.outcome.type === 'Yes' ? 'bet_yes' : 'bet_no'}`}
                 className="line-clamp-1"
               >
-                Yes {price} • {betname} • {contract} contracts
+                {item.outcome.type}{' '}
+                {handleBignumber.divideDecimal(item.outcome.bidPrice)} • Unnamed
+                • {item.amount} contracts
               </Badge>
             </Flex>
             <Typography.Text
               className="text-text-subtle line-clamp-1 lg:line-clamp-2"
               size={13}
             >
-              {title}
+              {item.outcome.market.name}
             </Typography.Text>
           </Stack>
         </Flex>
@@ -53,20 +55,25 @@ export function ActivityItem({
           size={13}
           className="text-text-subtle text-end lg:text-start w-full lg:w-[unset]"
         >
-          {date}
+          {formatDate.formatTimeAgo(item.timestamp)}
         </Typography.Text>
       </Flex>
     </Flex>
   );
 }
 
-interface RecentActivityProps {
-  data: RecentActivityType[];
-}
-
-export default function RecentActivity({
-  data,
-}: Readonly<RecentActivityProps>) {
+export default function RecentActivity() {
+  const { data } = useSuspenseQuery({
+    queryKey: ['activity'],
+    queryFn: async () => {
+      const result = await OrderService.getOrder({
+        page: 1,
+        limit: 5,
+      });
+      return result;
+    },
+    refetchInterval: 3000,
+  });
   return (
     <Stack className="gap-4 z-10">
       <Flex className="justify-between">
@@ -77,8 +84,8 @@ export default function RecentActivity({
       </Flex>
       {/* <RecentActivityItemSkeleton /> */}
       <Stack className="gap-4">
-        {data.map((item) => (
-          <ActivityItem key={item.id} {...item} />
+        {data.items.map((item) => (
+          <ActivityItem key={item.id} item={item} />
         ))}
       </Stack>
     </Stack>

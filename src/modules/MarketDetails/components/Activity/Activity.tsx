@@ -1,19 +1,20 @@
 import React from 'react';
 
 import Stack from '@/components/common/Stack';
-import { ActivityItem } from '@/modules/Home/components/RecentActivity';
 import type { RecentActivityType } from '@/types/recentActivity';
 
 interface ActivityProps {
   data: RecentActivityType[];
 }
-const Activity: React.FC<ActivityProps> = ({ data }) => {
+const Activity: React.FC<ActivityProps> = () => {
   return (
     <div>
       <Stack className="gap-4">
-        {data.map((item) => (
+        {/* {data.map((item) => (
           <ActivityItem key={item.id} {...item} />
-        ))}
+        ))} */}
+        {/* TODO */}
+        Upcomming
       </Stack>
     </div>
   );

@@ -23,6 +23,13 @@ export interface IActivityItem extends BaseEntity {
   amount: number;
   transactionHash: string;
   timestamp: number;
+  userId: string;
+  outcomeId: string;
+  marketId: string;
+  type: string;
+  side: string;
+  fullfilled: number;
+  slippage: number;
   outcome: TOutcome & { market: IFormattedCreateBetParams };
 }
 export interface ActivityProps {
