@@ -8,12 +8,13 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { mockAvatar } from '@/mocks/mockAvatar';
+import { defaultImg } from '@/constants/defaultImg';
 
 import type { IOutcomeData } from '../../../../services/markets/types';
 
 interface IPreviewBetDetailProps {
   name: string;
+  image?: string;
   startTime: number;
   betType?: string;
   outcomes?: IOutcomeData[];
@@ -21,6 +22,7 @@ interface IPreviewBetDetailProps {
 
 export default function PreviewBetDetail({
   name,
+  image,
   startTime,
   betType,
   outcomes,
@@ -52,7 +54,12 @@ export default function PreviewBetDetail({
         <Flex className="items-start justify-between gap-3 mb-2">
           <Flex className="gap-3">
             <div className="relative size-[3.75rem] aspect-1 rounded-md overflow-hidden">
-              <Image src={mockAvatar} fill alt="" objectFit="cover" />
+              <Image
+                src={image || defaultImg}
+                fill
+                alt="createbet thumbnail"
+                objectFit="cover"
+              />
             </div>
 
             <Typography.Heading size={28} className="hidden-mobile">

@@ -10,7 +10,7 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Accordion } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
-import { mockAvatar } from '@/mocks/mockAvatar';
+import { defaultImg } from '@/constants/defaultImg';
 import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
 import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBetOrderBook';
 import type { TBetItem } from '@/services/markets/types';
@@ -47,7 +47,12 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
         <Flex className="items-start justify-between gap-3 mb-2">
           <Flex className="gap-3">
             <div className="relative size-[3.75rem] aspect-1 rounded-md overflow-hidden">
-              <Image src={mockAvatar} fill alt="" objectFit="cover" />
+              <Image
+                src={bet.image || defaultImg}
+                fill
+                alt=""
+                objectFit="cover"
+              />
             </div>
             <Typography.Heading size={28} className="line-clamp-2 shrink-[999]">
               {bet.name}

@@ -78,7 +78,7 @@ const CreateBetModule = () => {
   const deferredFormData = useDeferredValue(formValues);
 
   const {
-    mutate: createBetMutation,
+    mutate: createBetMutate,
     isPending: isCreateBetLoading,
     isSuccess: isCreateBetSuccess,
     isError: isCreateBetError,
@@ -107,7 +107,8 @@ const CreateBetModule = () => {
       endTime: endTimeSeconds,
     };
 
-    createBetMutation(formattedData);
+    // console.log(formattedData);
+    createBetMutate(formattedData);
   };
 
   // EFFECTS
