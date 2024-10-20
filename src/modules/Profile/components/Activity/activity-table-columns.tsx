@@ -50,10 +50,10 @@ export const columns: ColumnDef<IActivityItem>[] = [
       return <div className="flex justify-end py-2 text-left">Shares</div>;
     },
     cell: ({ row }) => {
-      const { shares } = row.original;
+      const { amount } = row.original;
       return (
         <Flex className="justify-end">
-          <Typography.Text size={15}>{shares || '-'}</Typography.Text>
+          <Typography.Text size={15}>{amount || '-'}$</Typography.Text>
         </Flex>
       );
     },
@@ -64,10 +64,12 @@ export const columns: ColumnDef<IActivityItem>[] = [
       return <div className="flex justify-end py-2 text-left">Amount</div>;
     },
     cell: ({ row }) => {
-      const { timestamp, amount } = row.original;
+      const { timestamp, amount, outcome } = row.original;
       return (
         <Stack className="flex items-end text-left gap-1">
-          <Typography.Text size={15}>{amount}</Typography.Text>
+          <Typography.Text size={15}>
+            {+amount * +handleBignumber.divideDecimal(outcome.bidPrice)}$
+          </Typography.Text>
           <Typography.Text size={13} className="text-text-sublest">
             {formatDate.formatDateFromTimestamp(timestamp)}
           </Typography.Text>

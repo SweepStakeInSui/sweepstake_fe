@@ -3,7 +3,7 @@ import { ReloadIcon } from '@radix-ui/react-icons';
 import { useMutation } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
@@ -33,7 +33,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { fileService } from '@/services/fileService';
 import { UserService } from '@/services/userService';
-import { userData } from '@/store/profileSlice';
+import { selectProfile, userData } from '@/store/profileSlice';
 
 const formSchema = z.object({
   avatar: z.string().min(1, { message: 'Avatar is required.' }),
@@ -43,15 +43,18 @@ const formSchema = z.object({
 });
 const EditProfile = () => {
   const dispatch = useDispatch();
+  const { profile } = useSelector(selectProfile);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      avatar: '',
-      username: '',
+      avatar: profile?.avatar,
+      username: profile?.username,
     },
   });
+
   const { mutate: updateFileMutation, isPending: isUpdateFileLoading } =
     useMutation({
       mutationFn: (file: File) => fileService.uploadFile(file),
