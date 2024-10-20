@@ -37,9 +37,11 @@ function CDatePicker({
   }, [value]);
 
   const handleSelect = (selectedDate: Date | undefined) => {
-    setDate(selectedDate);
-    if (onChange) {
-      onChange(selectedDate);
+    if (selectedDate && (!date || selectedDate.getTime() !== date.getTime())) {
+      setDate(selectedDate);
+      if (onChange) {
+        onChange(selectedDate);
+      }
     }
   };
 
@@ -68,6 +70,7 @@ function CDatePicker({
           disabled={{
             before: new Date(),
           }}
+          defaultMonth={date}
         />
       </PopoverContent>
     </Popover>

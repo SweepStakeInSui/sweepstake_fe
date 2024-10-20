@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { DataTable } from '@/components/common/data-table/data-table';
 import Empty from '@/components/common/Empty';
-import { marketService } from '@/services/markets';
+import { MarketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
 
 import { columns } from './bets-created-table-columns';
@@ -13,7 +13,7 @@ const BetsCreated = () => {
   const { data, isPending, isError } = useQuery({
     queryKey: ['getCreateBetUser', profile?.id],
     queryFn: async () => {
-      const result = await marketService.getMarketService({
+      const result = await MarketService.getMarket({
         page: 1,
         limit: 30,
         user: profile.id,
@@ -32,7 +32,7 @@ const BetsCreated = () => {
 
   return (
     <div className="">
-      <DataTable columns={columns} data={data.items} title="bet" />
+      <DataTable columns={columns} data={data.data.items} title="bet" />
     </div>
   );
 };

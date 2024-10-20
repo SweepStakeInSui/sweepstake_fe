@@ -1,8 +1,9 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { addWeeks } from 'date-fns';
-import React, { useDeferredValue } from 'react';
+import React, { useDeferredValue, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
@@ -10,6 +11,7 @@ import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import withAuth from '@/components/withAuth';
+import { createBetSchema } from '@/modules/CreateBet/schema';
 import { MarketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
 
@@ -33,12 +35,18 @@ const CreateBetModule = () => {
     React.useState(false);
   const [step, setStep] = React.useState(false);
   const [txsString, setTxsString] = React.useState('');
+  const [startTimeSeconds, setStartTimeSeconds] = React.useState(0);
+  const [endTimeSeconds, setEndTimeSeconds] = React.useState(0);
 
   const { isLoggedIn } = useSelector(selectProfile);
 
+  const createMarketSchema = createBetSchema(startTimeSeconds, endTimeSeconds);
+
+  // FORM HANDLERS
   const methods = useForm<IFormattedCreateBetData>({
+    resolver: zodResolver(createMarketSchema),
     defaultValues: {
-      name: '',
+      name: undefined,
       startDate: new Date(),
       startClock: epochToDate(toEpoch(new Date())),
       startTime: dateToMilliseconds(new Date()),
@@ -64,10 +72,11 @@ const CreateBetModule = () => {
       colaterralToken: '',
     },
   });
+  const { setValue } = methods;
   const formValues = methods.watch();
+  const { startDate, startClock, endDate, endClock } = formValues;
   const deferredFormData = useDeferredValue(formValues);
 
-  //
   const {
     mutate: createBetMutation,
     isPending: isCreateBetLoading,
@@ -78,31 +87,42 @@ const CreateBetModule = () => {
     mutationFn: (data: IFormattedCreateBetParams) =>
       MarketService.createMarket(data),
     onSuccess: () => {
+      setConfirmCreateBetModalOpen(true);
       setTxsString('fakeTXSString');
+      methods.reset();
     },
   });
 
   // FUNCTIONS
   const handleCreateBet = (data: IFormattedCreateBetData) => {
-    const { startClock, startDate, endClock, endDate, category } = data;
-
-    const startTimeSeconds =
-      (dateToMilliseconds(startDate, true) + timeToMilliseconds(startClock)) /
-      1000;
-    const endTimeSeconds =
-      (dateToMilliseconds(endDate, true) + timeToMilliseconds(endClock)) / 1000;
+    const { category } = data;
     const categoryNames = (category ?? [{ name: 'All' }]).map(
       (item) => item.name,
     );
+
     const formattedData = {
       ...data,
       category: categoryNames,
       startTime: startTimeSeconds,
       endTime: endTimeSeconds,
     };
-    setConfirmCreateBetModalOpen(true);
+
     createBetMutation(formattedData);
   };
+
+  // EFFECTS
+  useEffect(() => {
+    const startTimeSecs =
+      (dateToMilliseconds(startDate, true) + timeToMilliseconds(startClock)) /
+      1000;
+    const endTimeSecs =
+      (dateToMilliseconds(endDate, true) + timeToMilliseconds(endClock)) / 1000;
+
+    setStartTimeSeconds(startTimeSecs);
+    setValue('startTime', startTimeSecs);
+    setEndTimeSeconds(endTimeSecs);
+    setValue('endTime', endTimeSecs);
+  }, [startDate, startClock, endClock, endDate]);
 
   return (
     <>
@@ -187,8 +207,11 @@ const CreateBetModule = () => {
               Clear All
             </Button>
 
-            <Button onClick={methods.handleSubmit(handleCreateBet)}>
-              Create Bet
+            <Button
+              onClick={methods.handleSubmit(handleCreateBet)}
+              disabled={isCreateBetLoading}
+            >
+              {isCreateBetLoading ? 'Creating Bet' : 'Create Bet'}
             </Button>
           </div>
         </div>

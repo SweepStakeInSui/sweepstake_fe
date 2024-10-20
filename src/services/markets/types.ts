@@ -97,6 +97,13 @@ export type TBetItem = {
 
 export type TBetDetails = {
   items: TBetItem[];
+  meta: Meta;
+};
+
+export type TBetGrid = {
+  statusCode: number;
+  data: TBetDetails;
+  meta: Meta;
 };
 
 export type TCreateCommentData = {

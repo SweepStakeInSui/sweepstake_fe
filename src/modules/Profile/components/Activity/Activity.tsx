@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 
 import { DataTable } from '@/components/common/data-table/data-table';
 import Empty from '@/components/common/Empty';
-import { selectProfile } from '@/store/profileSlice';
 import { OrderService } from '@/services/orders';
+import { selectProfile } from '@/store/profileSlice';
 import type { ActivityProps } from '@/types/table';
 
 import { columns } from './activity-table-columns';

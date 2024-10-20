@@ -29,10 +29,10 @@ const PreviewBetModule = ({ data }: IPreviewBetModuleProps) => {
 
         <PreviewBetRulesSummary
           desc={data?.conditions || ''}
-          startDate={format(new Date(data.startTime), 'MMM dd, yyyy')}
-          startClock={format(new Date(data.startTime), 'HH:mm')}
-          endDate={format(new Date(data.endTime), 'MMM dd, yyyy')}
-          endClock={format(new Date(data.endTime), 'HH:mm')}
+          startDate={format(new Date(data.startDate), 'MMM dd, yyyy')}
+          startClock={format(new Date(data.startClock), 'HH:mm')}
+          endDate={format(new Date(data.endDate), 'MMM dd, yyyy')}
+          endClock={format(new Date(data.endClock), 'HH:mm')}
           payoutOn={format(new Date(data.endTime), 'MMM dd, yyyy')}
           category={data?.category}
         />

@@ -30,7 +30,7 @@ import {
   EBetStatusOption,
   EOrderType,
 } from '@/enums/bet-status';
-import { postOrder } from '@/modules/MarketDetails/components/ActionForm/shema';
+import { postOrder } from '@/modules/MarketDetails/components/ActionForm/schema';
 import { OrderService } from '@/services/orders';
 import type { IPostOrderRequest } from '@/services/orders/types';
 import { UserService } from '@/services/userService';

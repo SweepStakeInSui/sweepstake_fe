@@ -3,16 +3,16 @@ import publicAxiosClient from '@/app/configs/httpClient/publicAxiosClient';
 import type {
   IFormattedCreateBetParams,
   IMarketParams,
-  TBetDetails,
+  TBetGrid,
   TBetItem,
   TCommentData,
   TCreateBetResponse,
   TCreateCommentData,
 } from '@/services/markets/types';
 
-const getMarket = async (params: IMarketParams): Promise<TBetDetails> => {
+const getMarket = async (params: IMarketParams): Promise<TBetGrid> => {
   const response = await publicAxiosClient.get(`/market`, { params });
-  return response.data.data;
+  return response.data;
 };
 
 const createMarket = async (
