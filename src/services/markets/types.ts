@@ -87,13 +87,23 @@ export type TBetItem = {
   endTime: number;
   isActive: boolean;
   colaterralToken: string;
+  category: string[];
   conditions_str: string;
   status: string;
   outcomes: TOutcome[];
+  onchainId: string;
+  transactionHash: string;
 };
 
 export type TBetDetails = {
   items: TBetItem[];
+  meta: Meta;
+};
+
+export type TBetGrid = {
+  statusCode: number;
+  data: TBetDetails;
+  meta: Meta;
 };
 
 export type TCreateCommentData = {
@@ -131,5 +141,5 @@ export type TComment = {
   createdAt: string;
   updatedAt: string;
   deletedAt?: string;
-  parentComment: Omit<TComment, 'parentComment'>;
+  parentComment: TComment | null;
 };

@@ -11,7 +11,7 @@ import { Drawer, DrawerContent } from '@/components/ui/drawer';
 import { BetOutcomeType } from '@/enums/bet-status';
 import { MarketsActionForm } from '@/modules/MarketDetails/components/ActionForm';
 import { MarketsWatchList } from '@/modules/MarketDetails/components/WatchList';
-import { marketService } from '@/services/markets';
+import { MarketService } from '@/services/markets';
 import { setBet } from '@/store/betSlice';
 
 import { MarketsAbout } from './components/About';
@@ -35,7 +35,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
 
   const { data: marketDetailData } = useQuery({
     queryKey: ['marketDetail', id],
-    queryFn: async () => marketService.getMarketDetailsService(id),
+    queryFn: async () => MarketService.getMarketDetails(id),
     refetchInterval: 5000,
   });
 

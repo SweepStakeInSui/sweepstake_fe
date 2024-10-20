@@ -1,7 +1,10 @@
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import React from 'react';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
+import { ROUTE } from '@/constants/routes';
+import { MarketService } from '@/services/markets';
 import { truncate } from '@/utils/truncate';
 
 // import { Badge } from '@/components/ui/badge';
@@ -13,6 +16,7 @@ import Typography from '../Typography';
 
 export interface ICommentProps {
   id: string;
+  marketId: string;
   username?: string;
   userId?: string;
   avatar?: string;
@@ -32,6 +36,7 @@ export interface ICommentProps {
 
 const Comment = ({
   id,
+  marketId,
   username,
   userId,
   avatar,
@@ -48,6 +53,11 @@ const Comment = ({
   isReplies = false,
   isForDisplay = false,
 }: ICommentProps) => {
+  const { data: marketData } = useQuery({
+    queryKey: ['market', id],
+    queryFn: () => MarketService.getMarketDetails(marketId),
+  });
+
   return (
     <div className="flex space-x-4 mb-4" key={id}>
       <CustomAvatar src={avatar} isRounded />
@@ -70,13 +80,13 @@ const Comment = ({
 
         {!isMinimal && !isReplies && (
           <LinkBox
-            href=""
-            title="Richest person in the world at the end of this dang year?"
-            bet={{
-              type: 'no',
-              subject: 'Micheal Jack',
-              chance: 62,
-            }}
+            href={`${ROUTE.MARKETS}/${marketId}`}
+            title={marketData?.name}
+            // bet={{
+            //   type: 'no',
+            //   subject: 'Micheal Jack',
+            //   chance: 62,
+            // }}
           />
         )}
 
@@ -86,11 +96,13 @@ const Comment = ({
               <IconButton isRounded onClick={onLike}>
                 {likedByMe ? (
                   <Svg
+                    key={`${id}_liked`}
                     src="/icons/favorite_filled.svg"
-                    className="!text-r-50"
+                    className="text-r-50"
                   />
                 ) : (
                   <Svg
+                    key={`${id}_like`}
                     src="/icons/favorite_border.svg"
                     className="text-icon-subtle"
                   />

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { DataTable } from '@/components/common/data-table/data-table';
 import Empty from '@/components/common/Empty';
-import { orderService } from '@/services/orders';
+import { OrderService } from '@/services/orders';
 import { selectProfile } from '@/store/profileSlice';
 import type { ActivityProps } from '@/types/table';
 
@@ -15,7 +15,7 @@ export default function Activity() {
   const { data, isError, isPending } = useQuery<ActivityProps>({
     queryKey: ['getActivity', profile?.id],
     queryFn: async () => {
-      const result = await orderService.getOrder({
+      const result = await OrderService.getOrder({
         page: 1,
         limit: 30,
       });

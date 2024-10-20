@@ -34,12 +34,16 @@ const LinkBox = ({ href, img, title, bet }: ILinkBoxProps) => {
           <Typography.Text size={15} className="text-text">
             {title}
           </Typography.Text>
-          <Typography.Text
-            size={13}
-            className={`text-text-support-${bet?.type === 'yes' ? 'match' : 'blue'}`}
-          >
-            {`${betType} • ${bet?.subject} • ${bet?.chance}% Chance`}
-          </Typography.Text>
+          {bet ? (
+            <Typography.Text
+              size={13}
+              className={`text-text-support-${bet?.type === 'yes' ? 'match' : 'blue'}`}
+            >
+              {`${betType} • ${bet?.subject} • ${bet?.chance}% Chance`}
+            </Typography.Text>
+          ) : (
+            <Typography.Text size={13}>&nbsp;</Typography.Text>
+          )}
         </Stack>
       </Flex>
     </Link>

@@ -87,7 +87,7 @@ export default function HomeModule() {
       <MarketTab />
       <Slider slides={mockSlides} />
       <Container size="sm">
-        <VoteCardGrid />
+        <VoteCardGrid isForDisplay />
       </Container>
 
       <div className="bg-bg-surface">

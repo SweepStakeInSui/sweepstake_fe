@@ -25,8 +25,6 @@ export default function PreviewBetRulesSummary({
   payoutOn,
   category,
 }: Readonly<IRulesSummaryProps>) {
-  console.log(category);
-
   return (
     <Stack className="gap-0">
       <Typography.Heading tag="h5" size={24} weight="semibold" className="mb-2">
@@ -71,27 +69,29 @@ export default function PreviewBetRulesSummary({
             </Typography.Text>
           </Stack>
         </Flex>
-        <Flex className="px-4 py-3">
-          <Flex className="flex-wrap">
-            <Typography.Text size={13} className="text-text-subtle">
-              {category && category?.length > 1 ? 'category: ' : 'Category: '}
-            </Typography.Text>
-            {category?.map((item, index) => (
-              <>
-                <Typography.Text
-                  size={13}
-                  className="text-icon-support-blue"
-                  key={item.id}
-                >
-                  {item.name}
-                </Typography.Text>
-                {category.length - 1 !== index && (
-                  <Separator orientation="vertical" className="size-1" />
-                )}
-              </>
-            ))}
+        {category && category?.length > 0 && (
+          <Flex className="px-4 py-3">
+            <Flex className="flex-wrap">
+              <Typography.Text size={13} className="text-text-subtle">
+                {category && category?.length > 1 ? 'category: ' : 'Category: '}
+              </Typography.Text>
+              {category?.map((item, index) => (
+                <>
+                  <Typography.Text
+                    size={13}
+                    className="text-icon-support-blue"
+                    key={item.id}
+                  >
+                    {item.name}
+                  </Typography.Text>
+                  {category.length - 1 !== index && (
+                    <Separator orientation="vertical" className="size-1" />
+                  )}
+                </>
+              ))}
+            </Flex>
           </Flex>
-        </Flex>
+        )}
       </Stack>
     </Stack>
   );

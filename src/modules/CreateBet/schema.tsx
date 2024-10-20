@@ -1,53 +1,62 @@
 import { z } from 'zod';
 
-export const createBetSchemas = z.object({
-  thumbnail: z.instanceof(File).optional(),
-  name: z.string(),
-  description: z.string().optional(),
-  colaterralToken: z.string(),
-  conditions: z.string().optional(),
-  startDate: z.number(),
-  startClock: z.number().optional(),
-  endDate: z.number(),
-  endClock: z.number().optional(),
-  category: z.array(z.string()).optional(),
-  betType: z.string().optional(),
-  outcomes: z
-    .array(
-      z.object({
-        outcome: z.string(),
-        subOutcome: z.string(),
-        picture: z.instanceof(File),
+export const createBetSchema = (startTime: number, endTime: number) =>
+  z.object({
+    thumbnail: z.instanceof(File).optional(),
+    name: z
+      .string({
+        required_error: 'Market title is required',
+      })
+      .min(1, 'Market title is required'),
+    description: z.string().optional(),
+    colaterralToken: z.string(),
+    conditions: z
+      .string({
+        required_error: 'Conditions is required',
+      })
+      .min(1, 'Conditions is required'),
+    startDate: z.date().optional().nullable(),
+    startClock: z.date().optional().nullable(),
+    startTime: z
+      .number({
+        required_error: 'Start time is required',
+      })
+      .refine(
+        (value) => {
+          return value < endTime;
+        },
+        {
+          message: 'Start time must be less than end time',
+        },
+      ),
+    endDate: z.date().optional().nullable(),
+    endClock: z.date().optional().nullable(),
+    endTime: z
+      .number({
+        required_error: 'End time is required',
+      })
+      .refine((value) => value > startTime, {
+        message: 'End time must be greater than start time',
       }),
-    )
-    .optional(),
-  sources: z
-    .array(
-      z.object({
-        title: z.string(),
-        url: z.string(),
-      }),
-    )
-    .optional(),
-});
+    category: z.array(z.unknown()).optional(),
+    betType: z.string().optional(),
+    outcomes: z
+      .array(
+        z.object({
+          outcome: z.string().optional(),
+          subOutcome: z.string().optional(),
+          picture: z.instanceof(File).optional(),
+        }),
+      )
+      .optional(),
+    sources: z
+      .array(
+        z.object({
+          title: z.string(),
+          url: z.string(),
+        }),
+      )
+      .optional(),
+  });
 
-// {
-//   thumbnail: string(),
-//   title: string(),
-//   startDate: number(),
-//   startClock: number(),
-//   endDate: number(),
-//   endClock: number(),
-//   category: array(string()),
-//   betType: string(),
-//   outcomes: array(
-//     object({
-//       outcome: string(),
-//       subOutcome: string(),
-//       picture: string(),
-//     }),
-//   ),
-//   rule: string(),
-//   about: string(),
-//   sources: string(),
-// }
+export type CreateBetSchemaType = z.infer<ReturnType<typeof createBetSchema>>;

@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { categoryService } from '@/services/categoryService';
+import type { IFormattedCreateBetData } from '@/services/markets/types';
 
 import OutcomeList from './OutcomeList';
 import SourceList from './SourceLinkList';
@@ -44,8 +45,12 @@ const CreateBetFormModule = () => {
   // STATES
 
   // FORM HANDLERS
-  const { control, setValue, getValues } = useFormContext();
+  const { control, setValue, getValues, formState } =
+    useFormContext<IFormattedCreateBetData>();
+  const { errors } = formState;
   const startDate = useWatch({ control, name: 'startDate' });
+
+  // console.log(errors);
 
   // FUNCTIONS
   const selectedTab = tabs.find((item) => item.value === getValues('betType'));
@@ -79,11 +84,18 @@ const CreateBetFormModule = () => {
             name="name"
             control={control}
             render={({ field }) => (
-              <Input
-                {...field}
-                placeholder="Input bet title"
-                defaultValue="test"
-              />
+              <>
+                <Input {...field} placeholder="Input bet title" />
+                {errors.name && (
+                  <Typography.Text
+                    size={13}
+                    className="text-text-support-red"
+                    weight="medium"
+                  >
+                    {errors.name.message}
+                  </Typography.Text>
+                )}
+              </>
             )}
           />
         </Stack>
@@ -102,6 +114,15 @@ const CreateBetFormModule = () => {
               render={({ field }) => <TimePicker {...field} />}
             />
           </div>
+          {errors.startTime && (
+            <Typography.Text
+              size={13}
+              className="text-text-support-red"
+              weight="medium"
+            >
+              {errors.startTime.message}
+            </Typography.Text>
+          )}
         </Stack>
 
         <Stack className="gap-y-2">
@@ -118,6 +139,15 @@ const CreateBetFormModule = () => {
               render={({ field }) => <TimePicker {...field} />}
             />
           </div>
+          {errors.endTime && (
+            <Typography.Text
+              size={13}
+              className="text-text-support-red"
+              weight="medium"
+            >
+              {errors.endTime.message}
+            </Typography.Text>
+          )}
         </Stack>
 
         <Stack className="gap-y-2">
@@ -170,11 +200,24 @@ const CreateBetFormModule = () => {
         {selectedTab ? selectedTab.panel : null}
 
         <Stack className="gap-y-2">
-          <Typography.Text size={15}>Rule (Optional)</Typography.Text>
+          <Typography.Text size={15}>Rule</Typography.Text>
           <Controller
             control={control}
             name="conditions"
-            render={({ field }) => <Textarea {...field} />}
+            render={({ field }) => (
+              <>
+                <Textarea {...field} />
+                {errors.conditions && (
+                  <Typography.Text
+                    size={13}
+                    className="text-text-support-red"
+                    weight="medium"
+                  >
+                    {errors.conditions.message}
+                  </Typography.Text>
+                )}
+              </>
+            )}
           />
         </Stack>
 

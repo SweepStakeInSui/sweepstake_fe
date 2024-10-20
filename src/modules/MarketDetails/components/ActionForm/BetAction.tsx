@@ -30,8 +30,8 @@ import {
   EBetStatusOption,
   EOrderType,
 } from '@/enums/bet-status';
-import { postOrder } from '@/modules/MarketDetails/components/ActionForm/shema';
-import { orderService } from '@/services/orders';
+import { postOrder } from '@/modules/MarketDetails/components/ActionForm/schema';
+import { OrderService } from '@/services/orders';
 import type { IPostOrderRequest } from '@/services/orders/types';
 import { UserService } from '@/services/userService';
 import { setBet } from '@/store/betSlice';
@@ -91,7 +91,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
     isError: isPlaceOrderError,
     data: placeOrderData,
   } = useMutation({
-    mutationFn: (data: IPostOrderRequest) => orderService.postOrder(data),
+    mutationFn: (data: IPostOrderRequest) => OrderService.postOrder(data),
     onSuccess: () => {
       setTxsString('fakeTXSString');
     },
@@ -133,9 +133,15 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
     Number(askYesLimit),
     Number(askNoLimit),
   );
-  const { watch, formState, setValue, register, handleSubmit } = useForm<
-    z.infer<typeof postOrderSchema>
-  >({
+  const {
+    watch,
+    formState,
+    reset,
+    resetField,
+    setValue,
+    register,
+    handleSubmit,
+  } = useForm<z.infer<typeof postOrderSchema>>({
     resolver: zodResolver(postOrderSchema),
     defaultValues: {
       outcomeId: '',
@@ -168,6 +174,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
 
     setPlaceOrderModalOpen(true);
     placeOrderMutation(orderData);
+    reset();
   };
 
   // FUNCTIONS
@@ -192,6 +199,8 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
     betType: 'YES' | 'NO',
   ) => {
     event?.stopPropagation();
+    resetField('price');
+    resetField('amount');
     dispatch(
       setBet({
         ...betState,
