@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import type { ControllerRenderProps } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import { defaultImg } from '@/constants/defaultImg';
+
 import { Button } from '../../ui/button';
 import Flex from '../Flex';
 import Stack from '../Stack';
@@ -13,6 +15,7 @@ interface ImageUploaderProps extends ControllerRenderProps {
   variant?: 'big' | 'rounded' | 'default';
   desc?: string;
   customKey: string;
+  isLoading?: boolean;
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({
@@ -21,6 +24,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   variant = 'default',
   desc,
   customKey,
+  isLoading,
 }) => {
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -31,6 +35,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         setPreview(reader.result as string);
       };
       reader.readAsDataURL(value);
+    } else if (typeof value === 'string') {
+      setPreview(value);
     } else {
       setPreview(null);
     }
@@ -67,31 +73,27 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   })();
 
   return (
-    <Stack>
-      {preview && (
-        <div className={`mb-2 relative ${previewImageSize} overflow-hidden`}>
-          <Image
-            src={preview}
-            alt="Preview"
-            className="max-w-full h-auto max-h-32 object-cover"
-            fill
-          />
-          <button
-            className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
-            onClick={handleRemove}
-            aria-label="Remove image"
-          >
-            <Svg
-              src="/icons/delete_outline.svg"
-              className="text-white size-6"
-            />
-          </button>
-        </div>
-      )}
+    <Stack className="justify-center items-center">
+      <div className={`mb-2 relative ${previewImageSize} overflow-hidden`}>
+        <Image
+          src={preview || defaultImg}
+          alt="Preview"
+          className="max-w-full h-auto max-h-32 object-cover"
+          fill
+        />
+        <button
+          className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
+          onClick={handleRemove}
+          aria-label="Remove image"
+        >
+          <Svg src="/icons/delete_outline.svg" className="text-white size-6" />
+        </button>
+      </div>
       <Flex className="items-center">
         <Button
           className="rounded-full bg-blk-a80 border-blk-a85 px-2 py-0.5 gap-1"
           onClick={() => document.getElementById(customKey)?.click()}
+          disabled={isLoading}
         >
           <Typography>{value ? 'Change' : 'Upload'}</Typography>
           <Svg src="/icons/photo_camera.svg" />

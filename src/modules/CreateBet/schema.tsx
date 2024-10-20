@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const createBetSchema = (startTime: number, endTime: number) =>
   z.object({
-    thumbnail: z.instanceof(File).optional(),
+    image: z.string().optional().nullable(),
     name: z
       .string({
         required_error: 'Market title is required',

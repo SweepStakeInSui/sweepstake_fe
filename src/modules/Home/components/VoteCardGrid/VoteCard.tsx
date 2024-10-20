@@ -22,6 +22,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { defaultImg } from '@/constants/defaultImg';
 import { bets } from '@/mocks/mockBet';
 import type { TBetItem } from '@/services/markets/types';
 
@@ -117,7 +118,7 @@ const VoteCard = ({ data }: VoteCardProps) => {
       <div className="relative">
         <Flex className="gap-x-4">
           <Image
-            src="/images/avatar.png"
+            src={data.image || defaultImg}
             width={300}
             height={300}
             alt="avatar"
