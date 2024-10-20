@@ -1,7 +1,7 @@
 import type { ICategoryList } from '../categoryService';
 
 export type TCreateBetData = {
-  thumbnail?: File;
+  image?: string;
   name: string;
   description?: string;
   colaterralToken: string;
@@ -83,6 +83,7 @@ export type TBetItem = {
   deletedAt: null;
   name: string;
   description: string;
+  image?: string;
   startTime: number;
   endTime: number;
   isActive: boolean;

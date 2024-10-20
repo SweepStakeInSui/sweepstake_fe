@@ -6,7 +6,7 @@ import { OptionsOutsideSelect } from '@components/common/OptionsOutsideSelect';
 import { TimePicker } from '@components/common/TimePicker';
 import { Input } from '@components/ui/input';
 import { Textarea } from '@components/ui/textarea';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { addWeeks } from 'date-fns';
 import { useEffect } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { categoryService } from '@/services/categoryService';
+import { fileService } from '@/services/fileService';
 import type { IFormattedCreateBetData } from '@/services/markets/types';
 
 import OutcomeList from './OutcomeList';
@@ -50,7 +51,18 @@ const CreateBetFormModule = () => {
   const { errors } = formState;
   const startDate = useWatch({ control, name: 'startDate' });
 
-  // console.log(errors);
+  // QUERIES
+  const { mutate: updateFileMutate, isPending: isUpdateFileLoading } =
+    useMutation({
+      mutationFn: (file: File) => fileService.uploadFile(file),
+      onSuccess: (data) => {
+        if (data) {
+          setValue('image', data, {
+            shouldValidate: true,
+          });
+        }
+      },
+    });
 
   // FUNCTIONS
   const selectedTab = tabs.find((item) => item.value === getValues('betType'));
@@ -73,9 +85,24 @@ const CreateBetFormModule = () => {
         <Typography.Heading size={20}>Bet Details</Typography.Heading>
         <Controller
           control={control}
-          name="thumbnail"
+          name="image"
           render={({ field }) => (
-            <ImageUploader {...field} variant="big" customKey="thumbnail" />
+            <div className="flex items-center justify-center">
+              <ImageUploader
+                {...field}
+                variant="big"
+                customKey="thumbnail"
+                onChange={(file) => {
+                  if (file) {
+                    field.onChange(file);
+                    updateFileMutate(file);
+                  } else {
+                    field.onChange(null);
+                  }
+                }}
+                isLoading={isUpdateFileLoading}
+              />
+            </div>
           )}
         />
         <Stack className="gap-y-2">

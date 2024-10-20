@@ -18,8 +18,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { defaultImg } from '@/constants/defaultImg';
 import { BetOutcomeType } from '@/enums/bet-status';
-import { mockAvatar } from '@/mocks/mockAvatar';
 import BetAction from '@/modules/MarketDetails/components/ActionForm/BetAction';
 
 import { useSectionIndicatorSignal } from '../../useSectionIndicatorSignal';
@@ -48,10 +48,11 @@ const sections = [
 ];
 
 interface MarketsActionFormProps {
+  image?: string;
   endDate: number;
 }
 
-const MarketsActionForm = ({ endDate }: MarketsActionFormProps) => {
+const MarketsActionForm = ({ image, endDate }: MarketsActionFormProps) => {
   const [selectedValue, setSelectedValue] = useState('market');
   const { type } = useSelector((state: any) => state.bet);
 
@@ -67,7 +68,7 @@ const MarketsActionForm = ({ endDate }: MarketsActionFormProps) => {
       <Stack className="gap-4 p-3">
         <Flex className="items-center gap-3 mb-2">
           <Avatar isRounded={false} className="w-[2.5rem] h-auto aspect-1">
-            <AvatarImage src={mockAvatar} />
+            <AvatarImage src={image || defaultImg} alt="thumbnail" />
             <AvatarFallback />
           </Avatar>
           <Typography.Text>

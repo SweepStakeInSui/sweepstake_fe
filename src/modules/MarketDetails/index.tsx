@@ -105,10 +105,16 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
           </Stack>
 
           <DrawerContent className="block lg:hidden">
-            <MarketsActionForm endDate={marketDetailData?.endTime || 0} />
+            <MarketsActionForm
+              image={marketDetailData?.image}
+              endDate={marketDetailData?.endTime || 0}
+            />
           </DrawerContent>
           <div className="hidden lg:flex sticky top-2 lg:top-[4.75rem]">
-            <MarketsActionForm endDate={marketDetailData?.endTime || 0} />
+            <MarketsActionForm
+              image={marketDetailData?.image}
+              endDate={marketDetailData?.endTime || 0}
+            />
           </div>
         </Flex>
       </Flex>
