@@ -15,7 +15,7 @@ interface ICommentsProps {
 const MarketsComments = ({ id }: ICommentsProps) => {
   // HOOKS
   const queryClient = useQueryClient();
-  const { profile } = useSelector(selectProfile);
+  const { profile, isLoggedIn } = useSelector(selectProfile);
 
   // QUERIES
   const { data: commentsData } = useQuery({
@@ -47,7 +47,7 @@ const MarketsComments = ({ id }: ICommentsProps) => {
 
   return (
     <section>
-      {profile?.address && (
+      {isLoggedIn && (
         <CommentForm
           marketId={id}
           onCreate={createCommentMutate}
