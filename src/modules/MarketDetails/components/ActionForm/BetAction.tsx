@@ -75,7 +75,7 @@ const TooltipPrice = () => {
 
 const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
   // HOOKS
-  const { profile } = useSelector(selectProfile);
+  const { profile, isLoggedIn } = useSelector(selectProfile);
   const dispatch = useDispatch();
 
   // STATES
@@ -261,7 +261,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 onIncrement={handlePriceIncrement}
                 onDecrement={handlePriceDecrement}
               />
-              {!profile.address && (
+              {!isLoggedIn && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -270,7 +270,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                   Connect your wallet to place an order
                 </Typography.Text>
               )}
-              {profile.address && errors.price && (
+              {isLoggedIn && errors.price && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -290,7 +290,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
               />
-              {!profile?.address && (
+              {!isLoggedIn && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -300,7 +300,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 </Typography.Text>
               )}
 
-              {profile?.address && errors.amount && (
+              {isLoggedIn && errors.amount && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -387,7 +387,7 @@ Projected payout 2 hours after closing."
               </Flex>
             </Stack>
 
-            {profile?.address ? (
+            {isLoggedIn ? (
               <Button
                 size="lg"
                 className="w-full gap-1"
@@ -415,7 +415,7 @@ Projected payout 2 hours after closing."
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
               />
-              {!profile?.address && (
+              {!isLoggedIn && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -425,7 +425,7 @@ Projected payout 2 hours after closing."
                 </Typography.Text>
               )}
 
-              {profile?.address && errors.amount && (
+              {isLoggedIn && errors.amount && (
                 <Typography.Text
                   size={13}
                   className="text-text-support-red"
@@ -472,7 +472,7 @@ Projected payout 2 hours after closing."
               </Flex>
             </Stack>
 
-            {profile?.address ? (
+            {isLoggedIn ? (
               <Button
                 size="lg"
                 className="w-full gap-1"

@@ -27,6 +27,7 @@ const CommentForm = ({ marketId, onCreate, isPending }: ICommentFormProps) => {
       content: commentText,
       marketId,
     });
+    setCommentText('');
   };
 
   return (
