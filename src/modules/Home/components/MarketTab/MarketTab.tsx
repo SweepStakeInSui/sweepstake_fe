@@ -94,16 +94,23 @@ const marketSubTab = [
 interface MarketTabProps {
   showSubTabs?: boolean;
 }
-
+const allCategory = {
+  id: '1',
+  createdAt: '2024-10-17T16:49:45.312Z',
+  updatedAt: '2024-10-17T16:49:45.312Z',
+  deletedAt: null,
+  name: 'All',
+};
 const MarketTab = ({ showSubTabs }: MarketTabProps) => {
-  const { data: dataCategory } = useSuspenseQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ['category'],
     queryFn: categoryService.getCategory,
   });
   const [cate, setCate] = useQueryParam(
     'category',
-    withDefault(StringParam, dataCategory[0]?.name || ' '),
+    withDefault(StringParam, 'All'),
   );
+  const dataCategory = [allCategory, ...data];
 
   return (
     <Container size="sm">

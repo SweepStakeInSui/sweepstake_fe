@@ -113,7 +113,7 @@ const VoteCard = ({ data }: VoteCardProps) => {
         router.push(`/markets/${data.id}`);
       }}
       role="presentation"
-      className="p-4 border border-borderSublest rounded-lg relative bg-bg-surface cursor-pointer hover:shadow-card-bet-home transition-all duration-150"
+      className="p-4 border group border-borderSublest rounded-lg relative bg-bg-surface cursor-pointer hover:shadow-card-bet-home transition-all duration-150"
     >
       <div className="relative">
         <Flex className="gap-x-4">
@@ -124,8 +124,11 @@ const VoteCard = ({ data }: VoteCardProps) => {
             alt="avatar"
             className="object-cover w-12 h-12 rounded-sm"
           />
-          <div>
-            <Typography.Text size={15} className="text-text text-left">
+          <div className="flex-1">
+            <Typography.Text
+              size={15}
+              className="text-text text-left line-clamp-1 group-hover:underline underline-offset-2"
+            >
               {name}
             </Typography.Text>
             <Flex className="text-text-sublest mt-1">
