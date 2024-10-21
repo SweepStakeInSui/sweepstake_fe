@@ -36,7 +36,6 @@ const ActivityModule = () => {
     return <Empty content="No activity found" className="py-30" />;
   }
   const allAcitites = data.pages.flatMap((page) => page.items);
-  console.log(data);
 
   return (
     <Container className="max-w-screen-lg px-4 py-8 lg:py-10" size="sm">

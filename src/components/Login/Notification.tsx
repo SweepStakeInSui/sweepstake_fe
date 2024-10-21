@@ -1,6 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
@@ -207,40 +212,70 @@ const NotifItem = ({
 };
 const NotiData = () => {
   const { isLoggedIn } = useSelector(selectProfile);
-  const { data: dataNotification } = useQuery({
+  const { ref, inView } = useInView();
+
+  const {
+    data: dataNotification,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: ['getNotification'],
-    queryFn: async () => {
+    queryFn: async ({ pageParam = 1 }) => {
       const res = await notificationService.getNotification({
-        page: 1,
-        limit: 30,
+        page: pageParam,
+        limit: 12,
       });
       return res;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.items.length < 12) return undefined;
+      return pages.length + 1;
     },
     enabled: isLoggedIn,
   });
 
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView]);
+
   return (
     <div>
-      {dataNotification?.items && dataNotification.items.length > 0 ? (
-        dataNotification.items.map((item: NotificationItem) => (
-          <Flex
-            key={item.id}
-            className="py-3 flex justify-between hover:bg-bg-hovered rounded-sm"
-          >
-            {/* TODO: OBJECT DATA */}
-            <NotifItem
-              id={item.id}
-              type={item.type}
-              date={formatDate.formatDateFromTimestamp(item.timestamp)}
-              content={item.message}
-              status={item.status}
-              amount={item.data?.amount}
-            />
-          </Flex>
+      {dataNotification?.pages && dataNotification?.pages.length > 0 ? (
+        dataNotification.pages.map((page, i) => (
+          <React.Fragment key={i}>
+            {page.items.map((item: NotificationItem) => (
+              <Flex
+                key={item.id}
+                className="py-3 flex justify-between hover:bg-bg-hovered rounded-sm"
+              >
+                <NotifItem
+                  id={item.id}
+                  type={item.type}
+                  date={formatDate.formatDateFromTimestamp(item.timestamp)}
+                  content={item.message}
+                  status={item.status}
+                  amount={item.data?.amount}
+                />
+              </Flex>
+            ))}
+          </React.Fragment>
         ))
       ) : (
         <div className="text-center py-3">No notifications available.</div>
       )}
+      <div ref={ref}>
+        {isFetchingNextPage && (
+          <Typography.Text
+            size={15}
+            className="h-10 text-center text-text-sublest"
+          >
+            Loading more...
+          </Typography.Text>
+        )}
+      </div>
     </div>
   );
 };

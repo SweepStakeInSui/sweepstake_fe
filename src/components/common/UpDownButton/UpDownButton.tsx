@@ -37,7 +37,12 @@ const UpDownButton = <TFieldValues extends FieldValues>({
         type="number"
         className="h-[3.375rem] flex items-center p-4 pr-20 w-full rounded-md border border-field-border bg-field-background"
         placeholder={placeholder}
-        {...register(name)}
+        {...register(name, {
+          onChange: (e) => {
+            const { value } = e.target;
+            e.target.value = value.replace(/^0+(?=\d)/, '') || '0';
+          },
+        })}
       />
       <Flex className="gap-1 absolute right-4 bottom-4">
         <IconButton

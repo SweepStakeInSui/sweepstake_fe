@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { StringParam, useQueryParam, withDefault } from 'use-query-params';
 
 import Empty from '@/components/common/Empty';
@@ -18,11 +19,10 @@ interface VoteCardGridProps {
 
 const VoteCardGrid = ({ isForDisplay }: VoteCardGridProps) => {
   const [cate] = useQueryParam('category', withDefault(StringParam, ''));
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const loadMoreRef = useRef<HTMLDivElement>(null);
+  const { ref: loadMoreRef, inView } = useInView();
 
-  const { data, fetchNextPage, hasNextPage, isError, isFetchingNextPage } =
-    useInfiniteQuery({
+  const { data, fetchNextPage, isError, isFetchingNextPage } = useInfiniteQuery(
+    {
       queryKey: ['market-list', cate],
       queryFn: ({ pageParam = 1 }) =>
         MarketService.getMarket({ page: pageParam, limit: 12, category: cate }),
@@ -32,29 +32,14 @@ const VoteCardGrid = ({ isForDisplay }: VoteCardGridProps) => {
           return undefined;
         return pages.length + 1;
       },
-    });
+    },
+  );
 
   useEffect(() => {
-    if (isForDisplay || !loadMoreRef.current) return;
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 1.0 },
-    );
-
-    observerRef.current.observe(loadMoreRef.current);
-
-    // eslint-disable-next-line consistent-return
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [isForDisplay, hasNextPage, isFetchingNextPage, fetchNextPage]);
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView]);
 
   if (isError || !data || data.pages[0].data.items.length === 0) {
     return <Empty content="No market found" className="py-30" />;
