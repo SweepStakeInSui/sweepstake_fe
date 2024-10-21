@@ -25,7 +25,11 @@ const VoteCardGrid = ({ isForDisplay }: VoteCardGridProps) => {
     useInfiniteQuery({
       queryKey: ['market-list', cate],
       queryFn: ({ pageParam = 1 }) =>
-        MarketService.getMarket({ page: pageParam, limit: 12, category: cate }),
+        MarketService.getMarket({
+          page: pageParam,
+          limit: 12,
+          category: cate === 'All' ? '' : cate,
+        }),
       initialPageParam: 1,
       getNextPageParam: (lastPage, pages) => {
         if (lastPage.data.meta && lastPage.data.meta.itemCount < 12)
