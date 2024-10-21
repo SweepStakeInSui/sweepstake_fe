@@ -8,13 +8,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { mockAvatar } from '@/mocks/mockAvatar';
 import type { TBetItem } from '@/services/markets/types';
 import { formatDate } from '@/utils/formatDate';
+import Link from 'next/link';
 
 export const columns: ColumnDef<TBetItem>[] = [
   {
     accessorKey: 'bets',
     header: 'Bets',
     cell: ({ row }) => {
-      const { name } = row.original;
+      const { name, id } = row.original;
 
       return (
         <Flex className="justify-between space-x-2">
@@ -23,7 +24,11 @@ export const columns: ColumnDef<TBetItem>[] = [
               <AvatarImage src={mockAvatar} />
               <AvatarFallback />
             </Avatar>
-            <div>{name}</div>
+            <Link href={`/markets/${id}`}>
+              <Typography.Text size={14} weight="medium">
+                {name}
+              </Typography.Text>
+            </Link>
           </Flex>
         </Flex>
       );
@@ -35,7 +40,7 @@ export const columns: ColumnDef<TBetItem>[] = [
     cell: ({ row }) => {
       const { startTime } = row.original;
       return (
-        <Typography.Text className="text-text">
+        <Typography.Text className="text-text" size={14} weight="medium">
           {formatDate.formatDateFromTimestamp(startTime)}
         </Typography.Text>
       );
@@ -47,7 +52,7 @@ export const columns: ColumnDef<TBetItem>[] = [
     cell: ({ row }) => {
       const { endTime } = row.original;
       return (
-        <Typography.Text className="text-text">
+        <Typography.Text className="text-text" size={14} weight="medium">
           {formatDate.formatDateFromTimestamp(endTime)}
         </Typography.Text>
       );
@@ -59,7 +64,7 @@ export const columns: ColumnDef<TBetItem>[] = [
     cell: ({ row }) => {
       const { status } = row.original;
       return (
-        <Typography.Text className="text-text">
+        <Typography.Text className="text-text" size={14} weight="medium">
           {status || 'On-going'}
         </Typography.Text>
       );

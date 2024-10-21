@@ -25,7 +25,9 @@ export const columns: ColumnDef<PositionItemProps>[] = [
               <AvatarImage src={mockAvatar} />
               <AvatarFallback />
             </Avatar>
-            <div>{outcome.market.name}</div>
+            <Typography.Text size={14} weight="medium">
+              {outcome.market.name}
+            </Typography.Text>
           </Flex>
           <Button variant={outcome.type === 'Yes' ? 'bet_yes' : 'bet_no'}>
             {outcome.type}
@@ -39,14 +41,22 @@ export const columns: ColumnDef<PositionItemProps>[] = [
     header: 'Shares',
     cell: ({ row }) => {
       const { balance } = row.original;
-      return <Typography.Text>{balance}</Typography.Text>;
+      return (
+        <Typography.Text size={14} weight="medium">
+          {balance}
+        </Typography.Text>
+      );
     },
   },
   {
     accessorKey: 'avg',
     header: 'Avg',
     cell: () => {
-      return <Typography.Text>-¢</Typography.Text>;
+      return (
+        <Typography.Text size={14} weight="medium">
+          -¢
+        </Typography.Text>
+      );
     },
   },
   {
@@ -55,7 +65,7 @@ export const columns: ColumnDef<PositionItemProps>[] = [
     cell: ({ row }) => {
       const { outcome } = row.original;
       return (
-        <Typography.Text>
+        <Typography.Text size={14} weight="medium">
           {handleBignumber.divideDecimal(outcome.bidPrice)}¢
         </Typography.Text>
       );

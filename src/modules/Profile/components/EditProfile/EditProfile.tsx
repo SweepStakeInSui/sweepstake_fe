@@ -97,7 +97,7 @@ const EditProfile = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="terriary" className="gap-x-1">
+        <Button type="button" variant="terriary" className="gap-x-1">
           <Svg src="/icons/edit.svg" />
           Edit profile
         </Button>
