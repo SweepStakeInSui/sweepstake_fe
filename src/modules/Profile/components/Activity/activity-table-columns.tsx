@@ -1,6 +1,7 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
+import Link from 'next/link';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
@@ -21,14 +22,18 @@ export const columns: ColumnDef<IActivityItem>[] = [
     accessorKey: 'market',
     header: 'Market',
     cell: ({ row }) => {
-      const { outcome, status, image, price } = row.original;
+      const { outcome, status, image, price, marketId } = row.original;
 
       return (
         <Flex className="justify-between space-x-2">
           <Flex>
             <CustomAvatar src={image} />
 
-            <div>{outcome.market.name}</div>
+            <Link href={`/markets/${marketId}`}>
+              <Typography.Text size={14} weight="medium">
+                {outcome.market.name}
+              </Typography.Text>
+            </Link>
           </Flex>
           <Button
             variant={status === 'Yes' ? 'bet_yes' : 'bet_no'}
@@ -53,7 +58,9 @@ export const columns: ColumnDef<IActivityItem>[] = [
       const { amount } = row.original;
       return (
         <Flex className="justify-end">
-          <Typography.Text size={15}>{amount || '-'}$</Typography.Text>
+          <Typography.Text size={14} weight="medium">
+            {amount || '-'}$
+          </Typography.Text>
         </Flex>
       );
     },
@@ -67,10 +74,14 @@ export const columns: ColumnDef<IActivityItem>[] = [
       const { timestamp, amount, outcome } = row.original;
       return (
         <Stack className="flex items-end text-left gap-1">
-          <Typography.Text size={15}>
+          <Typography.Text size={14} weight="medium">
             {+amount * +handleBignumber.divideDecimal(outcome.bidPrice)}$
           </Typography.Text>
-          <Typography.Text size={13} className="text-text-sublest">
+          <Typography.Text
+            size={13}
+            className="text-text-sublest"
+            weight="medium"
+          >
             {formatDate.formatDateFromTimestamp(timestamp)}
           </Typography.Text>
         </Stack>

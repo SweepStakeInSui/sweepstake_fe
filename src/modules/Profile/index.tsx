@@ -22,10 +22,10 @@ const Profile = () => {
   );
   const tabProfile = [
     { value: 'positions', title: 'Positions', panel: <Positions /> },
-    { value: 'activity', title: 'Activity', panel: <Activity /> },
-    { value: 'watchlist', title: 'Watchlist', panel: <Watchlist /> },
+    { value: 'activity', title: 'Activities', panel: <Activity /> },
+    { value: 'watchlist', title: 'Watchlists', panel: <Watchlist /> },
     { value: 'bets_created', title: 'Bets Created', panel: <BetsCreated /> },
-    { value: 'mention', title: 'Mention', panel: <Mention /> },
+    { value: 'mention', title: 'Mentions', panel: <Mention /> },
   ];
   return (
     <Container className="max-w-[49.375rem] py-10">
