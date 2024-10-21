@@ -1,6 +1,7 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
+import Link from 'next/link';
 
 import Flex from '@/components/common/Flex';
 import Typography from '@/components/common/Typography';
@@ -8,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { mockAvatar } from '@/mocks/mockAvatar';
 import type { TBetItem } from '@/services/markets/types';
 import { formatDate } from '@/utils/formatDate';
-import Link from 'next/link';
 
 export const columns: ColumnDef<TBetItem>[] = [
   {

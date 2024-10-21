@@ -1,6 +1,7 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
+import Link from 'next/link';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
@@ -11,7 +12,6 @@ import { Button } from '@/components/ui/button';
 import type { IActivityItem } from '@/types/table';
 import { formatDate } from '@/utils/formatDate';
 import { handleBignumber } from '@/utils/handleBignumber';
-import Link from 'next/link';
 
 export const columns: ColumnDef<IActivityItem>[] = [
   {

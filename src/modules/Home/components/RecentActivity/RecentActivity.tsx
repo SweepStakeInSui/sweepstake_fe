@@ -1,6 +1,7 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 
 import { CustomAvatar } from '@/components/common/CustomAvatar';
 import Flex from '@/components/common/Flex';
@@ -13,7 +14,6 @@ import { formatDate } from '@/utils/formatDate';
 import { handleBignumber } from '@/utils/handleBignumber';
 
 import ViewAll from '../ViewAll';
-import Link from 'next/link';
 
 interface ActivityItemProps {
   item: IActivityItem;
