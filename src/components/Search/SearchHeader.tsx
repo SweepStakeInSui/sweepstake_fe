@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from 'react';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { defaultImg } from '@/constants/defaultImg';
 import { useDebounce } from '@/hooks';
-import { mockAvatar } from '@/mocks/mockAvatar';
 import { MarketService } from '@/services/markets';
 import type { TBetItem } from '@/services/markets/types';
 
@@ -26,12 +26,20 @@ interface SearchResultsProps {
 
 const SearchResults = ({ isLoading, results }: SearchResultsProps) => {
   if (isLoading) {
-    return <SkeletonSearch />;
+    return (
+      <Stack>
+        <SkeletonSearch />
+        <SkeletonSearch />
+        <SkeletonSearch />
+      </Stack>
+    );
   }
 
   if (results?.length === 0) {
     return (
-      <p className="text-center text-sm text-gray-500">No results found</p>
+      <Typography.Text size={15} className="text-center text-text-sublest">
+        No results found
+      </Typography.Text>
     );
   }
 
@@ -43,7 +51,7 @@ const SearchResults = ({ isLoading, results }: SearchResultsProps) => {
             <Flex className="cursor-pointer justify-between hover:bg-bg-hovered px-2 py-2.5 rounded-sm w-full">
               <Flex className="gap-4">
                 <Avatar isRounded={false}>
-                  <AvatarImage src={mockAvatar} />
+                  <AvatarImage src={result.image || defaultImg} />
                   <AvatarFallback />
                 </Avatar>
                 <Stack className="gap-2">
@@ -151,7 +159,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
             )}
           </div>
           <div
-            className={`max-h-[328px] min-h-[200px] hidden-mobile overflow-y-auto p-2 rounded-md shadow-search-header overflow-x-hidden absolute bg-bg-surface w-full top-13 transition-all duration-300 ${
+            className={`max-h-[328px] hidden-mobile overflow-y-auto p-2 rounded-md shadow-search-header overflow-x-hidden absolute bg-bg-surface w-full top-13 transition-all duration-300 ${
               isFocused ? 'opacity-100 visible' : 'opacity-0 invisible'
             }`}
           >
