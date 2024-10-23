@@ -46,7 +46,7 @@ const CommentForm = ({ marketId, onCreate, isPending }: ICommentFormProps) => {
           <Button
             variant="secondary"
             type="submit"
-            disabled={isPending || !isLoggedIn}
+            disabled={isPending || !isLoggedIn || !commentText}
           >
             {isPending ? 'Posting...' : 'Post'}
           </Button>

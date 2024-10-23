@@ -21,10 +21,6 @@ const Mention = () => {
     [mentionList],
   );
 
-  // console.log(mentionList)
-
-  // console.log(formattedMentions)
-
   if (mentionList?.items.length === 0) {
     return <Empty content="No mention found" />;
   }
