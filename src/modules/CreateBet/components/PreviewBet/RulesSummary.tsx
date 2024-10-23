@@ -12,7 +12,6 @@ interface IRulesSummaryProps {
   startClock: string;
   endDate: string;
   endClock: string;
-  payoutOn: string;
   category?: ICategoryList[];
 }
 
@@ -22,7 +21,6 @@ export default function PreviewBetRulesSummary({
   startClock,
   endDate,
   endClock,
-  payoutOn,
   category,
 }: Readonly<IRulesSummaryProps>) {
   return (
@@ -62,10 +60,10 @@ export default function PreviewBetRulesSummary({
           <Svg src="/icons/attach_money.svg" />
           <Stack>
             <Typography.Text size={15} weight="medium">
-              Projected payout on {payoutOn}
+              Projected payout on --
             </Typography.Text>
             <Typography.Text size={13} className="text-text-subtle">
-              -- EDT
+              --
             </Typography.Text>
           </Stack>
         </Flex>
