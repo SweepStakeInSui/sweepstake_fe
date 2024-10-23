@@ -124,10 +124,12 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
     [positionsData],
   );
 
+  console.log(isLimit);
+
   // FORM HANDLERS
   const postOrderSchema = postOrder(
     +handleBignumber.divideDecimal(profile?.balance),
-    isLimit ? EOrderType.FOK : EOrderType.GTC,
+    isLimit ? EOrderType.GTC : EOrderType.FOK,
     isBid,
     betState.type === BetOutcomeType.YES,
     Number(askYesLimit),
@@ -158,6 +160,8 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
   const price = watch('price');
   const amount = watch('amount');
 
+  console.log(errors);
+
   const onSubmit = (data: z.infer<typeof postOrderSchema>) => {
     const orderData = {
       outcomeId:
@@ -165,10 +169,11 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
           ? betState.outcomeYesId
           : betState.outcomeNoId,
       amount: data.amount.toString(),
-      price: isLimit ? handleBignumber.powDecimal(data.price, 4) : '0',
+      ...(isLimit
+        ? { price: handleBignumber.powDecimal(data.price, 4) }
+        : { slippage: '1' }),
       type: isLimit ? EOrderType.GTC : EOrderType.FOK,
       side: isBid ? EBetStatusOption.BID : EBetStatusOption.ASK,
-      slippage: '0',
       signature: 'signature',
     };
 

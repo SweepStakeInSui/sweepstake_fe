@@ -1,29 +1,5 @@
 import { z } from 'zod';
 
-const getPriceErrorMessage = (
-  type: string,
-  isBid: boolean,
-  isYes: boolean,
-  balance: number,
-  askYesLimit: number,
-  askNoLimit: number,
-) => {
-  if (type === 'FOK') {
-    if (isBid) {
-      return `Price must be greater than 0 and less than or equal to your balance (${balance})`;
-    }
-    if (isYes) {
-      return !askYesLimit
-        ? 'You must buy first'
-        : `Price must be greater than 0 and less than ${askYesLimit}`;
-    }
-    return !askNoLimit
-      ? 'You must buy first'
-      : `Price must be greater than 0 and less than ${askNoLimit}`;
-  }
-  return 'Price must be a valid number greater than or equal to 0';
-};
-
 const getAmountErrorMessage = (
   isBid: boolean,
   isYes: boolean,
@@ -81,33 +57,27 @@ export const postOrder = (
           ),
         },
       ),
+    // Update the price validation in postOrder schema
     price: z.coerce
       .string({
         required_error: 'Limit price is required',
       })
       .refine(
         (value) => {
+          console.log(type);
           const parsed = Number(value);
           if (type === 'FOK') {
-            if (isBid) {
-              return parsed > 0 && parsed <= Number(balance);
-            }
-            if (isYes) {
-              return parsed > 0 && parsed < askYesLimit;
-            }
-            return parsed > 0 && parsed < askNoLimit;
+            // FOK orders can have optional price
+            return true;
           }
-          return !Number.isNaN(parsed) && parsed >= 0;
+          // For non-FOK orders, price must be between 0.1 and 99.9
+          return !Number.isNaN(parsed) && parsed >= 0.1 && parsed <= 99.9;
         },
         {
-          message: getPriceErrorMessage(
-            type,
-            isBid,
-            isYes,
-            balance,
-            askYesLimit,
-            askNoLimit,
-          ),
+          message:
+            type === 'FOK'
+              ? 'Price is optional for FOK orders'
+              : 'Price must be between 0.1 and 99.9',
         },
       ),
     type: z.string({

@@ -5,6 +5,7 @@ import type {
 } from '@/services/markets/types';
 
 export interface PositionItemProps extends BaseEntity {
+  image?: string;
   balance: string;
   outcome: TOutcome & { market: IFormattedCreateBetParams };
   outcomeId: string;

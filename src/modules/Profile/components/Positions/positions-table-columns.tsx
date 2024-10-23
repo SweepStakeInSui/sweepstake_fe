@@ -7,7 +7,7 @@ import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { mockAvatar } from '@/mocks/mockAvatar';
+import { defaultImg } from '@/constants/defaultImg';
 import type { PositionItemProps } from '@/types/table';
 import { handleBignumber } from '@/utils/handleBignumber';
 
@@ -16,13 +16,13 @@ export const columns: ColumnDef<PositionItemProps>[] = [
     accessorKey: 'market',
     header: 'Market',
     cell: ({ row }) => {
-      const { outcome } = row.original;
+      const { image, outcome } = row.original;
 
       return (
         <Flex className="justify-between space-x-2">
           <Flex>
             <Avatar size="md" isRounded={false}>
-              <AvatarImage src={mockAvatar} />
+              <AvatarImage src={image || defaultImg} />
               <AvatarFallback />
             </Avatar>
             <Typography.Text size={14} weight="medium">

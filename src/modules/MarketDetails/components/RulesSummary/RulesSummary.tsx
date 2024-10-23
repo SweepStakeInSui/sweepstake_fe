@@ -80,7 +80,7 @@ export default function MarketsRulesSummary({
               <Flex>
                 <Typography.Text size={13} className="text-text-subtle">
                   {category && category?.length > 1
-                    ? 'category: '
+                    ? 'Categories: '
                     : 'Category: '}
                 </Typography.Text>
                 {category?.map((item, index) => (

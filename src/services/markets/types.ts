@@ -96,6 +96,10 @@ export type TBetItem = {
   outcomes: TOutcome[];
   onchainId: string;
   transactionHash: string;
+  source?: {
+    label: string;
+    url: string;
+  }[];
 };
 
 export type TBetDetails = {

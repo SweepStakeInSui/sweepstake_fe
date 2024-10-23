@@ -80,6 +80,7 @@ const Comment = ({
 
         {!isMinimal && !isReplies && (
           <LinkBox
+            marketId={marketId}
             href={`${ROUTE.MARKETS}/${marketId}`}
             title={marketData?.name}
             // bet={{

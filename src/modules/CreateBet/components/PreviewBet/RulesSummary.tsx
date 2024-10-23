@@ -73,7 +73,9 @@ export default function PreviewBetRulesSummary({
           <Flex className="px-4 py-3">
             <Flex className="flex-wrap">
               <Typography.Text size={13} className="text-text-subtle">
-                {category && category?.length > 1 ? 'category: ' : 'Category: '}
+                {category && category?.length > 1
+                  ? 'Categories: '
+                  : 'Category: '}
               </Typography.Text>
               {category?.map((item, index) => (
                 <>

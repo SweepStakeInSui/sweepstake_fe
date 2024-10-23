@@ -1,8 +1,10 @@
 export interface IPostOrderRequest {
   outcomeId: string;
   amount: string;
-  price: string;
+  price?: string;
   type: string;
+  side: string;
+  slippage?: string;
   signature: string;
 }
 
