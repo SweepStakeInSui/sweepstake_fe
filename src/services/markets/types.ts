@@ -89,6 +89,7 @@ export type TBetItem = {
   endTime: number;
   isActive: boolean;
   colaterralToken: string;
+  payoutTime: number;
   category: string[];
   conditions_str: string;
   status: string;
