@@ -3,7 +3,6 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
@@ -243,7 +242,9 @@ const NotiData = () => {
 
   return (
     <div>
-      {dataNotification?.pages && dataNotification?.pages.length > 0 ? (
+      {dataNotification?.pages &&
+      dataNotification?.pages.length > 0 &&
+      dataNotification.pages[0]?.items.length > 0 ? (
         dataNotification.pages.map((page, i) => (
           <React.Fragment key={i}>
             {page.items.map((item: NotificationItem) => (
@@ -311,14 +312,14 @@ export const NotificationDropdown = () => {
       >
         <DropdownMenuLabel className="flex justify-between items-center">
           <Typography.Heading size={20}>Notification</Typography.Heading>
-          <Link href="/">
+          <Button variant="ghost" onClick={() => setIsRead(true)}>
             <Typography.Text
               size={13}
               className="text-text-subtle font-semibold"
             >
               Read All
             </Typography.Text>
-          </Link>
+          </Button>
         </DropdownMenuLabel>
         <DropdownMenuGroup>
           <ScrollArea>

@@ -15,7 +15,7 @@ import type { IOutcomeData } from '../../../../services/markets/types';
 interface IPreviewBetDetailProps {
   name: string;
   image?: string;
-  startTime: number;
+  startDate: Date;
   betType?: string;
   outcomes?: IOutcomeData[];
 }
@@ -23,7 +23,7 @@ interface IPreviewBetDetailProps {
 export default function PreviewBetDetail({
   name,
   image,
-  startTime,
+  startDate,
   betType,
   outcomes,
 }: Readonly<IPreviewBetDetailProps>) {
@@ -47,7 +47,7 @@ export default function PreviewBetDetail({
               className="text-text-subtle inline-flex items-center gap-1"
               size={15}
             >
-              {format(new Date(startTime), 'MMM dd, yyyy - hh:mm')}
+              {format(new Date(startDate), 'MMM dd, yyyy')}
             </Typography.Text>
           </Flex>
         </Flex>

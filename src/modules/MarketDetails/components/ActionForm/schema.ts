@@ -8,6 +8,9 @@ const getAmountErrorMessage = (
   askNoLimit: number,
 ) => {
   if (isBid) {
+    if (balance === 0) {
+      return "You don't have enough balance";
+    }
     return `Amount must be greater than 0 and less than or equal to your balance (${balance})`;
   }
   if (isYes) {
