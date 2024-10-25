@@ -2,73 +2,61 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next-nprogress-bar';
-import { useState } from 'react';
+import { useTheme } from 'next-themes';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-  Command,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { defaultImg } from '@/constants/defaultImg';
-import { bets } from '@/mocks/mockBet';
+// import { bets } from '@/mocks/mockBet';
 import type { TBetItem } from '@/services/markets/types';
 
 import Stack from '../../../../components/common/Stack';
 import { Skeleton } from '../../../../components/ui/skeleton';
 
-interface BetItemProps {
-  bet: {
-    img: string;
-    name: string;
-    chance: number;
-    count: number;
-  };
-}
+// interface BetItemProps {
+//   bet: {
+//     img: string;
+//     name: string;
+//     chance: number;
+//     count: number;
+//   };
+// }
 
-const BetItem: React.FC<BetItemProps> = ({ bet }) => {
-  return (
-    <div className="flex items-center gap-2">
-      <Avatar size="sm" isRounded>
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback />
-      </Avatar>
-      <div className="text-left">
-        <Typography.Text size={13} className="text-text mb-[2px]">
-          {bet.name}
-        </Typography.Text>
-        <Flex className="gap-x-1">
-          <div style={{ width: 12, height: 12 }}>
-            <CircularProgressbar
-              value={bet.chance}
-              styles={buildStyles({
-                pathColor: `rgba(1, 70, 244)`,
-              })}
-            />
-          </div>
-          <Typography.Text size={12} className="text-text-support-blue mr-1">
-            {bet.chance} % Chances
-          </Typography.Text>
-          <Typography.Text size={12} className="text-text-support-green">
-            +{bet.count}
-          </Typography.Text>
-        </Flex>
-      </div>
-    </div>
-  );
-};
+// const BetItem: React.FC<BetItemProps> = ({ bet }) => {
+//   return (
+//     <div className="flex items-center gap-2">
+//       <Avatar size="sm" isRounded>
+//         <AvatarImage src="https://github.com/shadcn.png" />
+//         <AvatarFallback />
+//       </Avatar>
+//       <div className="text-left">
+//         <Typography.Text size={13} className="text-text mb-[2px]">
+//           {bet.name}
+//         </Typography.Text>
+//         <Flex className="gap-x-1">
+//           <div style={{ width: 12, height: 12 }}>
+//             <CircularProgressbar
+//               value={bet.chance}
+//               styles={buildStyles({
+//                 pathColor: `rgba(1, 70, 244)`,
+//               })}
+//             />
+//           </div>
+//           <Typography.Text size={12} className="text-text-support-blue mr-1">
+//             {bet.chance} % Chances
+//           </Typography.Text>
+//           <Typography.Text size={12} className="text-text-support-green">
+//             +{bet.count}
+//           </Typography.Text>
+//         </Flex>
+//       </div>
+//     </div>
+//   );
+// };
 
 export const VoteCardSkeleton = () => {
   return (
@@ -102,11 +90,13 @@ interface VoteCardProps {
 }
 
 const VoteCard = ({ data }: VoteCardProps) => {
+  const { theme } = useTheme();
   const { name } = data;
-  const [open, setOpen] = useState<boolean>(false);
-  const [value, setValue] = useState('');
+  // const [open, setOpen] = useState<boolean>(false);
+  // const [value, setValue] = useState('');
   const router = useRouter();
-  const bet = bets.find((item) => item.name === value) || bets[0];
+  // const bet = bets.find((item) => item.name === value) || bets[0];
+
   return (
     <div
       onClick={() => {
@@ -140,7 +130,8 @@ const VoteCard = ({ data }: VoteCardProps) => {
             </Flex>
           </div>
         </Flex>
-        <div className="my-4 relative">
+        {/* TODO: For multiple bets */}
+        {/* <div className="my-4 relative">
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild onClick={(e) => e.stopPropagation()}>
               <button
@@ -186,6 +177,30 @@ const VoteCard = ({ data }: VoteCardProps) => {
               </Command>
             </PopoverContent>
           </Popover>
+        </div> */}
+        <div className="mt-4 mb-10">
+          <Flex className="mb-2">
+            <div style={{ width: 12, height: 12 }}>
+              <CircularProgressbar
+                value={92}
+                styles={buildStyles({
+                  pathColor: `rgba(1, 70, 244)`,
+                })}
+              />
+            </div>
+            <Typography.Text size={12} className="text-text-support-blue">
+              92% Chances
+            </Typography.Text>
+          </Flex>
+
+          <div
+            className={`w-full h-0.5 rounded-md ${theme === 'light' ? 'bg-b-5' : 'bg-wht-a5'}`}
+          >
+            <div
+              className="h-full bg-b-40 rounded-md"
+              style={{ width: '92%' }}
+            />
+          </div>
         </div>
         <Flex>
           <Button variant="bet_yes" className="w-full group gap-x-1">
