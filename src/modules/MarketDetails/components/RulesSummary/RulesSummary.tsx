@@ -10,7 +10,7 @@ interface IRulesSummaryProps {
   desc: string;
   openOn?: number;
   closeOn?: number;
-  payoutOn: string;
+  payoutOn?: number;
   category?: string[];
 }
 
@@ -64,10 +64,13 @@ export default function MarketsRulesSummary({
             <Svg src="/icons/attach_money.svg" />
             <Stack>
               <Typography.Text size={15} weight="medium">
-                Projected payout on {payoutOn}
+                Projected payout on{' '}
+                {payoutOn
+                  ? format(new Date(payoutOn * 1000), 'yyyy-MM-dd')
+                  : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
-                10:00PM EDT
+                {payoutOn ? format(new Date(payoutOn * 1000), 'HH:mm aa') : ''}
               </Typography.Text>
             </Stack>
           </Flex>
@@ -77,7 +80,7 @@ export default function MarketsRulesSummary({
               <Flex>
                 <Typography.Text size={13} className="text-text-subtle">
                   {category && category?.length > 1
-                    ? 'category: '
+                    ? 'Categories: '
                     : 'Category: '}
                 </Typography.Text>
                 {category?.map((item, index) => (

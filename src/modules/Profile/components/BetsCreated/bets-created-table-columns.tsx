@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Flex from '@/components/common/Flex';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { mockAvatar } from '@/mocks/mockAvatar';
+import { defaultImg } from '@/constants/defaultImg';
 import type { TBetItem } from '@/services/markets/types';
 import { formatDate } from '@/utils/formatDate';
 
@@ -16,13 +16,13 @@ export const columns: ColumnDef<TBetItem>[] = [
     header: 'Bets',
     size: 370,
     cell: ({ row }) => {
-      const { name, id } = row.original;
+      const { image, name, id } = row.original;
 
       return (
         <Flex className="justify-between space-x-2">
           <Flex>
             <Avatar size="md" isRounded={false}>
-              <AvatarImage src={mockAvatar} />
+              <AvatarImage src={image || defaultImg} />
               <AvatarFallback />
             </Avatar>
             <Link href={`/markets/${id}`}>

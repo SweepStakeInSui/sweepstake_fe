@@ -10,6 +10,7 @@ import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Tooltip } from '@/components/ui/tooltip';
+import { defaultImg } from '@/constants/defaultImg';
 import ViewAll from '@/modules/Home/components/ViewAll';
 import { removeWatchList, selectWatchList } from '@/store/watchListSlice';
 
@@ -61,7 +62,7 @@ const MarketsWatchList = () => {
                       isRounded={false}
                       className="w-[2.5rem] h-auto aspect-1"
                     >
-                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarImage src={item.image || defaultImg} />
                       <AvatarFallback />
                     </Avatar>
                     <Button

@@ -1,6 +1,7 @@
 import type { UseMutateFunction } from '@tanstack/react-query';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -20,8 +21,20 @@ const CommentForm = ({ marketId, onCreate, isPending }: ICommentFormProps) => {
   const [commentText, setCommentText] = React.useState('');
   const { isLoggedIn } = useSelector(selectProfile);
 
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value;
+    if (text.length <= 800) {
+      setCommentText(text);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (commentText.length > 800) {
+      toast.error('Comment cannot exceed 800 characters');
+      return;
+    }
+
     onCreate?.({
       parentCommentId: null,
       content: commentText,
@@ -37,16 +50,25 @@ const CommentForm = ({ marketId, onCreate, isPending }: ICommentFormProps) => {
           className="pb-14"
           placeholder="What is your prediction?"
           value={commentText}
-          onChange={(e) => setCommentText(e.target.value)}
+          onChange={handleTextChange}
+          maxLength={800}
         />
         <Flex className="absolute bottom-3 right-3">
-          <Typography.Text size={13} className="text-text-subtle">
+          <Typography.Text
+            size={13}
+            className={`text-text-subtle ${commentText.length === 800 ? 'text-text-support-red' : ''}`}
+          >
             {800 - commentText.length} left
           </Typography.Text>
           <Button
             variant="secondary"
             type="submit"
-            disabled={isPending || !isLoggedIn}
+            disabled={
+              isPending ||
+              !isLoggedIn ||
+              !commentText ||
+              commentText.length > 800
+            }
           >
             {isPending ? 'Posting...' : 'Post'}
           </Button>

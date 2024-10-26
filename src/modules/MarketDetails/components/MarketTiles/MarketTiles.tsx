@@ -22,6 +22,7 @@ import { BetOutcomeType } from '@/enums/bet-status';
 import useWindowSize from '@/hooks/common/useWindowSize';
 import type { TBetItem } from '@/services/markets/types';
 import { setBet } from '@/store/betSlice';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 interface IMarketTitleProps {
   isSingleBet?: boolean;
@@ -96,7 +97,11 @@ export const MarketTile = ({ isSingleBet, data }: IMarketTitleProps) => {
               className="w-full"
               onClick={onYesClick}
             >
-              Yes {betState.isBid ? outcomeYes.bidPrice : outcomeYes.askPrice}¢
+              Yes{' '}
+              {betState.isBid
+                ? handleBignumber.divideDecimal(outcomeYes.bidPrice)
+                : handleBignumber.divideDecimal(outcomeYes.askPrice)}
+              ¢
             </Button>
           </DrawerTrigger>
 
@@ -106,7 +111,11 @@ export const MarketTile = ({ isSingleBet, data }: IMarketTitleProps) => {
               className="w-full"
               onClick={onNoClick}
             >
-              No {betState.isBid ? outcomeNo.bidPrice : outcomeNo.askPrice}¢
+              No{' '}
+              {betState.isBid
+                ? handleBignumber.divideDecimal(outcomeNo.bidPrice)
+                : handleBignumber.divideDecimal(outcomeNo.askPrice)}
+              ¢
             </Button>
           </DrawerTrigger>
         </Flex>

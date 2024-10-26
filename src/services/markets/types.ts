@@ -89,12 +89,17 @@ export type TBetItem = {
   endTime: number;
   isActive: boolean;
   colaterralToken: string;
+  payoutTime: number;
   category: string[];
   conditions_str: string;
   status: string;
   outcomes: TOutcome[];
   onchainId: string;
   transactionHash: string;
+  source?: {
+    label: string;
+    url: string;
+  }[];
 };
 
 export type TBetDetails = {

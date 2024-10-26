@@ -3,7 +3,6 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
@@ -29,9 +28,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useNotification } from '@/hooks/useNotification';
 import { notificationService } from '@/services/notificationService';
 import { selectProfile } from '@/store/profileSlice';
-import type { NotificationData, NotificationItem } from '@/types/notification';
+import type { NotificationItem } from '@/types/notification';
 import { formatDate } from '@/utils/formatDate';
 import { handleBignumber } from '@/utils/handleBignumber';
 
@@ -211,8 +211,8 @@ const NotifItem = ({
   );
 };
 const NotiData = () => {
-  const { isLoggedIn } = useSelector(selectProfile);
   const { ref, inView } = useInView();
+  const { isLoggedIn } = useSelector(selectProfile);
 
   const {
     data: dataNotification,
@@ -233,6 +233,8 @@ const NotiData = () => {
       return pages.length + 1;
     },
     enabled: isLoggedIn,
+    refetchInterval: 3000,
+    refetchIntervalInBackground: true,
   });
 
   useEffect(() => {
@@ -243,7 +245,9 @@ const NotiData = () => {
 
   return (
     <div>
-      {dataNotification?.pages && dataNotification?.pages.length > 0 ? (
+      {dataNotification?.pages &&
+      dataNotification?.pages.length > 0 &&
+      dataNotification.pages[0]?.items.length > 0 ? (
         dataNotification.pages.map((page, i) => (
           <React.Fragment key={i}>
             {page.items.map((item: NotificationItem) => (
@@ -279,28 +283,17 @@ const NotiData = () => {
     </div>
   );
 };
+
 export const NotificationDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const queryClient = useQueryClient();
-  const dataNotification: NotificationData | undefined =
-    queryClient.getQueryData(['getNotification']);
-  const [isRead, setIsRead] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (dataNotification?.items) {
-      const allRead = dataNotification.items.every(
-        (item) => item.status !== '0',
-      );
-      setIsRead(allRead);
-    }
-  }, [JSON.stringify(dataNotification)]);
+  const { hasUnread, handleReadAll } = useNotification();
 
   return (
     <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative size-11 p-0">
           <Svg src="/icons/notif.svg" />
-          {!isRead && (
+          {hasUnread && (
             <div className="absolute translate-x-2 -translate-y-2 bg-[#EB201E] rounded-full size-1.5" />
           )}
         </Button>
@@ -311,14 +304,14 @@ export const NotificationDropdown = () => {
       >
         <DropdownMenuLabel className="flex justify-between items-center">
           <Typography.Heading size={20}>Notification</Typography.Heading>
-          <Link href="/">
+          <Button variant="ghost" onClick={handleReadAll}>
             <Typography.Text
               size={13}
               className="text-text-subtle font-semibold"
             >
               Read All
             </Typography.Text>
-          </Link>
+          </Button>
         </DropdownMenuLabel>
         <DropdownMenuGroup>
           <ScrollArea>
@@ -331,22 +324,29 @@ export const NotificationDropdown = () => {
 };
 
 export const NotificationDrawer = () => {
+  const { hasUnread, handleReadAll } = useNotification();
+
   return (
     <Drawer direction="right">
       <DrawerTrigger asChild>
         <button className="px-2 py-3 lg:py-2 cursor-pointer rounded-md w-full hover:bg-bg-hovered">
-          <div className="flex gap-x-2.5 items-center w-full">
-            <span className="size-6 flex items-center justify-center">
-              <Svg src="/icons/notif.svg" />
-            </span>
-            <Typography.Text size={15} weight="medium" className="text-text">
-              Notification
-            </Typography.Text>
-          </div>
+          <Flex className="justify-between w-full">
+            <Flex>
+              <span className="size-6 flex items-center justify-center relative">
+                <Svg src="/icons/notif.svg" />
+              </span>
+              <Typography.Text size={15} weight="medium" className="text-text">
+                Notification
+              </Typography.Text>
+            </Flex>
+            {hasUnread && (
+              <div className="bg-[#EB201E] rounded-full size-1.5" />
+            )}
+          </Flex>
         </button>
       </DrawerTrigger>
       <DrawerContent className="h-full w-full px-5 py-3">
-        <DrawerHeader className="text-left p-0">
+        <DrawerHeader className="text-left p-0 flex justify-between items-center">
           <DrawerClose>
             <Flex className="cursor-pointer">
               <Svg src="/icons/arrow_back_ios.svg" />
@@ -359,6 +359,14 @@ export const NotificationDrawer = () => {
               </Typography.Text>
             </Flex>
           </DrawerClose>
+          <Button variant="ghost" onClick={handleReadAll}>
+            <Typography.Text
+              size={13}
+              className="text-text-subtle font-semibold"
+            >
+              Read All
+            </Typography.Text>
+          </Button>
         </DrawerHeader>
         <ScrollArea>
           <NotiData />

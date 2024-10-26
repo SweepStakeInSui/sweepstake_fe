@@ -6,7 +6,7 @@ import Flex from '@/components/common/Flex';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { mockAvatar } from '@/mocks/mockAvatar';
+import { defaultImg } from '@/constants/defaultImg';
 import { removeWatchList, selectWatchList } from '@/store/watchListSlice';
 
 const Watchlist = () => {
@@ -25,7 +25,7 @@ const Watchlist = () => {
         >
           <Flex>
             <Avatar isRounded={false} className="w-[2.5rem] h-auto aspect-1">
-              <AvatarImage src={mockAvatar} />
+              <AvatarImage src={item.image || defaultImg} />
               <AvatarFallback />
             </Avatar>
             <div>
