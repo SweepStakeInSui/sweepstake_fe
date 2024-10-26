@@ -14,6 +14,7 @@ export const columns: ColumnDef<TBetItem>[] = [
   {
     accessorKey: 'bets',
     header: 'Bets',
+    size: 370,
     cell: ({ row }) => {
       const { image, name, id } = row.original;
 
@@ -37,6 +38,7 @@ export const columns: ColumnDef<TBetItem>[] = [
   {
     accessorKey: 'startday',
     header: 'Start day',
+    size: 140,
     cell: ({ row }) => {
       const { startTime } = row.original;
       return (
@@ -49,6 +51,7 @@ export const columns: ColumnDef<TBetItem>[] = [
   {
     accessorKey: 'endday',
     header: 'End day',
+    size: 140,
     cell: ({ row }) => {
       const { endTime } = row.original;
       return (
@@ -61,6 +64,7 @@ export const columns: ColumnDef<TBetItem>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
+    size: 140,
     cell: ({ row }) => {
       const { status } = row.original;
       return (

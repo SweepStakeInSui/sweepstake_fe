@@ -17,15 +17,17 @@ export const columns: ColumnDef<IActivityItem>[] = [
   {
     accessorKey: 'type',
     header: 'Type',
+    size: 60,
   },
   {
     accessorKey: 'market',
     header: 'Market',
+    size: 440,
     cell: ({ row }) => {
       const { outcome, status, image, price, marketId } = row.original;
 
       return (
-        <Flex className="justify-between space-x-2">
+        <Flex className="justify-between space-x-2 w-full">
           <Flex>
             <CustomAvatar src={image} />
 
@@ -54,6 +56,7 @@ export const columns: ColumnDef<IActivityItem>[] = [
     header: () => {
       return <div className="flex justify-end py-2 text-left">Shares</div>;
     },
+    size: 90,
     cell: ({ row }) => {
       const { amount } = row.original;
       return (
@@ -68,14 +71,22 @@ export const columns: ColumnDef<IActivityItem>[] = [
   {
     accessorKey: 'amount',
     header: () => {
-      return <div className="flex justify-end py-2 text-left">Amount</div>;
+      return (
+        <div className="flex justify-end py-2 text-left w-full">Amount</div>
+      );
     },
+    size: 148,
     cell: ({ row }) => {
       const { timestamp, amount, outcome } = row.original;
       return (
-        <Stack className="flex items-end text-left gap-1">
-          <Typography.Text size={14} weight="medium">
-            {+amount * +handleBignumber.divideDecimal(outcome.bidPrice)}$
+        <Stack className="flex items-end text-left gap-1 w-full">
+          <Typography.Text size={14} weight="medium" className="flex">
+            <FormatNumber
+              number={
+                +amount * +handleBignumber.divideDecimal(outcome.bidPrice)
+              }
+            />
+            $
           </Typography.Text>
           <Typography.Text
             size={13}

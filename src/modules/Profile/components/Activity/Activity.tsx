@@ -1,38 +1,51 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 
 import { DataTable } from '@/components/common/data-table/data-table';
 import Empty from '@/components/common/Empty';
 import { OrderService } from '@/services/orders';
 import { selectProfile } from '@/store/profileSlice';
-import type { ActivityProps } from '@/types/table';
 
 import { columns } from './activity-table-columns';
 
 export default function Activity() {
   const { profile, isLoggedIn } = useSelector(selectProfile);
 
-  const { data, isError, isPending } = useQuery<ActivityProps>({
-    queryKey: ['getActivity', profile?.id],
-    queryFn: async () => {
-      const result = await OrderService.getOrder({
-        page: 1,
-        limit: 30,
-      });
-      return result;
-    },
-    enabled: !!isLoggedIn,
-  });
-
+  const { data, fetchNextPage, isFetching, isError, isPending } =
+    useInfiniteQuery({
+      queryKey: ['getActivity'],
+      queryFn: async ({ pageParam = 1 }) => {
+        const result = await OrderService.getOrder({
+          page: pageParam,
+          limit: 10,
+          user: profile.id,
+        });
+        return result;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.meta && lastPage.meta.itemCount < 10) return undefined;
+        return pages.length + 1;
+      },
+      enabled: !!isLoggedIn,
+      placeholderData: keepPreviousData,
+    });
   if (isPending) {
     return <div>Loading...</div>;
   }
   if (isError) {
     return <Empty content="No activity found" />;
   }
+
   return (
     <div className="">
-      <DataTable columns={columns} data={data.items} title="activity" />
+      <DataTable
+        columns={columns}
+        data={data}
+        title="activity"
+        fetchNextPage={fetchNextPage}
+        isFetching={isFetching}
+      />
     </div>
   );
 }

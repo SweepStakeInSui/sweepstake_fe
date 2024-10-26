@@ -1,6 +1,7 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
+import Link from 'next/link';
 
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
@@ -15,6 +16,7 @@ export const columns: ColumnDef<PositionItemProps>[] = [
   {
     accessorKey: 'market',
     header: 'Market',
+    size: 365,
     cell: ({ row }) => {
       const { image, outcome } = row.original;
 
@@ -25,9 +27,11 @@ export const columns: ColumnDef<PositionItemProps>[] = [
               <AvatarImage src={image || defaultImg} />
               <AvatarFallback />
             </Avatar>
-            <Typography.Text size={14} weight="medium">
-              {outcome.market.name}
-            </Typography.Text>
+            <Link href={`/markets/${outcome.marketId}`}>
+              <Typography.Text size={14} weight="medium">
+                {outcome.market.name}
+              </Typography.Text>
+            </Link>
           </Flex>
           <Button variant={outcome.type === 'Yes' ? 'bet_yes' : 'bet_no'}>
             {outcome.type}
@@ -39,6 +43,7 @@ export const columns: ColumnDef<PositionItemProps>[] = [
   {
     accessorKey: 'shares',
     header: 'Shares',
+    size: 90,
     cell: ({ row }) => {
       const { balance } = row.original;
       return (
@@ -51,6 +56,7 @@ export const columns: ColumnDef<PositionItemProps>[] = [
   {
     accessorKey: 'avg',
     header: 'Avg',
+    size: 90,
     cell: () => {
       return (
         <Typography.Text size={14} weight="medium">
@@ -62,6 +68,7 @@ export const columns: ColumnDef<PositionItemProps>[] = [
   {
     accessorKey: 'current',
     header: 'Current',
+    size: 90,
     cell: ({ row }) => {
       const { outcome } = row.original;
       return (
@@ -74,13 +81,14 @@ export const columns: ColumnDef<PositionItemProps>[] = [
   {
     accessorKey: 'value',
     header: () => {
-      return <div className="flex justify-end py-2 text-right">Value</div>;
+      return <div className="flex justify-end text-right w-full">Value</div>;
     },
+    size: 148,
     cell: ({ row }) => {
       const { outcome, balance } = row.original;
 
       return (
-        <Stack className="items-end">
+        <Stack className="items-end w-full">
           <div>
             ${+balance * +handleBignumber.divideDecimal(outcome.bidPrice)}
           </div>
