@@ -419,7 +419,7 @@ input[type='number'] {
   transform: translate3d(0px, calc(-10% - 160px), -100px) rotateZ(0deg) scale(1) !important;
 }
 
-input[type="time"]::-webkit-calendar-picker-indicator { 
-  background: none; 
-  display: none; 
+input[type='time']::-webkit-calendar-picker-indicator {
+  background: none;
+  display: none;
 }

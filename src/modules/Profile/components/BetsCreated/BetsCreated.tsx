@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 
 import { DataTable } from '@/components/common/data-table/data-table';
@@ -10,18 +10,25 @@ import { columns } from './bets-created-table-columns';
 
 const BetsCreated = () => {
   const { profile, isLoggedIn } = useSelector(selectProfile);
-  const { data, isPending, isError } = useQuery({
-    queryKey: ['getCreateBetUser', profile?.id],
-    queryFn: async () => {
-      const result = await MarketService.getMarket({
-        page: 1,
-        limit: 30,
-        user: profile.id,
-      });
-      return result;
-    },
-    enabled: !!isLoggedIn,
-  });
+  const { data, fetchNextPage, isFetching, isError, isPending } =
+    useInfiniteQuery({
+      queryKey: ['getCreateBetUser', profile?.id],
+      queryFn: async ({ pageParam = 1 }) => {
+        const result = await MarketService.getMarket({
+          page: pageParam,
+          limit: 10,
+          user: profile?.id,
+        });
+        return result.data;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.meta && lastPage.meta.itemCount < 10) return undefined;
+        return pages.length + 1;
+      },
+      enabled: !!isLoggedIn,
+      placeholderData: keepPreviousData,
+    });
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -32,7 +39,13 @@ const BetsCreated = () => {
 
   return (
     <div className="">
-      <DataTable columns={columns} data={data.data.items} title="bet" />
+      <DataTable
+        columns={columns}
+        data={data}
+        title="bet"
+        fetchNextPage={fetchNextPage}
+        isFetching={isFetching}
+      />
     </div>
   );
 };

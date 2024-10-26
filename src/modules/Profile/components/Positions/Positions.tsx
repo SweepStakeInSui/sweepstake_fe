@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 
 import { DataTable } from '@/components/common/data-table/data-table';
 import Empty from '@/components/common/Empty';
@@ -9,17 +9,25 @@ import { columns } from './positions-table-columns';
 export default function Positions() {
   const {
     data: positionsData,
+    fetchNextPage,
+    isFetching,
     isPending,
     isError,
-  } = useQuery({
+  } = useInfiniteQuery({
     queryKey: ['getPositions'],
-    queryFn: async () => {
+    queryFn: async ({ pageParam = 1 }) => {
       const result = await UserService.positions({
-        page: 1,
-        limit: 30,
+        page: pageParam,
+        limit: 12,
       });
       return result;
     },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.meta && lastPage.meta.itemCount < 12) return undefined;
+      return pages.length + 1;
+    },
+    placeholderData: keepPreviousData,
   });
   if (isPending) {
     return <div>Loading...</div>;
@@ -31,8 +39,10 @@ export default function Positions() {
     <div className="">
       <DataTable
         columns={columns}
-        data={positionsData.items}
+        data={positionsData}
         title="position"
+        fetchNextPage={fetchNextPage}
+        isFetching={isFetching}
       />
     </div>
   );

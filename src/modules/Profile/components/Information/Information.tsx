@@ -23,8 +23,10 @@ const Information = () => {
         />
         <Stack className="justify-between">
           <Stack className="gap-y-0.5">
-            <Typography.Heading>{profile?.username}</Typography.Heading>
-            <div className="bg-bg-sublest rounded-full py-0.5 px-2 flex justify-center">
+            <Typography.Heading>
+              {profile?.username && briefDocument(profile?.username, 8, 8)}
+            </Typography.Heading>
+            <div className="bg-bg-sublest rounded-full py-0.5 px-2 flex justify-center w-fit">
               <Typography.Text size={13}>
                 {profile?.address && briefDocument(profile.address, 5, 5)}
               </Typography.Text>

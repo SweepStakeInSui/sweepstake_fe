@@ -46,7 +46,7 @@ const Statistics = () => {
           <Typography.Heading
             size={20}
             weight="semibold"
-            className="text-text-support-green flex"
+            className="text-text flex"
           >
             $<FormatNumber number={profile?.pnl || 0} />
           </Typography.Heading>

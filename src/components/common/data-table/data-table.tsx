@@ -16,10 +16,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import React, { useMemo, useState } from 'react';
 
-import { DataTablePagination } from '@/components/common/data-table/data-table-pagination';
-import { Separator } from '@/components/ui/separator';
 import {
   Table,
   TableBody,
@@ -31,15 +30,27 @@ import {
 
 import Empty from '../Empty';
 
+interface PageData<TData> {
+  items: TData[];
+  meta?: {
+    totalItems: number;
+  };
+}
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  fetchNextPage: () => void;
+  isFetching: boolean;
+  data: {
+    pages: PageData<TData>[];
+  };
   title: string;
   // table: TanstackTable<TData>; //HERE
 }
 
 export function DataTable<TData, TValue>({
   columns,
+  fetchNextPage,
+  isFetching,
   data,
   title,
 }: DataTableProps<TData, TValue>) {
@@ -49,10 +60,43 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([]);
+  const tableContainerRef = React.useRef<HTMLDivElement>(null);
 
+  // flatten the array of arrays from the useInfiniteQuery hook
+  const flatData = useMemo(
+    () => data?.pages?.flatMap((page) => page.items) ?? [],
+    [data],
+  );
+
+  const totalDBRowCount = data?.pages?.[0]?.meta?.totalItems ?? 0;
+  const totalFetched = flatData.length;
+
+  // called on scroll and possibly on mount to fetch more data as the user scrolls and reaches bottom of table
+  const fetchMoreOnBottomReached = React.useCallback(
+    (containerRefElement?: HTMLDivElement | null) => {
+      if (containerRefElement) {
+        const { scrollHeight, scrollTop, clientHeight } = containerRefElement;
+        // once the user has scrolled within 400px of the bottom of the table, fetch more data if we can
+        if (
+          scrollHeight - scrollTop - clientHeight < 400 &&
+          !isFetching &&
+          totalFetched < totalDBRowCount
+        ) {
+          fetchNextPage();
+        }
+      }
+    },
+    [fetchNextPage, isFetching, totalFetched, totalDBRowCount],
+  );
+
+  // a check on mount and after a fetch to see if the table is already scrolled to the bottom and immediately needs to fetch more data
+  React.useEffect(() => {
+    fetchMoreOnBottomReached(tableContainerRef.current);
+  }, [fetchMoreOnBottomReached]);
   const table = useReactTable({
-    data,
+    data: flatData,
     columns,
+    manualPagination: true,
     getCoreRowModel: getCoreRowModel(),
     // row selection
     onRowSelectionChange: setRowSelection,
@@ -81,77 +125,140 @@ export function DataTable<TData, TValue>({
 
     // Visibility:
     onColumnVisibilityChange: setColumnVisibility,
-
-    // Control pagination. Default is 10
-    initialState: {
-      pagination: { pageSize: 5 },
-    },
-
-    // This can be added to insert custom functions, accessible :table.options.meta.methodName
-    meta: {
-      myOwnMethod: () => {
-        console.log('Custom method');
-      },
-    },
+    manualSorting: true,
+    debugTable: true,
   });
+  const { rows } = table.getRowModel();
+
+  const virtualizer = useVirtualizer({
+    count: rows.length,
+    estimateSize: () => 33, // estimate row height for accurate scrollbar dragging
+    getScrollElement: () => tableContainerRef.current,
+    // measure dynamic row height, except in firefox because it measures table border height incorrectly
+    measureElement:
+      typeof window !== 'undefined' &&
+      navigator.userAgent.indexOf('Firefox') === -1
+        ? (element) => element?.getBoundingClientRect().height
+        : undefined,
+    overscan: 5,
+  });
+  // console.log(virtualizer.getVirtualItems()?.length, columns.length);
 
   return (
-    <div>
-      <div className="">
-        <Table className="p-0">
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  className=""
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="first-letter:uppercase">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                  <Separator orientation="vertical" />
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  <Empty content={`No ${title} found`} />
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex justify-end pt-4">
-        <DataTablePagination table={table} />
-      </div>
+    <div
+      onScroll={(e) => fetchMoreOnBottomReached(e.target as HTMLDivElement)}
+      ref={tableContainerRef}
+      style={{
+        overflow: 'auto', // our scrollable table container
+        position: 'relative', // needed for sticky header
+        height: '400px', // should be a fixed height
+      }}
+    >
+      {/* Even though we're still using sematic table tags, we must use CSS grid and flexbox for dynamic row heights */}
+      <Table style={{ display: 'grid' }}>
+        <TableHeader
+          style={{
+            display: 'grid',
+            position: 'sticky',
+            top: 0,
+            zIndex: 1,
+          }}
+        >
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow
+              style={{ display: 'flex', width: '100%' }}
+              key={headerGroup.id}
+              className="hover:bg-inherit"
+            >
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead
+                    style={{
+                      display: 'flex',
+                      width: header.getSize(),
+                    }}
+                    key={header.id}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableHead>
+                );
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody
+          style={{
+            display: 'grid',
+            height: `${virtualizer.getTotalSize()}px`, // tells scrollbar how big the table is
+            position: 'relative', // needed for absolute positioning of rows
+          }}
+        >
+          {virtualizer.getVirtualItems()?.length > 0 ? (
+            <>
+              {virtualizer.getVirtualItems()?.map((virtualRow) => {
+                const row = rows[virtualRow.index];
+                return (
+                  <TableRow
+                    data-index={virtualRow.index} // needed for dynamic row height measurement
+                    ref={(node) => virtualizer.measureElement(node)} // measure dynamic row height
+                    key={row.id}
+                    style={{
+                      display: 'flex',
+                      position: 'absolute',
+                      transform: `translateY(${virtualRow.start}px)`, // this should always be a `style` as it changes on scroll
+                      width: '100%',
+                    }}
+                    // key={row?.id}
+                    // style={{
+                    //   // height: `${virtualRow.size}px`,
+                    //   transform: `translateY(${
+                    //     virtualRow.start - index * virtualRow.size
+                    //   }px)`,
+                    // }}
+                    data-state={row?.getIsSelected() && 'selected'}
+                  >
+                    {row?.getVisibleCells().map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        style={{
+                          display: 'flex',
+                          width: cell.column.getSize(),
+                        }}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })}
+
+              {/* <Loader2
+              ref={ref}
+              className="react-table my-4 h-8 w-8 animate-spin"
+            /> */}
+            </>
+          ) : (
+            <TableRow className="hover:bg-inherit">
+              <TableCell
+                colSpan={columns.length}
+                className="text-center grid h-fit"
+              >
+                <Empty content={`No ${title} found`} />
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </div>
+
+    // {isFetching && <div>Fetching More...</div>}
   );
 }
