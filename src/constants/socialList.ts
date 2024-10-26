@@ -7,7 +7,7 @@ export const socialList = [
   {
     name: 'X/Twitter',
     icon: '/logos/X-gradient.svg',
-    href: 'https://twitter.com/SweepstakeMkt',
+    href: 'https://x.com/Sweepstakes_Mkt',
   },
   {
     name: 'Telegram',
