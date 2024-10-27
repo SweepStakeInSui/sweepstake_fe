@@ -92,11 +92,14 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
             </SectionIndicator>
 
             <SectionIndicator section="about" ref={aboutRef}>
-              <MarketsAbout desc={marketDetailData?.description || ''} />
+              <MarketsAbout desc={marketDetailData?.description} />
             </SectionIndicator>
 
             <SectionIndicator section="relate-market" ref={relateMarketRef}>
-              <MarketsRelateMarket />
+              <MarketsRelateMarket
+                marketId={marketDetailData?.id}
+                categories={marketDetailData?.category}
+              />
             </SectionIndicator>
 
             <SectionIndicator section="idea" ref={ideaRef}>

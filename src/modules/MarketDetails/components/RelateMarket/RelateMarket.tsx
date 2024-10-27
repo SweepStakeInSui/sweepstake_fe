@@ -1,59 +1,102 @@
+import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
+import { useMemo } from 'react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 import Flex from '@/components/common/Flex';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { bets } from '@/mocks/mockBet';
+import { defaultImg } from '@/constants/defaultImg';
+import { ROUTE } from '@/constants/routes';
+import { MarketService } from '@/services/markets';
 
-export default function MarketsRelateMarket() {
+interface RelateMarketProps {
+  marketId?: string;
+  categories?: string[];
+}
+
+export default function MarketsRelateMarket({
+  marketId,
+  categories,
+}: RelateMarketProps) {
+  const formattedCategories = useMemo(
+    () => categories?.map((cate) => cate).join(', '),
+    [categories],
+  );
+
+  const { data: relateMarkets } = useQuery({
+    queryKey: ['relate-market', categories],
+    queryFn: () =>
+      MarketService.getMarket({
+        page: 1,
+        limit: 10,
+        category: formattedCategories,
+      }),
+  });
+
+  const filterRelateMarkets = useMemo(
+    () => relateMarkets?.data.items.filter((market) => market.id !== marketId),
+    [relateMarkets],
+  );
+
   return (
-    <div>
-      <Typography.Heading size={24} weight="semibold" className="mb-4">
-        Relate Market
-      </Typography.Heading>
+    filterRelateMarkets &&
+    filterRelateMarkets.length > 0 && (
+      <div>
+        <Typography.Heading size={24} weight="semibold" className="mb-4">
+          Relate Market
+        </Typography.Heading>
 
-      {bets.map((bet) => (
-        <div className="flex items-center gap-2 py-3 px-2 mb-4" key={bet.name}>
-          <Avatar size="md" isRounded={false}>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback />
-          </Avatar>
-          <div className="text-left">
-            <Typography.Text
-              size={15}
-              weight="semibold"
-              className="text-text mb-[2px]"
-            >
-              {bet.name}
-            </Typography.Text>
-            <Flex className="gap-x-1">
-              <div style={{ width: 12, height: 12 }}>
-                <CircularProgressbar
-                  value={bet.chance}
-                  styles={buildStyles({
-                    pathColor: `rgba(1, 70, 244)`,
-                  })}
-                />
-              </div>
+        {filterRelateMarkets.map((market) => (
+          <Link
+            href={`${ROUTE.MARKETS}/${market.id}`}
+            className="flex items-center gap-2 py-3 px-2 mb-4 hover:bg-bg-sublest transition-all rounded-sm overflow-hidden"
+            key={market.name}
+          >
+            <Avatar size="md" isRounded={false}>
+              <AvatarImage src={market.image || defaultImg} />
+              <AvatarFallback />
+            </Avatar>
+            <div className="text-left">
               <Typography.Text
-                size={13}
-                className="text-text-support-blue mr-1"
+                size={15}
+                weight="semibold"
+                className="text-text mb-[2px]"
               >
-                {bet.chance} % Chances
+                {market.name}
               </Typography.Text>
-              <Typography.Text size={13} className="text-text-support-green">
-                +{bet.count}
-              </Typography.Text>
-            </Flex>
-          </div>
+              <Flex className="gap-x-1">
+                <div style={{ width: 12, height: 12 }}>
+                  <CircularProgressbar
+                    value={50}
+                    styles={buildStyles({
+                      pathColor: `rgba(1, 70, 244)`,
+                    })}
+                  />
+                </div>
+                <Typography.Text
+                  size={13}
+                  className="text-text-support-blue mr-1"
+                >
+                  50% Chances
+                </Typography.Text>
+                <Typography.Text size={13} className="text-text-support-green">
+                  +50
+                </Typography.Text>
+              </Flex>
+            </div>
+          </Link>
+        ))}
+
+        <div className="flex justify-center">
+          <Link
+            href={`${ROUTE.MARKETS}?category=${formattedCategories}`}
+            className=""
+          >
+            See more
+          </Link>
         </div>
-      ))}
-      <div className="flex justify-center">
-        <Button variant="ghost" className="">
-          See more
-        </Button>
       </div>
-    </div>
+    )
   );
 }
