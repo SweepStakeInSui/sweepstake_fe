@@ -25,7 +25,7 @@ export default function Positions() {
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) => {
       if (lastPage.meta && lastPage.meta.itemCount < 12) return undefined;
-      return pages.length + 1;
+      return (pages?.length ?? 0) + 1;
     },
     placeholderData: keepPreviousData,
   });

@@ -129,6 +129,7 @@ const EditProfile = () => {
                 ) : (
                   <div className="relative w-fit h-fit mx-auto mb-6">
                     <button
+                      type="button"
                       onClick={() => {
                         fileInputRef.current?.click();
                       }}
@@ -140,16 +141,23 @@ const EditProfile = () => {
                       />
                     </button>
 
-                    <Flex className="absolute bg-blk-a85/80 gap-x-0.5 rounded-full px-2 h-[26px] -bottom-1.5 left-1/2 -translate-x-1/2">
-                      <Typography.Text
-                        className="text-white"
-                        size={15}
-                        weight="regular"
-                      >
-                        Upload
-                      </Typography.Text>
-                      <Svg src="/icons/photo_camera.svg" />
-                    </Flex>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        fileInputRef.current?.click();
+                      }}
+                    >
+                      <Flex className="absolute bg-blk-a85/80 gap-x-0.5 rounded-full px-2 h-[26px] -bottom-1.5 left-1/2 -translate-x-1/2">
+                        <Typography.Text
+                          className="text-white"
+                          size={15}
+                          weight="regular"
+                        >
+                          Upload
+                        </Typography.Text>
+                        <Svg src="/icons/photo_camera.svg" />
+                      </Flex>
+                    </button>
                   </div>
                 )}
               </div>
