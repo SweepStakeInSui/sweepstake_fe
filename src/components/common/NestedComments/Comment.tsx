@@ -64,11 +64,14 @@ const Comment = ({
       <div className="flex-1">
         <Flex className="flex-col lg:flex-row items-start lg:items-center mb-1">
           <Flex className="justify-between">
-            <h4 className="font-bold">{username || truncate(userId)}</h4>
+            <h4 className="font-bold">
+              {truncate(username, 50) || truncate(userId)}
+            </h4>
             <span className="text-13 text-text-subtle">
               {format(new Date(timestamp), 'dd MMM')}
             </span>
           </Flex>
+          {/* TODO: update badge when we have the data */}
           {/* {isMinimal && !isReplies && (
             <Badge variant="bet_yes">Yes • Micheal Jack • 62% Chance</Badge>
           )} */}

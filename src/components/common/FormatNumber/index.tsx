@@ -1,7 +1,13 @@
 import { Tooltip } from '@/components/ui/tooltip';
 import { formatNumber } from '@/utils/formatNumber';
+
+interface FormatNumberProps {
+  number: string | number;
+  tag?: React.ElementType;
+}
+
 // handle number values
-const FormatNumber = ({ number }: { number: string | number }) => {
+const FormatNumber = ({ number, tag: Tag = 'div' }: FormatNumberProps) => {
   const roundedNumber = Number(number);
   const decimalPlaces = Math.max(
     0,
@@ -38,7 +44,7 @@ const FormatNumber = ({ number }: { number: string | number }) => {
     return <>{Number(roundedNumber.toFixed(2)).toLocaleString('en-US')}</>;
   };
 
-  return <div>{renderNumber()}</div>;
+  return <Tag>{renderNumber()}</Tag>;
 };
 // Tooltip when hover number values <0,0001
 const TooltipNumber = ({ data }: { data: string }) => {

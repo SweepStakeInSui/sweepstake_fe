@@ -81,11 +81,12 @@ const MarketsWatchList = () => {
                     <Typography.Text size={15} className="line-clamp-2">
                       {item.name}
                     </Typography.Text>
-                    <Typography.Text size={13} className="inline-flex gap-2">
+                    {/* TODO: Update when we have multiple bets */}
+                    {/* <Typography.Text size={13} className="inline-flex gap-2">
                       <span className="text-text-subtle">Jhonny</span>
                       <span className="text-text-support-match">11</span>
                       <span className="text-text-support-green">+2</span>
-                    </Typography.Text>
+                    </Typography.Text> */}
                   </div>
                 </Stack>
               </div>

@@ -1,25 +1,34 @@
 // import { Accordion } from '@radix-ui/react-accordion';
 import { format } from 'date-fns';
 import Image from 'next/image';
+import { useMemo } from 'react';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import CopyButton from '@/components/common/CopyButton/CopyButton';
 import Flex from '@/components/common/Flex';
+import { FormatNumber } from '@/components/common/FormatNumber';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Accordion } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import { defaultImg } from '@/constants/defaultImg';
+import { BetOutcomeType } from '@/enums/bet-status';
 import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
 import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBetOrderBook';
 import type { TBetItem } from '@/services/markets/types';
+import { avg } from '@/utils/avg';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 interface IMarketsDetailProps {
   bet: TBetItem;
 }
 
 export default function MarketsDetail({ bet }: IMarketsDetailProps) {
+  const yesOutcome = useMemo(
+    () => bet.outcomes?.find((b) => b.type === BetOutcomeType.YES),
+    [bet],
+  );
   return (
     <div>
       <Stack className="gap-y-0 mb-4">
@@ -30,7 +39,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
               className="text-text-subtle inline-flex items-center gap-1"
               size={15}
             >
-              $120,000,000 bet
+              $<FormatNumber number={bet.volume || 0} tag="span" /> Vol
             </Typography.Text>
           </Flex>
           <Separator orientation="vertical" className="h-3 bg-borderMain" />
@@ -71,7 +80,13 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
         </Flex>
         <Flex className="items-center">
           <Typography.Heading className="text-text" size={20}>
-            24.2
+            {handleBignumber.divideDecimal(
+              avg([
+                Number(yesOutcome?.bidPrice),
+                Number(yesOutcome?.askPrice),
+              ])?.toFixed(2),
+            )}
+            %
           </Typography.Heading>
 
           <div>
@@ -79,14 +94,15 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
               className="text-text inline-flex items-center gap-1"
               size={15}
             >
-              chance{' '}
-              <Typography.Text
+              chance
+              {/* TODO: snapshot analytics */}
+              {/* <Typography.Text
                 tag="span"
                 className="text-text-support-green"
                 size={15}
               >
                 +2%
-              </Typography.Text>
+              </Typography.Text> */}
               <span>
                 <Svg
                   src="/icons/info_outline.svg"

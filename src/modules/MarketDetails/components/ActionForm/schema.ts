@@ -67,7 +67,6 @@ export const postOrder = (
       })
       .refine(
         (value) => {
-          console.log(type);
           const parsed = Number(value);
           if (type === 'FOK') {
             // FOK orders can have optional price

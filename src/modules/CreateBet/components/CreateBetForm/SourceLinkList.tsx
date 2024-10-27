@@ -3,6 +3,7 @@ import Svg from '@components/common/Svg';
 import Typography from '@components/common/Typography';
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
+import { useTheme } from 'next-themes';
 import React from 'react';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
@@ -17,12 +18,12 @@ const SourcePanel = ({ index }: ISourcePanelProps) => {
     <Stack className="border border-borderSubtle rounded-md rounded-br-none rounded-bl-none p-4 gap-4 bg-bg-container relative z-[1]">
       <Stack className="gap-1">
         <Typography.Text size={13} className="text-text-subtle">
-          Link title
+          Link label
         </Typography.Text>
         <Controller
-          name={`sources.${index}.title`}
+          name={`sources.${index}.label`}
           control={control}
-          render={({ field }) => <Input {...field} placeholder="Link title" />}
+          render={({ field }) => <Input {...field} placeholder="Link label" />}
         />
       </Stack>
       <Stack className="gap-1">
@@ -45,6 +46,7 @@ const SourceList = () => {
     control,
     name: 'sources',
   });
+  const { theme } = useTheme();
 
   return (
     <Stack className="gap-4">
@@ -58,7 +60,7 @@ const SourceList = () => {
             />
             <Button
               variant="ghost"
-              className="w-full border border-t-0 bg-r-5 hover:bg-r-10 border-borderSubtle rounded-tr-none rounded-tl-none space-x-2 overflow-hidden transition-all -translate-y-[100%] group-hover:translate-y-0"
+              className={`w-full border border-t-0 ${theme === 'light' ? 'bg-r-5 hover:bg-r-10' : 'bg-r-100 hover:bg-r-95'} border-borderSubtle rounded-tr-none rounded-tl-none space-x-2 overflow-hidden transition-all -translate-y-[100%] group-hover:translate-y-0`}
               onClick={() => remove(index)}
             >
               <Svg
@@ -77,7 +79,7 @@ const SourceList = () => {
         variant="terriary"
         className="px-3 py-2 gap-x-1 mx-auto"
         onClick={() => {
-          append({ title: '', url: '' });
+          append({ label: '', url: '' });
         }}
       >
         <Svg src="/icons/add.svg" className="size-4" />
