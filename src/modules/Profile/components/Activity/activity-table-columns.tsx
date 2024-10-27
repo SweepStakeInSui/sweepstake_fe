@@ -24,7 +24,8 @@ export const columns: ColumnDef<IActivityItem>[] = [
     header: 'Market',
     size: 440,
     cell: ({ row }) => {
-      const { outcome, status, image, price, marketId } = row.original;
+      const { outcome, status, price, marketId } = row.original;
+      const { image } = outcome.market;
 
       return (
         <Flex className="justify-between space-x-2 w-full">

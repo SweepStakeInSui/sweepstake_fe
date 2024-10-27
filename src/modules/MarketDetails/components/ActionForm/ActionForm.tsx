@@ -1,6 +1,7 @@
 'use client';
 
 import { format } from 'date-fns';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -8,7 +9,6 @@ import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Select,
   SelectContent,
@@ -49,10 +49,15 @@ const sections = [
 
 interface MarketsActionFormProps {
   image?: string;
-  endDate: number;
+  startTime: number;
+  endTime: number;
 }
 
-const MarketsActionForm = ({ image, endDate }: MarketsActionFormProps) => {
+const MarketsActionForm = ({
+  image,
+  startTime,
+  endTime,
+}: MarketsActionFormProps) => {
   const [selectedValue, setSelectedValue] = useState('market');
   const { type } = useSelector((state: any) => state.bet);
 
@@ -67,10 +72,9 @@ const MarketsActionForm = ({ image, endDate }: MarketsActionFormProps) => {
     <Stack className="no-scrollbar sticky gap-y-0 border-l border-solid border-borderSubtle p-3 top-2 lg:top-[4.75rem] w-full lg:w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto">
       <Stack className="gap-4 p-3">
         <Flex className="items-center gap-3 mb-2">
-          <Avatar isRounded={false} className="w-[2.5rem] h-auto aspect-1">
-            <AvatarImage src={image || defaultImg} alt="thumbnail" />
-            <AvatarFallback />
-          </Avatar>
+          <div className="relative size-[2.5rem] aspect-1 rounded-md overflow-hidden">
+            <Image src={image || defaultImg} fill alt="" objectFit="cover" />
+          </div>
           <Typography.Text>
             <span
               className={
@@ -81,7 +85,7 @@ const MarketsActionForm = ({ image, endDate }: MarketsActionFormProps) => {
             >
               Bet {type === BetOutcomeType.YES ? 'Yes' : 'No'}
             </span>
-            <span>・Before {format(endDate * 1000, 'MMM dd')}</span>
+            <span>・Before {format(endTime * 1000, 'MMM dd')}</span>
           </Typography.Text>
         </Flex>
 
@@ -109,10 +113,20 @@ const MarketsActionForm = ({ image, endDate }: MarketsActionFormProps) => {
               ))}
             </TabsList>
             <TabsContent value="buy" className="mt-0">
-              <BetAction isLimit={selectedValue === 'limit'} isBid />
+              <BetAction
+                isLimit={selectedValue === 'limit'}
+                isBid
+                startTime={startTime}
+                endTime={endTime}
+              />
             </TabsContent>
             <TabsContent value="sell" className="mt-0">
-              <BetAction isLimit={selectedValue === 'limit'} isBid={false} />
+              <BetAction
+                isLimit={selectedValue === 'limit'}
+                isBid={false}
+                startTime={startTime}
+                endTime={endTime}
+              />
             </TabsContent>
           </Tabs>
         </div>

@@ -92,11 +92,17 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
             </SectionIndicator>
 
             <SectionIndicator section="about" ref={aboutRef}>
-              <MarketsAbout desc={marketDetailData?.description || ''} />
+              <MarketsAbout
+                desc={marketDetailData?.description}
+                source={marketDetailData?.source}
+              />
             </SectionIndicator>
 
             <SectionIndicator section="relate-market" ref={relateMarketRef}>
-              <MarketsRelateMarket />
+              <MarketsRelateMarket
+                marketId={marketDetailData?.id}
+                categories={marketDetailData?.category}
+              />
             </SectionIndicator>
 
             <SectionIndicator section="idea" ref={ideaRef}>
@@ -107,13 +113,15 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
           <DrawerContent className="block lg:hidden">
             <MarketsActionForm
               image={marketDetailData?.image}
-              endDate={marketDetailData?.endTime || 0}
+              startTime={marketDetailData?.startTime || 0}
+              endTime={marketDetailData?.endTime || 0}
             />
           </DrawerContent>
           <div className="hidden lg:flex sticky top-2 lg:top-[4.75rem]">
             <MarketsActionForm
               image={marketDetailData?.image}
-              endDate={marketDetailData?.endTime || 0}
+              startTime={marketDetailData?.startTime || 0}
+              endTime={marketDetailData?.endTime || 0}
             />
           </div>
         </Flex>

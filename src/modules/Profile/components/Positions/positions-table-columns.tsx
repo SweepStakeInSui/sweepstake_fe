@@ -4,6 +4,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import Link from 'next/link';
 
 import Flex from '@/components/common/Flex';
+import { FormatNumber } from '@/components/common/FormatNumber';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -18,7 +19,8 @@ export const columns: ColumnDef<PositionItemProps>[] = [
     header: 'Market',
     size: 365,
     cell: ({ row }) => {
-      const { image, outcome } = row.original;
+      const { outcome } = row.original;
+      const { image } = outcome.market;
 
       return (
         <Flex className="justify-between space-x-2">
@@ -73,7 +75,11 @@ export const columns: ColumnDef<PositionItemProps>[] = [
       const { outcome } = row.original;
       return (
         <Typography.Text size={14} weight="medium">
-          {handleBignumber.divideDecimal(outcome.bidPrice)}¢
+          <FormatNumber
+            number={handleBignumber.divideDecimal(outcome.bidPrice)}
+            tag="span"
+          />
+          ¢
         </Typography.Text>
       );
     },
@@ -89,9 +95,15 @@ export const columns: ColumnDef<PositionItemProps>[] = [
 
       return (
         <Stack className="items-end w-full">
-          <div>
-            ${+balance * +handleBignumber.divideDecimal(outcome.bidPrice)}
-          </div>
+          <Typography.Text size={14} className="text-nowrap">
+            $
+            <FormatNumber
+              number={
+                +balance * +handleBignumber.divideDecimal(outcome.bidPrice)
+              }
+              tag="span"
+            />
+          </Typography.Text>
           {/* TODO: Update data */}
           {/* <Flex className="text-text-support-green font-normal gap-0">
             <div>0</div>(0%)

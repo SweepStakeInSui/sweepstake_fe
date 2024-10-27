@@ -16,6 +16,7 @@ interface IUpDownButton<TFieldValues extends FieldValues> {
   register: UseFormRegister<TFieldValues>;
   onIncrement: () => void;
   onDecrement: () => void;
+  disabled?: boolean;
 }
 
 const UpDownButton = <TFieldValues extends FieldValues>({
@@ -25,6 +26,7 @@ const UpDownButton = <TFieldValues extends FieldValues>({
   register,
   onIncrement,
   onDecrement,
+  disabled,
 }: IUpDownButton<TFieldValues>) => {
   return (
     <Stack className="gap-1 relative">
@@ -43,12 +45,14 @@ const UpDownButton = <TFieldValues extends FieldValues>({
             e.target.value = value.replace(/^0+(?=\d)/, '') || '0';
           },
         })}
+        disabled={disabled}
       />
       <Flex className="gap-1 absolute right-4 bottom-4">
         <IconButton
           className="size-6 bg-bg-isublested p-0"
           isRounded={false}
           onClick={onDecrement}
+          disabled={disabled}
         >
           <Svg src="/icons/remove.svg" />
         </IconButton>
@@ -56,6 +60,7 @@ const UpDownButton = <TFieldValues extends FieldValues>({
           className="size-6 bg-bg-isublested p-0"
           isRounded={false}
           onClick={onIncrement}
+          disabled={disabled}
         >
           <Svg src="/icons/add.svg" />
         </IconButton>

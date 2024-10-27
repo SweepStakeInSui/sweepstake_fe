@@ -15,11 +15,16 @@ export enum EBetStatusOption {
 export enum BetOutcomeType {
   YES = 'Yes',
   NO = 'No',
-  SUCCESS = 'Success',
 }
 
 export enum EOrderType {
   FOK = 'FOK',
   IOC = 'IOC',
   GTC = 'GTC',
+}
+
+export enum EBetOpenStatus {
+  OPEN = 'Open',
+  CLOSED = 'Closed',
+  UPCOMING = 'Upcoming',
 }

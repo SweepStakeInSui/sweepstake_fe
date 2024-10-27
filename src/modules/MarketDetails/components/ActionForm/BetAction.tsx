@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import type { z } from 'zod';
@@ -27,6 +27,7 @@ import { TimePicker } from '@/components/ui/time-picker';
 import { Tooltip } from '@/components/ui/tooltip';
 import {
   BetOutcomeType,
+  EBetOpenStatus,
   EBetStatusOption,
   EOrderType,
 } from '@/enums/bet-status';
@@ -42,7 +43,10 @@ import { handleBignumber } from '@/utils/handleBignumber';
 interface IBetActionProps {
   isBid: boolean;
   isLimit: boolean;
+  startTime: number;
+  endTime: number;
 }
+
 const TooltipPrice = () => {
   return (
     <Stack className=" max-w-96">
@@ -73,7 +77,7 @@ const TooltipPrice = () => {
   );
 };
 
-const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
+const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
   // HOOKS
   const { profile, isLoggedIn } = useSelector(selectProfile);
   const dispatch = useDispatch();
@@ -83,6 +87,10 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
   const [txsString, setTxsString] = React.useState('');
   const [isSetExpiration, setIsSetExpiration] = useState(false);
   const betState = useSelector((state: any) => state.bet);
+  const [betStatus, setBetStatus] = useState({
+    title: EBetOpenStatus.OPEN,
+    isActive: true,
+  });
 
   const {
     mutate: placeOrderMutation,
@@ -111,7 +119,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
 
   const askYesLimit = useMemo(
     () =>
-      positionsData?.items.find(
+      positionsData?.items?.find(
         (pos) => pos.outcomeId === betState.outcomeYesId,
       )?.balance,
     [positionsData],
@@ -119,12 +127,11 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
 
   const askNoLimit = useMemo(
     () =>
-      positionsData?.items.find((pos) => pos.outcomeId === betState.outcomeNoId)
-        ?.balance,
+      positionsData?.items?.find(
+        (pos) => pos.outcomeId === betState.outcomeNoId,
+      )?.balance,
     [positionsData],
   );
-
-  console.log(isLimit);
 
   // FORM HANDLERS
   const postOrderSchema = postOrder(
@@ -160,8 +167,6 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
   const price = watch('price');
   const amount = watch('amount');
 
-  console.log(errors);
-
   const onSubmit = (data: z.infer<typeof postOrderSchema>) => {
     const orderData = {
       outcomeId:
@@ -184,19 +189,21 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
 
   // FUNCTIONS
   const handlePriceIncrement = () => {
-    setValue('price', (Number(price) + 1).toString());
+    if (betStatus.isActive) setValue('price', (Number(price) + 1).toString());
   };
 
   const handlePriceDecrement = () => {
-    setValue('price', Math.max(0, Number(price) - 1).toString());
+    if (betStatus.isActive)
+      setValue('price', Math.max(0, Number(price) - 1).toString());
   };
 
   const handleAmountIncrement = () => {
-    setValue('amount', (Number(amount) + 1).toString());
+    if (betStatus.isActive) setValue('amount', (Number(amount) + 1).toString());
   };
 
   const handleAmountDecrement = () => {
-    setValue('amount', Math.max(0, Number(amount) - 1).toString());
+    if (betStatus.isActive)
+      setValue('amount', Math.max(0, Number(amount) - 1).toString());
   };
 
   const onBetClick = (
@@ -214,6 +221,21 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
       }),
     );
   };
+
+  // EFFECTS
+  useEffect(() => {
+    const now = new Date().getTime();
+    const start = startTime * 1000;
+    const end = endTime * 1000;
+
+    if (now < start)
+      setBetStatus({ title: EBetOpenStatus.UPCOMING, isActive: false });
+    else if (now > end) {
+      setBetStatus({ title: EBetOpenStatus.CLOSED, isActive: false });
+    } else {
+      setBetStatus({ title: EBetOpenStatus.OPEN, isActive: true });
+    }
+  }, [isLoggedIn, startTime, endTime]);
 
   return (
     <div>
@@ -234,6 +256,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
               className="w-full"
               variant={`bet_yes${betState.type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
+              disabled={!betStatus.isActive}
             >
               Yes{' '}
               {isBid
@@ -245,6 +268,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
               variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
+              disabled={!betStatus.isActive}
             >
               No{' '}
               {isBid
@@ -265,6 +289,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 register={register}
                 onIncrement={handlePriceIncrement}
                 onDecrement={handlePriceDecrement}
+                disabled={!betStatus.isActive}
               />
               {!isLoggedIn && (
                 <Typography.Text
@@ -294,6 +319,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 register={register}
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
+                disabled={!betStatus.isActive}
               />
               {!isLoggedIn && (
                 <Typography.Text
@@ -397,9 +423,16 @@ Projected payout 2 hours after closing."
                 size="lg"
                 className="w-full gap-1"
                 onClick={handleSubmit(onSubmit)}
+                disabled={!betStatus.isActive}
               >
-                <Svg src="/icons/add_circle.svg" className="!text-white" />
-                Place bet
+                {betStatus.isActive ? (
+                  <>
+                    <Svg src="/icons/add_circle.svg" className="!text-white" />
+                    Place bet
+                  </>
+                ) : (
+                  betStatus.title
+                )}
               </Button>
             ) : (
               <ConnectButton
@@ -419,6 +452,7 @@ Projected payout 2 hours after closing."
                 register={register}
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
+                disabled={!betStatus.isActive}
               />
               {!isLoggedIn && (
                 <Typography.Text
@@ -482,9 +516,16 @@ Projected payout 2 hours after closing."
                 size="lg"
                 className="w-full gap-1"
                 onClick={handleSubmit(onSubmit)}
+                disabled={!betStatus.isActive}
               >
-                <Svg src="/icons/add_circle.svg" className="!text-white" />
-                Place bet
+                {betStatus.isActive ? (
+                  <>
+                    <Svg src="/icons/add_circle.svg" className="!text-white" />
+                    Place bet
+                  </>
+                ) : (
+                  betStatus.title
+                )}
               </Button>
             ) : (
               <ConnectButton

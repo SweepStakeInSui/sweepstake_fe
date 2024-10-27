@@ -52,7 +52,7 @@ export const createBetSchema = (startTime: number, endTime: number) =>
     sources: z
       .array(
         z.object({
-          title: z.string(),
+          label: z.string(),
           url: z.string(),
         }),
       )

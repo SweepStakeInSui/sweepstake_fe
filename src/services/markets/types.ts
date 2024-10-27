@@ -25,7 +25,7 @@ export type IOutcomeData = {
 };
 
 export type ISourceData = {
-  title: string;
+  label: string;
   url: string;
 };
 
@@ -96,10 +96,9 @@ export type TBetItem = {
   outcomes: TOutcome[];
   onchainId: string;
   transactionHash: string;
-  source?: {
-    label: string;
-    url: string;
-  }[];
+  source?: ISourceData[];
+  volume: string;
+  tradeCount: string;
 };
 
 export type TBetDetails = {
