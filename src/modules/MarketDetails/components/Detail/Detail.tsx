@@ -94,14 +94,15 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
               className="text-text inline-flex items-center gap-1"
               size={15}
             >
-              chance{' '}
-              <Typography.Text
+              chance
+              {/* TODO: snapshot analytics */}
+              {/* <Typography.Text
                 tag="span"
                 className="text-text-support-green"
                 size={15}
               >
                 +2%
-              </Typography.Text>
+              </Typography.Text> */}
               <span>
                 <Svg
                   src="/icons/info_outline.svg"
