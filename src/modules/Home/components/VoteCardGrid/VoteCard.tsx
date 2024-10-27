@@ -7,6 +7,7 @@ import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import Flex from '@/components/common/Flex';
+import { FormatNumber } from '@/components/common/FormatNumber';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
@@ -91,7 +92,7 @@ interface VoteCardProps {
 
 const VoteCard = ({ data }: VoteCardProps) => {
   const { theme } = useTheme();
-  const { name } = data;
+  const { name, volume } = data;
   // const [open, setOpen] = useState<boolean>(false);
   // const [value, setValue] = useState('');
   const router = useRouter();
@@ -122,8 +123,11 @@ const VoteCard = ({ data }: VoteCardProps) => {
               {name}
             </Typography.Text>
             <Flex className="text-text-sublest mt-1">
-              <Typography.Text size={12} className="text-text-sublest">
-                3k bet
+              <Typography.Text
+                size={12}
+                className="text-text-sublest text-nowrap"
+              >
+                $<FormatNumber number={volume || 0} tag="span" /> Vol
               </Typography.Text>
               <div className="w-px bg-borderSubtle h-2.5" />
               <AddWatchListButton bet={data} showText />

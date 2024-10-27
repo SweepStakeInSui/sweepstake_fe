@@ -49,10 +49,15 @@ const sections = [
 
 interface MarketsActionFormProps {
   image?: string;
-  endDate: number;
+  startTime: number;
+  endTime: number;
 }
 
-const MarketsActionForm = ({ image, endDate }: MarketsActionFormProps) => {
+const MarketsActionForm = ({
+  image,
+  startTime,
+  endTime,
+}: MarketsActionFormProps) => {
   const [selectedValue, setSelectedValue] = useState('market');
   const { type } = useSelector((state: any) => state.bet);
 
@@ -80,7 +85,7 @@ const MarketsActionForm = ({ image, endDate }: MarketsActionFormProps) => {
             >
               Bet {type === BetOutcomeType.YES ? 'Yes' : 'No'}
             </span>
-            <span>・Before {format(endDate * 1000, 'MMM dd')}</span>
+            <span>・Before {format(endTime * 1000, 'MMM dd')}</span>
           </Typography.Text>
         </Flex>
 
@@ -108,10 +113,20 @@ const MarketsActionForm = ({ image, endDate }: MarketsActionFormProps) => {
               ))}
             </TabsList>
             <TabsContent value="buy" className="mt-0">
-              <BetAction isLimit={selectedValue === 'limit'} isBid />
+              <BetAction
+                isLimit={selectedValue === 'limit'}
+                isBid
+                startTime={startTime}
+                endTime={endTime}
+              />
             </TabsContent>
             <TabsContent value="sell" className="mt-0">
-              <BetAction isLimit={selectedValue === 'limit'} isBid={false} />
+              <BetAction
+                isLimit={selectedValue === 'limit'}
+                isBid={false}
+                startTime={startTime}
+                endTime={endTime}
+              />
             </TabsContent>
           </Tabs>
         </div>

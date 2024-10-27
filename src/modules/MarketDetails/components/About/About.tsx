@@ -5,9 +5,16 @@ import Typography from '@/components/common/Typography';
 
 interface IMarketsAboutProps {
   desc?: string;
+  source?: {
+    label: string;
+    url: string;
+  }[];
 }
 
-export default function MarketsAbout({ desc }: Readonly<IMarketsAboutProps>) {
+export default function MarketsAbout({
+  desc,
+  source,
+}: Readonly<IMarketsAboutProps>) {
   return (
     desc && (
       <div>
@@ -18,23 +25,14 @@ export default function MarketsAbout({ desc }: Readonly<IMarketsAboutProps>) {
           {desc}
         </Typography.Text>
 
-        <Flex className="p-3 items-start rounded-md bg-bg-sublest border border-borderSublest">
-          <Svg src="/icons/link.svg" className="size-5" />
-          <Typography.Text size={15} className="text-text-subtle">
-            Sources from{' '}
-            <SourceLinks
-              sources={[
-                { title: 'GitHub', url: 'https://github.com' },
-                { title: 'DataHub.io', url: 'https://datahub.io' },
-                { title: 'Data.gov', url: 'https://data.gov' },
-                {
-                  title: 'U.S. Energy Information Administration (EIA)',
-                  url: 'https://www.eia.gov',
-                },
-              ]}
-            />
-          </Typography.Text>
-        </Flex>
+        {source && (
+          <Flex className="p-3 items-start rounded-md bg-bg-sublest border border-borderSublest">
+            <Svg src="/icons/link.svg" className="size-5" />
+            <Typography.Text size={15} className="text-text-subtle">
+              Sources from <SourceLinks sources={source} />
+            </Typography.Text>
+          </Flex>
+        )}
       </div>
     )
   );
