@@ -2,68 +2,64 @@
 
 import './index.scss';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
+import { FormatNumber } from '@/components/common/FormatNumber';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { SelectBet } from '@/modules/Home/components/SelectBet';
+import { MarketService } from '@/services/markets';
+import type { TBetItem } from '@/services/markets/types';
 
 interface IHomeSlide {
-  title: string;
-  forcast: number;
-  percent: number;
-  vol: number;
-  desc: {
-    title: string;
-    content: string;
-  };
+  slide: TBetItem;
 }
 
-function HomeSlide({
-  title,
-  forcast,
-  percent,
-  vol,
-  desc,
-}: Readonly<IHomeSlide>) {
+function HomeSlide({ slide }: Readonly<IHomeSlide>) {
   return (
-    <div className="p-4 lg:p-7 w-[388px] lg:w-[50rem] h-[23.4rem] rounded-xl relative grid grid-cols-12 bg-bg-surface">
+    <Link
+      href={`/markets/${slide.id}`}
+      className="p-4 lg:p-7 w-[388px] lg:w-[50rem] h-[23.4rem] rounded-xl relative grid grid-cols-12 bg-bg-surface"
+    >
       <Stack className="relative z-10 col-span-12 lg:col-span-6">
         <Stack>
-          <Typography.Heading size={20} weight="bold" className="text-text">
-            {title}
-          </Typography.Heading>
-          <Flex>
-            <Flex className="items-end">
-              <Typography.Text className="text-text" size={16}>
-                {forcast}
-              </Typography.Text>
-              <Typography.Text className="text-text-subtle" size={12}>
-                chance
-              </Typography.Text>
-              <Typography.Text className="text-text-support-green" size={12}>
-                {percent}%
-              </Typography.Text>
-            </Flex>
+          <Stack>
+            <Typography.Heading size={20} weight="bold" className="text-text">
+              {slide?.name}
+            </Typography.Heading>
             <Flex>
-              <Typography.Text className="text-text-subtle">
-                {vol} vol
-              </Typography.Text>
+              <Flex className="items-end">
+                <Typography.Text className="text-text" size={16}>
+                  20
+                </Typography.Text>
+                <Typography.Text className="text-text-subtle" size={12}>
+                  chance
+                </Typography.Text>
+                <Typography.Text className="text-text-support-green" size={12}>
+                  5%
+                </Typography.Text>
+              </Flex>
+              <Flex>
+                <Typography.Text className="text-text-subtle flex gap-1">
+                  <FormatNumber number={slide?.volume} /> vol
+                </Typography.Text>
+              </Flex>
             </Flex>
-          </Flex>
+          </Stack>
+          <div>
+            <SelectBet />
+          </div>
         </Stack>
-        <div />
-        <div>
-          <SelectBet />
-        </div>
-        <Flex className="w-full">
+        <Flex className="w-full flex-1 items-end">
           <Button variant="bet_yes" className="w-full group">
             Bet Yes
           </Button>
@@ -75,24 +71,32 @@ function HomeSlide({
       <Stack className="relative z-10 col-span-6 justify-between gap-y-11 hidden-mobile">
         <Stack>
           <Typography.Heading className="text-text" size={24}>
-            {desc.title}
+            {slide?.name}
           </Typography.Heading>
-          <Typography.Text className="text-text-subtle" size={13}>
-            {desc.content}
+          <Typography.Text className="text-text-subtle line-clamp-4" size={13}>
+            {slide?.description}
           </Typography.Text>
         </Stack>
-        <Avatar isRounded={false} size="sm" className="w-full flex-auto">
-          <AvatarImage src="./images/slider.png" alt="silder_bet" />
+        <Avatar
+          isRounded={false}
+          size="sm"
+          className="w-full flex-auto min-h-[165px] max-h-[165px]"
+        >
+          <AvatarImage
+            src={slide?.image}
+            alt="silder_bet"
+            className="object-cover"
+          />
           <AvatarFallback className="rounded-md" />
         </Avatar>
       </Stack>
-    </div>
+    </Link>
   );
 }
 
 interface IHomeNavigationProps {
   activeIndex: number;
-  slides: IHomeSlide[];
+  slides: TBetItem[];
 }
 
 function SwiperButtonPrev({
@@ -104,7 +108,7 @@ function SwiperButtonPrev({
 
   useEffect(() => {
     const prevIndex = activeIndex === 0 ? slides.length - 1 : activeIndex - 1;
-    setPrevTitle(slides[prevIndex].title);
+    setPrevTitle(slides[prevIndex].name);
   }, [activeIndex, slides]);
 
   return (
@@ -132,7 +136,7 @@ function SwiperButtonNext({
 
   useEffect(() => {
     const nextIndex = activeIndex === slides.length - 1 ? 0 : activeIndex + 1;
-    setNextTile(slides[nextIndex].title);
+    setNextTile(slides[nextIndex].name);
   }, [activeIndex, slides]);
 
   return (
@@ -152,11 +156,7 @@ function SwiperButtonNext({
   );
 }
 
-interface ISliderProps {
-  slides: IHomeSlide[];
-}
-
-export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
+export default function HomeSlider() {
   const [realIndex, setRealIndex] = useState(0);
   const pagination = {
     clickable: true,
@@ -164,6 +164,16 @@ export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
       return `<span class="${className}"></span>`;
     },
   };
+  const { data: dataPopular } = useSuspenseQuery({
+    queryKey: ['marketPopular'],
+    queryFn: async () => {
+      const result = await MarketService.getMarketPopular({
+        page: 1,
+        limit: 10,
+      });
+      return result;
+    },
+  });
 
   return (
     <Stack className="hero-slide bg-slider-home dark:bg-slider-home-dark pb-3">
@@ -196,10 +206,10 @@ export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
         // }}
         onSlideChange={(swiper) => setRealIndex(swiper.realIndex)}
       >
-        {slides.map((slide) => {
+        {dataPopular.data.items.map((slide) => {
           return (
-            <SwiperSlide key={slide.title}>
-              <HomeSlide {...slide} />
+            <SwiperSlide key={slide.id}>
+              <HomeSlide slide={slide} />
             </SwiperSlide>
           );
         })}
@@ -210,14 +220,14 @@ export default function HomeSlider({ slides }: Readonly<ISliderProps>) {
               <SwiperButtonPrev
                 key={`prev_${realIndex}`}
                 activeIndex={realIndex}
-                slides={slides}
+                slides={dataPopular.data.items}
               />
             </div>
             <div className="absolute top-0 right-4 lg:right-6 z-10 w-fit translate-y-[-12%]">
               <SwiperButtonNext
                 key={`next_${realIndex}`}
                 activeIndex={realIndex}
-                slides={slides}
+                slides={dataPopular.data.items}
               />
             </div>
           </Container>

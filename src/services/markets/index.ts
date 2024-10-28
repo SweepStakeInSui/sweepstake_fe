@@ -14,7 +14,10 @@ const getMarket = async (params: IMarketParams): Promise<TBetGrid> => {
   const response = await publicAxiosClient.get(`/market`, { params });
   return response.data;
 };
-
+const getMarketPopular = async (params: PaginationType): Promise<TBetGrid> => {
+  const response = await publicAxiosClient.get(`/market/popular`, { params });
+  return response.data;
+};
 const createMarket = async (
   params: IFormattedCreateBetParams,
 ): Promise<TCreateBetResponse> => {
@@ -53,7 +56,15 @@ const getUserComments = async (userId: string): Promise<TCommentData> => {
   );
   return response.data.data;
 };
-
+const getTopHolders = async (
+  params: TCreateCommentData,
+): Promise<TCommentData> => {
+  const response = await publicAxiosClient.get(
+    `/market/top-holders/${params.marketId}`,
+    { params },
+  );
+  return response.data.data;
+};
 export const MarketService = {
   getMarket,
   createMarket,
@@ -63,4 +74,6 @@ export const MarketService = {
   getCommentList,
   postLikeComment,
   getUserComments,
+  getTopHolders,
+  getMarketPopular,
 };

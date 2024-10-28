@@ -7,13 +7,13 @@ import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import Flex from '@/components/common/Flex';
-import { FormatNumber } from '@/components/common/FormatNumber';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 import { defaultImg } from '@/constants/defaultImg';
 // import { bets } from '@/mocks/mockBet';
 import type { TBetItem } from '@/services/markets/types';
+import { formatNumber } from '@/utils/formatNumber';
 
 import Stack from '../../../../components/common/Stack';
 import { Skeleton } from '../../../../components/ui/skeleton';
@@ -127,7 +127,7 @@ const VoteCard = ({ data }: VoteCardProps) => {
                 size={12}
                 className="text-text-sublest text-nowrap"
               >
-                $<FormatNumber number={volume || 0} tag="span" /> Vol
+                ${formatNumber.formatToUnit(volume)} Vol
               </Typography.Text>
               <div className="w-px bg-borderSubtle h-2.5" />
               <AddWatchListButton bet={data} showText />
