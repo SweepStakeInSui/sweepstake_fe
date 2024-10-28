@@ -23,7 +23,9 @@ export type IOutcomeData = {
   subOutcome: string;
   picture?: File;
 };
-
+export type IMarketTopholdersParams = {
+  marketId?: string;
+} & PaginationType;
 export type ISourceData = {
   label: string;
   url: string;

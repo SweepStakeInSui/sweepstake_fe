@@ -1,4 +1,5 @@
 import { ScrollArea } from '@radix-ui/react-scroll-area';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -53,7 +54,7 @@ const MarketsWatchList = () => {
 
           <ScrollArea className="h-full pr-3 overflow-x-hidden no-scrollbar">
             {items.map((item) => (
-              <div key={item.id} className="mb-4">
+              <Link href={`/markets/${item.id}`} key={item.id} className="mb-4">
                 <Stack
                   className={`${isSidebarOpen ? 'mb-11' : 'mb-4'} transition-all`}
                 >
@@ -89,7 +90,7 @@ const MarketsWatchList = () => {
                     </Typography.Text> */}
                   </div>
                 </Stack>
-              </div>
+              </Link>
             ))}
 
             {mockWatchList.length > 5 &&

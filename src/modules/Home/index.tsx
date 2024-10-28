@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import Container from '@/components/common/Container';
 import { mockTopVolumeThisWeek } from '@/mocks/mockTopVolumeThisWeek';
+import { MarketService } from '@/services/markets';
 import { OrderService } from '@/services/orders';
 
 import { Banner } from './components/Banner';
@@ -12,75 +13,6 @@ import RecentActivity from './components/RecentActivity/RecentActivity';
 import Slider from './components/Slider';
 import { TopVolume } from './components/TopVolume';
 import VoteCardGrid from './components/VoteCardGrid';
-
-const mockSlides = [
-  {
-    title: 'Despicable Me 0" Rotten Tomatoes score about ten?',
-    forcast: 14,
-    percent: 12,
-    vol: 1200000,
-    desc: {
-      title: 'Texas braces for Beryl',
-      content:
-        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
-    },
-  },
-  {
-    title: 'Despicable Me 1 Rotten Tomatoes score about ten?',
-    forcast: 14,
-    percent: 12,
-    vol: 1200000,
-    desc: {
-      title: 'Texas braces for Beryl',
-      content:
-        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
-    },
-  },
-  {
-    title: 'Despicable Me 2" Rotten Tomatoes score about ten?',
-    forcast: 14,
-    percent: 12,
-    vol: 1200000,
-    desc: {
-      title: 'Texas braces for Beryl',
-      content:
-        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
-    },
-  },
-  {
-    title: 'Despicable Me 3" Rotten Tomatoes score about ten?',
-    forcast: 14,
-    percent: 12,
-    vol: 1200000,
-    desc: {
-      title: 'Texas braces for Beryl',
-      content:
-        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
-    },
-  },
-  {
-    title: 'Despicable Me 4" Tomatoes score about ten?',
-    forcast: 14,
-    percent: 12,
-    vol: 1200000,
-    desc: {
-      title: 'Texas braces for Beryl',
-      content:
-        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
-    },
-  },
-  {
-    title: 'Despicable Me 5" Rotten Tomatoes score about ten?',
-    forcast: 14,
-    percent: 12,
-    vol: 1200000,
-    desc: {
-      title: 'Texas braces for Beryl',
-      content:
-        'Tropical Storm Beryl (formerly Hurricane Beryl) is set to strengthen and hit South Texas late Sunday, bringing damaging winds, storm surge, and flooding, CNN reports. This will be the first tropical storm to hit the US this season.',
-    },
-  },
-];
 
 export default async function HomeModule() {
   const queryClient = useQueryClient();
@@ -94,11 +26,21 @@ export default async function HomeModule() {
       return result;
     },
   });
+  await queryClient.prefetchQuery({
+    queryKey: ['marketPopular'],
+    queryFn: async () => {
+      const result = await MarketService.getMarketPopular({
+        page: 1,
+        limit: 10,
+      });
+      return result;
+    },
+  });
   return (
     <section>
       <Banner />
       <MarketTab />
-      <Slider slides={mockSlides} />
+      <Slider />
       <Container size="sm">
         <VoteCardGrid isForDisplay />
       </Container>
