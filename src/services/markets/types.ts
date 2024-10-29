@@ -1,3 +1,4 @@
+import { EBetStatusOption, BetOutcomeType } from '@/enums/bet-status';
 import type { ICategoryList } from '../categoryService';
 
 export type TCreateBetData = {
@@ -150,4 +151,27 @@ export type TComment = {
   updatedAt: string;
   deletedAt?: string;
   parentComment: TComment | null;
+};
+
+export type TOrderBookResponse = {
+  statusCode: number;
+  data: TOrderBook;
+  meta: Meta;
+};
+
+export type TSideType = 'bidYes' | 'bidNo' | 'askYes' | 'askNo';
+
+export type TOrderBook = {
+  bidYes: TOrderBookRow[];
+  bidNo: TOrderBookRow[];
+  askYes: TOrderBookRow[];
+  askNo: TOrderBookRow[];
+};
+
+export type TOrderBookRow = {
+  side: EBetStatusOption.ASK | EBetStatusOption.BID;
+  type: BetOutcomeType.YES | BetOutcomeType.NO;
+  price?: string;
+  liquidity: string;
+  total?: number | string;
 };

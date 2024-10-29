@@ -5,15 +5,30 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import {
   Accordion,
+  AccordionContent,
   // AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { OrderBook } from '@/components/charts/OrderBook';
 
-const SingleBetOrderBook = () => {
+interface SingleBetOrderBookProps {
+  data: {
+    asks?: {
+      price: string;
+      liquidity: string;
+    }[];
+    bids?: {
+      price: string;
+      liquidity: string;
+    }[];
+  };
+}
+
+const SingleBetOrderBook = ({ data }: SingleBetOrderBookProps) => {
   return (
-    <Accordion type="single">
-      <AccordionItem value="1">
+    <Accordion type="single" collapsible>
+      <AccordionItem value="orderbook">
         <AccordionTrigger>
           <Flex className="w-full justify-between">
             <Flex>
@@ -26,7 +41,9 @@ const SingleBetOrderBook = () => {
             />
           </Flex>
         </AccordionTrigger>
-        {/* <AccordionContent></AccordionContent> */}
+        <AccordionContent>
+          <OrderBook asks={data?.asks} bids={data?.bids} />
+        </AccordionContent>
       </AccordionItem>
     </Accordion>
   );

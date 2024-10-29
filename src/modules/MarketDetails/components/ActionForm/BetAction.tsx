@@ -92,6 +92,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     isActive: true,
   });
 
+  // QUERIES
   const {
     mutate: placeOrderMutation,
     isPending: isPlaceOrderLoading,
@@ -105,7 +106,6 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     },
   });
 
-  // QUERIES
   const { data: positionsData } = useQuery({
     queryKey: ['getPositions'],
     queryFn: async () => {
