@@ -1,96 +1,59 @@
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
+import Empty from '@/components/common/Empty';
+import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import SwiperCustom from '@/components/common/SwipperCustom';
 import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
-import { TopVolumeItem } from '@/modules/Home/components/TopVolume';
-import type { TopVolumeType } from '@/types/topVolume';
+import { marketSubTab } from '@/constants/marketSub';
+import AvatarRank from '@/modules/Home/components/TopVolume/AvatarRank';
+import { MarketService } from '@/services/markets';
+import type { TTopHolderItem } from '@/services/markets/types';
 
-interface TopHoldersProps {
-  data: TopVolumeType[];
+interface TopHolderItemProps {
+  item: TTopHolderItem;
+  rank: number;
 }
-const marketSubTab = [
-  {
-    id: 1,
-    type: 'Top',
-    active: true,
-  },
-  {
-    id: 2,
-    type: 'New',
-  },
-  {
-    id: 3,
-    type: 'Us Election',
-  },
-  {
-    id: 4,
-    type: 'Breaking News',
-  },
-  {
-    id: 5,
-    type: 'Biden',
-  },
-  {
-    id: 6,
-    type: 'Euro 2024',
-  },
-  {
-    id: 7,
-    type: 'UK Election',
-  },
-  {
-    id: 8,
-    type: 'French Election',
-  },
-  {
-    id: 9,
-    type: 'Global Ban',
-  },
-  {
-    id: 10,
-    type: 'Football',
-  },
-  {
-    id: 11,
-    type: 'Esport Live',
-  },
-  {
-    id: 12,
-    type: 'NBA Draft',
-  },
-  {
-    id: 13,
-    type: 'Fed Rate',
-  },
-  {
-    id: 14,
-    type: 'Game Online',
-  },
-  {
-    id: 15,
-    type: 'Game Offline',
-  },
-  {
-    id: 16,
-    type: 'KingDom',
-  },
-  {
-    id: 17,
-    type: 'Animals Selection',
-  },
-  {
-    id: 18,
-    type: 'Gender',
-  },
-  {
-    id: 19,
-    type: 'Flowers',
-  },
-];
-const TopHolders: React.FC<TopHoldersProps> = ({ data }) => {
+
+export function TopHolderItem({ item, rank }: Readonly<TopHolderItemProps>) {
+  return (
+    <Flex className="justify-between p-2 overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
+      <Flex className="gap-4">
+        <AvatarRank avatar={item?.user?.avatar} id={rank} />
+        <Stack className="gap-y-px">
+          <Typography.Text size={15} weight="bold" className="text-text">
+            {item.user.username}
+          </Typography.Text>
+          <Flex>
+            <Typography.Text size={13} className="text-text-subtle">
+              {item.balance} shares
+            </Typography.Text>
+            <Typography.Text size={13} className="text-text-subtle">
+              ~$
+            </Typography.Text>
+          </Flex>
+        </Stack>
+      </Flex>
+    </Flex>
+  );
+}
+const TopHolders = () => {
+  const params = useParams<{ id: string }>();
+
+  const { data: topHoldersData } = useQuery({
+    queryKey: ['top-holder', params],
+    queryFn: async () =>
+      MarketService.getTopHolders({
+        marketId: params.id,
+        page: 1,
+        limit: 10,
+      }),
+  });
+
   return (
     <div>
       <div className="px-2 py-3 mb-2">
@@ -110,7 +73,7 @@ const TopHolders: React.FC<TopHoldersProps> = ({ data }) => {
           ))}
         </SwiperCustom>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[400px]">
         <Stack>
           <Typography.Text
             size={16}
@@ -119,9 +82,14 @@ const TopHolders: React.FC<TopHoldersProps> = ({ data }) => {
           >
             Yes Holder
           </Typography.Text>
-          {data.map((item) => (
-            <TopVolumeItem key={item.id} {...item} />
-          ))}
+
+          {topHoldersData && topHoldersData[1].topHolders.items.length > 0 ? (
+            topHoldersData[0].topHolders.items.map((item, index) => (
+              <TopHolderItem key={item.userId} item={item} rank={index + 1} />
+            ))
+          ) : (
+            <Empty content="No holder found" />
+          )}
         </Stack>
         <Stack>
           <Typography.Text
@@ -131,9 +99,13 @@ const TopHolders: React.FC<TopHoldersProps> = ({ data }) => {
           >
             No Holder
           </Typography.Text>
-          {data.map((item) => (
-            <TopVolumeItem key={item.id} {...item} />
-          ))}
+          {topHoldersData && topHoldersData[1].topHolders.items.length > 0 ? (
+            topHoldersData[1].topHolders.items.map((item, index) => (
+              <TopHolderItem key={item.userId} item={item} rank={index + 1} />
+            ))
+          ) : (
+            <Empty content="No holder found" />
+          )}
         </Stack>
       </div>
     </div>

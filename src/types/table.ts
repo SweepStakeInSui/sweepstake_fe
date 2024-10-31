@@ -4,6 +4,8 @@ import type {
   TOutcome,
 } from '@/services/markets/types';
 
+import type { ProfileTypes } from './profile';
+
 export interface PositionItemProps extends BaseEntity {
   image?: string;
   balance: string;
@@ -32,6 +34,7 @@ export interface IActivityItem extends BaseEntity {
   fullfilled: number;
   slippage: number;
   outcome: TOutcome & { market: IFormattedCreateBetParams };
+  user: ProfileTypes;
 }
 export interface ActivityProps {
   items: IActivityItem[];

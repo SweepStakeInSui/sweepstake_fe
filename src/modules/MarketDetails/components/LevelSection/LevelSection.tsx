@@ -1,5 +1,5 @@
 import { SelectValue } from '@radix-ui/react-select';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import {
   Select,
@@ -8,7 +8,6 @@ import {
   SelectTrigger,
 } from '@/components/ui/select';
 import { mockRecentActivities } from '@/mocks/mockRecentAcitivities';
-import { mockTopVolumeThisWeek } from '@/mocks/mockTopVolumeThisWeek';
 
 import { Activity } from '../Activity';
 import { MarketsComments } from '../Comments';
@@ -29,7 +28,7 @@ const LevelSection = ({ id }: ILevelSectionProps) => {
     {
       label: 'Top Holders',
       value: 'topHolders',
-      panel: <TopHolders data={mockTopVolumeThisWeek} />,
+      panel: <TopHolders />,
     },
     {
       label: 'Activity',

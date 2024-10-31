@@ -8,6 +8,7 @@ interface MarketsPageProps {
 }
 
 export default function MarketsPage({ params }: MarketsPageProps) {
+  // TODO: use useParams
   const { id } = params;
   return (
     <MarketsLayout>
