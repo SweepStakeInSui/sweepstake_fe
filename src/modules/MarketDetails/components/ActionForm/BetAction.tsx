@@ -36,6 +36,7 @@ import { OrderService } from '@/services/orders';
 import type { IPostOrderRequest } from '@/services/orders/types';
 import { UserService } from '@/services/userService';
 import { setBet } from '@/store/betSlice';
+import { selectOrderbook } from '@/store/orderbookSlice';
 import { selectProfile } from '@/store/profileSlice';
 import type { IPositionsData } from '@/types/table';
 import { handleBignumber } from '@/utils/handleBignumber';
@@ -47,7 +48,13 @@ interface IBetActionProps {
   endTime: number;
 }
 
-const TooltipPrice = () => {
+interface TooltipPriceProps {
+  isBid: boolean;
+}
+
+const TooltipPrice = ({ isBid }: TooltipPriceProps) => {
+  const betState = useSelector((state: any) => state.bet);
+
   return (
     <Stack className=" max-w-96">
       <div>
@@ -56,10 +63,21 @@ const TooltipPrice = () => {
         </Typography.Text>
         <Typography.Text size={13} className="text-text-subtle">
           Prices reflect odds of&nbsp;
-          <span className="text-text-support-match">72% Yes</span>
+          <span className="text-text-support-match">
+            {isBid
+              ? handleBignumber.divideDecimal(betState.bidPriceYes)
+              : handleBignumber.divideDecimal(betState.askPriceYes)}
+            % Yes
+          </span>
           &nbsp;and&nbsp;
-          <span className="text-text-support-blue">29% No</span>. If you&#39;re
-          right, the payout per contract is $1 (and if not, you get $0).
+          <span className="text-text-support-blue">
+            {isBid
+              ? handleBignumber.divideDecimal(betState.bidPriceNo)
+              : handleBignumber.divideDecimal(betState.askPriceNo)}
+            % No
+          </span>
+          . If you&#39;re right, the payout per contract is $1 (and if not, you
+          get $0).
         </Typography.Text>
       </div>
       <div>
@@ -80,6 +98,7 @@ const TooltipPrice = () => {
 const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
   // HOOKS
   const { profile, isLoggedIn } = useSelector(selectProfile);
+  const { price: limitPrice } = useSelector(selectOrderbook);
   const dispatch = useDispatch();
 
   // STATES
@@ -237,6 +256,12 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     }
   }, [isLoggedIn, startTime, endTime]);
 
+  useEffect(() => {
+    if (limitPrice) {
+      setValue('price', limitPrice.toString());
+    }
+  }, [limitPrice, setValue]);
+
   return (
     <div>
       <Stack className="gap-0">
@@ -245,7 +270,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
             <Typography.Text size={13} className="text-text-subtle">
               Pick a side
             </Typography.Text>
-            <Tooltip content={<TooltipPrice />} side="bottom">
+            <Tooltip content={<TooltipPrice isBid={isBid} />} side="bottom">
               <div>
                 <Svg src="/icons/info_outline.svg" />
               </div>

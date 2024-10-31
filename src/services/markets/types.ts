@@ -1,4 +1,5 @@
-import { EBetStatusOption, BetOutcomeType } from '@/enums/bet-status';
+import type { BetOutcomeType, EBetStatusOption } from '@/enums/bet-status';
+
 import type { ICategoryList } from '../categoryService';
 
 export type TCreateBetData = {
@@ -28,7 +29,7 @@ export type IMarketTopholdersParams = {
   marketId?: string;
 } & PaginationType;
 export type ISourceData = {
-  label: string;
+  title: string;
   url: string;
 };
 
@@ -99,7 +100,7 @@ export type TBetItem = {
   outcomes: TOutcome[];
   onchainId: string;
   transactionHash: string;
-  source?: ISourceData[];
+  sources?: ISourceData[];
   volume: string;
   tradeCount: string;
 };

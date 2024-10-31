@@ -94,7 +94,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
             <SectionIndicator section="about" ref={aboutRef}>
               <MarketsAbout
                 desc={marketDetailData?.description}
-                source={marketDetailData?.source}
+                source={marketDetailData?.sources}
               />
             </SectionIndicator>
 

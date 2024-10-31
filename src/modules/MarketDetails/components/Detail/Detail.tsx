@@ -1,7 +1,9 @@
 // import { Accordion } from '@radix-ui/react-accordion';
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import CopyButton from '@/components/common/CopyButton/CopyButton';
@@ -13,15 +15,13 @@ import Typography from '@/components/common/Typography';
 import { Accordion } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import { defaultImg } from '@/constants/defaultImg';
-import { BetOutcomeType, EBetStatusOption } from '@/enums/bet-status';
+import { BetOutcomeType } from '@/enums/bet-status';
 import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
 import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBetOrderBook';
+import { MarketService } from '@/services/markets';
 import type { TBetItem, TSideType } from '@/services/markets/types';
 import { avg } from '@/utils/avg';
 import { handleBignumber } from '@/utils/handleBignumber';
-import { useQuery } from '@tanstack/react-query';
-import { MarketService } from '@/services/markets';
-import { useSelector } from 'react-redux';
 
 interface IMarketsDetailProps {
   bet: TBetItem;
@@ -40,6 +40,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
     queryKey: ['orderBookData', bet.id],
     queryFn: () => MarketService.getOrderBook(bet.id),
     enabled: !!bet.id,
+    refetchInterval: 5000,
   });
 
   const formattedOrderBook = useMemo(() => {
@@ -49,20 +50,18 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
     let cumulativeAsksTotal = 0;
     let cumulativeBidsTotal = 0;
 
-    const asks = orderBookData?.data?.[askType]
-      ?.slice(1)
-      ?.map((ask, index, array) => {
-        const currentTotal =
-          Number(handleBignumber.divideDecimal(ask.price ?? 0)) *
-          Number(handleBignumber.divideDecimal(ask.liquidity, 0));
-        cumulativeAsksTotal += currentTotal;
+    const asks = orderBookData?.data?.[askType]?.slice(1)?.map((ask) => {
+      const currentTotal =
+        Number(handleBignumber.divideDecimal(ask.price ?? 0)) *
+        Number(handleBignumber.divideDecimal(ask.liquidity, 0));
+      cumulativeAsksTotal += currentTotal;
 
-        return {
-          price: handleBignumber.divideDecimal(ask.price ?? 0),
-          liquidity: handleBignumber.divideDecimal(ask.liquidity, 0),
-          total: cumulativeAsksTotal,
-        };
-      });
+      return {
+        price: handleBignumber.divideDecimal(ask.price ?? 0),
+        liquidity: handleBignumber.divideDecimal(ask.liquidity, 0),
+        total: cumulativeAsksTotal,
+      };
+    });
 
     const bids = orderBookData?.data?.[bidType]?.slice(1)?.map((bid) => {
       const currentTotal =
@@ -82,9 +81,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
       asks,
       bids,
     };
-  }, [orderBookData?.data]);
-
-  console.log();
+  }, [orderBookData?.data, betState.type]);
 
   return (
     <div>
@@ -96,7 +93,12 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
               className="text-text-subtle inline-flex items-center gap-1"
               size={15}
             >
-              $<FormatNumber number={bet.volume || 0} tag="span" /> Vol
+              $
+              <FormatNumber
+                number={handleBignumber.divideDecimal(bet.volume) || 0}
+                tag="span"
+              />{' '}
+              Vol
             </Typography.Text>
           </Flex>
           <Separator orientation="vertical" className="h-3 bg-borderMain" />
@@ -173,6 +175,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
 
       <Stack className="gap-3">
         <Stack className="gap-0">
+          {/* TODO: orderbook for multiple bets */}
           {/* <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
             <Typography.Text size={13} className="text-text-subtle">
               Outcome
@@ -189,7 +192,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
             <MarketTile isSingleBet data={bet} />
           </Accordion>
 
-          <SingleBetOrderBook data={formattedOrderBook} />
+          <SingleBetOrderBook type={betState.type} data={formattedOrderBook} />
         </Stack>
 
         {/* <Button

@@ -8,7 +8,12 @@ export const createBetSchema = (startTime: number, endTime: number) =>
         required_error: 'Market title is required',
       })
       .min(1, 'Market title is required'),
-    description: z.string().optional(),
+    description: z
+      .string({
+        required_error: 'Description is required',
+      })
+      .min(1, 'Description is required')
+      .max(800, 'Exceeds max length 800 letters'),
     colaterralToken: z.string(),
     conditions: z
       .string({
@@ -52,7 +57,7 @@ export const createBetSchema = (startTime: number, endTime: number) =>
     sources: z
       .array(
         z.object({
-          label: z.string(),
+          title: z.string(),
           url: z.string(),
         }),
       )

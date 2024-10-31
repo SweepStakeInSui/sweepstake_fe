@@ -1,18 +1,19 @@
 import React from 'react';
 
+import { OrderBook } from '@/components/charts/OrderBook';
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import {
   Accordion,
   AccordionContent,
-  // AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { OrderBook } from '@/components/charts/OrderBook';
+import type { BetOutcomeType } from '@/enums/bet-status';
 
 interface SingleBetOrderBookProps {
+  type: BetOutcomeType;
   data: {
     asks?: {
       price: string;
@@ -25,7 +26,7 @@ interface SingleBetOrderBookProps {
   };
 }
 
-const SingleBetOrderBook = ({ data }: SingleBetOrderBookProps) => {
+const SingleBetOrderBook = ({ type, data }: SingleBetOrderBookProps) => {
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="orderbook">
@@ -42,7 +43,7 @@ const SingleBetOrderBook = ({ data }: SingleBetOrderBookProps) => {
           </Flex>
         </AccordionTrigger>
         <AccordionContent>
-          <OrderBook asks={data?.asks} bids={data?.bids} />
+          <OrderBook type={type} asks={data?.asks} bids={data?.bids} />
         </AccordionContent>
       </AccordionItem>
     </Accordion>
