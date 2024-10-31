@@ -1,4 +1,5 @@
 import type { BetOutcomeType, EBetStatusOption } from '@/enums/bet-status';
+import type { ProfileTypes } from '@/types/profile';
 
 import type { ICategoryList } from '../categoryService';
 
@@ -131,12 +132,22 @@ export type TCommentList = {
 export type TgetCommentListService = {
   marketId: string;
 };
-
+export type TTopHolderItem = {
+  balance: string;
+  outcomeId: string;
+  user: ProfileTypes;
+  userId: string;
+} & BaseEntity;
+export type TTopHolderData = {
+  outcome: TOutcome;
+  topHolders: {
+    items: TTopHolderItem[];
+  };
+};
 export type TCommentData = {
   items: TComment[];
   meta: Meta;
 };
-
 export type TComment = {
   id: string;
   username?: string;

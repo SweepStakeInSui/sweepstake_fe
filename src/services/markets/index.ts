@@ -3,12 +3,14 @@ import publicAxiosClient from '@/app/configs/httpClient/publicAxiosClient';
 import type {
   IFormattedCreateBetParams,
   IMarketParams,
+  IMarketTopholdersParams,
   TBetGrid,
   TBetItem,
   TCommentData,
   TCreateBetResponse,
   TCreateCommentData,
   TOrderBookResponse,
+  TTopHolderData,
 } from '@/services/markets/types';
 
 const getMarket = async (params: IMarketParams): Promise<TBetGrid> => {
@@ -58,8 +60,8 @@ const getUserComments = async (userId: string): Promise<TCommentData> => {
   return response.data.data;
 };
 const getTopHolders = async (
-  params: TCreateCommentData,
-): Promise<TCommentData> => {
+  params: IMarketTopholdersParams,
+): Promise<TTopHolderData[]> => {
   const response = await publicAxiosClient.get(
     `/market/top-holders/${params.marketId}`,
     { params },

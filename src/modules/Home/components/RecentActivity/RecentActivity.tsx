@@ -24,17 +24,16 @@ export function ActivityItem({ item }: Readonly<ActivityItemProps>) {
       <Flex className="justify-between lg:p-2 flex-wrap overflow-hidden rounded-sm transition-all duration-200 hover:bg-bg-hovered items-start cursor-pointer">
         <Flex className="justify-between w-full items-start lg:items-center lg:flex-row ">
           <Flex className="gap-x-2 flex-1">
-            <CustomAvatar src={item.image} />
+            <CustomAvatar src={item.outcome.market.image} />
             <Stack className="gap-1">
               <Flex className="gap-1 flex-wrap">
                 <Flex className="gap-1">
                   <Typography.Text
                     size={15}
                     weight="bold"
-                    className="text-text"
+                    className="text-text max-w-[200px] truncate"
                   >
-                    {/* {item.userId} */}
-                    Unnamed
+                    {item.user.username}
                   </Typography.Text>
                   <Typography.Text size={15} className="text-text">
                     bought

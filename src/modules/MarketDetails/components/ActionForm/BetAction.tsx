@@ -185,6 +185,11 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
   const { errors } = formState;
   const price = watch('price');
   const amount = watch('amount');
+  console.log({
+    amount,
+    price,
+    betState,
+  });
 
   const onSubmit = (data: z.infer<typeof postOrderSchema>) => {
     const orderData = {
@@ -262,6 +267,10 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     }
   }, [limitPrice, setValue]);
 
+  const bidPriceYes = handleBignumber.divideDecimal(betState.bidPriceYes);
+  const askPriceYes = handleBignumber.divideDecimal(betState.askPriceYes);
+  const bidPriceNo = handleBignumber.divideDecimal(betState.bidPriceNo);
+  const askPriceNo = handleBignumber.divideDecimal(betState.askPriceNo);
   return (
     <div>
       <Stack className="gap-0">
@@ -283,11 +292,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
               onClick={(e) => onBetClick(e, 'YES')}
               disabled={!betStatus.isActive}
             >
-              Yes{' '}
-              {isBid
-                ? handleBignumber.divideDecimal(betState.bidPriceYes)
-                : handleBignumber.divideDecimal(betState.askPriceYes)}
-              ¢
+              Yes {isBid ? bidPriceYes : askPriceYes}¢
             </Button>
             <Button
               variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
@@ -295,11 +300,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
               onClick={(e) => onBetClick(e, 'NO')}
               disabled={!betStatus.isActive}
             >
-              No{' '}
-              {isBid
-                ? handleBignumber.divideDecimal(betState.bidPriceNo)
-                : handleBignumber.divideDecimal(betState.askPriceNo)}
-              ¢
+              No {isBid ? bidPriceNo : askPriceNo}¢
             </Button>
           </Flex>
         </Stack>
@@ -429,7 +430,13 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
                   size={13}
                   className="inline-flex items-center gap-1 text-text-subtle"
                 >
-                  Payout if Yes wins
+                  Payout if
+                  <span
+                    className={`${betState.type === BetOutcomeType.YES ? 'text-btn-betYes-shadow' : 'text-btn-betNo-shadow'}`}
+                  >
+                    {betState.type}
+                  </span>
+                  wins
                   <Tooltip
                     content="This market closes when the outcome occurs.
 Projected payout 2 hours after closing."
@@ -506,9 +513,11 @@ Projected payout 2 hours after closing."
                   size={13}
                   className="inline-flex items-center gap-1 text-text-subtle"
                 >
-                  Contract
+                  Contracts
                 </Typography.Text>
-                <Typography.Text size={13}>$0</Typography.Text>
+                <Typography.Text size={13}>
+                  ${Math.floor(+amount / (+bidPriceYes / 100))}
+                </Typography.Text>
               </Flex>
               <Flex className="justify-between">
                 <Typography.Text
@@ -527,7 +536,13 @@ Projected payout 2 hours after closing."
                   size={13}
                   className="inline-flex items-center gap-1 text-text-subtle"
                 >
-                  Payout if Yes wins
+                  Payout if
+                  <span
+                    className={`${betState.type === BetOutcomeType.YES ? 'text-btn-betYes-shadow' : 'text-btn-betNo-shadow'}`}
+                  >
+                    {betState.type}
+                  </span>
+                  wins
                   <span>
                     <Svg src="/icons/info_outline.svg" />
                   </span>
