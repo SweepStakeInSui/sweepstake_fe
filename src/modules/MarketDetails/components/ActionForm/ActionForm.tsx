@@ -2,8 +2,8 @@
 
 import { format } from 'date-fns';
 import Image from 'next/image';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
@@ -21,6 +21,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { defaultImg } from '@/constants/defaultImg';
 import { BetOutcomeType } from '@/enums/bet-status';
 import BetAction from '@/modules/MarketDetails/components/ActionForm/BetAction';
+import { selectOrderbook, setOrderInput } from '@/store/orderbookSlice';
 
 import { useSectionIndicatorSignal } from '../../useSectionIndicatorSignal';
 
@@ -58,6 +59,8 @@ const MarketsActionForm = ({
   startTime,
   endTime,
 }: MarketsActionFormProps) => {
+  const dispatch = useDispatch();
+  const { isClickOn } = useSelector(selectOrderbook);
   const [selectedValue, setSelectedValue] = useState('market');
   const { type } = useSelector((state: any) => state.bet);
 
@@ -67,6 +70,15 @@ const MarketsActionForm = ({
     { id: 1, value: 'buy', title: 'Buy' },
     { id: 2, value: 'sell', title: 'Sell' },
   ];
+
+  useEffect(() => {
+    if (isClickOn) setSelectedValue('limit');
+  }, [isClickOn]);
+
+  useEffect(() => {
+    if (selectedValue === 'market')
+      dispatch(setOrderInput({ isClickOn: false, price: 0 }));
+  }, [selectedValue]);
 
   return (
     <Stack className="no-scrollbar sticky gap-y-0 border-l border-solid border-borderSubtle p-3 top-2 lg:top-[4.75rem] w-full lg:w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto">
@@ -91,7 +103,11 @@ const MarketsActionForm = ({
 
         <div className="relative">
           <div className="absolute right-0">
-            <Select defaultValue="market" onValueChange={setSelectedValue}>
+            <Select
+              defaultValue="market"
+              value={selectedValue}
+              onValueChange={setSelectedValue}
+            >
               <SelectTrigger className="bg-transparent border-none w-fit gap-2 pr-0 text-14 text-text-subtle -translate-y-1">
                 <SelectValue />
               </SelectTrigger>

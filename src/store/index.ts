@@ -12,6 +12,7 @@ import {
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
 import betReducer from './betSlice';
+import orderbookReducer from './orderbookSlice';
 import profileReducer from './profileSlice';
 import watchListReducer from './watchListSlice';
 
@@ -45,6 +46,7 @@ const store = configureStore({
     profile: profileReducer,
     bet: betReducer,
     watchList: persistedReducerWatchlist,
+    orderbook: orderbookReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

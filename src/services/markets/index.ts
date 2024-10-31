@@ -8,6 +8,7 @@ import type {
   TCommentData,
   TCreateBetResponse,
   TCreateCommentData,
+  TOrderBookResponse,
 } from '@/services/markets/types';
 
 const getMarket = async (params: IMarketParams): Promise<TBetGrid> => {
@@ -65,6 +66,15 @@ const getTopHolders = async (
   );
   return response.data.data;
 };
+
+const getOrderBook = async (marketId: string): Promise<TOrderBookResponse> => {
+  const response = await publicAxiosClient.get(
+    `/market/order-book/${marketId}`,
+  );
+
+  return response.data;
+};
+
 export const MarketService = {
   getMarket,
   createMarket,
@@ -76,4 +86,5 @@ export const MarketService = {
   getUserComments,
   getTopHolders,
   getMarketPopular,
+  getOrderBook,
 };

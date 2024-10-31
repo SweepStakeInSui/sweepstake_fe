@@ -1,7 +1,9 @@
 // import { Accordion } from '@radix-ui/react-accordion';
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import CopyButton from '@/components/common/CopyButton/CopyButton';
@@ -16,7 +18,8 @@ import { defaultImg } from '@/constants/defaultImg';
 import { BetOutcomeType } from '@/enums/bet-status';
 import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
 import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBetOrderBook';
-import type { TBetItem } from '@/services/markets/types';
+import { MarketService } from '@/services/markets';
+import type { TBetItem, TSideType } from '@/services/markets/types';
 import { avg } from '@/utils/avg';
 import { handleBignumber } from '@/utils/handleBignumber';
 
@@ -25,10 +28,61 @@ interface IMarketsDetailProps {
 }
 
 export default function MarketsDetail({ bet }: IMarketsDetailProps) {
+  const betState = useSelector((state: any) => state.bet);
+
   const yesOutcome = useMemo(
     () => bet.outcomes?.find((b) => b.type === BetOutcomeType.YES),
     [bet],
   );
+
+  // QUERIES
+  const { data: orderBookData } = useQuery({
+    queryKey: ['orderBookData', bet.id],
+    queryFn: () => MarketService.getOrderBook(bet.id),
+    enabled: !!bet.id,
+    refetchInterval: 5000,
+  });
+
+  const formattedOrderBook = useMemo(() => {
+    const betType = betState.type;
+    const bidType = `bid${betType}` as TSideType;
+    const askType = `ask${betType}` as TSideType;
+    let cumulativeAsksTotal = 0;
+    let cumulativeBidsTotal = 0;
+
+    const asks = orderBookData?.data?.[askType]?.slice(1)?.map((ask) => {
+      const currentTotal =
+        Number(handleBignumber.divideDecimal(ask.price ?? 0)) *
+        Number(handleBignumber.divideDecimal(ask.liquidity, 0));
+      cumulativeAsksTotal += currentTotal;
+
+      return {
+        price: handleBignumber.divideDecimal(ask.price ?? 0),
+        liquidity: handleBignumber.divideDecimal(ask.liquidity, 0),
+        total: cumulativeAsksTotal,
+      };
+    });
+
+    const bids = orderBookData?.data?.[bidType]?.slice(1)?.map((bid) => {
+      const currentTotal =
+        Number(handleBignumber.divideDecimal(bid.price ?? 0)) *
+        Number(handleBignumber.divideDecimal(bid.liquidity, 0));
+
+      cumulativeBidsTotal += currentTotal;
+
+      return {
+        price: handleBignumber.divideDecimal(bid.price ?? 0),
+        liquidity: handleBignumber.divideDecimal(bid.liquidity, 0),
+        total: cumulativeBidsTotal,
+      };
+    });
+
+    return {
+      asks,
+      bids,
+    };
+  }, [orderBookData?.data, betState.type]);
+
   return (
     <div>
       <Stack className="gap-y-0 mb-4">
@@ -39,7 +93,12 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
               className="text-text-subtle inline-flex items-center gap-1"
               size={15}
             >
-              $<FormatNumber number={bet.volume || 0} tag="span" /> Vol
+              $
+              <FormatNumber
+                number={handleBignumber.divideDecimal(bet.volume) || 0}
+                tag="span"
+              />{' '}
+              Vol
             </Typography.Text>
           </Flex>
           <Separator orientation="vertical" className="h-3 bg-borderMain" />
@@ -116,6 +175,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
 
       <Stack className="gap-3">
         <Stack className="gap-0">
+          {/* TODO: orderbook for multiple bets */}
           {/* <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
             <Typography.Text size={13} className="text-text-subtle">
               Outcome
@@ -132,7 +192,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
             <MarketTile isSingleBet data={bet} />
           </Accordion>
 
-          <SingleBetOrderBook />
+          <SingleBetOrderBook type={betState.type} data={formattedOrderBook} />
         </Stack>
 
         {/* <Button

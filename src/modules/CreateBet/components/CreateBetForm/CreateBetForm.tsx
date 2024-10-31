@@ -249,11 +249,24 @@ const CreateBetFormModule = () => {
         </Stack>
 
         <Stack className="gap-y-2">
-          <Typography.Text size={15}>About (Optional)</Typography.Text>
+          <Typography.Text size={15}>About</Typography.Text>
           <Controller
             control={control}
             name="description"
-            render={({ field }) => <Textarea {...field} />}
+            render={({ field }) => (
+              <>
+                <Textarea {...field} />
+                {errors.description && (
+                  <Typography.Text
+                    size={13}
+                    className="text-text-support-red"
+                    weight="medium"
+                  >
+                    {errors.description.message}
+                  </Typography.Text>
+                )}
+              </>
+            )}
           />
         </Stack>
 

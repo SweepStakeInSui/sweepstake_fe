@@ -18,12 +18,12 @@ const SourcePanel = ({ index }: ISourcePanelProps) => {
     <Stack className="border border-borderSubtle rounded-md rounded-br-none rounded-bl-none p-4 gap-4 bg-bg-container relative z-[1]">
       <Stack className="gap-1">
         <Typography.Text size={13} className="text-text-subtle">
-          Link label
+          Link title
         </Typography.Text>
         <Controller
-          name={`sources.${index}.label`}
+          name={`sources.${index}.title`}
           control={control}
-          render={({ field }) => <Input {...field} placeholder="Link label" />}
+          render={({ field }) => <Input {...field} placeholder="Link title" />}
         />
       </Stack>
       <Stack className="gap-1">
@@ -79,7 +79,7 @@ const SourceList = () => {
         variant="terriary"
         className="px-3 py-2 gap-x-1 mx-auto"
         onClick={() => {
-          append({ label: '', url: '' });
+          append({ title: '', url: '' });
         }}
       >
         <Svg src="/icons/add.svg" className="size-4" />

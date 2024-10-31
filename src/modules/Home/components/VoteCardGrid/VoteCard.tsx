@@ -14,6 +14,7 @@ import { defaultImg } from '@/constants/defaultImg';
 // import { bets } from '@/mocks/mockBet';
 import type { TBetItem } from '@/services/markets/types';
 import { formatNumber } from '@/utils/formatNumber';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 import Stack from '../../../../components/common/Stack';
 import { Skeleton } from '../../../../components/ui/skeleton';
@@ -127,7 +128,11 @@ const VoteCard = ({ data }: VoteCardProps) => {
                 size={12}
                 className="text-text-sublest text-nowrap"
               >
-                ${formatNumber.formatToUnit(volume)} Vol
+                $
+                {formatNumber.formatToUnit(
+                  handleBignumber.divideDecimal(volume),
+                )}{' '}
+                Vol
               </Typography.Text>
               <div className="w-px bg-borderSubtle h-2.5" />
               <AddWatchListButton bet={data} showText />

@@ -4,10 +4,23 @@ export interface NotificationItem extends BaseEntity {
   type: 'deposited' | 'withdraw';
   timestamp: number;
   status: '0' | '1';
-  data: {
-    amount: string;
+  data: TNotificationData;
+  user: {
+    username: string;
+    avatar: string;
   };
 }
+
+export type TNotificationData = {
+  amount?: string;
+  user?: {
+    username: string;
+    avatar: string;
+  };
+  comment?: {
+    content: string;
+  };
+};
 
 export interface NotificationData {
   items: NotificationItem[];

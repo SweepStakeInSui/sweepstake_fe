@@ -26,7 +26,8 @@ export default function PreviewBetAbout({
         <Flex className="p-3 items-start rounded-md bg-bg-sublest border border-borderSublest">
           <Svg src="/icons/link.svg" className="size-5" />
           <Typography.Text size={15} className="text-text-subtle">
-            Sources from <SourceLinks sources={sources} />
+            {sources.length > 1 ? 'Sources' : 'Source'} from{' '}
+            <SourceLinks sources={sources} />
           </Typography.Text>
         </Flex>
       )}

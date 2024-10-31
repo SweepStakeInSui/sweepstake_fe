@@ -31,21 +31,28 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNotification } from '@/hooks/useNotification';
 import { notificationService } from '@/services/notificationService';
 import { selectProfile } from '@/store/profileSlice';
-import type { NotificationItem } from '@/types/notification';
+import type { NotificationItem, TNotificationData } from '@/types/notification';
 import { formatDate } from '@/utils/formatDate';
 import { handleBignumber } from '@/utils/handleBignumber';
 
 interface INotifItemProps {
   id: string;
   user?: {
-    name?: string;
+    username?: string;
     avatar: string;
   };
-  type: 'comment' | 'like' | 'betNo' | 'betYes' | 'withdraw' | 'deposited';
+  type:
+    | 'comment-reply'
+    | 'comment-like'
+    | 'betNo'
+    | 'betYes'
+    | 'withdraw'
+    | 'deposited';
   date: string;
   status: string;
   amount?: string;
   content?: string;
+  data?: TNotificationData;
 }
 
 const NotifItem = ({
@@ -56,6 +63,7 @@ const NotifItem = ({
   content,
   amount,
   id,
+  data,
 }: INotifItemProps) => {
   const queryClient = useQueryClient();
   const { mutate: notificationSeenMutate } = useMutation({
@@ -78,11 +86,20 @@ const NotifItem = ({
           <div className="absolute right-0 top-0 bg-[#EB201E] rounded-full size-1.5" />
         )}
         <div className="relative">
-          <CustomAvatar />
+          {(() => {
+            switch (type) {
+              case 'comment-reply':
+                return <CustomAvatar src={data?.user?.avatar} />;
+              case 'comment-like':
+                return <CustomAvatar src={data?.user?.avatar} />;
+              default:
+                return <CustomAvatar src={user?.avatar} />;
+            }
+          })()}
           <div className="absolute bottom-0 right-0 translate-x-[20%] translate-y-[20%]">
             {(() => {
               switch (type) {
-                case 'comment':
+                case 'comment-reply':
                   return (
                     <div className="p-1 bg-dyb-95 rounded-full">
                       <Svg
@@ -91,7 +108,7 @@ const NotifItem = ({
                       />
                     </div>
                   );
-                case 'like':
+                case 'comment-like':
                   return (
                     <div className="p-1 bg-r-50 rounded-full">
                       <Svg
@@ -129,26 +146,26 @@ const NotifItem = ({
         <Stack className="flex-col items-start gap-1">
           {(() => {
             switch (type) {
-              case 'comment':
+              case 'comment-reply':
                 return (
                   <Typography.Text
                     size={15}
                     weight="medium"
                     className="text-text-subtle line-clamp-2"
                   >
-                    <b className="text-text">@{user?.name}</b> replied to your
-                    comment: `&quot;{content}`&quot;
+                    <b className="text-text">@{data?.user?.username}</b> replied
+                    to your comment: &quot;{data?.comment?.content}&quot;
                   </Typography.Text>
                 );
-              case 'like':
+              case 'comment-like':
                 return (
                   <Typography.Text
                     size={15}
                     weight="medium"
                     className="text-text-subtle line-clamp-2"
                   >
-                    <b className="text-text">@{user?.name}</b> liked your
-                    comment: `&quot;{content}`&quot;
+                    <b className="text-text">@{data?.user?.username}</b> liked
+                    your comment: &quot;{data?.comment?.content}&quot;
                   </Typography.Text>
                 );
               case 'betNo':
@@ -262,6 +279,8 @@ const NotiData = () => {
                   content={item.message}
                   status={item.status}
                   amount={item.data?.amount}
+                  user={item.user}
+                  data={item.data}
                 />
               </Flex>
             ))}

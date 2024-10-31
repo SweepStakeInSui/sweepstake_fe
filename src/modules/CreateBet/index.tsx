@@ -107,7 +107,8 @@ const CreateBetModule = () => {
       endTime: endTimeSeconds,
     };
 
-    // console.log(formattedData);
+    // console.log('data',formattedData);
+    // console.log('errors', methods.formState.errors)
     createBetMutate(formattedData);
   };
 
