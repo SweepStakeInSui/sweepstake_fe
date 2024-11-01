@@ -34,7 +34,7 @@ const CreateBetModule = () => {
   const [confirmCreateBetModalOpen, setConfirmCreateBetModalOpen] =
     React.useState(false);
   const [step, setStep] = React.useState(false);
-  const [txsString, setTxsString] = React.useState('');
+  // const [txsString, setTxsString] = React.useState('');
   const [startTimeSeconds, setStartTimeSeconds] = React.useState(0);
   const [endTimeSeconds, setEndTimeSeconds] = React.useState(0);
 
@@ -88,7 +88,7 @@ const CreateBetModule = () => {
       MarketService.createMarket(data),
     onSuccess: () => {
       setConfirmCreateBetModalOpen(true);
-      setTxsString('fakeTXSString');
+      // setTxsString('fakeTXSString');
       methods.reset();
     },
   });
@@ -239,7 +239,7 @@ const CreateBetModule = () => {
           if (isCreateBetError) return 'Your bet has not been created.';
           return '';
         })()}
-        txs={txsString}
+        // txs={txsString}
       />
     </>
   );

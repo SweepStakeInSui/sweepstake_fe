@@ -29,7 +29,7 @@ export default function MarketsRelateMarket({
     queryFn: () =>
       MarketService.getMarket({
         page: 1,
-        limit: 10,
+        limit: 5,
         category: formattedCategories,
       }),
   });

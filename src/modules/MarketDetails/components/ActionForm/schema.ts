@@ -15,11 +15,11 @@ const getAmountErrorMessage = (
   }
   if (isYes) {
     return !askShareYes
-      ? 'You must buy first'
+      ? 'Not enough shares held'
       : `Amount must be greater than 0 and less than ${askShareYes}`;
   }
   return !askShareNo
-    ? 'You must buy first'
+    ? 'Not enough shares held'
     : `Amount must be greater than 0 and less than ${askShareNo}`;
 };
 

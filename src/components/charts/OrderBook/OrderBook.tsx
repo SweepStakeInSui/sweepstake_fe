@@ -141,8 +141,9 @@ interface OrderBookProps {
 
 const OrderBook = ({ type, asks, bids }: OrderBookProps) => {
   const max = useMemo(() => {
-    const maxTotalAsks = asks?.[0]?.total || 0;
+    const maxTotalAsks = asks?.[asks.length - 1]?.total || 0;
     const maxTotalBids = bids?.[bids.length - 1]?.total || 0;
+
     return Math.max(maxTotalAsks, maxTotalBids);
   }, [asks, bids]);
   return (

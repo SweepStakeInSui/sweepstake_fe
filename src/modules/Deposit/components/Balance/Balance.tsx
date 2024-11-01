@@ -54,7 +54,7 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const queryClient = useQueryClient();
   const { profile } = useSelector(selectProfile);
   const [depositModalOpen, setDepositModalOpen] = useState(false);
-  const [txsString, setTxsString] = useState('');
+  // const [txsString, setTxsString] = useState('');
   const [confirmDepositModalOpen, setConfirmDepositModalOpen] = useState(false);
   const { mutateAsync: signTransaction } = useSignTransaction();
   const options = [
@@ -122,7 +122,7 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
       }
     },
     onSuccess: (data) => {
-      setTxsString('fakeTXSString');
+      // setTxsString('fakeTXSString');
       setDepositModalOpen(false);
       queryClient.refetchQueries({
         queryKey: [['useBalance', profile?.address], ['user-infor']],
@@ -304,7 +304,7 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
             return 'There was an error processing your transfer.';
           return '';
         })()}
-        txs={txsString}
+        // txs={txsString}
       />
     </div>
   );

@@ -25,7 +25,7 @@ export default function MarketsAbout({
           {desc}
         </Typography.Text>
 
-        {source && (
+        {source && source.length > 0 && (
           <Flex className="p-3 items-start rounded-md bg-bg-sublest border border-borderSublest">
             <Svg src="/icons/link.svg" className="size-5" />
             <Typography.Text size={15} className="text-text-subtle">
