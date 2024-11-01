@@ -457,11 +457,7 @@ Projected payout 2 hours after closing."
                 onClick={handleSubmit(onSubmit)}
                 disabled={!betStatus.isActive}
               >
-                {betStatus.isActive ? (
-                  'Place bet'
-                ) : (
-                  betStatus.title
-                )}
+                {betStatus.isActive ? 'Place bet' : betStatus.title}
               </Button>
             ) : (
               <ConnectButton
@@ -555,11 +551,7 @@ Projected payout 2 hours after closing."
                 onClick={handleSubmit(onSubmit)}
                 disabled={!betStatus.isActive}
               >
-                {betStatus.isActive ? (
-                  'Place bet'
-                ) : (
-                  betStatus.title
-                )}
+                {betStatus.isActive ? 'Place bet' : betStatus.title}
               </Button>
             ) : (
               <ConnectButton

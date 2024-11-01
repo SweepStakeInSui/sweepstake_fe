@@ -16,10 +16,10 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { defaultImg } from '@/constants/defaultImg';
 import { SelectBet } from '@/modules/Home/components/SelectBet';
 import { MarketService } from '@/services/markets';
 import type { TBetItem } from '@/services/markets/types';
-import { defaultImg } from '@/constants/defaultImg';
 
 interface IHomeSlide {
   slide: TBetItem;
