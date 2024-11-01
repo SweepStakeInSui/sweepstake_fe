@@ -67,7 +67,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
   );
   const [confirmWithdrawModalOpen, setConfirmWithdrawModalOpen] =
     useState(false);
-  const [txsString, setTxsString] = React.useState('');
+  // const [txsString, setTxsString] = React.useState('');
   const { profile } = useSelector(selectProfile);
   const withdrawSchema = createWithdrawSchema(
     +handleBignumber.divideDecimal(profile?.balance),
@@ -88,7 +88,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
   } = useMutation({
     mutationFn: (data: any) => UserService.withdraw(data),
     onSuccess: () => {
-      setTxsString('fakeTXSString');
+      // setTxsString('fakeTXSString');
       setWithdrawModalOpen(false);
       queryClient.refetchQueries({
         queryKey: [['useBalance', profile?.address], ['user-infor']],
@@ -299,7 +299,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
             return 'There was an error processing your withdrawal.';
           return '';
         })()}
-        txs={txsString}
+        // txs={txsString}
         isSuccess={isWithdrawSuccess && withdrawData.statusCode === 200}
         isError={isWithdrawError}
       />

@@ -103,7 +103,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
 
   // STATES
   const [placeOrderModalOpen, setPlaceOrderModalOpen] = useState(false);
-  const [txsString, setTxsString] = React.useState('');
+  // const [txsString, setTxsString] = React.useState('');
   const [isSetExpiration, setIsSetExpiration] = useState(false);
   const betState = useSelector((state: any) => state.bet);
   const [betStatus, setBetStatus] = useState({
@@ -120,9 +120,9 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     data: placeOrderData,
   } = useMutation({
     mutationFn: (data: IPostOrderRequest) => OrderService.postOrder(data),
-    onSuccess: () => {
-      setTxsString('fakeTXSString');
-    },
+    // onSuccess: () => {
+    //   setTxsString('fakeTXSString');
+    // },
   });
 
   const { data: positionsData } = useQuery({
@@ -136,7 +136,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     },
   });
 
-  const askYesLimit = useMemo(
+  const askShareYes = useMemo(
     () =>
       positionsData?.items?.find(
         (pos) => pos.outcomeId === betState.outcomeYesId,
@@ -144,7 +144,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     [positionsData],
   );
 
-  const askNoLimit = useMemo(
+  const askShareNo = useMemo(
     () =>
       positionsData?.items?.find(
         (pos) => pos.outcomeId === betState.outcomeNoId,
@@ -158,8 +158,8 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     isLimit ? EOrderType.GTC : EOrderType.FOK,
     isBid,
     betState.type === BetOutcomeType.YES,
-    Number(askYesLimit),
-    Number(askNoLimit),
+    Number(askShareYes),
+    Number(askShareNo),
   );
   const {
     watch,
@@ -185,11 +185,6 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
   const { errors } = formState;
   const price = watch('price');
   const amount = watch('amount');
-  console.log({
-    amount,
-    price,
-    betState,
-  });
 
   const onSubmit = (data: z.infer<typeof postOrderSchema>) => {
     const orderData = {
@@ -457,14 +452,7 @@ Projected payout 2 hours after closing."
                 onClick={handleSubmit(onSubmit)}
                 disabled={!betStatus.isActive}
               >
-                {betStatus.isActive ? (
-                  <>
-                    <Svg src="/icons/add_circle.svg" className="!text-white" />
-                    Place bet
-                  </>
-                ) : (
-                  betStatus.title
-                )}
+                {betStatus.isActive ? 'Place bet' : betStatus.title}
               </Button>
             ) : (
               <ConnectButton
@@ -558,14 +546,7 @@ Projected payout 2 hours after closing."
                 onClick={handleSubmit(onSubmit)}
                 disabled={!betStatus.isActive}
               >
-                {betStatus.isActive ? (
-                  <>
-                    <Svg src="/icons/add_circle.svg" className="!text-white" />
-                    Place bet
-                  </>
-                ) : (
-                  betStatus.title
-                )}
+                {betStatus.isActive ? 'Place bet' : betStatus.title}
               </Button>
             ) : (
               <ConnectButton
@@ -597,7 +578,7 @@ Projected payout 2 hours after closing."
           if (isPlaceOrderError) return 'Something went wrong.';
           return '';
         })()}
-        txs={txsString}
+        // txs={txsString}
       />
     </div>
   );

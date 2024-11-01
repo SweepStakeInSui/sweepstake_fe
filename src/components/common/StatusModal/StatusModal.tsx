@@ -1,17 +1,13 @@
-import Link from 'next/link';
 import React from 'react';
 
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
 
-import { Button } from '../../ui/button';
-import Flex from '../Flex';
 import { LoadingSpinner } from '../LoadingSpinner';
 import Stack from '../Stack';
 import Svg from '../Svg';
@@ -25,7 +21,7 @@ interface IStatusModalProps {
   isError?: boolean;
   title?: string;
   message?: string;
-  txs?: string;
+  // txs?: string;
 }
 
 const StatusModal = ({
@@ -36,7 +32,7 @@ const StatusModal = ({
   isError,
   title,
   message,
-  txs,
+  // txs,
 }: IStatusModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -61,7 +57,7 @@ const StatusModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        {txs && isSuccess && (
+        {/* {txs && isSuccess && (
           <DialogFooter>
             <Flex className="w-full flex justify-center">
               <Link
@@ -75,7 +71,7 @@ const StatusModal = ({
               </Link>
             </Flex>
           </DialogFooter>
-        )}
+        )} */}
       </DialogContent>
     </Dialog>
   );

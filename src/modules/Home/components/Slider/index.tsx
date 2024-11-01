@@ -16,6 +16,7 @@ import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { defaultImg } from '@/constants/defaultImg';
 import { SelectBet } from '@/modules/Home/components/SelectBet';
 import { MarketService } from '@/services/markets';
 import type { TBetItem } from '@/services/markets/types';
@@ -83,7 +84,7 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
           className="w-full flex-auto min-h-[165px] max-h-[165px]"
         >
           <AvatarImage
-            src={slide?.image}
+            src={slide?.image || defaultImg}
             alt="silder_bet"
             className="object-cover"
           />
