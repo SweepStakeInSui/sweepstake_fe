@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button';
 import { SelectBet } from '@/modules/Home/components/SelectBet';
 import { MarketService } from '@/services/markets';
 import type { TBetItem } from '@/services/markets/types';
+import { defaultImg } from '@/constants/defaultImg';
 
 interface IHomeSlide {
   slide: TBetItem;
@@ -83,7 +84,7 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
           className="w-full flex-auto min-h-[165px] max-h-[165px]"
         >
           <AvatarImage
-            src={slide?.image}
+            src={slide?.image || defaultImg}
             alt="silder_bet"
             className="object-cover"
           />

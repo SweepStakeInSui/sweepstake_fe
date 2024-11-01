@@ -136,7 +136,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     },
   });
 
-  const askYesLimit = useMemo(
+  const askShareYes = useMemo(
     () =>
       positionsData?.items?.find(
         (pos) => pos.outcomeId === betState.outcomeYesId,
@@ -144,7 +144,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     [positionsData],
   );
 
-  const askNoLimit = useMemo(
+  const askShareNo = useMemo(
     () =>
       positionsData?.items?.find(
         (pos) => pos.outcomeId === betState.outcomeNoId,
@@ -158,8 +158,8 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     isLimit ? EOrderType.GTC : EOrderType.FOK,
     isBid,
     betState.type === BetOutcomeType.YES,
-    Number(askYesLimit),
-    Number(askNoLimit),
+    Number(askShareYes),
+    Number(askShareNo),
   );
   const {
     watch,
@@ -458,10 +458,7 @@ Projected payout 2 hours after closing."
                 disabled={!betStatus.isActive}
               >
                 {betStatus.isActive ? (
-                  <>
-                    <Svg src="/icons/add_circle.svg" className="!text-white" />
-                    Place bet
-                  </>
+                  'Place bet'
                 ) : (
                   betStatus.title
                 )}
@@ -559,10 +556,7 @@ Projected payout 2 hours after closing."
                 disabled={!betStatus.isActive}
               >
                 {betStatus.isActive ? (
-                  <>
-                    <Svg src="/icons/add_circle.svg" className="!text-white" />
-                    Place bet
-                  </>
+                  'Place bet'
                 ) : (
                   betStatus.title
                 )}

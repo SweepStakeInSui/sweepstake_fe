@@ -4,8 +4,8 @@ const getAmountErrorMessage = (
   isBid: boolean,
   isYes: boolean,
   balance: number,
-  askYesLimit: number,
-  askNoLimit: number,
+  askShareYes: number,
+  askShareNo: number,
 ) => {
   if (isBid) {
     if (balance === 0) {
@@ -14,13 +14,13 @@ const getAmountErrorMessage = (
     return `Amount must be greater than 0 and less than or equal to your balance (${balance})`;
   }
   if (isYes) {
-    return !askYesLimit
+    return !askShareYes
       ? 'You must buy first'
-      : `Amount must be greater than 0 and less than ${askYesLimit}`;
+      : `Amount must be greater than 0 and less than ${askShareYes}`;
   }
-  return !askNoLimit
+  return !askShareNo
     ? 'You must buy first'
-    : `Amount must be greater than 0 and less than ${askNoLimit}`;
+    : `Amount must be greater than 0 and less than ${askShareNo}`;
 };
 
 export const postOrder = (
@@ -28,8 +28,8 @@ export const postOrder = (
   type: string,
   isBid: boolean,
   isYes: boolean,
-  askYesLimit: number,
-  askNoLimit: number,
+  askShareYes: number,
+  askShareNo: number,
 ) =>
   z.object({
     outcomeId: z.string({
@@ -46,17 +46,17 @@ export const postOrder = (
             return parsed <= Number(balance) && parsed > 0;
           }
           if (isYes) {
-            return parsed < askYesLimit && parsed > 0;
+            return parsed < askShareYes && parsed > 0;
           }
-          return parsed < askNoLimit && parsed > 0;
+          return parsed < askShareNo && parsed > 0;
         },
         {
           message: getAmountErrorMessage(
             isBid,
             isYes,
             balance,
-            askYesLimit,
-            askNoLimit,
+            askShareYes,
+            askShareNo,
           ),
         },
       ),
