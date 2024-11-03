@@ -22,6 +22,7 @@ import { MarketService } from '@/services/markets';
 import type { TBetItem, TSideType } from '@/services/markets/types';
 import { avg } from '@/utils/avg';
 import { handleBignumber } from '@/utils/handleBignumber';
+import { MarketChart } from '@/components/charts/MarketChart';
 
 interface IMarketsDetailProps {
   bet: TBetItem;
@@ -187,6 +188,8 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
               </Typography.Text>
             </Flex>
           </Flex> */}
+
+          <MarketChart />
 
           <Accordion type="single" collapsible className="lg:hidden w-full">
             <MarketTile isSingleBet data={bet} />
