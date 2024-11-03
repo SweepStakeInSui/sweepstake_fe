@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import { MarketChart } from '@/components/charts/MarketChart';
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import CopyButton from '@/components/common/CopyButton/CopyButton';
 import Flex from '@/components/common/Flex';
@@ -22,7 +23,6 @@ import { MarketService } from '@/services/markets';
 import type { TBetItem, TSideType } from '@/services/markets/types';
 import { avg } from '@/utils/avg';
 import { handleBignumber } from '@/utils/handleBignumber';
-import { MarketChart } from '@/components/charts/MarketChart';
 
 interface IMarketsDetailProps {
   bet: TBetItem;
