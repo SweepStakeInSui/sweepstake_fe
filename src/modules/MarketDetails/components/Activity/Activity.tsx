@@ -23,7 +23,7 @@ const Activity: React.FC<ActivityProps> = () => {
         OrderService.getOrder({
           page: pageParam,
           limit: 12,
-          marketId: params.id,
+          market: params.id,
         }),
       initialPageParam: 1,
       getNextPageParam: (lastPage, pages) => {

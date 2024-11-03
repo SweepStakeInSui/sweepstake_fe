@@ -74,15 +74,9 @@ export default function AboutModule() {
         ],
       });
 
-      console.log('Transaction created:', transaction);
-
       const { bytes, signature } = await signTransaction({
         transaction,
         chain: configs.chain,
-      });
-      console.log({
-        bytes,
-        signature,
       });
 
       const executeResult = await client.executeTransactionBlock({

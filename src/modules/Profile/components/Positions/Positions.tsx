@@ -1,4 +1,4 @@
-import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { DataTable } from '@/components/common/data-table/data-table';
 import Empty from '@/components/common/Empty';
@@ -14,7 +14,7 @@ export default function Positions() {
     isPending,
     isError,
   } = useInfiniteQuery({
-    queryKey: ['getPositions'],
+    queryKey: ['getPositionsProfile'],
     queryFn: async ({ pageParam = 1 }) => {
       const result = await UserService.positions({
         page: pageParam,
@@ -27,7 +27,7 @@ export default function Positions() {
       if (lastPage.meta && lastPage.meta.itemCount < 12) return undefined;
       return (pages?.length ?? 0) + 1;
     },
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
   });
   if (isPending) {
     return <div>Loading...</div>;
