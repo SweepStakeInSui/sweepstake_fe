@@ -8,7 +8,7 @@ import type { ActivityProps } from '@/types/table';
 
 type TOrderParams = {
   user?: string;
-  marketId?: string;
+  market?: string;
 } & PaginationType;
 const postOrder = async (
   body: IPostOrderRequest,

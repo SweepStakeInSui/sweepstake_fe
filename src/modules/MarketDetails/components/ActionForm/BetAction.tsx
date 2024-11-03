@@ -103,6 +103,8 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
 
   // STATES
   const [placeOrderModalOpen, setPlaceOrderModalOpen] = useState(false);
+  const [contracts, setContracts] = useState<number>(0);
+  const [avgPrice, setAvgPrice] = useState<number>(0);
   // const [txsString, setTxsString] = React.useState('');
   const [isSetExpiration, setIsSetExpiration] = useState(false);
   const betState = useSelector((state: any) => state.bet);
@@ -240,7 +242,15 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
       }),
     );
   };
-
+  // const
+  const bidPriceYes = Number(
+    handleBignumber.divideDecimal(betState.bidPriceYes),
+  );
+  const askPriceYes = Number(
+    handleBignumber.divideDecimal(betState.askPriceYes),
+  );
+  const bidPriceNo = Number(handleBignumber.divideDecimal(betState.bidPriceNo));
+  const askPriceNo = Number(handleBignumber.divideDecimal(betState.askPriceNo));
   // EFFECTS
   useEffect(() => {
     const now = new Date().getTime();
@@ -262,10 +272,39 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     }
   }, [limitPrice, setValue]);
 
-  const bidPriceYes = handleBignumber.divideDecimal(betState.bidPriceYes);
-  const askPriceYes = handleBignumber.divideDecimal(betState.askPriceYes);
-  const bidPriceNo = handleBignumber.divideDecimal(betState.bidPriceNo);
-  const askPriceNo = handleBignumber.divideDecimal(betState.askPriceNo);
+  useEffect(() => {
+    let contractPrice = 0; // Default to 0 if calculation is not possible
+    let selectedPrice = 0;
+
+    if (isBid) {
+      if (betState.type === BetOutcomeType.YES) {
+        selectedPrice = bidPriceYes;
+      } else {
+        selectedPrice = bidPriceNo;
+      }
+    } else if (betState.type === BetOutcomeType.YES) {
+      selectedPrice = askPriceYes;
+    } else {
+      selectedPrice = askPriceNo;
+    }
+
+    // Calculate contract price only if selectedPrice is greater than zero
+    if (selectedPrice > 0) {
+      contractPrice = +amount / (+selectedPrice / 100);
+    }
+
+    setAvgPrice(selectedPrice);
+    setContracts(contractPrice);
+  }, [
+    amount,
+    bidPriceYes,
+    bidPriceNo,
+    askPriceYes,
+    askPriceNo,
+    isBid,
+    betState.type,
+  ]);
+
   return (
     <div>
       <Stack className="gap-0">
@@ -418,7 +457,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
                     </span>
                   </Tooltip>
                 </Typography.Text>
-                <Typography.Text size={13}>$100</Typography.Text>
+                <Typography.Text size={13}>${avgPrice}</Typography.Text>
               </Flex>
               <Flex className="justify-between">
                 <Typography.Text
@@ -504,7 +543,7 @@ Projected payout 2 hours after closing."
                   Contracts
                 </Typography.Text>
                 <Typography.Text size={13}>
-                  ${Math.floor(+amount / (+bidPriceYes / 100))}
+                  ${Math.floor(contracts)}
                 </Typography.Text>
               </Flex>
               <Flex className="justify-between">
@@ -517,7 +556,7 @@ Projected payout 2 hours after closing."
                     <Svg src="/icons/info_outline.svg" />
                   </span>
                 </Typography.Text>
-                <Typography.Text size={13}>$100</Typography.Text>
+                <Typography.Text size={13}>${avgPrice}</Typography.Text>
               </Flex>
               <Flex className="justify-between">
                 <Typography.Text
@@ -535,7 +574,17 @@ Projected payout 2 hours after closing."
                     <Svg src="/icons/info_outline.svg" />
                   </span>
                 </Typography.Text>
-                <Typography.Text size={13}>$0</Typography.Text>
+                <Flex className="gap-x-0.5">
+                  <Typography.Text size={13}>
+                    ${Math.floor(contracts)}
+                  </Typography.Text>
+                  <Typography.Text
+                    size={13}
+                    className="text-text-support-green"
+                  >
+                    (+${(contracts - +amount).toFixed(2)})
+                  </Typography.Text>
+                </Flex>
               </Flex>
             </Stack>
 
