@@ -3,6 +3,7 @@
 import './index.scss';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
@@ -17,7 +18,6 @@ import Typography from '@/components/common/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { defaultImg } from '@/constants/defaultImg';
-import { SelectBet } from '@/modules/Home/components/SelectBet';
 import { MarketService } from '@/services/markets';
 import type { TBetItem } from '@/services/markets/types';
 
@@ -37,27 +37,47 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
             <Typography.Heading size={20} weight="bold" className="text-text">
               {slide?.name}
             </Typography.Heading>
-            <Flex>
+            <Flex className="items-baseline">
               <Flex className="items-end">
-                <Typography.Text className="text-text" size={16}>
+                <Typography.Text
+                  className="text-text"
+                  size={16}
+                  weight="medium"
+                >
                   20
-                </Typography.Text>
-                <Typography.Text className="text-text-subtle" size={12}>
-                  chance
-                </Typography.Text>
-                <Typography.Text className="text-text-support-green" size={12}>
-                  5%
+                  <Typography.Text
+                    tag="span"
+                    className="text-text-subtle"
+                    size={12}
+                  >
+                    {' '}
+                    chance
+                  </Typography.Text>
+                  <Typography.Text
+                    className="text-text-support-green"
+                    size={12}
+                    tag="span"
+                  >
+                    {' '}
+                    +5%
+                  </Typography.Text>
                 </Typography.Text>
               </Flex>
               <Flex>
-                <Typography.Text className="text-text-subtle flex gap-1">
-                  <FormatNumber number={slide?.volume} /> vol
+                <Typography.Text
+                  className="text-text-subtle flex gap-0.5"
+                  size={12}
+                >
+                  <FormatNumber number={slide?.volume} tag="span" /> vol
                 </Typography.Text>
               </Flex>
             </Flex>
           </Stack>
           <div>
-            <SelectBet />
+            {/* <SelectBet /> */}
+            <div className="relative w-full aspect-[675/223] mb-10 mt-5">
+              <Image src="/images/mockchart.png" alt="chart" fill />
+            </div>
           </div>
         </Stack>
         <Flex className="w-full flex-1 items-end">
@@ -71,10 +91,10 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
       </Stack>
       <Stack className="relative z-10 col-span-6 justify-between gap-y-11 hidden-mobile">
         <Stack>
-          <Typography.Heading className="text-text" size={24}>
+          <Typography.Heading className="text-text line-clamp-2" size={24}>
             {slide?.name}
           </Typography.Heading>
-          <Typography.Text className="text-text-subtle line-clamp-4" size={13}>
+          <Typography.Text className="text-text-subtle line-clamp-3" size={13}>
             {slide?.description}
           </Typography.Text>
         </Stack>
