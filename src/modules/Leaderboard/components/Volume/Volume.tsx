@@ -1,11 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
+
 import Flex from '@/components/common/Flex';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
+import { LeaderboardItem } from '@/modules/Leaderboard/components/LeaderboardItem';
+import { LeaderboardServices } from '@/services/leaderboard';
 
 import Wraper from '../Wraper';
-import { LeaderboardServices } from '@/services/leaderboard';
-import { useQuery } from '@tanstack/react-query';
-import { LeaderboardItem } from '@/modules/Leaderboard/components/LeaderboardItem';
 
 const VolumeLeaderboard = () => {
   const { data: volumeLeaderboardData } = useQuery({

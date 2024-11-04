@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
@@ -5,7 +7,6 @@ import { cn } from '@/lib/utils';
 import AvatarRank from '@/modules/Home/components/TopVolume/AvatarRank';
 import { formatNumber } from '@/utils/formatNumber';
 import { truncate } from '@/utils/truncate';
-import React from 'react';
 
 interface LeaderboardItemProps {
   rank: number;

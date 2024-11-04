@@ -1,5 +1,5 @@
 import publicAxiosClient from '@/app/configs/httpClient/publicAxiosClient';
-import { TLeaderBoard } from '@/services/leaderboard/types';
+import type { TLeaderBoard } from '@/services/leaderboard/types';
 
 const getLeaderboardVolume = async (
   params: PaginationType,
