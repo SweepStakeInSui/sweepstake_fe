@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -8,19 +9,17 @@ import { MarketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
 import { formatComments } from '@/utils/formatCommentList';
 
-interface ICommentsProps {
-  id: string;
-}
+const MarketsComments = () => {
+  const params = useParams<{ id: string }>();
 
-const MarketsComments = ({ id }: ICommentsProps) => {
   // HOOKS
   const queryClient = useQueryClient();
   const { profile, isLoggedIn } = useSelector(selectProfile);
 
   // QUERIES
   const { data: commentsData } = useQuery({
-    queryKey: ['comments', id],
-    queryFn: async () => MarketService.getCommentList(id),
+    queryKey: ['comments', params],
+    queryFn: async () => MarketService.getCommentList(params.id),
   });
 
   const { mutate: createCommentMutate, isPending: isCreateCommentPending } =
@@ -49,7 +48,7 @@ const MarketsComments = ({ id }: ICommentsProps) => {
     <section>
       {isLoggedIn && (
         <CommentForm
-          marketId={id}
+          marketId={params.id}
           onCreate={createCommentMutate}
           isPending={isCreateCommentPending}
         />
@@ -58,7 +57,7 @@ const MarketsComments = ({ id }: ICommentsProps) => {
       {formattedComments.length > 0 ? (
         <CommentList
           userId={profile?.id}
-          marketId={id}
+          marketId={params.id}
           comments={formattedComments}
           isMinimal
           onCreate={createCommentMutate}

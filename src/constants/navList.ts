@@ -15,6 +15,28 @@ export const navList = [
     href: '/leaderboard',
   },
 ];
+export const sections = [
+  {
+    label: 'Top Page',
+    id: '/',
+  },
+  {
+    label: 'Rule Summary',
+    id: 'rule-summary',
+  },
+  {
+    label: 'About',
+    id: 'about',
+  },
+  {
+    label: 'Relate Market',
+    id: 'relate-market',
+  },
+  {
+    label: 'Idea',
+    id: 'idea',
+  },
+];
 export const menuListLogin = (onDisconnect: () => void) => [
   {
     slug: 'profile',
