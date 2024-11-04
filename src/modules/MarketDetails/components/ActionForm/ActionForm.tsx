@@ -19,34 +19,12 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { defaultImg } from '@/constants/defaultImg';
+import { sections } from '@/constants/navList';
 import { BetOutcomeType } from '@/enums/bet-status';
 import BetAction from '@/modules/MarketDetails/components/ActionForm/BetAction';
 import { selectOrderbook, setOrderInput } from '@/store/orderbookSlice';
 
 import { useSectionIndicatorSignal } from '../../useSectionIndicatorSignal';
-
-const sections = [
-  {
-    label: 'Top Page',
-    id: '/',
-  },
-  {
-    label: 'Rule Summary',
-    id: 'rule-summary',
-  },
-  {
-    label: 'About',
-    id: 'about',
-  },
-  {
-    label: 'Relate Market',
-    id: 'relate-market',
-  },
-  {
-    label: 'Idea',
-    id: 'idea',
-  },
-];
 
 interface MarketsActionFormProps {
   image?: string;

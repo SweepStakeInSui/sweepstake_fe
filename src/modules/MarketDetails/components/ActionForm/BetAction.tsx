@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -96,6 +97,10 @@ const TooltipPrice = ({ isBid }: TooltipPriceProps) => {
 };
 
 const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
+  const params = useParams<{ id: string }>();
+  const queryClient = useQueryClient();
+  const dataOrderbook = queryClient.getQueryData(['orderBookData', params.id]);
+
   // HOOKS
   const { profile, isLoggedIn } = useSelector(selectProfile);
   const { price: limitPrice } = useSelector(selectOrderbook);
@@ -275,10 +280,17 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
   useEffect(() => {
     let contractPrice = 0; // Default to 0 if calculation is not possible
     let selectedPrice = 0;
+    // let avgPrice = 0;
+    // const filteredAskBet = dataOrderbook.data.askYes.slice(1).reverse();
+    // if (dataOrderbook) {
+    //   const check = calculateAvgPrice(dataOrderbook?.data?.askYes, 50);
+    //   console.log(check);
+    // }
 
     if (isBid) {
       if (betState.type === BetOutcomeType.YES) {
         selectedPrice = bidPriceYes;
+        // avgPrice =
       } else {
         selectedPrice = bidPriceNo;
       }
@@ -303,6 +315,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     askPriceNo,
     isBid,
     betState.type,
+    dataOrderbook,
   ]);
 
   return (
@@ -582,7 +595,7 @@ Projected payout 2 hours after closing."
                     size={13}
                     className="text-text-support-green"
                   >
-                    (+${(contracts - +amount).toFixed(2)})
+                    (+${(contracts === 0 ? 0 : contracts - +amount).toFixed(2)})
                   </Typography.Text>
                 </Flex>
               </Flex>
