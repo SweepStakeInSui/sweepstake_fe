@@ -56,7 +56,7 @@ const MarketsActionForm = ({
   useEffect(() => {
     if (selectedValue === 'market')
       dispatch(setOrderInput({ isClickOn: false, price: 0 }));
-  }, [selectedValue]);
+  }, [selectedValue, dispatch]);
 
   return (
     <Stack className="no-scrollbar sticky gap-y-0 border-l border-solid border-borderSubtle p-3 top-2 lg:top-[4.75rem] w-full lg:w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto">

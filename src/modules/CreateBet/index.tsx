@@ -136,7 +136,7 @@ const CreateBetModule = () => {
     setValue('startTime', startTimeSecs);
     setEndTimeSeconds(endTimeSecs);
     setValue('endTime', endTimeSecs);
-  }, [startDate, startClock, endClock, endDate]);
+  }, [startDate, startClock, endClock, endDate, setValue]);
 
   return (
     <>

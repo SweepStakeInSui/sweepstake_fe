@@ -11,11 +11,36 @@ import { PlusJakartaFont } from '@/constants/fonts';
 import MyLayout from '@/layouts';
 import { cn } from '@/lib/utils';
 
+import ogImage from './opengraph-image.jpg';
 import Providers from './providers';
 
 export const metadata: Metadata = {
   title: "Sweepstakes | The World's Largest Prediction Market",
   description: 'Bet on your beliefs',
+  twitter: {
+    site: 'https://x.com/Sweepstakes_Mkt',
+    images: [
+      {
+        url: ogImage.src,
+        width: ogImage.width,
+        height: ogImage.height,
+      },
+    ],
+  },
+  metadataBase: new URL('https://app.sweepstake.market/'),
+  openGraph: {
+    title: "Sweepstakes | The World's Largest Prediction Market",
+    description: 'Bet on your beliefs',
+    images: [
+      {
+        url: ogImage.src,
+        width: ogImage.width,
+        height: ogImage.height,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 interface IRootLayout {

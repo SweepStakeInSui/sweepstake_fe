@@ -33,6 +33,8 @@ export interface ITransactionHistory extends BaseEntity {
   status: string;
   timestamp: number;
   transactionHash: string;
+  from: string;
+  to: string;
   type: string;
 }
 const getUserInfor = async (): Promise<ProfileTypes> => {

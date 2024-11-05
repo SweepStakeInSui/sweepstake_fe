@@ -25,6 +25,7 @@ import type {
 } from '@/services/userService';
 import { UserService } from '@/services/userService';
 import { formatDate } from '@/utils/formatDate';
+import { briefDocument } from '@/utils/formatText';
 import { handleBignumber } from '@/utils/handleBignumber';
 
 interface HistoryItemProps {
@@ -51,8 +52,10 @@ const HistoryItem = ({ item }: HistoryItemProps) => {
                 </span>
               </Typography.Text>
               <Flex className=" cursor-pointer">
-                <Typography.Text className="text-text-subtle" size={13}>
-                  From 0x890...PK0hQ
+                <Typography.Text className="text-text-subtle flex" size={13}>
+                  {item.type === 'deposit'
+                    ? `From ${item?.from ? briefDocument(item.from, 5, 5) : 'address unknown'}`
+                    : `To ${item?.to ? briefDocument(item.to, 5, 5) : 'address unknown'}`}
                 </Typography.Text>
                 <Tooltip content="View on Suiscan">
                   <Link
@@ -111,7 +114,6 @@ const History = () => {
     return <Empty content="No transactions found" className="py-30" />;
   }
   const dataHistory = data.pages.flatMap((page) => page.items);
-  console.log(dataHistory);
 
   return (
     <div className="p-5">
