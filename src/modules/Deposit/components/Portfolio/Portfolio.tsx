@@ -91,7 +91,11 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
       // setTxsString('fakeTXSString');
       setWithdrawModalOpen(false);
       queryClient.refetchQueries({
-        queryKey: [['useBalance', profile?.address], ['user-infor']],
+        queryKey: [
+          ['useBalance', profile?.address],
+          ['user-infor'],
+          ['transaction-history', ''],
+        ],
       });
       form.reset();
     },

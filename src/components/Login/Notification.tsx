@@ -225,8 +225,9 @@ const NotifItem = ({
                     weight="medium"
                     className="text-text"
                   >
-                    You have {type} {handleBignumber.divideDecimal(amount ?? 0)}{' '}
-                    USDT to your account
+                    You have {type}{' '}
+                    {handleBignumber.divideDecimal(amount ?? 0, 9)} USDT to your
+                    account
                   </Typography.Text>
                 );
               case 'betYes':

@@ -36,8 +36,9 @@ const UpDownButton = <TFieldValues extends FieldValues>({
         </Typography.Text>
       )}
       <Input
-        type="number"
-        className="h-[3.375rem] flex items-center p-4 pr-20 w-full rounded-md border border-field-border bg-field-background"
+        type="currency"
+        prefix="$"
+        className="h-[3.375rem] pl-4 flex items-center py-4 pr-20 w-full rounded-md border border-field-border bg-field-background"
         placeholder={placeholder}
         {...register(name, {
           onChange: (e) => {
@@ -47,6 +48,7 @@ const UpDownButton = <TFieldValues extends FieldValues>({
         })}
         disabled={disabled}
       />
+      <p className="text-text absolute top-1/2 text-sm left-2">$</p>
       <Flex className="gap-1 absolute right-4 bottom-4">
         <IconButton
           className="size-6 bg-bg-isublested p-0"

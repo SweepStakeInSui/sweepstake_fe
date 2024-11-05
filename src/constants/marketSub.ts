@@ -77,3 +77,17 @@ export const marketSubTab = [
     type: 'Flowers',
   },
 ];
+export const options = [
+  {
+    slug: '',
+    content: 'All',
+  },
+  {
+    slug: 'deposit',
+    content: 'Deposit',
+  },
+  {
+    slug: 'withdraw',
+    content: 'Withdraw',
+  },
+];
