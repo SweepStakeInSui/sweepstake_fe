@@ -80,9 +80,10 @@ export default function MarketsRelateMarket({
                 >
                   50% Chances
                 </Typography.Text>
-                <Typography.Text size={13} className="text-text-support-green">
+                {/* TODO: update when have data */}
+                {/* <Typography.Text size={13} className="text-text-support-green">
                   +50
-                </Typography.Text>
+                </Typography.Text> */}
               </Flex>
             </div>
           </Link>

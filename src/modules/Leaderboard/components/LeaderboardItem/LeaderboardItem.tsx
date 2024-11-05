@@ -6,6 +6,7 @@ import Typography from '@/components/common/Typography';
 import { cn } from '@/lib/utils';
 import AvatarRank from '@/modules/Home/components/TopVolume/AvatarRank';
 import { formatNumber } from '@/utils/formatNumber';
+import { handleBignumber } from '@/utils/handleBignumber';
 import { truncate } from '@/utils/truncate';
 
 interface LeaderboardItemProps {
@@ -38,7 +39,8 @@ const LeaderboardItem = ({
           </Typography.Text>
           <Flex>
             <Typography.Text size={13} className="text-text-subtle">
-              {formatNumber.formatToUnit(price)} vol
+              {formatNumber.formatToUnit(handleBignumber.divideDecimal(price))}{' '}
+              vol
             </Typography.Text>
           </Flex>
         </Stack>

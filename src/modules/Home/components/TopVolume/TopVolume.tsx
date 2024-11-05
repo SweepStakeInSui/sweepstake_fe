@@ -1,14 +1,19 @@
+import { useQuery } from '@tanstack/react-query';
+
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { cn } from '@/lib/utils';
-import type { TopVolumeType } from '@/types/topVolume';
+import { LeaderboardServices } from '@/services/leaderboard';
+import { formatNumber } from '@/utils/formatNumber';
+import { handleBignumber } from '@/utils/handleBignumber';
+import { truncate } from '@/utils/truncate';
 
 import ViewAll from '../ViewAll';
 import AvatarRank from './AvatarRank';
 
 interface TopVolumeItemProps {
-  id: number;
+  rank: number;
   username: string;
   avatar?: string;
   price: string;
@@ -16,7 +21,7 @@ interface TopVolumeItemProps {
 }
 
 export function TopVolumeItem({
-  id,
+  rank,
   username,
   avatar = 'https://github.com/shadcn.png',
   price,
@@ -30,18 +35,19 @@ export function TopVolumeItem({
       )}
     >
       <Flex className="gap-4">
-        <AvatarRank avatar={avatar} id={id} />
+        <AvatarRank avatar={avatar} id={rank} />
         <Stack className="gap-y-px">
           <Typography.Text size={15} weight="bold" className="text-text">
-            {username}
+            {truncate(username, 50)}
           </Typography.Text>
           <Flex>
             <Typography.Text size={13} className="text-text-subtle">
-              {price}
+              {formatNumber.formatToUnit(handleBignumber.divideDecimal(price))}{' '}
+              vol
             </Typography.Text>
-            <Typography.Text size={13} className="text-text-subtle">
+            {/* <Typography.Text size={13} className="text-text-subtle">
               12k trades
-            </Typography.Text>
+            </Typography.Text> */}
           </Flex>
         </Stack>
       </Flex>
@@ -49,11 +55,16 @@ export function TopVolumeItem({
   );
 }
 
-interface TopVolumeProps {
-  data: TopVolumeType[];
-}
+export default function TopVolume() {
+  const { data: volumeLeaderboardData } = useQuery({
+    queryKey: ['volume-leaderboard'],
+    queryFn: async () =>
+      LeaderboardServices.getLeaderboardVolume({
+        page: 1,
+        limit: 10,
+      }),
+  });
 
-export default function TopVolume({ data }: Readonly<TopVolumeProps>) {
   return (
     <Stack className="gap-4 z-10">
       <Flex className="justify-between">
@@ -63,8 +74,14 @@ export default function TopVolume({ data }: Readonly<TopVolumeProps>) {
         <ViewAll link="/leaderboard" />
       </Flex>
       <div className="grid grid-rows-10 lg:grid-rows-5 grid-flow-col gap-4">
-        {data.map((item) => (
-          <TopVolumeItem key={item.id} {...item} />
+        {volumeLeaderboardData?.data?.items?.map((item, index) => (
+          <TopVolumeItem
+            key={item.id}
+            username={item.username || item.address}
+            avatar={item.avatar}
+            price={item.volume}
+            rank={index + 1}
+          />
         ))}
       </div>
     </Stack>

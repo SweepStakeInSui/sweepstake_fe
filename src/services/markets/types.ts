@@ -104,6 +104,7 @@ export type TBetItem = {
   sources?: ISourceData[];
   volume: string;
   tradeCount: string;
+  percentage: string;
 };
 
 export type TBetDetails = {
