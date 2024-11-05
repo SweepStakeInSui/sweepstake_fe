@@ -86,7 +86,7 @@ const CommentList = ({
         ),
       );
     }
-  }, [comments]);
+  }, [comments, userId]);
 
   const renderComments = (commentsArray: TComment[], isNested = false) => {
     return commentsArray?.map((comment, index) => (

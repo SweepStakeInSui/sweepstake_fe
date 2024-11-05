@@ -148,7 +148,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
       positionsData?.items?.find(
         (pos) => pos.outcomeId === betState.outcomeYesId,
       )?.balance,
-    [positionsData],
+    [positionsData, betState.outcomeYesId],
   );
 
   const askShareNo = useMemo(
@@ -156,7 +156,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
       positionsData?.items?.find(
         (pos) => pos.outcomeId === betState.outcomeNoId,
       )?.balance,
-    [positionsData],
+    [positionsData, betState.outcomeNoId],
   );
 
   // FORM HANDLERS
