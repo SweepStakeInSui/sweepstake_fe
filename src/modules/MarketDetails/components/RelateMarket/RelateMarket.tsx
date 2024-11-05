@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { defaultImg } from '@/constants/defaultImg';
 import { ROUTE } from '@/constants/routes';
 import { MarketService } from '@/services/markets';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 interface RelateMarketProps {
   marketId?: string;
@@ -68,7 +69,9 @@ export default function MarketsRelateMarket({
               <Flex className="gap-x-1">
                 <div style={{ width: 12, height: 12 }}>
                   <CircularProgressbar
-                    value={50}
+                    value={Number(
+                      handleBignumber.divideDecimal(market.percentage),
+                    )}
                     styles={buildStyles({
                       pathColor: `rgba(1, 70, 244)`,
                     })}
@@ -78,7 +81,8 @@ export default function MarketsRelateMarket({
                   size={13}
                   className="text-text-support-blue mr-1"
                 >
-                  50% Chances
+                  {Number(handleBignumber.divideDecimal(market.percentage))}%
+                  Chances
                 </Typography.Text>
                 {/* TODO: update when have data */}
                 {/* <Typography.Text size={13} className="text-text-support-green">
