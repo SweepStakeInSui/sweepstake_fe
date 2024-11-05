@@ -3,6 +3,7 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
@@ -28,6 +29,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { ROUTE } from '@/constants/routes';
 import { useNotification } from '@/hooks/useNotification';
 import { notificationService } from '@/services/notificationService';
 import { selectProfile } from '@/store/profileSlice';
@@ -47,7 +49,8 @@ interface INotifItemProps {
     | 'betNo'
     | 'betYes'
     | 'withdraw'
-    | 'deposited';
+    | 'deposited'
+    | 'orderExecuted';
   date: string;
   status: string;
   amount?: string;
@@ -73,12 +76,47 @@ const NotifItem = ({
       queryClient.invalidateQueries({ queryKey: ['getNotification'] });
     },
   });
+  const router = useRouter();
+
+  const handleNavigate = (marketId?: string) => {
+    switch (type) {
+      case 'comment-reply':
+        router.push(`${ROUTE.MARKETS}/${marketId}`);
+        setTimeout(() => {
+          document.getElementById('idea')?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }, 100);
+        break;
+      case 'comment-like':
+        router.push(`${ROUTE.MARKETS}/${marketId}`);
+        setTimeout(() => {
+          document.getElementById('idea')?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }, 100);
+        break;
+      case 'orderExecuted':
+        router.push(`${ROUTE.PROFILE}?tab=positions`);
+        break;
+      case 'withdraw':
+        router.push(ROUTE.WITHDRAW);
+        break;
+      case 'deposited':
+        router.push(ROUTE.DEPOSIT);
+        break;
+      default:
+    }
+  };
 
   return (
     <div
       className="w-full cursor-pointer"
       onClick={() => {
         notificationSeenMutate([id]);
+        handleNavigate(data?.comment?.marketId);
       }}
     >
       <Flex className="relative gap-x-2.5 items-center">
@@ -388,7 +426,9 @@ export const NotificationDrawer = () => {
           </Button>
         </DrawerHeader>
         <ScrollArea>
-          <NotiData />
+          <DrawerClose>
+            <NotiData />
+          </DrawerClose>
         </ScrollArea>
       </DrawerContent>
     </Drawer>

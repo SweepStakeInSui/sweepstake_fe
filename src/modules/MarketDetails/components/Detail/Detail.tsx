@@ -16,12 +16,10 @@ import Typography from '@/components/common/Typography';
 import { Accordion } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import { defaultImg } from '@/constants/defaultImg';
-import { BetOutcomeType } from '@/enums/bet-status';
 import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
 import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBetOrderBook';
 import { MarketService } from '@/services/markets';
 import type { TBetItem, TSideType } from '@/services/markets/types';
-import { avg } from '@/utils/avg';
 import { handleBignumber } from '@/utils/handleBignumber';
 
 interface IMarketsDetailProps {
@@ -30,11 +28,6 @@ interface IMarketsDetailProps {
 
 export default function MarketsDetail({ bet }: IMarketsDetailProps) {
   const betState = useSelector((state: any) => state.bet);
-
-  const yesOutcome = useMemo(
-    () => bet.outcomes?.find((b) => b.type === BetOutcomeType.YES),
-    [bet],
-  );
 
   // QUERIES
   const { data: orderBookData } = useQuery({
@@ -140,13 +133,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
         </Flex>
         <Flex className="items-center">
           <Typography.Heading className="text-text" size={20}>
-            {handleBignumber.divideDecimal(
-              avg([
-                Number(yesOutcome?.bidPrice),
-                Number(yesOutcome?.askPrice),
-              ])?.toFixed(2),
-            )}
-            %
+            {Number(handleBignumber.divideDecimal(bet.percentage))}%
           </Typography.Heading>
 
           <div>

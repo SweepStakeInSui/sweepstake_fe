@@ -93,7 +93,7 @@ interface VoteCardProps {
 
 const VoteCard = ({ data }: VoteCardProps) => {
   const { theme } = useTheme();
-  const { name, volume } = data;
+  const { name, volume, percentage } = data;
   // const [open, setOpen] = useState<boolean>(false);
   // const [value, setValue] = useState('');
   const router = useRouter();
@@ -191,14 +191,14 @@ const VoteCard = ({ data }: VoteCardProps) => {
           <Flex className="mb-2">
             <div style={{ width: 12, height: 12 }}>
               <CircularProgressbar
-                value={92}
+                value={Number(handleBignumber.divideDecimal(percentage))}
                 styles={buildStyles({
                   pathColor: `rgba(1, 70, 244)`,
                 })}
               />
             </div>
             <Typography.Text size={12} className="text-text-support-blue">
-              92% Chances
+              {handleBignumber.divideDecimal(percentage)}% Chances
             </Typography.Text>
           </Flex>
 
@@ -207,7 +207,9 @@ const VoteCard = ({ data }: VoteCardProps) => {
           >
             <div
               className="h-full bg-b-40 rounded-md"
-              style={{ width: '92%' }}
+              style={{
+                width: `${Number(handleBignumber.divideDecimal(percentage))}%`,
+              }}
             />
           </div>
         </div>
