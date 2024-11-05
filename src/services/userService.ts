@@ -25,7 +25,16 @@ interface UpdateProfileParams {
   username: string;
   avatar: string;
 }
-
+export interface TransactionHistoryParams extends PaginationType {
+  type?: string;
+}
+export interface ITransactionHistory extends BaseEntity {
+  amount: string;
+  status: string;
+  timestamp: number;
+  transactionHash: string;
+  type: string;
+}
 const getUserInfor = async (): Promise<ProfileTypes> => {
   const response = await privateAxiosClient.get(`/user/profile`);
   return response.data.data;
@@ -50,7 +59,7 @@ const withdraw = async (body: WithdrawSchemaType): Promise<WithdrawRespone> => {
   const response = await privateAxiosClient.post(`/user/withdraw`, body);
   return response.data;
 };
-const transactionHistory = async (params: PaginationType) => {
+const transactionHistory = async (params: TransactionHistoryParams) => {
   const response = await privateAxiosClient.get(`/user/transaction-history`, {
     params,
   });

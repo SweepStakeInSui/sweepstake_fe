@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 
 import Container from '@/components/common/Container';
+import Countdown from '@/components/common/Countdown';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
@@ -61,7 +62,7 @@ const LeaderboardModule = () => {
               </Typography.Text>
             </Flex>
             <Typography.Text className="text-text" size={13} weight="medium">
-              23h 48m 03s
+              <Countdown />
             </Typography.Text>
           </Stack>
         </Flex>

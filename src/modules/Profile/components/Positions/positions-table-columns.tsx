@@ -23,7 +23,7 @@ export const columns: ColumnDef<PositionItemProps>[] = [
       const { image } = outcome.market;
 
       return (
-        <Flex className="justify-between space-x-2">
+        <Flex className="justify-between space-x-2 w-full">
           <Flex>
             <Avatar size="md" isRounded={false}>
               <AvatarImage src={image || defaultImg} />

@@ -1,3 +1,5 @@
+import configs from '@/configs';
+
 export const navList = [
   {
     name: 'Markets',
@@ -86,3 +88,4 @@ export const CONSTANT_ROUTES = {
   LEADERBOARD: '/leaderboard',
   ACTIVITY: '/profile?tab=activity',
 };
+export const URL_SCAN = `https://suiscan.xyz/${configs.network}/`;

@@ -199,7 +199,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
         betState.type === BetOutcomeType.YES
           ? betState.outcomeYesId
           : betState.outcomeNoId,
-      amount: data.amount.toString(),
+      amount: contracts.toString(),
       ...(isLimit
         ? { price: handleBignumber.powDecimal(data.price, 4) }
         : { slippage: '1' }),
@@ -556,7 +556,7 @@ Projected payout 2 hours after closing."
                   Contracts
                 </Typography.Text>
                 <Typography.Text size={13}>
-                  ${Math.floor(contracts)}
+                  {Math.floor(contracts)}
                 </Typography.Text>
               </Flex>
               <Flex className="justify-between">
@@ -565,9 +565,6 @@ Projected payout 2 hours after closing."
                   className="inline-flex items-center gap-1 text-text-subtle"
                 >
                   Average Price
-                  <span>
-                    <Svg src="/icons/info_outline.svg" />
-                  </span>
                 </Typography.Text>
                 <Typography.Text size={13}>${avgPrice}</Typography.Text>
               </Flex>
@@ -583,9 +580,11 @@ Projected payout 2 hours after closing."
                     {betState.type}
                   </span>
                   wins
-                  <span>
-                    <Svg src="/icons/info_outline.svg" />
-                  </span>
+                  <Tooltip content="This market closes when the outcome occurs">
+                    <span>
+                      <Svg src="/icons/info_outline.svg" />
+                    </span>
+                  </Tooltip>
                 </Typography.Text>
                 <Flex className="gap-x-0.5">
                   <Typography.Text size={13}>
