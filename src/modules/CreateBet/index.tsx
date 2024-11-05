@@ -32,9 +32,11 @@ import { PreviewBetModule } from './components/PreviewBet';
 const CreateBetModule = () => {
   // STATES
   const [confirmCreateBetModalOpen, setConfirmCreateBetModalOpen] =
-    React.useState(false);
+    React.useState({
+      isOpen: false,
+      message: '',
+    });
   const [step, setStep] = React.useState(false);
-  // const [txsString, setTxsString] = React.useState('');
   const [startTimeSeconds, setStartTimeSeconds] = React.useState(0);
   const [endTimeSeconds, setEndTimeSeconds] = React.useState(0);
 
@@ -87,9 +89,19 @@ const CreateBetModule = () => {
     mutationFn: (data: IFormattedCreateBetParams) =>
       MarketService.createMarket(data),
     onSuccess: () => {
-      setConfirmCreateBetModalOpen(true);
+      setConfirmCreateBetModalOpen({
+        isOpen: true,
+        message: 'Bet created successfully',
+      });
       // setTxsString('fakeTXSString');
       methods.reset();
+    },
+    onError: (err: IErrorResponse) => {
+      console.log('err', err);
+      setConfirmCreateBetModalOpen({
+        isOpen: true,
+        message: err?.response?.data?.meta?.message,
+      });
     },
   });
 
@@ -220,8 +232,10 @@ const CreateBetModule = () => {
       </FormProvider>
 
       <StatusModal
-        open={confirmCreateBetModalOpen}
-        onOpenChange={setConfirmCreateBetModalOpen}
+        open={confirmCreateBetModalOpen.isOpen}
+        onOpenChange={() =>
+          setConfirmCreateBetModalOpen({ isOpen: false, message: '' })
+        }
         isLoading={isCreateBetLoading}
         isSuccess={isCreateBetSuccess && createBetData.statusCode === 200}
         isError={isCreateBetError}
@@ -236,7 +250,11 @@ const CreateBetModule = () => {
           if (isCreateBetLoading) return 'Your bet is being created.';
           if (isCreateBetSuccess && createBetData.statusCode === 200)
             return 'Your bet has been created.';
-          if (isCreateBetError) return 'Your bet has not been created.';
+          if (isCreateBetError)
+            return (
+              confirmCreateBetModalOpen.message ||
+              'Your bet has not been created.'
+            );
           return '';
         })()}
         // txs={txsString}

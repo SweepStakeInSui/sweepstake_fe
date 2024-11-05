@@ -15,3 +15,16 @@ interface Meta {
   totalPages: number;
   currentPage: number;
 }
+
+interface IErrorResponse {
+  statusCode: number;
+  message: string;
+  response: {
+    data: {
+      statusCode: number;
+      meta: {
+        message: string;
+      };
+    };
+  };
+}

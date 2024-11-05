@@ -19,6 +19,7 @@ export type TNotificationData = {
   };
   comment?: {
     content: string;
+    marketId: string;
   };
 };
 
