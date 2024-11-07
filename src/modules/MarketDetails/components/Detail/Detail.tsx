@@ -21,6 +21,7 @@ import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBet
 import { MarketService } from '@/services/markets';
 import type { TBetItem, TSideType } from '@/services/markets/types';
 import { handleBignumber } from '@/utils/handleBignumber';
+import { toEST } from '@/utils/toEST';
 
 interface IMarketsDetailProps {
   bet: TBetItem;
@@ -102,7 +103,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
               className="text-text-subtle inline-flex items-center gap-1"
               size={15}
             >
-              {format(bet.startTime * 1000, 'MMM dd, yyyy')}
+              {format(toEST(new Date(bet.startTime * 1000)), 'MMM dd, yyyy')}
             </Typography.Text>
           </Flex>
         </Flex>

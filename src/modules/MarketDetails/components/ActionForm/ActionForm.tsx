@@ -23,6 +23,7 @@ import { sections } from '@/constants/navList';
 import { BetOutcomeType } from '@/enums/bet-status';
 import BetAction from '@/modules/MarketDetails/components/ActionForm/BetAction';
 import { selectOrderbook, setOrderInput } from '@/store/orderbookSlice';
+import { toEST } from '@/utils/toEST';
 
 import { useSectionIndicatorSignal } from '../../useSectionIndicatorSignal';
 
@@ -75,7 +76,9 @@ const MarketsActionForm = ({
             >
               Bet {type === BetOutcomeType.YES ? 'Yes' : 'No'}
             </span>
-            <span>・Before {format(endTime * 1000, 'MMM dd')}</span>
+            <span>
+              ・Before {format(toEST(new Date(endTime * 1000)), 'MMM dd')}
+            </span>
           </Typography.Text>
         </Flex>
 

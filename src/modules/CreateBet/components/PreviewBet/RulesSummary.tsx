@@ -41,7 +41,7 @@ export default function PreviewBetRulesSummary({
               Opened on {startDate}
             </Typography.Text>
             <Typography.Text size={13} className="text-text-subtle">
-              {startClock}
+              {startClock} EST
             </Typography.Text>
           </Stack>
         </Flex>
@@ -52,7 +52,7 @@ export default function PreviewBetRulesSummary({
               Closes by {endDate}
             </Typography.Text>
             <Typography.Text size={13} className="text-text-subtle">
-              {endClock}
+              {endClock} EST
             </Typography.Text>
           </Stack>
         </Flex>
