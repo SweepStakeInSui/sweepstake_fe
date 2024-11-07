@@ -36,10 +36,11 @@ import { UserService } from '@/services/userService';
 import { selectProfile, userData } from '@/store/profileSlice';
 
 const formSchema = z.object({
-  avatar: z.string().min(1, { message: 'Avatar is required.' }),
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
+  avatar: z.string().optional(),
+  username: z
+    .string()
+    .min(2, { message: 'Username must be at least 2 characters.' })
+    .max(20, { message: 'Username must be at most 20 characters.' }),
 });
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const EditProfile = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      avatar: profile?.avatar,
+      avatar: profile?.avatar || '',
       username: profile?.username,
     },
   });
@@ -62,6 +63,7 @@ const EditProfile = () => {
         if (data) {
           form.setValue('avatar', data, {
             shouldValidate: true,
+            shouldDirty: true,
           });
         }
       },
@@ -73,7 +75,7 @@ const EditProfile = () => {
         avatar,
       }: {
         username: string;
-        avatar: string;
+        avatar?: string;
       }) =>
         UserService.updateProfile({
           username,
@@ -89,10 +91,10 @@ const EditProfile = () => {
   function onUpdateProfile(values: z.infer<typeof formSchema>) {
     updateProfileMutation({
       username: values.username,
-      avatar: values.avatar,
+      avatar: values?.avatar,
     });
   }
-  const { isValid } = form.formState;
+  const { isValid, isDirty } = form.formState;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -199,6 +201,7 @@ const EditProfile = () => {
                 )}
               />
             </div>
+            <FormMessage />
             <DialogFooter className="lg:mt-5">
               <DialogClose asChild>
                 <Button type="button" variant="terriary" size="lg">
@@ -207,7 +210,7 @@ const EditProfile = () => {
               </DialogClose>
               <Button
                 type="submit"
-                disabled={!isValid || isUpdateProfileLoading}
+                disabled={!isValid || isUpdateProfileLoading || !isDirty}
               >
                 Update
               </Button>

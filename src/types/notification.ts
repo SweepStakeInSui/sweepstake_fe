@@ -1,7 +1,7 @@
 export interface NotificationItem extends BaseEntity {
   userId: string;
   message: string;
-  type: 'deposited' | 'withdraw';
+  type: 'deposited' | 'withdrawn';
   timestamp: number;
   status: '0' | '1';
   data: TNotificationData;

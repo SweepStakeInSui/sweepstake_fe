@@ -48,7 +48,7 @@ interface INotifItemProps {
     | 'comment-like'
     | 'betNo'
     | 'betYes'
-    | 'withdraw'
+    | 'withdrawn'
     | 'deposited'
     | 'orderExecuted';
   date: string;
@@ -101,7 +101,7 @@ const NotifItem = ({
       case 'orderExecuted':
         router.push(`${ROUTE.PROFILE}?tab=positions`);
         break;
-      case 'withdraw':
+      case 'withdrawn':
         router.push(ROUTE.WITHDRAW);
         break;
       case 'deposited':
@@ -156,7 +156,7 @@ const NotifItem = ({
                     </div>
                   );
                 case 'betNo':
-                case 'withdraw':
+                case 'withdrawn':
                   return (
                     <div className="p-1 bg-b-50 rounded-full">
                       <Svg
@@ -217,7 +217,7 @@ const NotifItem = ({
                     order has been filled
                   </Typography.Text>
                 );
-              case 'withdraw':
+              case 'withdrawn':
               case 'deposited':
                 return (
                   <Typography.Text

@@ -1,6 +1,4 @@
 const briefDocument = (doc: string, start: number, end: number) => {
-  console.log(doc);
-
   return `${doc.slice(0, start)}...${doc.slice(-end)}`;
 };
 

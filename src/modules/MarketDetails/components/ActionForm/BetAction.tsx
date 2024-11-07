@@ -108,7 +108,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
 
   // STATES
   const [placeOrderModalOpen, setPlaceOrderModalOpen] = useState(false);
-  const [contracts, setContracts] = useState<number>(0);
+  const [shares, setShares] = useState<number>(0);
   const [avgPrice, setAvgPrice] = useState<number>(0);
   // const [txsString, setTxsString] = React.useState('');
   const [isSetExpiration, setIsSetExpiration] = useState(false);
@@ -199,7 +199,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
         betState.type === BetOutcomeType.YES
           ? betState.outcomeYesId
           : betState.outcomeNoId,
-      amount: contracts.toString(),
+      amount: Math.floor(shares).toString(),
       ...(isLimit
         ? { price: handleBignumber.powDecimal(data.price, 4) }
         : { slippage: '1' }),
@@ -306,7 +306,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
     }
 
     setAvgPrice(selectedPrice);
-    setContracts(contractPrice);
+    setShares(contractPrice);
   }, [
     amount,
     bidPriceYes,
@@ -553,10 +553,10 @@ Projected payout 2 hours after closing."
                   size={13}
                   className="inline-flex items-center gap-1 text-text-subtle"
                 >
-                  Contracts
+                  Shares
                 </Typography.Text>
                 <Typography.Text size={13}>
-                  {Math.floor(contracts)}
+                  {Math.floor(shares)}
                 </Typography.Text>
               </Flex>
               <Flex className="justify-between">
@@ -588,13 +588,13 @@ Projected payout 2 hours after closing."
                 </Typography.Text>
                 <Flex className="gap-x-0.5">
                   <Typography.Text size={13}>
-                    ${Math.floor(contracts)}
+                    ${Math.floor(shares)}
                   </Typography.Text>
                   <Typography.Text
                     size={13}
                     className="text-text-support-green"
                   >
-                    (+${(contracts === 0 ? 0 : contracts - +amount).toFixed(2)})
+                    (+${(shares === 0 ? 0 : shares - +amount).toFixed(2)})
                   </Typography.Text>
                 </Flex>
               </Flex>

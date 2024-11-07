@@ -50,7 +50,7 @@ const Information = () => {
           </Flex>
         </Stack>
       </Flex>
-      <EditProfile />
+      {profile && <EditProfile />}
     </Flex>
   );
 };

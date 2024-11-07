@@ -130,7 +130,7 @@ export const MarketTile = ({ isSingleBet, data }: IMarketTitleProps) => {
                 Price
               </TableHead>
               <TableHead className="text-right text-13 text-text-subtle">
-                Contracts
+                Shares
               </TableHead>
               <TableHead className="text-right text-13 text-text-subtle">
                 Total

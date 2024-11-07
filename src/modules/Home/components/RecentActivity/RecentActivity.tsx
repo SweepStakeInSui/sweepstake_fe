@@ -44,8 +44,8 @@ export function ActivityItem({ item }: Readonly<ActivityItemProps>) {
                   className="line-clamp-1"
                 >
                   {item.outcome.type}{' '}
-                  {handleBignumber.divideDecimal(item.outcome.bidPrice)} •
-                  Unnamed • {item.amount} contracts
+                  {handleBignumber.divideDecimal(item.outcome.bidPrice)} •{' '}
+                  {item.user.username} • {item.amount} shares
                 </Badge>
               </Flex>
               <Typography.Text

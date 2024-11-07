@@ -37,7 +37,7 @@ export default function MarketsRelateMarket({
 
   const filterRelateMarkets = useMemo(
     () => relateMarkets?.data.items.filter((market) => market.id !== marketId),
-    [relateMarkets],
+    [relateMarkets, marketId],
   );
 
   return (

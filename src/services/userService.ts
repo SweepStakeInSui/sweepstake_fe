@@ -23,7 +23,7 @@ interface WithdrawRespone {
 }
 interface UpdateProfileParams {
   username: string;
-  avatar: string;
+  avatar?: string;
 }
 export interface TransactionHistoryParams extends PaginationType {
   type?: string;

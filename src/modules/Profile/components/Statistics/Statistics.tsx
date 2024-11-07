@@ -100,7 +100,6 @@ const Statistics = () => {
               weight="semibold"
               className="text-text"
             >
-              {profile?.winRate || 0}
               {profile?.winRate}/100(%)
             </Typography.Heading>
           </Stack>
