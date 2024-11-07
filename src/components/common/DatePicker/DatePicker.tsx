@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { toEST } from '@/utils/toEST';
 
 import { Calendar } from '../../ui/calendar';
 import Svg from '../Svg';
@@ -28,19 +29,22 @@ function CDatePicker({
   onChange,
   defaultValue,
 }: Readonly<DatePickerProps>) {
-  const [date, setDate] = React.useState<Date | undefined>(defaultValue);
+  const [date, setDate] = React.useState<Date | undefined>(
+    defaultValue ? toEST(defaultValue) : undefined,
+  );
 
   React.useEffect(() => {
     if (value) {
-      setDate(value);
+      setDate(toEST(value));
     }
   }, [value]);
 
   const handleSelect = (selectedDate: Date | undefined) => {
     if (selectedDate && (!date || selectedDate.getTime() !== date.getTime())) {
-      setDate(selectedDate);
+      const estDate = toEST(selectedDate);
+      setDate(estDate);
       if (onChange) {
-        onChange(selectedDate);
+        onChange(estDate);
       }
     }
   };
@@ -68,7 +72,7 @@ function CDatePicker({
           onSelect={handleSelect}
           initialFocus
           disabled={{
-            before: new Date(),
+            before: toEST(new Date()),
           }}
           defaultMonth={date}
         />

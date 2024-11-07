@@ -9,6 +9,7 @@ import Typography from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { defaultImg } from '@/constants/defaultImg';
+import { toEST } from '@/utils/toEST';
 
 import type { IOutcomeData } from '../../../../services/markets/types';
 
@@ -47,7 +48,7 @@ export default function PreviewBetDetail({
               className="text-text-subtle inline-flex items-center gap-1"
               size={15}
             >
-              {format(new Date(startDate), 'MMM dd, yyyy')}
+              {format(toEST(new Date(startDate)), 'MMM dd, yyyy')}
             </Typography.Text>
           </Flex>
         </Flex>
@@ -62,7 +63,10 @@ export default function PreviewBetDetail({
               />
             </div>
 
-            <Typography.Heading size={28} className="hidden-mobile">
+            <Typography.Heading
+              size={28}
+              className="hidden-mobile shrink-[999]"
+            >
               {name || '--'}
             </Typography.Heading>
           </Flex>

@@ -2,6 +2,8 @@ import Stack from '@components/common/Stack';
 import { format } from 'date-fns';
 import React from 'react';
 
+import { toEST } from '@/utils/toEST';
+
 import Typography from '../../../../components/common/Typography';
 import type { IFormattedCreateBetData } from '../../../../services/markets/types';
 import PreviewBetAbout from './About';
@@ -29,10 +31,10 @@ const PreviewBetModule = ({ data }: IPreviewBetModuleProps) => {
 
         <PreviewBetRulesSummary
           desc={data?.conditions || ''}
-          startDate={format(new Date(data.startDate), 'MMM dd, yyyy')}
-          startClock={format(new Date(data.startClock), 'HH:mm')}
-          endDate={format(new Date(data.endDate), 'MMM dd, yyyy')}
-          endClock={format(new Date(data.endClock), 'HH:mm')}
+          startDate={format(toEST(new Date(data.startDate)), 'MMM dd, yyyy')}
+          startClock={format(toEST(new Date(data.startClock)), 'HH:mm aa')}
+          endDate={format(toEST(new Date(data.endDate)), 'MMM dd, yyyy')}
+          endClock={format(toEST(new Date(data.endClock)), 'HH:mm aa')}
           category={data?.category}
         />
 

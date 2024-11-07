@@ -5,6 +5,7 @@ import Stack from '@/components/common/Stack';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
 import { Separator } from '@/components/ui/separator';
+import { toEST } from '@/utils/toEST';
 
 interface IRulesSummaryProps {
   desc: string;
@@ -41,10 +42,15 @@ export default function MarketsRulesSummary({
             <Stack>
               <Typography.Text size={15} weight="medium">
                 Opened on{' '}
-                {openOn ? format(new Date(openOn * 1000), 'yyyy-MM-dd') : ''}
+                {openOn
+                  ? format(toEST(new Date(openOn * 1000)), 'yyyy-MM-dd')
+                  : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
-                {openOn ? format(new Date(openOn * 1000), 'HH:mm aa') : ''}
+                {openOn
+                  ? format(toEST(new Date(openOn * 1000)), 'HH:mm aa')
+                  : ''}{' '}
+                EST
               </Typography.Text>
             </Stack>
           </Flex>
@@ -53,10 +59,15 @@ export default function MarketsRulesSummary({
             <Stack>
               <Typography.Text size={15} weight="medium">
                 Closes by{' '}
-                {closeOn ? format(new Date(closeOn * 1000), 'yyyy-MM-dd') : ''}
+                {closeOn
+                  ? format(toEST(new Date(closeOn * 1000)), 'yyyy-MM-dd')
+                  : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
-                {closeOn ? format(new Date(closeOn * 1000), 'HH:mm aa') : ''}
+                {closeOn
+                  ? format(toEST(new Date(closeOn * 1000)), 'HH:mm aa')
+                  : ''}{' '}
+                EST
               </Typography.Text>
             </Stack>
           </Flex>
@@ -66,11 +77,14 @@ export default function MarketsRulesSummary({
               <Typography.Text size={15} weight="medium">
                 Projected payout on{' '}
                 {payoutOn
-                  ? format(new Date(payoutOn * 1000), 'yyyy-MM-dd')
+                  ? format(toEST(new Date(payoutOn * 1000)), 'yyyy-MM-dd')
                   : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
-                {payoutOn ? format(new Date(payoutOn * 1000), 'HH:mm aa') : ''}
+                {payoutOn
+                  ? format(toEST(new Date(payoutOn * 1000)), 'HH:mm aa')
+                  : ''}{' '}
+                EST
               </Typography.Text>
             </Stack>
           </Flex>
