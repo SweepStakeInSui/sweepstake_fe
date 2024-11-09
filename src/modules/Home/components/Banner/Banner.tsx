@@ -11,7 +11,14 @@ const Banner = () => {
           alt="logo"
           height={64}
           width={282}
-          className="object-cover"
+          className="object-cover dark:hidden"
+        />
+        <Image
+          src="/images/sweepstakes_hero.png"
+          alt="logo"
+          height={64}
+          width={282}
+          className="object-cover hidden dark:block"
         />
       </div>
       <Svg
