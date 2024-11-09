@@ -87,22 +87,33 @@ const CreateBetFormModule = () => {
           control={control}
           name="image"
           render={({ field }) => (
-            <div className="flex items-center justify-center">
-              <ImageUploader
-                {...field}
-                variant="big"
-                customKey="thumbnail"
-                onChange={(file) => {
-                  if (file) {
-                    field.onChange(file);
-                    updateFileMutate(file);
-                  } else {
-                    field.onChange(null);
-                  }
-                }}
-                isLoading={isUpdateFileLoading}
-              />
-            </div>
+            <>
+              <div className="flex items-center justify-center">
+                <ImageUploader
+                  {...field}
+                  variant="big"
+                  customKey="thumbnail"
+                  onChange={(file) => {
+                    if (file) {
+                      field.onChange(file);
+                      updateFileMutate(file);
+                    } else {
+                      field.onChange(null);
+                    }
+                  }}
+                  isLoading={isUpdateFileLoading}
+                />
+              </div>
+              {errors.image && (
+                <Typography.Text
+                  size={13}
+                  className="text-text-support-red"
+                  weight="medium"
+                >
+                  {errors.image.message}
+                </Typography.Text>
+              )}
+            </>
           )}
         />
         <Stack className="gap-y-2">

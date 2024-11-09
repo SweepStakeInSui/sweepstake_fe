@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
 import Flex from '@/components/common/Flex';
+import { RankingItem } from '@/components/common/RankingItem';
 import Svg from '@/components/common/Svg';
 import Typography from '@/components/common/Typography';
-import { LeaderboardItem } from '@/modules/Leaderboard/components/LeaderboardItem';
 import { LeaderboardServices } from '@/services/leaderboard';
 
 import Wraper from '../Wraper';
@@ -26,7 +26,7 @@ const VolumeLeaderboard = () => {
         </Typography.Heading>
       </Flex>
       {volumeLeaderboardData?.data?.items?.map((item, index) => (
-        <LeaderboardItem
+        <RankingItem
           key={item.id}
           username={item.username || item.address}
           avatar={item.avatar}
