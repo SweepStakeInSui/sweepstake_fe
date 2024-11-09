@@ -23,7 +23,7 @@ export type TNotificationData = {
   };
   marketInfo?: {
     image: string;
-  }
+  };
 };
 
 export interface NotificationData {
