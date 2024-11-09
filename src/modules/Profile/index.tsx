@@ -28,7 +28,7 @@ const Profile = () => {
     { value: 'mention', title: 'Mentions', panel: <Mention /> },
   ];
   return (
-    <Container className="max-w-[49.375rem] py-10">
+    <Container className="max-w-[50rem] py-10">
       <Stack className="gap-y-5 px-5 lg:px-0">
         <Information />
         <Statistics />

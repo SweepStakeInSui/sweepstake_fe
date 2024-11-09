@@ -192,7 +192,8 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
   const { errors } = formState;
   const price = watch('price');
   const amount = watch('amount');
-
+  const estCost = ((+amount * +price) / 100).toFixed(2);
+  const payoutCost = Number(amount) - Number(estCost);
   const onSubmit = (data: z.infer<typeof postOrderSchema>) => {
     const orderData = {
       outcomeId:
@@ -386,7 +387,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
 
             <Stack>
               <UpDownButton
-                label="Amount"
+                label="Shares"
                 placeholder="0"
                 name="amount"
                 register={register}
@@ -470,7 +471,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
                     </span>
                   </Tooltip>
                 </Typography.Text>
-                <Typography.Text size={13}>${avgPrice}</Typography.Text>
+                <Typography.Text size={13}>${estCost}</Typography.Text>
               </Flex>
               <Flex className="justify-between">
                 <Typography.Text
@@ -493,7 +494,17 @@ Projected payout 2 hours after closing."
                     </span>
                   </Tooltip>
                 </Typography.Text>
-                <Typography.Text size={13}>$0</Typography.Text>
+                <Flex className="gap-x-0.5">
+                  <Typography.Text size={13}>${amount}</Typography.Text>
+                  {Number(amount) !== 0 && (
+                    <Typography.Text
+                      size={13}
+                      className="text-text-support-green"
+                    >
+                      (+${payoutCost})
+                    </Typography.Text>
+                  )}
+                </Flex>
               </Flex>
             </Stack>
 

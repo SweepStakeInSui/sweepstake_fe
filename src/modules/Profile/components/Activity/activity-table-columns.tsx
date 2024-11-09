@@ -30,7 +30,7 @@ export const columns: ColumnDef<IActivityItem>[] = [
       return (
         <Flex className="justify-between space-x-2 w-full">
           <Flex>
-            <CustomAvatar src={image} />
+            <CustomAvatar src={image} size="md" isRounded={false} />
 
             <Link href={`/markets/${marketId}`}>
               <Typography.Text size={14} weight="medium">
