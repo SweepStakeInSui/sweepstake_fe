@@ -3,13 +3,14 @@ import React from 'react';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
+import { defaultImg } from '@/constants/defaultImg';
 import { cn } from '@/lib/utils';
 import AvatarRank from '@/modules/Home/components/TopVolume/AvatarRank';
 import { formatNumber } from '@/utils/formatNumber';
 import { handleBignumber } from '@/utils/handleBignumber';
 import { truncate } from '@/utils/truncate';
 
-interface LeaderboardItemProps {
+interface RankingItemProps {
   rank: number;
   username: string;
   avatar?: string;
@@ -17,13 +18,13 @@ interface LeaderboardItemProps {
   className?: string;
 }
 
-const LeaderboardItem = ({
+const RankingItem = ({
   rank,
   username,
-  avatar = 'https://github.com/shadcn.png',
+  avatar = defaultImg,
   price,
   className,
-}: Readonly<LeaderboardItemProps>) => {
+}: Readonly<RankingItemProps>) => {
   return (
     <Flex
       className={cn(
@@ -49,4 +50,4 @@ const LeaderboardItem = ({
   );
 };
 
-export default LeaderboardItem;
+export default RankingItem;

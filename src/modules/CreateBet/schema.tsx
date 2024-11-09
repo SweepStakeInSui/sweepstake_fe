@@ -2,7 +2,11 @@ import { z } from 'zod';
 
 export const createBetSchema = (startTime: number, endTime: number) =>
   z.object({
-    image: z.string().optional().nullable(),
+    image: z
+      .string({
+        required_error: 'Image is required',
+      })
+      .min(1, 'Image is required'),
     name: z
       .string({
         required_error: 'Market title is required',
