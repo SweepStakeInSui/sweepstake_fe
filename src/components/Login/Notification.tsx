@@ -50,7 +50,8 @@ interface INotifItemProps {
     | 'betYes'
     | 'withdrawn'
     | 'deposited'
-    | 'orderExecuted';
+    | 'orderExecuted'
+    | 'marketCreated';
   date: string;
   status: string;
   amount?: string;
@@ -126,6 +127,8 @@ const NotifItem = ({
         <div className="relative">
           {(() => {
             switch (type) {
+              case 'marketCreated':
+                return <CustomAvatar src={data?.marketInfo?.image} />;
               case 'comment-reply':
                 return <CustomAvatar src={data?.user?.avatar} />;
               case 'comment-like':

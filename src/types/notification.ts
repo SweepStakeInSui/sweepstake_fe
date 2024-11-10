@@ -21,6 +21,9 @@ export type TNotificationData = {
     content: string;
     marketId: string;
   };
+  marketInfo?: {
+    image: string;
+  };
 };
 
 export interface NotificationData {
