@@ -103,10 +103,13 @@ const NotifItem = ({
         router.push(`${ROUTE.PROFILE}?tab=positions`);
         break;
       case 'withdrawn':
-        router.push(ROUTE.WITHDRAW);
+        router.push(ROUTE.DEPOSIT);
         break;
       case 'deposited':
         router.push(ROUTE.DEPOSIT);
+        break;
+      case 'marketCreated':
+        router.push(`${ROUTE.MARKETS}/${marketId}`);
         break;
       default:
     }
@@ -117,7 +120,7 @@ const NotifItem = ({
       className="w-full cursor-pointer"
       onClick={() => {
         notificationSeenMutate([id]);
-        handleNavigate(data?.comment?.marketId);
+        handleNavigate(data?.comment?.marketId || data?.marketInfo?.id);
       }}
     >
       <Flex className="relative gap-x-2.5 items-center">

@@ -22,6 +22,7 @@ export type TNotificationData = {
     marketId: string;
   };
   marketInfo?: {
+    id: string;
     image: string;
   };
 };

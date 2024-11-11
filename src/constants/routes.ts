@@ -3,5 +3,4 @@ export const ROUTE = {
   MARKETS: '/markets',
   PROFILE: '/profile',
   DEPOSIT: '/deposit',
-  WITHDRAW: '/withdraw',
 };
