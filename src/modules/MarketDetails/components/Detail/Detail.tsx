@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { MarketChart } from '@/components/charts/MarketChart';
+import { LineChart } from '@/components/charts/LineChart';
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import CopyButton from '@/components/common/CopyButton/CopyButton';
 import Flex from '@/components/common/Flex';
@@ -177,7 +177,8 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
             </Flex>
           </Flex> */}
 
-          <MarketChart />
+          {/* <MarketChart /> */}
+          <LineChart />
 
           <Accordion type="single" collapsible className="lg:hidden w-full">
             <MarketTile isSingleBet data={bet} />

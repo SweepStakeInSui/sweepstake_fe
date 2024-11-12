@@ -55,6 +55,8 @@
     "cookies-next": "^4.2.1",
     "date-fns": "^3.6.0",
     "gsap": "^3.12.5",
+    "highcharts": "^11.4.8",
+    "highcharts-react-official": "^3.2.1",
     "next": "14.2.3",
     "next-nprogress-bar": "^2.3.13",
     "next-query-params": "^5.0.0",
