@@ -30,18 +30,18 @@ function CDatePicker({
   defaultValue,
 }: Readonly<DatePickerProps>) {
   const [date, setDate] = React.useState<Date | undefined>(
-    defaultValue ? toEST(defaultValue) : undefined,
+    defaultValue || undefined,
   );
 
   React.useEffect(() => {
     if (value) {
-      setDate(toEST(value));
+      setDate(value);
     }
   }, [value]);
 
   const handleSelect = (selectedDate: Date | undefined) => {
     if (selectedDate && (!date || selectedDate.getTime() !== date.getTime())) {
-      const estDate = toEST(selectedDate);
+      const estDate = selectedDate;
       setDate(estDate);
       if (onChange) {
         onChange(estDate);

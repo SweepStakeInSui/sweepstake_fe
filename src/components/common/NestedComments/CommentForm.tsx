@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
 
+import ConnectButton from '@/components/connectWallet/ConnectButton';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import type { TCreateCommentData } from '@/services/markets/types';
@@ -60,18 +61,23 @@ const CommentForm = ({ marketId, onCreate, isPending }: ICommentFormProps) => {
           >
             {800 - commentText.length} left
           </Typography.Text>
-          <Button
-            variant="secondary"
-            type="submit"
-            disabled={
-              isPending ||
-              !isLoggedIn ||
-              !commentText ||
-              commentText.length > 800
-            }
-          >
-            {isPending ? 'Posting...' : 'Post'}
-          </Button>
+          {isLoggedIn ? (
+            <Button
+              variant="secondary"
+              type="submit"
+              disabled={isPending || !commentText || commentText.length > 800}
+            >
+              {isPending ? 'Posting...' : 'Post'}
+            </Button>
+          ) : (
+            <ConnectButton
+              hasIcon={false}
+              content="Post"
+              className="w-fit h-fit px-4 py-2"
+              variant="secondary"
+              disabled={isPending || !commentText || commentText.length > 800}
+            />
+          )}
         </Flex>
       </div>
     </form>
