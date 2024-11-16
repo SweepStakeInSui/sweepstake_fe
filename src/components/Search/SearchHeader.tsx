@@ -160,7 +160,9 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
           </div>
           <div
             className={`max-h-[328px] hidden-mobile overflow-y-auto p-2 rounded-md shadow-search-header overflow-x-hidden absolute bg-bg-surface w-full top-13 transition-all duration-300 ${
-              isFocused ? 'opacity-100 visible' : 'opacity-0 invisible'
+              searchData && searchData?.length > 0 && isFocused
+                ? 'opacity-100 visible'
+                : 'opacity-0 invisible'
             }`}
           >
             <SearchResults isLoading={isSearchLoading} results={searchData} />
@@ -177,6 +179,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ handleCloseDrawer }) => {
             Search result
           </Typography.Text>
         </Flex>
+
         <SearchResults isLoading={isSearchLoading} results={searchData} />
       </ScrollArea>
     </div>

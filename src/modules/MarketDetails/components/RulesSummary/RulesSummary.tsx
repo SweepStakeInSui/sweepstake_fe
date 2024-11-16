@@ -43,7 +43,7 @@ export default function MarketsRulesSummary({
               <Typography.Text size={15} weight="medium">
                 Opened on{' '}
                 {openOn
-                  ? format(toEST(new Date(openOn * 1000)), 'yyyy-MM-dd')
+                  ? format(toEST(new Date(openOn * 1000)), 'MMM dd, yyyy')
                   : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
@@ -60,7 +60,7 @@ export default function MarketsRulesSummary({
               <Typography.Text size={15} weight="medium">
                 Closes by{' '}
                 {closeOn
-                  ? format(toEST(new Date(closeOn * 1000)), 'yyyy-MM-dd')
+                  ? format(toEST(new Date(closeOn * 1000)), 'MMM dd, yyyy')
                   : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">
@@ -77,7 +77,7 @@ export default function MarketsRulesSummary({
               <Typography.Text size={15} weight="medium">
                 Projected payout on{' '}
                 {payoutOn
-                  ? format(toEST(new Date(payoutOn * 1000)), 'yyyy-MM-dd')
+                  ? format(toEST(new Date(payoutOn * 1000)), 'MMM dd, yyyy')
                   : ''}
               </Typography.Text>
               <Typography.Text size={13} className="text-text-subtle">

@@ -121,6 +121,10 @@ const CreateBetModule = () => {
 
     // console.log('data',formattedData);
     // console.log('errors', methods.formState.errors)
+    setConfirmCreateBetModalOpen({
+      isOpen: true,
+      message: 'Your bet is being created.',
+    });
     createBetMutate(formattedData);
   };
 

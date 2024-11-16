@@ -20,18 +20,27 @@ interface IConnectButtonProps {
   hasIcon?: boolean;
   content?: string;
   className?: string;
+  variant?: 'primary' | 'secondary';
+  disabled?: boolean;
 }
 
 const ConnectButton = ({
   hasIcon = true,
   content = 'Connect Wallet',
   className,
+  variant,
+  disabled,
 }: IConnectButtonProps) => {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="lg" className={className}>
+        <Button
+          size="lg"
+          variant={variant}
+          className={className}
+          disabled={disabled}
+        >
           <Flex>
             {hasIcon && (
               <Svg src="/icons/Wallet.svg" className="hidden-mobile" />

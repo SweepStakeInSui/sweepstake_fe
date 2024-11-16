@@ -14,7 +14,7 @@ const MarketsComments = () => {
 
   // HOOKS
   const queryClient = useQueryClient();
-  const { profile, isLoggedIn } = useSelector(selectProfile);
+  const { profile } = useSelector(selectProfile);
 
   // QUERIES
   const { data: commentsData } = useQuery({
@@ -46,13 +46,11 @@ const MarketsComments = () => {
 
   return (
     <section>
-      {isLoggedIn && (
-        <CommentForm
-          marketId={params.id}
-          onCreate={createCommentMutate}
-          isPending={isCreateCommentPending}
-        />
-      )}
+      <CommentForm
+        marketId={params.id}
+        onCreate={createCommentMutate}
+        isPending={isCreateCommentPending}
+      />
 
       {formattedComments.length > 0 ? (
         <CommentList

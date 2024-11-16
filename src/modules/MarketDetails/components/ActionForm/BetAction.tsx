@@ -28,7 +28,6 @@ import { TimePicker } from '@/components/ui/time-picker';
 import { Tooltip } from '@/components/ui/tooltip';
 import {
   BetOutcomeType,
-  EBetOpenStatus,
   EBetStatusOption,
   EOrderType,
 } from '@/enums/bet-status';
@@ -45,8 +44,6 @@ import { handleBignumber } from '@/utils/handleBignumber';
 interface IBetActionProps {
   isBid: boolean;
   isLimit: boolean;
-  startTime: number;
-  endTime: number;
 }
 
 interface TooltipPriceProps {
@@ -96,7 +93,7 @@ const TooltipPrice = ({ isBid }: TooltipPriceProps) => {
   );
 };
 
-const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
+const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
   const params = useParams<{ id: string }>();
   const queryClient = useQueryClient();
   const dataOrderbook = queryClient.getQueryData(['orderBookData', params.id]);
@@ -113,10 +110,6 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
   // const [txsString, setTxsString] = React.useState('');
   const [isSetExpiration, setIsSetExpiration] = useState(false);
   const betState = useSelector((state: any) => state.bet);
-  const [betStatus, setBetStatus] = useState({
-    title: EBetOpenStatus.OPEN,
-    isActive: true,
-  });
 
   // QUERIES
   const {
@@ -216,21 +209,19 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
 
   // FUNCTIONS
   const handlePriceIncrement = () => {
-    if (betStatus.isActive) setValue('price', (Number(price) + 1).toString());
+    setValue('price', (Number(price) + 1).toString());
   };
 
   const handlePriceDecrement = () => {
-    if (betStatus.isActive)
-      setValue('price', Math.max(0, Number(price) - 1).toString());
+    setValue('price', Math.max(0, Number(price) - 1).toString());
   };
 
   const handleAmountIncrement = () => {
-    if (betStatus.isActive) setValue('amount', (Number(amount) + 1).toString());
+    setValue('amount', (Number(amount) + 1).toString());
   };
 
   const handleAmountDecrement = () => {
-    if (betStatus.isActive)
-      setValue('amount', Math.max(0, Number(amount) - 1).toString());
+    setValue('amount', Math.max(0, Number(amount) - 1).toString());
   };
 
   const onBetClick = (
@@ -258,19 +249,6 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
   const bidPriceNo = Number(handleBignumber.divideDecimal(betState.bidPriceNo));
   const askPriceNo = Number(handleBignumber.divideDecimal(betState.askPriceNo));
   // EFFECTS
-  useEffect(() => {
-    const now = new Date().getTime();
-    const start = startTime * 1000;
-    const end = endTime * 1000;
-
-    if (now < start)
-      setBetStatus({ title: EBetOpenStatus.UPCOMING, isActive: false });
-    else if (now > end) {
-      setBetStatus({ title: EBetOpenStatus.CLOSED, isActive: false });
-    } else {
-      setBetStatus({ title: EBetOpenStatus.OPEN, isActive: true });
-    }
-  }, [isLoggedIn, startTime, endTime]);
 
   useEffect(() => {
     if (limitPrice) {
@@ -338,7 +316,6 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
               className="w-full"
               variant={`bet_yes${betState.type === BetOutcomeType.YES ? '_active' : ''}`}
               onClick={(e) => onBetClick(e, 'YES')}
-              disabled={!betStatus.isActive}
             >
               Yes {isBid ? bidPriceYes : askPriceYes}¢
             </Button>
@@ -346,7 +323,6 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
               variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={(e) => onBetClick(e, 'NO')}
-              disabled={!betStatus.isActive}
             >
               No {isBid ? bidPriceNo : askPriceNo}¢
             </Button>
@@ -363,7 +339,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
                 register={register}
                 onIncrement={handlePriceIncrement}
                 onDecrement={handlePriceDecrement}
-                disabled={!betStatus.isActive}
+                isError={!isLoggedIn || !!errors.price}
               />
               {!isLoggedIn && (
                 <Typography.Text
@@ -393,7 +369,7 @@ const BetAction = ({ isBid, isLimit, startTime, endTime }: IBetActionProps) => {
                 register={register}
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
-                disabled={!betStatus.isActive}
+                isError={!isLoggedIn || !!errors.amount}
               />
               {!isLoggedIn && (
                 <Typography.Text
@@ -513,9 +489,8 @@ Projected payout 2 hours after closing."
                 size="lg"
                 className="w-full gap-1"
                 onClick={handleSubmit(onSubmit)}
-                disabled={!betStatus.isActive}
               >
-                {betStatus.isActive ? 'Place bet' : betStatus.title}
+                Place bet
               </Button>
             ) : (
               <ConnectButton
@@ -535,7 +510,7 @@ Projected payout 2 hours after closing."
                 register={register}
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
-                disabled={!betStatus.isActive}
+                isError={!isLoggedIn || !!errors.amount}
               />
               {!isLoggedIn && (
                 <Typography.Text
@@ -616,9 +591,8 @@ Projected payout 2 hours after closing."
                 size="lg"
                 className="w-full gap-1"
                 onClick={handleSubmit(onSubmit)}
-                disabled={!betStatus.isActive}
               >
-                {betStatus.isActive ? 'Place bet' : betStatus.title}
+                Place bet
               </Button>
             ) : (
               <ConnectButton

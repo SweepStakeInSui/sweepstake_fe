@@ -190,7 +190,7 @@ export default function HomeSlider() {
     queryFn: async () => {
       const result = await MarketService.getMarketPopular({
         page: 1,
-        limit: 10,
+        limit: 6,
       });
       return result;
     },

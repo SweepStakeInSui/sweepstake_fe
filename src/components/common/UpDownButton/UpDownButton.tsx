@@ -17,6 +17,7 @@ interface IUpDownButton<TFieldValues extends FieldValues> {
   onIncrement: () => void;
   onDecrement: () => void;
   disabled?: boolean;
+  isError?: boolean;
 }
 
 const UpDownButton = <TFieldValues extends FieldValues>({
@@ -27,6 +28,7 @@ const UpDownButton = <TFieldValues extends FieldValues>({
   onIncrement,
   onDecrement,
   disabled,
+  isError,
 }: IUpDownButton<TFieldValues>) => {
   return (
     <Stack className="gap-1 relative">
@@ -38,7 +40,8 @@ const UpDownButton = <TFieldValues extends FieldValues>({
       <Input
         type="currency"
         prefix="$"
-        className="h-[3.375rem] pl-4 flex items-center py-4 pr-20 w-full rounded-md border border-field-border bg-field-background"
+        className={`h-[3.375rem] pl-4 flex items-center py-4 pr-20 w-full rounded-md border bg-field-background
+          ${isError ? 'border-text-support-red focus:border-text-support-red' : 'border-field-border'}`}
         placeholder={placeholder}
         {...register(name, {
           onChange: (e) => {
@@ -56,7 +59,7 @@ const UpDownButton = <TFieldValues extends FieldValues>({
           onClick={onDecrement}
           disabled={disabled}
         >
-          <Svg src="/icons/remove.svg" />
+          <Svg src="/icons/remove.svg" className="w-4 h-4" />
         </IconButton>
         <IconButton
           className="size-6 bg-bg-isublested p-0"
@@ -64,7 +67,7 @@ const UpDownButton = <TFieldValues extends FieldValues>({
           onClick={onIncrement}
           disabled={disabled}
         >
-          <Svg src="/icons/add.svg" />
+          <Svg src="/icons/add.svg" className="w-4 h-4" />
         </IconButton>
       </Flex>
     </Stack>

@@ -80,7 +80,7 @@ const CreateBetFormModule = () => {
   });
 
   return (
-    <Stack className="relative lg:sticky gap-y-0 lg:border-l border-solid border-borderSubtle p-4 lg:p-6 lg:pt-10 lg:pb-24 lg:top-[4.75rem] w-full lg:w-[22.8125rem] h-full lg:h-[calc(100vh-4.75rem)] no-scrollbar overflow-auto bg-bg-surface rounded-lg lg:rounded-none">
+    <Stack className="relative lg:sticky gap-y-0 lg:border-l border-solid border-borderSubtle p-4 lg:p-6 lg:pt-10 lg:pb-24 lg:top-[4.75rem] w-full lg:w-[27.5rem] h-full lg:h-[calc(100vh-4.75rem)] no-scrollbar overflow-auto bg-bg-surface rounded-lg lg:rounded-none">
       <Stack className="gap-y-5">
         <Typography.Heading size={20}>Bet Details</Typography.Heading>
         <Controller

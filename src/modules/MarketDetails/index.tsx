@@ -115,6 +115,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
               image={marketDetailData?.image}
               startTime={marketDetailData?.startTime || 0}
               endTime={marketDetailData?.endTime || 0}
+              payoutOn={marketDetailData?.payoutTime || 0}
             />
           </DrawerContent>
           <div className="hidden lg:flex sticky top-2 lg:top-[4.75rem]">
@@ -122,6 +123,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
               image={marketDetailData?.image}
               startTime={marketDetailData?.startTime || 0}
               endTime={marketDetailData?.endTime || 0}
+              payoutOn={marketDetailData?.payoutTime || 0}
             />
           </div>
         </Flex>
