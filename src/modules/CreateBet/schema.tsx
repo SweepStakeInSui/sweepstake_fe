@@ -5,8 +5,12 @@ export const createBetSchema = (startTime: number, endTime: number) =>
     image: z
       .string({
         required_error: 'Image is required',
+        invalid_type_error: 'Image is required',
       })
-      .min(1, 'Image is required'),
+      .min(1, 'Image is required')
+      .refine((val) => val !== null, {
+        message: 'Image is required',
+      }),
     name: z
       .string({
         required_error: 'Market title is required',
