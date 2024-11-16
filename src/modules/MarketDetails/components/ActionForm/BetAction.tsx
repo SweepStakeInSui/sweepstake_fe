@@ -193,7 +193,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
         betState.type === BetOutcomeType.YES
           ? betState.outcomeYesId
           : betState.outcomeNoId,
-      amount: Math.floor(shares).toString(),
+      amount: isLimit ? amount : Math.floor(shares).toString(),
       ...(isLimit
         ? { price: handleBignumber.powDecimal(data.price, 4) }
         : { slippage: '1' }),
