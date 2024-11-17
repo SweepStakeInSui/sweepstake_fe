@@ -18,6 +18,7 @@ interface IUpDownButton<TFieldValues extends FieldValues> {
   onDecrement: () => void;
   disabled?: boolean;
   isError?: boolean;
+  prefix?: string;
 }
 
 const UpDownButton = <TFieldValues extends FieldValues>({
@@ -29,6 +30,7 @@ const UpDownButton = <TFieldValues extends FieldValues>({
   onDecrement,
   disabled,
   isError,
+  prefix,
 }: IUpDownButton<TFieldValues>) => {
   return (
     <Stack className="gap-1 relative">
@@ -38,8 +40,8 @@ const UpDownButton = <TFieldValues extends FieldValues>({
         </Typography.Text>
       )}
       <Input
-        type="currency"
-        prefix="$"
+        type="number"
+        prefix={prefix}
         className={`h-[3.375rem] pl-4 flex items-center py-4 pr-20 w-full rounded-md border bg-field-background
           ${isError ? 'border-text-support-red focus:border-text-support-red' : 'border-field-border'}`}
         placeholder={placeholder}
@@ -51,7 +53,7 @@ const UpDownButton = <TFieldValues extends FieldValues>({
         })}
         disabled={disabled}
       />
-      <p className="text-text absolute top-1/2 text-sm left-2">$</p>
+      <p className="text-text absolute top-1/2 text-sm left-2">{prefix}</p>
       <Flex className="gap-1 absolute right-4 bottom-4">
         <IconButton
           className="size-6 bg-bg-isublested p-0"

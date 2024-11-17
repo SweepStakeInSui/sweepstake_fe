@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import { SectionIndicator } from '@/components/common/SectionIndicatorWrapper';
@@ -32,6 +32,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
   const ideaRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch();
+  const betState = useSelector((state: any) => state.bet);
 
   const { data: marketDetailData } = useQuery({
     queryKey: ['marketDetail', id],
@@ -58,7 +59,7 @@ export default function MarketDetailsModule({ id }: MarketsModuleProps) {
         outcomeNoId: marketDetailData.outcomes.find(
           (outcome) => outcome.type === BetOutcomeType.NO,
         )?.id,
-        type: BetOutcomeType.YES,
+        type: betState.type ?? BetOutcomeType.YES,
         isBid: true,
         bidPriceYes: yesOutcome?.bidPrice || 0,
         bidPriceNo: noOutcome?.bidPrice || 0,

@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from '@/components/common/Flex';
 import { FormatNumber } from '@/components/common/FormatNumber';
 import Typography from '@/components/common/Typography';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BetOutcomeType, EBetStatusOption } from '@/enums/bet-status';
+import { setBet } from '@/store/betSlice';
 import { setOrderInput } from '@/store/orderbookSlice';
 
 const OrderBookHeader = () => {
@@ -140,14 +142,49 @@ interface OrderBookProps {
 }
 
 const OrderBook = ({ type, asks, bids }: OrderBookProps) => {
+  const betState = useSelector((state: any) => state.bet);
+  const dispatch = useDispatch();
+
   const max = useMemo(() => {
     const maxTotalAsks = asks?.[asks.length - 1]?.total || 0;
     const maxTotalBids = bids?.[bids.length - 1]?.total || 0;
 
     return Math.max(maxTotalAsks, maxTotalBids);
   }, [asks, bids]);
+
+  const onBetClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    betType: 'YES' | 'NO',
+  ) => {
+    event?.stopPropagation();
+    dispatch(
+      setBet({
+        ...betState,
+        type: BetOutcomeType[betType],
+      }),
+    );
+  };
+
   return (
     <div className="max-h-[500px] overflow-auto">
+      <Tabs value={betState.type}>
+        <TabsList>
+          <TabsTrigger
+            onClick={(e) => onBetClick(e, 'YES')}
+            key="orderbook-yes"
+            value={BetOutcomeType.YES}
+          >
+            Bet Yes
+          </TabsTrigger>
+          <TabsTrigger
+            onClick={(e) => onBetClick(e, 'NO')}
+            key="orderbook-no"
+            value={BetOutcomeType.NO}
+          >
+            Bet No
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
       <OrderBookHeader />
       {asks
         ?.toReversed()

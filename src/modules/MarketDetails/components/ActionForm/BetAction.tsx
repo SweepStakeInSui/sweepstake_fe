@@ -113,7 +113,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
 
   // QUERIES
   const {
-    mutate: placeOrderMutation,
+    mutate: placeOrderMutate,
     isPending: isPlaceOrderLoading,
     isSuccess: isPlaceOrderSuccess,
     isError: isPlaceOrderError,
@@ -203,7 +203,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
     };
 
     setPlaceOrderModalOpen(true);
-    placeOrderMutation(orderData);
+    placeOrderMutate(orderData);
     reset();
   };
 
@@ -340,6 +340,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 onIncrement={handlePriceIncrement}
                 onDecrement={handlePriceDecrement}
                 isError={!isLoggedIn || !!errors.price}
+                prefix="$"
               />
               {!isLoggedIn && (
                 <Typography.Text
@@ -511,6 +512,7 @@ Projected payout 2 hours after closing."
                 onIncrement={handleAmountIncrement}
                 onDecrement={handleAmountDecrement}
                 isError={!isLoggedIn || !!errors.amount}
+                prefix="$"
               />
               {!isLoggedIn && (
                 <Typography.Text
