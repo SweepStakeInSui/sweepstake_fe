@@ -117,7 +117,10 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
                 objectFit="cover"
               />
             </div>
-            <Typography.Heading size={28} className="line-clamp-2 shrink-[999]">
+            <Typography.Heading
+              size={28}
+              className="line-clamp-2 shrink-[999] leading-9"
+            >
               {bet.name}
             </Typography.Heading>
           </Flex>

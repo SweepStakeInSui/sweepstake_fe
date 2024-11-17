@@ -76,7 +76,7 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
           <div>
             {/* <SelectBet /> */}
             <div className="relative w-full aspect-[675/223] mb-10 mt-5">
-              <Image src="/images/mockchart.png" alt="chart" fill />
+              <Image src="/images/mockchart.png" alt="chart" fill priority />
             </div>
           </div>
         </Stack>

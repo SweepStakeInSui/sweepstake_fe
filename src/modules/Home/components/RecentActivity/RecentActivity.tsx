@@ -12,6 +12,7 @@ import { OrderService } from '@/services/orders';
 import type { IActivityItem } from '@/types/table';
 import { formatDate } from '@/utils/formatDate';
 import { handleBignumber } from '@/utils/handleBignumber';
+import { truncate } from '@/utils/truncate';
 
 import ViewAll from '../ViewAll';
 
@@ -33,7 +34,7 @@ export function ActivityItem({ item }: Readonly<ActivityItemProps>) {
                     weight="bold"
                     className="text-text max-w-[200px] truncate"
                   >
-                    {item.user.username}
+                    {truncate(item.user.username, 50)}
                   </Typography.Text>
                   <Typography.Text size={15} className="text-text">
                     bought
@@ -45,7 +46,7 @@ export function ActivityItem({ item }: Readonly<ActivityItemProps>) {
                 >
                   {item.outcome.type}{' '}
                   {handleBignumber.divideDecimal(item.outcome.bidPrice)} •{' '}
-                  {item.user.username} • {item.amount} shares
+                  {truncate(item.user.username, 50)}• {item.amount} shares
                 </Badge>
               </Flex>
               <Typography.Text

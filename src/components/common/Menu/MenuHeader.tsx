@@ -262,7 +262,11 @@ const MenuHeader = () => {
       <div className="hidden-mobile">
         <DropdownMenu open={isOpenMenu} onOpenChange={setIsOpenMenu}>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="size-11 p-0">
+            <Button
+              variant="ghost"
+              className="size-11 p-0"
+              aria-label="dropdown_menu"
+            >
               <Svg src="/icons/menu.svg" />
             </Button>
           </DropdownMenuTrigger>
@@ -291,7 +295,11 @@ const MenuHeader = () => {
       <div className="hidden-PC">
         <Drawer direction="right">
           <DrawerTrigger asChild>
-            <Button variant="ghost" className="size-11 p-0">
+            <Button
+              variant="ghost"
+              className="size-11 p-0"
+              aria-label="drawer_menu"
+            >
               <Svg src="/icons/menu.svg" />
             </Button>
           </DrawerTrigger>

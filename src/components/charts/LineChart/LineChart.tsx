@@ -67,7 +67,6 @@ const LineChart: React.FC = ({ data }: LineChartProps) => {
 
   useEffect(() => {
     generateMockData(view);
-    console.log(view);
   }, [view]);
 
   const options: Highcharts.Options = {

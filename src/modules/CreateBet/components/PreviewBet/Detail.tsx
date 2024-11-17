@@ -65,7 +65,7 @@ export default function PreviewBetDetail({
 
             <Typography.Heading
               size={28}
-              className="hidden-mobile shrink-[999]"
+              className="hidden-mobile shrink-[999] leading-9"
             >
               {name || '--'}
             </Typography.Heading>

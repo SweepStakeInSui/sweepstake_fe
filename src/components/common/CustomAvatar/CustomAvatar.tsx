@@ -48,7 +48,7 @@ const CustomAvatar = ({
     <div className={`${className}`}>
       {src ? (
         <Avatar size={size} isRounded={isRounded}>
-          <AvatarImage src={src} className="object-cover" />
+          <AvatarImage src={src} className="object-cover" alt="avatar_asset" />
           <AvatarFallback className="bg-bg-sublest" />
         </Avatar>
       ) : (
