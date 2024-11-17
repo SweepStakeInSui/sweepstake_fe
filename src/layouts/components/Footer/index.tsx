@@ -14,7 +14,7 @@ import HomeLogo from '../HomeLogo';
 
 export default function Footer() {
   return (
-    <footer className="py-5 lg:py-10 border-solid border-t-[1px] border-borderSubtle bg-bg-primary">
+    <footer className="py-5 lg:py-10 border-solid border-t-[1px] border-borderSubtle bg-bg-primary w-full">
       <Container size="sm">
         <Flex className="h-full justify-between items-start flex-wrap gap-8">
           <Stack>
@@ -35,7 +35,11 @@ export default function Footer() {
               {socialList.map((social) => (
                 <Link href={social.href} target="_blank" key={social.name}>
                   <IconButton isRounded>
-                    <Svg src={social.icon} aria-label={social.name} />
+                    <Svg
+                      src={social.icon}
+                      aria-label={social.name}
+                      className="size-7"
+                    />
                   </IconButton>
                 </Link>
               ))}

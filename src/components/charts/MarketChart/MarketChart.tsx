@@ -7,7 +7,7 @@ const MarketChart = () => {
   return (
     <div className="my-6">
       <div className="relative w-full aspect-[675/223] mb-10">
-        <Image src="/images/mockchart.png" alt="chart" fill />
+        <Image src="/images/mockchart.png" alt="chart" fill priority />
       </div>
       <TimeFilter />
     </div>

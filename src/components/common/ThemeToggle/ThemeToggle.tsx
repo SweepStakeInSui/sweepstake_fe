@@ -14,7 +14,14 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ option }) => {
   const onChangeTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
   if (option === 'toggle') {
     return (
-      <IconButton isRounded onClick={onChangeTheme} className="w-10">
+      <IconButton
+        isRounded
+        onClick={onChangeTheme}
+        className="w-10"
+        aria-label={
+          theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
+        }
+      >
         {theme === 'light' ? (
           <Svg src="/icons/Moon.svg" width={24} height={24} />
         ) : (
