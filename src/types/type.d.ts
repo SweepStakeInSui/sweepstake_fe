@@ -14,6 +14,8 @@ interface Meta {
   itemsPerPage: number;
   totalPages: number;
   currentPage: number;
+  timeStamp?: string;
+  message?: string;
 }
 
 interface IErrorResponse {
@@ -28,3 +30,5 @@ interface IErrorResponse {
     };
   };
 }
+
+type FilterTimes = '1d' | '1w' | '1m' | '1y' | 'all';
