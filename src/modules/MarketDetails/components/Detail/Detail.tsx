@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { LineChart } from '@/components/charts/LineChart';
@@ -20,6 +20,8 @@ import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/Marke
 import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBetOrderBook';
 import { MarketService } from '@/services/markets';
 import type { TBetItem, TSideType } from '@/services/markets/types';
+import { PriceHistoryService } from '@/services/priceHistory';
+import { getMemoizedTimeRange } from '@/utils/getMemoizedTimeRange';
 import { handleBignumber } from '@/utils/handleBignumber';
 import { toEST } from '@/utils/toEST';
 
@@ -29,6 +31,7 @@ interface IMarketsDetailProps {
 
 export default function MarketsDetail({ bet }: IMarketsDetailProps) {
   const betState = useSelector((state: any) => state.bet);
+  const [view, setView] = useState<FilterTimes>('1m');
 
   // QUERIES
   const { data: orderBookData } = useQuery({
@@ -77,6 +80,36 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
       bids,
     };
   }, [orderBookData?.data, betState.type]);
+
+  const timeRange = useMemo(() => getMemoizedTimeRange(view), [view]);
+
+  const { data: priceHistoryData } = useQuery({
+    queryKey: ['priceHistory', bet.id, view],
+    queryFn: () =>
+      PriceHistoryService.getPriceHistory({
+        start: (timeRange.start / 1000).toFixed(0),
+        end: (timeRange.end / 1000).toFixed(0),
+        marketId: bet.id,
+        time: view === '1y' ? '1h' : '1m',
+      }),
+  });
+
+  const formattedPriceHistory = useMemo(() => {
+    const result: number[][] = [];
+    priceHistoryData?.data?.map((item) => {
+      return result.push([
+        Number(item?.timestamp) * 1000,
+        Number(handleBignumber.divideDecimal(item?.price)),
+      ]);
+    });
+
+    return result;
+  }, [priceHistoryData?.data]);
+
+  // FUNCTIONS
+  const handleViewChange = (viewTime: FilterTimes) => {
+    setView(viewTime);
+  };
 
   return (
     <div>
@@ -181,7 +214,10 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
           </Flex> */}
 
           {/* <MarketChart /> */}
-          <LineChart />
+          <LineChart
+            data={formattedPriceHistory}
+            onTimeChange={handleViewChange}
+          />
 
           <Accordion type="single" collapsible className="lg:hidden w-full">
             <MarketTile isSingleBet data={bet} />
