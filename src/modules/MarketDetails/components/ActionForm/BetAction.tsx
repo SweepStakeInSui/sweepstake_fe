@@ -32,6 +32,7 @@ import {
   EOrderType,
 } from '@/enums/bet-status';
 import { postOrder } from '@/modules/MarketDetails/components/ActionForm/schema';
+import type { TOrderBookResponse } from '@/services/markets/types';
 import { OrderService } from '@/services/orders';
 import type { IPostOrderRequest } from '@/services/orders/types';
 import { UserService } from '@/services/userService';
@@ -39,6 +40,7 @@ import { setBet } from '@/store/betSlice';
 import { selectOrderbook } from '@/store/orderbookSlice';
 import { selectProfile } from '@/store/profileSlice';
 import type { IPositionsData } from '@/types/table';
+import { calculateAvgPrice } from '@/utils/calculateAvgPrice';
 import { handleBignumber } from '@/utils/handleBignumber';
 
 interface IBetActionProps {
@@ -96,7 +98,10 @@ const TooltipPrice = ({ isBid }: TooltipPriceProps) => {
 const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
   const params = useParams<{ id: string }>();
   const queryClient = useQueryClient();
-  const dataOrderbook = queryClient.getQueryData(['orderBookData', params.id]);
+  const dataOrderbook = queryClient.getQueryData([
+    'orderBookData',
+    params.id,
+  ]) as TOrderBookResponse;
 
   // HOOKS
   const { profile, isLoggedIn } = useSelector(selectProfile);
@@ -259,32 +264,53 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
   useEffect(() => {
     let contractPrice = 0; // Default to 0 if calculation is not possible
     let selectedPrice = 0;
-    // let avgPrice = 0;
-    // const filteredAskBet = dataOrderbook.data.askYes.slice(1).reverse();
-    // if (dataOrderbook) {
-    //   const check = calculateAvgPrice(dataOrderbook?.data?.askYes, 50);
-    //   console.log(check);
-    // }
+    let averagePrice = 0;
 
-    if (isBid) {
-      if (betState.type === BetOutcomeType.YES) {
-        selectedPrice = bidPriceYes;
-        // avgPrice =
-      } else {
-        selectedPrice = bidPriceNo;
-      }
-    } else if (betState.type === BetOutcomeType.YES) {
-      selectedPrice = askPriceYes;
-    } else {
-      selectedPrice = askPriceNo;
+    if (!dataOrderbook || !dataOrderbook.data) {
+      return;
     }
+
+    const { type: betType } = betState;
+    const { bidYes, bidNo, askYes, askNo } = dataOrderbook.data;
+
+    const calculatePrices = (
+      isBidOrder: boolean,
+      outcomeType: BetOutcomeType,
+    ) => {
+      if (isBidOrder) {
+        if (outcomeType === BetOutcomeType.YES) {
+          return {
+            calcPrice: bidPriceYes,
+            calcAvg: calculateAvgPrice(askYes, amount),
+          };
+        }
+        return {
+          calcPrice: bidPriceNo,
+          calcAvg: calculateAvgPrice(askNo, amount),
+        };
+      }
+      if (outcomeType === BetOutcomeType.YES) {
+        return {
+          calcPrice: askPriceYes,
+          calcAvg: calculateAvgPrice(bidYes, amount),
+        };
+      }
+      return {
+        calcPrice: askPriceNo,
+        calcAvg: calculateAvgPrice(bidNo, amount),
+      };
+    };
+
+    const { calcPrice, calcAvg } = calculatePrices(isBid, betType);
+    selectedPrice = calcPrice;
+    averagePrice = calcAvg;
 
     // Calculate contract price only if selectedPrice is greater than zero
     if (selectedPrice > 0) {
       contractPrice = +amount / (+selectedPrice / 100);
     }
 
-    setAvgPrice(selectedPrice);
+    setAvgPrice(averagePrice);
     setShares(contractPrice);
   }, [
     amount,
