@@ -1,28 +1,34 @@
-export function calculateAvgPrice(data: any[], contracts: number): number {
-  // Remove the first item in the array and reverse the remaining items
-  const filteredData = data.slice(1).reverse();
+import { SLIPPAGE } from '@/constants';
 
-  let liquidityTotal = 0;
-  let priceTotal = 0;
+export function calculateAvgPrice(
+  data: any[],
+  targetLiquidity: string,
+): number {
+  if (Number(targetLiquidity) === 0) {
+    return 0;
+  }
+  const filteredData = data.slice(1);
+
+  let totalWeight = 0;
+  let remainingLiquidity = Number(targetLiquidity);
 
   for (const item of filteredData) {
-    const liquidity = parseInt(item.liquidity, 10);
-    const price = item.price ? parseFloat(item.price) : 0;
+    const price = Number(item.price);
+    const liquidity = Number(item.liquidity);
 
-    // Check if the total liquidity reaches or exceeds the required contracts
-    if (liquidityTotal + liquidity >= contracts) {
-      const remainingLiquidity = contracts - liquidityTotal;
-      priceTotal += remainingLiquidity * price;
-      liquidityTotal += remainingLiquidity;
-      break; // Exit loop once we have enough contracts
-    } else {
-      // Accumulate liquidity and add liquidity * price to the price total
-      priceTotal += liquidity * price;
-      liquidityTotal += liquidity;
+    if (price && remainingLiquidity > 0) {
+      const usedLiquidity = Math.min(liquidity, remainingLiquidity);
+      totalWeight += usedLiquidity * price;
+      remainingLiquidity -= usedLiquidity;
     }
   }
 
-  // Calculate the average price (avgPrice)
-  const avgPrice = liquidityTotal > 0 ? priceTotal / liquidityTotal : 0;
-  return avgPrice;
+  if (remainingLiquidity > 0) {
+    const lastPrice = filteredData[filteredData.length - 1]?.price || 0;
+    const adjustedPrice = Number(lastPrice) * (1 + SLIPPAGE);
+    totalWeight += remainingLiquidity * adjustedPrice;
+    remainingLiquidity = 0;
+  }
+
+  return Math.floor(totalWeight / Number(targetLiquidity) / 10000);
 }
