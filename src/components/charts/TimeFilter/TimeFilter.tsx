@@ -35,7 +35,7 @@ const TimeFilter = ({ onTimeChange }: TimeFilterProps) => {
       className="flex justify-center align-center mt-10 mb-6"
       defaultValue="1m"
     >
-      <TabsList className="border border-borderSubtle rounded-full w-full lg:w-fit py-1 px-1 h-full">
+      <TabsList className="border border-borderSubtle rounded-full w-full lg:w-fit py-1 pb-1.5 px-1 !h-full">
         {timeFilter.map((item) => (
           <TabsTrigger
             onClick={() => onTimeChange?.(item.value)}

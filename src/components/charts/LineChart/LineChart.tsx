@@ -2,73 +2,19 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { useTheme } from 'next-themes';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { TimeFilter } from '@/components/charts/TimeFilter';
 import { contentFont } from '@/constants/fonts';
 
-type FilterTimes = '1d' | '1w' | '1m' | '1y' | 'all';
-
 interface LineChartProps {
-  data?: number[];
+  data?: number[][];
+  onTimeChange?: (value: FilterTimes) => void;
 }
 
 // TODO: Update chart data
-const LineChart: React.FC = ({ data }: LineChartProps) => {
-  const [chartData, setChartData] = useState<any[]>([]);
-  const [view, setView] = useState<FilterTimes>('1w');
+const LineChart: React.FC<LineChartProps> = ({ data, onTimeChange }) => {
   const { theme } = useTheme();
-
-  const generateMockData = (interval: FilterTimes) => {
-    const now = new Date();
-    const data = [];
-
-    switch (interval) {
-      case '1d':
-        for (let i = 0; i < 150; i += 1) {
-          const date = new Date(now.getTime() - (1440 - i) * 60 * 1000);
-          data.push([
-            date.getTime(),
-            Math.min(100, Math.max(0, 50 + Math.random() * 20 - 10)),
-          ]);
-        }
-        break;
-      case '1w':
-        for (let i = 0; i < 168; i += 1) {
-          const date = new Date(now.getTime() - (168 - i) * 60 * 60 * 1000);
-          data.push([
-            date.getTime(),
-            Math.min(100, Math.max(0, 50 + Math.random() * 20 - 10)),
-          ]);
-        }
-        break;
-      case '1m':
-        for (let i = 0; i < 365; i += 1) {
-          const date = new Date(now.getTime() - (365 - i) * 60 * 60 * 1000);
-          data.push([
-            date.getTime(),
-            Math.min(100, Math.max(0, 50 + Math.random() * 50 - 10)),
-          ]);
-        }
-        break;
-      default:
-        for (let i = 0; i < 1000; i += 1) {
-          const date = new Date(now.getTime() - (1000 - i) * 60 * 60 * 1000);
-          data.push([
-            date.getTime(),
-            Math.min(100, Math.max(0, 50 + Math.random() * 20 - 10)),
-          ]);
-        }
-        break;
-    }
-
-    setChartData(data);
-  };
-
-  useEffect(() => {
-    generateMockData(view);
-  }, [view]);
-
   const options: Highcharts.Options = {
     chart: {
       type: 'line',
@@ -118,7 +64,7 @@ const LineChart: React.FC = ({ data }: LineChartProps) => {
       {
         showInLegend: false,
         name: 'Chance',
-        data: chartData,
+        data: data,
         type: 'line',
         color: '#EE514F',
       },
@@ -126,8 +72,8 @@ const LineChart: React.FC = ({ data }: LineChartProps) => {
     tooltip: {
       useHTML: true, // Allows custom HTML for styling
       formatter(this: Highcharts.TooltipFormatterContextObject) {
-        const date = Highcharts.dateFormat('%b %e', this.x as number);
-        const label = 'Samuel L. Jackson';
+        const date = Highcharts.dateFormat('%b %e - %H:%M', this.x as number);
+        const label = 'Price';
         const value = (this.y as number).toFixed(0);
 
         return /* html */ `
@@ -151,7 +97,7 @@ const LineChart: React.FC = ({ data }: LineChartProps) => {
                       </div>
                     </div>
                     <div class="text-text-support-red text-[13px]">
-                      ${value}%
+                      ${value}
                     </div>
                   </div>
               </div>
@@ -176,7 +122,9 @@ const LineChart: React.FC = ({ data }: LineChartProps) => {
         }}
       />
       <HighchartsReact highcharts={Highcharts} options={options} />
-      <TimeFilter onTimeChange={(value) => setView(value as FilterTimes)} />
+      <TimeFilter
+        onTimeChange={(value) => onTimeChange?.(value as FilterTimes)}
+      />
     </div>
   );
 };
