@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { LineChart } from '@/components/charts/LineChart';
@@ -16,6 +16,7 @@ import Typography from '@/components/common/Typography';
 import { Accordion } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import { defaultImg } from '@/constants/defaultImg';
+import { BetOutcomeType } from '@/enums/bet-status';
 import { MarketTile } from '@/modules/MarketDetails/components/MarketTiles/MarketTiles';
 import { SingleBetOrderBook } from '@/modules/MarketDetails/components/SingleBetOrderBook';
 import { MarketService } from '@/services/markets';
@@ -32,6 +33,10 @@ interface IMarketsDetailProps {
 export default function MarketsDetail({ bet }: IMarketsDetailProps) {
   const betState = useSelector((state: any) => state.bet);
   const [view, setView] = useState<FilterTimes>('1m');
+  const [visibilityState, setVisibilityState] = useState<boolean[]>([
+    true,
+    true,
+  ]);
 
   // QUERIES
   const { data: orderBookData } = useQuery({
@@ -81,7 +86,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
     };
   }, [orderBookData?.data, betState.type]);
 
-  const timeRange = useMemo(() => getMemoizedTimeRange(view), [view]);
+  const timeRange = getMemoizedTimeRange(view);
 
   const { data: priceHistoryData } = useQuery({
     queryKey: ['priceHistory', bet.id, view],
@@ -92,24 +97,45 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
         marketId: bet.id,
         time: view === '1y' ? '1h' : '1m',
       }),
+    enabled: !!bet.id,
+    refetchInterval: 5000,
   });
 
   const formattedPriceHistory = useMemo(() => {
-    const result: number[][] = [];
+    const result: {
+      yes: number[][];
+      no: number[][];
+    } = { yes: [], no: [] };
     priceHistoryData?.data?.map((item) => {
-      return result.push([
+      return result.yes.push([
         Number(item?.timestamp) * 1000,
         Number(handleBignumber.divideDecimal(item?.price)),
       ]);
     });
 
+    priceHistoryData?.data?.map((item) => {
+      return result.no.push([
+        Number(item?.timestamp) * 1000,
+        100 - Number(handleBignumber.divideDecimal(item?.price)),
+      ]);
+    });
+
     return result;
-  }, [priceHistoryData?.data]);
+  }, [priceHistoryData?.data, betState.type]);
 
   // FUNCTIONS
   const handleViewChange = (viewTime: FilterTimes) => {
     setView(viewTime);
   };
+
+  // EFFECTS
+  useEffect(() => {
+    if (betState.type === BetOutcomeType.YES) {
+      setVisibilityState([true, false]);
+    } else {
+      setVisibilityState([false, true]);
+    }
+  }, [betState.type]);
 
   return (
     <div>
@@ -215,8 +241,24 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
 
           {/* <MarketChart /> */}
           <LineChart
-            data={formattedPriceHistory}
+            data={[
+              {
+                showInLegend: false,
+                name: 'Chance',
+                data: formattedPriceHistory.yes,
+                type: 'line',
+                color: '#32BFC9',
+              },
+              {
+                showInLegend: false,
+                name: 'Chance',
+                data: formattedPriceHistory.no,
+                type: 'line',
+                color: '#4B80FB',
+              },
+            ]}
             onTimeChange={handleViewChange}
+            visibilityState={visibilityState}
           />
 
           <Accordion type="single" collapsible className="lg:hidden w-full">

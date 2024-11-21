@@ -2,23 +2,44 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { useTheme } from 'next-themes';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { TimeFilter } from '@/components/charts/TimeFilter';
 import { contentFont } from '@/constants/fonts';
 
 interface LineChartProps {
-  data?: number[][];
+  data?: Highcharts.SeriesOptionsType[];
   onTimeChange?: (value: FilterTimes) => void;
+  visibilityState: boolean[];
+  size?: 'sm' | 'default';
 }
 
-// TODO: Update chart data
-const LineChart: React.FC<LineChartProps> = ({ data, onTimeChange }) => {
+const LineChart: React.FC<LineChartProps> = ({
+  data,
+  onTimeChange,
+  visibilityState,
+  size = 'default',
+}) => {
+  const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
+
+  useEffect(() => {
+    const chart = chartComponentRef.current?.chart;
+    if (chart) {
+      visibilityState.forEach((isVisible, index) => {
+        const series = chart.series[index];
+        if (series && series.visible !== isVisible) {
+          series.setVisible(isVisible, false);
+        }
+      });
+      chart.redraw();
+    }
+  }, [visibilityState]);
+
   const { theme } = useTheme();
   const options: Highcharts.Options = {
     chart: {
       type: 'line',
-      height: 300,
+      height: size === 'sm' ? 200 : 300,
       backgroundColor: 'transparent',
     },
     title: {
@@ -60,48 +81,46 @@ const LineChart: React.FC<LineChartProps> = ({ data, onTimeChange }) => {
       },
       opposite: true,
     },
-    series: [
-      {
-        showInLegend: false,
-        name: 'Chance',
-        data: data,
-        type: 'line',
-        color: '#EE514F',
-      },
-    ],
+    series: data,
     tooltip: {
-      useHTML: true, // Allows custom HTML for styling
+      shared: true,
+      useHTML: true,
       formatter(this: Highcharts.TooltipFormatterContextObject) {
         const date = Highcharts.dateFormat('%b %e - %H:%M', this.x as number);
-        const label = 'Price';
-        const value = (this.y as number).toFixed(0);
+        const points = this.points || [this.point];
 
-        return /* html */ `
-              <div style="
-                  min-width: 200px;
-                  background-color: ${theme === 'dark' ? '#1E1E1E' : '#fff'};
-                  color: ${theme === 'dark' ? '#fff' : '#000'};
-                  border-radius: 4px;
-                  padding: 8px;
-                  font-family: inherit;
-                  box-shadow: 0px 2px 8px 0px #0000004F;
-              ">
-                  <div class="text-text-subtle text-[11px] mb-1">
-                      ${date}
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                      <span class="w-0.5 h-3 bg-text-support-red rounded-full mr-1"></span>
-                      <div class="text-text text-[13px]">
-                        ${label}
-                      </div>
-                    </div>
-                    <div class="text-text-support-red text-[13px]">
-                      ${value}
-                    </div>
-                  </div>
+        let tooltipContent = `
+      <div style="
+          min-width: 200px;
+          background-color: ${theme === 'dark' ? '#1E1E1E' : '#fff'};
+          color: ${theme === 'dark' ? '#fff' : '#000'};
+          border-radius: 4px;
+          padding: 8px;
+          font-family: inherit;
+          box-shadow: 0px 2px 8px 0px #0000004F;
+      ">
+      <div class="text-text-subtle text-[11px] mb-1">
+          ${date}
+      </div>`;
+
+        points.forEach((point) => {
+          const color = point.series.color;
+          tooltipContent += `
+          <div class="flex justify-between items-center">
+            <div class="flex items-center">
+              <span class="w-0.5 h-3 rounded-full mr-1" style="background-color: ${color}"></span>
+              <div class="text-text text-[13px]">
+                ${point.series.name}
               </div>
-          `;
+            </div>
+            <div style="color: ${color}" class="text-[13px]">
+              ${point.y?.toFixed(0)}
+            </div>
+          </div>`;
+        });
+
+        tooltipContent += '</div>';
+        return tooltipContent;
       },
       borderWidth: 0,
       shadow: false,
@@ -121,10 +140,16 @@ const LineChart: React.FC<LineChartProps> = ({ data, onTimeChange }) => {
           marginBottom: '10px',
         }}
       />
-      <HighchartsReact highcharts={Highcharts} options={options} />
-      <TimeFilter
-        onTimeChange={(value) => onTimeChange?.(value as FilterTimes)}
+      <HighchartsReact
+        ref={chartComponentRef}
+        highcharts={Highcharts}
+        options={options}
       />
+      {size === 'default' && (
+        <TimeFilter
+          onTimeChange={(value) => onTimeChange?.(value as FilterTimes)}
+        />
+      )}
     </div>
   );
 };

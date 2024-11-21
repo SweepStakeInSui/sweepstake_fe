@@ -2,13 +2,13 @@
 
 import './index.scss';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
-import Image from 'next/image';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
+import { LineChart } from '@/components/charts/LineChart';
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import { FormatNumber } from '@/components/common/FormatNumber';
@@ -20,12 +20,40 @@ import { Button } from '@/components/ui/button';
 import { defaultImg } from '@/constants/defaultImg';
 import { MarketService } from '@/services/markets';
 import type { TBetItem } from '@/services/markets/types';
+import { PriceHistoryService } from '@/services/priceHistory';
+import { getMemoizedTimeRange } from '@/utils/getMemoizedTimeRange';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 interface IHomeSlide {
   slide: TBetItem;
 }
 
 function HomeSlide({ slide }: Readonly<IHomeSlide>) {
+  const timeRange = getMemoizedTimeRange('1m');
+
+  const { data: priceHistoryData } = useQuery({
+    queryKey: ['priceHistory', slide.id, '1m'],
+    queryFn: () =>
+      PriceHistoryService.getPriceHistory({
+        start: (timeRange.start / 1000).toFixed(0),
+        end: (timeRange.end / 1000).toFixed(0),
+        marketId: slide.id,
+        time: '1m',
+      }),
+    enabled: !!slide.id,
+  });
+
+  const formattedPriceHistory = useMemo(() => {
+    const result: number[][] = [];
+    priceHistoryData?.data?.map((item) => {
+      return result.push([
+        Number(item?.timestamp) * 1000,
+        Number(handleBignumber.divideDecimal(item?.price)),
+      ]);
+    });
+    return result;
+  }, [priceHistoryData?.data]);
+
   return (
     <Link
       href={`/markets/${slide.id}`}
@@ -44,7 +72,7 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
                   size={16}
                   weight="medium"
                 >
-                  20
+                  {handleBignumber.divideDecimal(slide.percentage)}%
                   <Typography.Text
                     tag="span"
                     className="text-text-subtle"
@@ -68,15 +96,31 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
                   className="text-text-subtle flex gap-0.5"
                   size={12}
                 >
-                  <FormatNumber number={slide?.volume} tag="span" /> vol
+                  <FormatNumber
+                    number={handleBignumber.divideDecimal(slide?.volume)}
+                    tag="span"
+                  />{' '}
+                  vol
                 </Typography.Text>
               </Flex>
             </Flex>
           </Stack>
           <div>
             {/* <SelectBet /> */}
-            <div className="relative w-full aspect-[675/223] mb-10 mt-5">
-              <Image src="/images/mockchart.png" alt="chart" fill priority />
+            <div className="relative w-full aspect-[675/223]">
+              <LineChart
+                size="sm"
+                data={[
+                  {
+                    showInLegend: false,
+                    name: 'Chance',
+                    data: formattedPriceHistory,
+                    type: 'line',
+                    color: '#32BFC9',
+                  },
+                ]}
+                visibilityState={[true, true]}
+              />
             </div>
           </div>
         </Stack>
