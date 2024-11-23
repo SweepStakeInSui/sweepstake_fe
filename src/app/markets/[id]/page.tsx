@@ -1,6 +1,7 @@
+import type { Metadata, ResolvingMetadata } from 'next';
+
 import MarketsLayout from '@/app/markets/[id]/layout';
 import MarketDetailsModule from '@/modules/MarketDetails';
-import { Metadata, ResolvingMetadata } from 'next';
 
 interface MarketsPageProps {
   params: {
