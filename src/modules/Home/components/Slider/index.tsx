@@ -133,12 +133,12 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
           </Button>
         </Flex>
       </Stack>
-      <Stack className="relative z-10 col-span-6 justify-between gap-y-11 hidden-mobile">
+      <Stack className="relative z-10 col-span-6 justify-between hidden-mobile">
         <Stack>
           <Typography.Heading className="text-text line-clamp-2" size={24}>
             {slide?.name}
           </Typography.Heading>
-          <Typography.Text className="text-text-subtle line-clamp-3" size={13}>
+          <Typography.Text className="text-text-subtle line-clamp-5" size={13}>
             {slide?.description}
           </Typography.Text>
         </Stack>

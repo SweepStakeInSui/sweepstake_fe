@@ -40,7 +40,7 @@ export const columns: ColumnDef<IActivityItem>[] = [
           </Flex>
           <Button
             variant={status === 'Yes' ? 'bet_yes' : 'bet_no'}
-            className="flex gap-x-1 items-center]"
+            className="flex gap-x-1 items-center pointer-events-none"
           >
             <p className="first-letter:!uppercase text-sm font-semibold">
               {status}

@@ -7,7 +7,6 @@ import {
   SelectItem,
   SelectTrigger,
 } from '@/components/ui/select';
-import { mockRecentActivities } from '@/mocks/mockRecentAcitivities';
 
 import { Activity } from '../Activity';
 import { MarketsComments } from '../Comments';
@@ -29,7 +28,7 @@ const LevelSection = () => {
     {
       label: 'Activity',
       value: 'activity',
-      panel: <Activity data={mockRecentActivities} />,
+      panel: <Activity />,
     },
   ];
   const selectedTab = tabs.find((item) => item.value === select);

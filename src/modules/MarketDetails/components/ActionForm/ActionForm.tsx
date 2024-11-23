@@ -164,7 +164,7 @@ const MarketsActionForm = ({
               {betStatus.title}
             </Typography.Heading>
             <Typography.Text size={15} className="text-text-subtle">
-              Projected will payout on{' '}
+              Projected payout will be on{' '}
               {payoutOn
                 ? format(toEST(new Date(payoutOn * 1000)), 'MMM dd, yyyy')
                 : ''}

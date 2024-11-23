@@ -8,12 +8,8 @@ import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { ActivityItem } from '@/modules/Home/components/RecentActivity';
 import { OrderService } from '@/services/orders';
-import type { RecentActivityType } from '@/types/recentActivity';
 
-interface ActivityProps {
-  data: RecentActivityType[];
-}
-const Activity: React.FC<ActivityProps> = () => {
+const Activity = () => {
   const { ref, inView } = useInView();
   const params = useParams<{ id: string }>();
   const { data, fetchNextPage, isError, isFetchingNextPage } = useInfiniteQuery(

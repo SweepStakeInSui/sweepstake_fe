@@ -6,6 +6,7 @@ import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
 import { selectProfile } from '@/store/profileSlice';
 import { briefDocument } from '@/utils/formatText';
+import { truncate } from '@/utils/truncate';
 
 import { EditProfile } from '../EditProfile';
 
@@ -24,7 +25,7 @@ const Information = () => {
         <Stack className="justify-between">
           <Stack className="gap-y-0.5">
             <Typography.Heading>
-              {profile?.username && profile?.username}
+              {profile?.username && truncate(profile?.username, 50)}
             </Typography.Heading>
             <div className="bg-bg-sublest rounded-full py-0.5 px-2 flex justify-center w-fit">
               <Typography.Text size={13}>

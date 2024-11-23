@@ -15,8 +15,6 @@ import { defaultImg } from '@/constants/defaultImg';
 import ViewAll from '@/modules/Home/components/ViewAll';
 import { removeWatchList, selectWatchList } from '@/store/watchListSlice';
 
-import { mockWatchList } from '../../../../mocks/mockWatchList';
-
 const MarketsWatchList = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { items } = useSelector(selectWatchList);
@@ -93,7 +91,7 @@ const MarketsWatchList = () => {
               </Link>
             ))}
 
-            {mockWatchList.length > 5 &&
+            {items.length > 5 &&
               (isSidebarOpen ? (
                 <ViewAll className="text-text-subtle hover:after:h-0" />
               ) : (

@@ -100,7 +100,7 @@ const Statistics = () => {
               weight="semibold"
               className="text-text"
             >
-              {profile?.winRate}/100(%)
+              {profile?.winRate}/100
             </Typography.Heading>
           </Stack>
           <Tooltip content="Total win bet / Total bet">
@@ -112,7 +112,7 @@ const Statistics = () => {
                   textColor: '#3DA003',
                   textSize: '24px',
                 })}
-                text={profile?.winRate?.toString()}
+                text={`${profile?.winRate?.toString()}%`}
               />
             </div>
           </Tooltip>

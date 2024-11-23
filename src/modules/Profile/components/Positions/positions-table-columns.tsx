@@ -35,7 +35,10 @@ export const columns: ColumnDef<PositionItemProps>[] = [
               </Typography.Text>
             </Link>
           </Flex>
-          <Button variant={outcome.type === 'Yes' ? 'bet_yes' : 'bet_no'}>
+          <Button
+            variant={outcome.type === 'Yes' ? 'bet_yes' : 'bet_no'}
+            className="pointer-events-none"
+          >
             {outcome.type}
           </Button>
         </Flex>

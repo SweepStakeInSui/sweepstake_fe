@@ -17,6 +17,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
+import { useRouter } from 'next/navigation';
 import React, { useMemo, useState } from 'react';
 
 import {
@@ -54,6 +55,7 @@ export function DataTable<TData, TValue>({
   data,
   title,
 }: DataTableProps<TData, TValue>) {
+  const router = useRouter();
   // STATES:
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -213,13 +215,11 @@ export function DataTable<TData, TValue>({
                       transform: `translateY(${virtualRow.start}px)`, // this should always be a `style` as it changes on scroll
                       width: '100%',
                     }}
-                    // key={row?.id}
-                    // style={{
-                    //   // height: `${virtualRow.size}px`,
-                    //   transform: `translateY(${
-                    //     virtualRow.start - index * virtualRow.size
-                    //   }px)`,
-                    // }}
+                    className="hover:cursor-pointer"
+                    onClick={() =>
+                      // @ts-ignore:next-line
+                      router.push(`/markets/${row.original.outcome.marketId}`)
+                    }
                     data-state={row?.getIsSelected() && 'selected'}
                   >
                     {row?.getVisibleCells().map((cell) => (

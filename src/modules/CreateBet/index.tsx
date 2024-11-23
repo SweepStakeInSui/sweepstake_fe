@@ -97,7 +97,6 @@ const CreateBetModule = () => {
       methods.reset();
     },
     onError: (err: IErrorResponse) => {
-      console.log('err', err);
       setConfirmCreateBetModalOpen({
         isOpen: true,
         message: err?.response?.data?.meta?.message,

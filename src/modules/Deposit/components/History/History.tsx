@@ -141,19 +141,23 @@ const History = () => {
           </SelectContent>
         </Select>
       </Flex>
-      {/* <EmptyHistory /> */}
-
       <div className="mt-4">
-        {dataHistory.map((history: ITransactionHistory) => (
-          <div key={history.id}>
-            <HistoryItem item={history} />
-          </div>
-        ))}
-        <div ref={ref} className="h-10 mt-4">
-          {isFetchingNextPage && (
-            <Typography.Text>Loading more...</Typography.Text>
-          )}
-        </div>
+        {dataHistory.length === 0 ? (
+          <Empty content="No transactions found" className="py-30" />
+        ) : (
+          <>
+            {dataHistory.map((history: ITransactionHistory) => (
+              <div key={history.id}>
+                <HistoryItem item={history} />
+              </div>
+            ))}
+            <div ref={ref} className="h-10 mt-4">
+              {isFetchingNextPage && (
+                <Typography.Text>Loading more...</Typography.Text>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

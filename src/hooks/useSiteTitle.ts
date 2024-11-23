@@ -9,7 +9,6 @@ async function fetchSiteTitle(url: string): Promise<string | null> {
     const match = html.match(/<title>(.*?)<\/title>/i);
     return match && match[1] ? match[1] : null;
   } catch (error) {
-    console.error('Error fetching site title:', error);
     return null;
   }
 }
