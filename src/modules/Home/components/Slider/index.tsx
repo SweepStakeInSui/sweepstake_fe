@@ -173,7 +173,7 @@ function SwiperButtonPrev({
 
   useEffect(() => {
     const prevIndex = activeIndex === 0 ? slides.length - 1 : activeIndex - 1;
-    setPrevTitle(slides[prevIndex].name);
+    setPrevTitle(slides[prevIndex]?.name);
   }, [activeIndex, slides]);
 
   return (
@@ -201,7 +201,7 @@ function SwiperButtonNext({
 
   useEffect(() => {
     const nextIndex = activeIndex === slides.length - 1 ? 0 : activeIndex + 1;
-    setNextTile(slides[nextIndex].name);
+    setNextTile(slides[nextIndex]?.name);
   }, [activeIndex, slides]);
 
   return (

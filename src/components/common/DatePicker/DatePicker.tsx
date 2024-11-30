@@ -59,7 +59,7 @@ function CDatePicker({
             !date && 'text-muted-foreground',
           )}
         >
-          <Svg src="/icons/calendar.svg" className="mr-2 h-4 w-4" />
+          <Svg src="/icons/calendar.svg" className="mr-2 h-4 w-4 opacity-0.5" />
           <Typography.Text size={15} className="text-text text-15">
             {date ? format(date, 'P') : <span>Pick a date</span>}
           </Typography.Text>
