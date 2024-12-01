@@ -1,4 +1,4 @@
-export const timeToMilliseconds = (time: Date) => {
+export const timeToMilliseconds = (time = new Date()) => {
   const h = time.getHours();
   const m = time.getMinutes();
 

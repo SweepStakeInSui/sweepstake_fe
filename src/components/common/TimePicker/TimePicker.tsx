@@ -11,7 +11,7 @@ import Svg from '../Svg';
 
 interface ITimePickerProps {
   value?: Date;
-  onChange?: (date: Date | undefined) => void;
+  onChange?: (date: Date) => void;
 }
 
 const TimePicker = ({ value, onChange }: ITimePickerProps) => {
@@ -24,10 +24,10 @@ const TimePicker = ({ value, onChange }: ITimePickerProps) => {
   }, [value]);
 
   const handleSelect = (selectedDate: Date | null) => {
-    const newDate = selectedDate ? toEST(selectedDate) : toEST(new Date());
+    const newDate = toEST(selectedDate ?? new Date());
     setDate(newDate);
     if (onChange) {
-      onChange(selectedDate || undefined);
+      onChange(newDate);
     }
   };
 
