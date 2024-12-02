@@ -27,6 +27,8 @@ import { timeToMilliseconds } from '../../utils/timeToMilliseconds';
 import { toEpoch } from '../../utils/toEpoch';
 import { CreateBetFormModule } from './components/CreateBetForm';
 import { PreviewBetModule } from './components/PreviewBet';
+import withAuth from '@/components/withAuth';
+import { createPortal } from 'react-dom';
 
 const CreateBetModule = () => {
   // STATES
@@ -230,18 +232,23 @@ const CreateBetModule = () => {
             <PreviewBetModule data={deferredFormData} />
             <CreateBetFormModule />
           </Flex>
-          <div className="sticky bottom-0 flex space-x-2 justify-end w-full p-4 bg-bg-surface shadow-create-bet-shadow">
-            <Button variant="terriary" onClick={() => methods.reset()}>
-              Clear All
-            </Button>
+          {createPortal(
+            <div className="sticky bottom-0 bg-bg-surface shadow-create-bet-shadow hidden lg:flex">
+              <Container className="flex space-x-2 justify-end w-full p-4">
+                <Button variant="terriary" onClick={() => methods.reset()}>
+                  Clear All
+                </Button>
 
-            <Button
-              onClick={methods.handleSubmit(handleCreateBet)}
-              disabled={isCreateBetLoading}
-            >
-              {isCreateBetLoading ? 'Creating Bet' : 'Create Bet'}
-            </Button>
-          </div>
+                <Button
+                  onClick={methods.handleSubmit(handleCreateBet)}
+                  disabled={isCreateBetLoading}
+                >
+                  {isCreateBetLoading ? 'Creating Bet' : 'Create Bet'}
+                </Button>
+              </Container>
+            </div>,
+            document.body,
+          )}
         </div>
       </FormProvider>
 
@@ -276,4 +283,4 @@ const CreateBetModule = () => {
     </>
   );
 };
-export default CreateBetModule;
+export default withAuth(CreateBetModule);
