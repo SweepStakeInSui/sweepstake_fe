@@ -13,7 +13,7 @@ export default function Activity() {
 
   const { data, fetchNextPage, isFetching, isError, isPending } =
     useInfiniteQuery({
-      queryKey: ['getActivity'],
+      queryKey: ['getActivity', profile],
       queryFn: async ({ pageParam = 1 }) => {
         const result = await OrderService.getOrder({
           page: pageParam,
