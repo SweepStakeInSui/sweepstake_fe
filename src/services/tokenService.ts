@@ -1,19 +1,24 @@
 import publicAxiosClient from '@/app/configs/httpClient/publicAxiosClient';
 import store from '@/store';
 import { updateCookieToken } from '@/store/profileSlice';
-import { setCookieToken } from '@/utils/token';
+import { getRefreshToken, setCookieToken } from '@/utils/token';
 
 export default class TokenServices {
   static async updateRefreshToken() {
     try {
-      const response = await publicAxiosClient.get(`auth/refresh`);
-      const { accessToken, refreshToken } = response.data;
-      if (accessToken && refreshToken) {
-        setCookieToken(accessToken, refreshToken);
+      const refreshToken = getRefreshToken();
+      const response = await publicAxiosClient.get(`auth/refresh`, {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      });
+      const { accessToken, refreshToken: newRefreshToken } = response.data.data;
+      if (accessToken && newRefreshToken) {
+        setCookieToken(accessToken, newRefreshToken);
         store.dispatch(
           updateCookieToken({
             accessToken,
-            refreshToken,
+            refreshToken: newRefreshToken,
             isLoggedIn: true,
           }),
         );

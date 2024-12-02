@@ -1,10 +1,10 @@
+/* eslint-disable no-void */
+
 'use client';
 
 import { useQueryClient } from '@tanstack/react-query';
 
 import Container from '@/components/common/Container';
-import { MarketService } from '@/services/markets';
-import { OrderService } from '@/services/orders';
 
 import { Banner } from './components/Banner';
 import { MarketTab } from './components/MarketTab';
@@ -12,29 +12,13 @@ import RecentActivity from './components/RecentActivity/RecentActivity';
 import Slider from './components/Slider';
 import { TopVolume } from './components/TopVolume';
 import VoteCardGrid from './components/VoteCardGrid';
+import { activityOptions } from './query_options/activity';
+import { marketPopularOptions } from './query_options/market_popular';
 
-export default async function HomeModule() {
+export default function HomeModule() {
   const queryClient = useQueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ['activity'],
-    queryFn: async () => {
-      const result = await OrderService.getOrder({
-        page: 1,
-        limit: 5,
-      });
-      return result;
-    },
-  });
-  await queryClient.prefetchQuery({
-    queryKey: ['marketPopular'],
-    queryFn: async () => {
-      const result = await MarketService.getMarketPopular({
-        page: 1,
-        limit: 10,
-      });
-      return result;
-    },
-  });
+  void queryClient.prefetchQuery(activityOptions);
+  void queryClient.prefetchQuery(marketPopularOptions);
 
   return (
     <section>

@@ -5,7 +5,7 @@ export function getAccessToken() {
   return accessToken;
 }
 export function getRefreshToken() {
-  const refreshToken = getCookie('accessToken');
+  const refreshToken = getCookie('refreshToken');
   return refreshToken;
 }
 export function setCookieToken(accessToken: string, refreshToken: string) {

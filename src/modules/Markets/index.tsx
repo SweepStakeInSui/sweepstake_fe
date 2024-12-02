@@ -11,25 +11,9 @@ import { Banner } from '@/modules/Home/components/Banner';
 import { MarketTab } from '@/modules/Home/components/MarketTab';
 import HomeSlider from '@/modules/Home/components/Slider';
 import VoteCardGrid from '@/modules/Home/components/VoteCardGrid';
-import { categoryService } from '@/services/categoryService';
-import { MarketService } from '@/services/markets';
 
-export default async function MarketsModule() {
+export default function MarketsModule() {
   const queryClient = useQueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ['category'],
-    queryFn: categoryService.getCategory,
-  });
-  await queryClient.prefetchQuery({
-    queryKey: ['marketPopular'],
-    queryFn: async () => {
-      const result = await MarketService.getMarketPopular({
-        page: 1,
-        limit: 10,
-      });
-      return result;
-    },
-  });
   return (
     <section>
       <Banner />
