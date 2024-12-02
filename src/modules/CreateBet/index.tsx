@@ -4,12 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { addWeeks } from 'date-fns';
 import React, { useDeferredValue, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
+import withAuth from '@/components/withAuth';
 import { createBetSchema } from '@/modules/CreateBet/schema';
 import { MarketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
@@ -27,8 +29,6 @@ import { timeToMilliseconds } from '../../utils/timeToMilliseconds';
 import { toEpoch } from '../../utils/toEpoch';
 import { CreateBetFormModule } from './components/CreateBetForm';
 import { PreviewBetModule } from './components/PreviewBet';
-import withAuth from '@/components/withAuth';
-import { createPortal } from 'react-dom';
 
 const CreateBetModule = () => {
   // STATES
