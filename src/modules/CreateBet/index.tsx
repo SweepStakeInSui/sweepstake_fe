@@ -4,12 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { addWeeks } from 'date-fns';
 import React, { useDeferredValue, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
+import withAuth from '@/components/withAuth';
 import { createBetSchema } from '@/modules/CreateBet/schema';
 import { MarketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
@@ -230,18 +232,23 @@ const CreateBetModule = () => {
             <PreviewBetModule data={deferredFormData} />
             <CreateBetFormModule />
           </Flex>
-          <div className="sticky bottom-0 flex space-x-2 justify-end w-full p-4 bg-bg-surface shadow-create-bet-shadow">
-            <Button variant="terriary" onClick={() => methods.reset()}>
-              Clear All
-            </Button>
+          {createPortal(
+            <div className="sticky bottom-0 bg-bg-surface shadow-create-bet-shadow hidden lg:flex">
+              <Container className="flex space-x-2 justify-end w-full p-4">
+                <Button variant="terriary" onClick={() => methods.reset()}>
+                  Clear All
+                </Button>
 
-            <Button
-              onClick={methods.handleSubmit(handleCreateBet)}
-              disabled={isCreateBetLoading}
-            >
-              {isCreateBetLoading ? 'Creating Bet' : 'Create Bet'}
-            </Button>
-          </div>
+                <Button
+                  onClick={methods.handleSubmit(handleCreateBet)}
+                  disabled={isCreateBetLoading}
+                >
+                  {isCreateBetLoading ? 'Creating Bet' : 'Create Bet'}
+                </Button>
+              </Container>
+            </div>,
+            document.body,
+          )}
         </div>
       </FormProvider>
 
@@ -276,4 +283,4 @@ const CreateBetModule = () => {
     </>
   );
 };
-export default CreateBetModule;
+export default withAuth(CreateBetModule);
