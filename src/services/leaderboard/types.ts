@@ -13,9 +13,6 @@ export type TLeaderboardItem = {
 
 export type TLeaderBoard = {
   statusCode: number;
-  data: {
-    items: TLeaderboardItem[];
-    meta: Meta;
-  };
+  data: TLeaderboardItem[];
   meta: Meta;
 };

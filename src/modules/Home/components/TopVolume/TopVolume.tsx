@@ -15,6 +15,7 @@ export default function TopVolume() {
       LeaderboardServices.getLeaderboardVolume({
         page: 1,
         limit: 10,
+        period: 'all',
       }),
   });
 
@@ -27,7 +28,7 @@ export default function TopVolume() {
         <ViewAll link="/leaderboard" />
       </Flex>
       <div className="grid grid-rows-10 lg:grid-rows-5 grid-flow-col gap-4">
-        {volumeLeaderboardData?.data?.items?.map((item, index) => (
+        {volumeLeaderboardData?.data?.map((item, index) => (
           <RankingItem
             key={item.id}
             username={item.username || item.address}

@@ -19,20 +19,38 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProfitLeaderboard } from './components/Profit';
 import { VolumeLeaderboard } from './components/Volume';
 
+const tabs = [
+  {
+    title: 'Day',
+    query: 'daily',
+  },
+  {
+    title: 'Week',
+    query: 'weekly',
+  },
+  {
+    title: 'Month',
+    query: 'monthly',
+  },
+  {
+    title: 'All',
+    query: 'all',
+  },
+];
 const LeaderboardModule = () => {
-  const tabs = ['Day', 'Week', 'Month', 'All'];
+  const [paramSelected, setParamSelected] = useState(tabs[0]);
 
   const [select, setSelect] = useState<string>('profit');
   const listTabs = [
     {
       label: 'Profit',
       value: 'profit',
-      panel: <ProfitLeaderboard />,
+      panel: <ProfitLeaderboard period={paramSelected.query} />,
     },
     {
       label: 'Volume',
       value: 'volume',
-      panel: <VolumeLeaderboard />,
+      panel: <VolumeLeaderboard period={paramSelected.query} />,
     },
   ];
 
@@ -44,17 +62,21 @@ const LeaderboardModule = () => {
         Leaderboard
       </Typography.Heading>
       <div className="relative">
-        <Tabs defaultValue="Day" className="w-full">
+        <Tabs defaultValue={paramSelected.query} className="w-full">
           <TabsList className="my-3">
             {tabs.map((item) => (
-              <TabsTrigger key={item} value={item}>
-                {item}
+              <TabsTrigger
+                key={item.query}
+                value={item.title}
+                onClick={() => setParamSelected(item)}
+              >
+                {item.title}
               </TabsTrigger>
             ))}
           </TabsList>
         </Tabs>
         <Flex className="absolute right-0 bottom-5">
-          <Stack className="lg:flex-row gap-1">
+          <Stack className="flex-row gap-1 flex-nowrap">
             <Flex className="gap-1 justify-end">
               <Svg src="/icons/timer.svg" />
               <Typography.Text className="text-text" size={13} weight="medium">
@@ -87,8 +109,8 @@ const LeaderboardModule = () => {
       </div>
 
       <div className="hidden lg:display-grid lg:grid grid-cols-1 lg:grid-cols-2 gap-x-5 py-5">
-        <ProfitLeaderboard />
-        <VolumeLeaderboard />
+        <ProfitLeaderboard period={paramSelected.query} />
+        <VolumeLeaderboard period={paramSelected.query} />
       </div>
     </Container>
   );

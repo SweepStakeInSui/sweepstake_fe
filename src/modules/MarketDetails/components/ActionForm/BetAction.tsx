@@ -366,7 +366,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
                 onIncrement={handlePriceIncrement}
                 onDecrement={handlePriceDecrement}
                 isError={!isLoggedIn || !!errors.price}
-                prefix="$"
+                prefix="¢"
               />
               {!isLoggedIn && (
                 <Typography.Text

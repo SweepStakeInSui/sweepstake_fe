@@ -1,8 +1,11 @@
 import publicAxiosClient from '@/app/configs/httpClient/publicAxiosClient';
 import type { TLeaderBoard } from '@/services/leaderboard/types';
 
+interface LeaderBoardParams extends PaginationType {
+  period: string;
+}
 const getLeaderboardVolume = async (
-  params: PaginationType,
+  params: LeaderBoardParams,
 ): Promise<TLeaderBoard> => {
   const response = await publicAxiosClient.get(`/leaderboard/volume`, {
     params,
@@ -11,7 +14,7 @@ const getLeaderboardVolume = async (
 };
 
 const getLeaderboardProfit = async (
-  params: PaginationType,
+  params: LeaderBoardParams,
 ): Promise<TLeaderBoard> => {
   const response = await publicAxiosClient.get(`/leaderboard/profit`, {
     params,

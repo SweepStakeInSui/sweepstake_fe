@@ -9,6 +9,7 @@ import Typography from '@/components/common/Typography';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
 import { selectProfile } from '@/store/profileSlice';
+import { handleBignumber } from '@/utils/handleBignumber';
 
 const Statistics = () => {
   const { profile } = useSelector(selectProfile);
@@ -29,7 +30,13 @@ const Statistics = () => {
             weight="semibold"
             className="text-text flex"
           >
-            $<FormatNumber number={profile?.positionsValue || 0} />
+            $
+            <FormatNumber
+              className="truncate max-w-[170px]"
+              number={handleBignumber.divideDecimal(
+                profile?.positionsValue || 0,
+              )}
+            />
           </Typography.Heading>
         </Stack>
         <Separator orientation="vertical" />
@@ -48,7 +55,11 @@ const Statistics = () => {
             weight="semibold"
             className="text-text flex"
           >
-            $<FormatNumber number={profile?.pnl || 0} />
+            $
+            <FormatNumber
+              className="truncate max-w-[170px]"
+              number={handleBignumber.divideDecimal(profile?.pnl) || 0}
+            />
           </Typography.Heading>
         </Stack>
         <Separator orientation="vertical" className="hidden-mobile" />
@@ -70,7 +81,11 @@ const Statistics = () => {
             weight="semibold"
             className="text-text flex"
           >
-            $<FormatNumber number={profile?.volume || 0} />
+            $
+            <FormatNumber
+              className="truncate max-w-[170px]"
+              number={handleBignumber.divideDecimal(profile?.volume) || 0}
+            />
           </Typography.Heading>
         </Stack>
         <Separator orientation="vertical" />
@@ -108,8 +123,10 @@ const Statistics = () => {
               <CircularProgressbar
                 value={profile?.winRate || 0}
                 styles={buildStyles({
-                  pathColor: `#3DA003`,
-                  textColor: '#3DA003',
+                  pathColor:
+                    Number(profile?.winRate) < 0 ? '#EB201E' : '#3DA003',
+                  textColor:
+                    Number(profile?.winRate) < 0 ? '#EB201E' : '#3DA003',
                   textSize: '24px',
                 })}
                 text={`${profile?.winRate?.toString()}%`}
