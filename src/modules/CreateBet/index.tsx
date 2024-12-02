@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import Container from '@/components/common/Container';
 import Stack from '@/components/common/Stack';
 import Typography from '@/components/common/Typography';
-import withAuth from '@/components/withAuth';
 import { createBetSchema } from '@/modules/CreateBet/schema';
 import { MarketService } from '@/services/markets';
 import { selectProfile } from '@/store/profileSlice';
@@ -48,7 +47,8 @@ const CreateBetModule = () => {
   const methods = useForm<IFormattedCreateBetData>({
     resolver: zodResolver(createMarketSchema),
     defaultValues: {
-      name: undefined,
+      name: '',
+      image: '',
       startDate: new Date(),
       startClock: epochToDate(toEpoch(new Date())),
       startTime: dateToMilliseconds(new Date()),
@@ -72,6 +72,7 @@ const CreateBetModule = () => {
       description: '',
       sources: [],
       colaterralToken: '',
+      conditions: '',
     },
   });
   const { setValue } = methods;
@@ -118,7 +119,7 @@ const CreateBetModule = () => {
       endTime: endTimeSeconds,
     };
 
-    // console.log('data',formattedData);
+    // console.log('data', formattedData);
     // console.log('errors', methods.formState.errors)
     setConfirmCreateBetModalOpen({
       isOpen: true,
@@ -140,6 +141,16 @@ const CreateBetModule = () => {
     setEndTimeSeconds(endTimeSecs);
     setValue('endTime', endTimeSecs);
   }, [startDate, startClock, endClock, endDate, setValue]);
+
+  useEffect(() => {
+    if (Object.keys(methods.formState.errors).length > 0) {
+      console.log('errors', methods.formState.errors);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [methods.formState.errors]);
 
   return (
     <>
@@ -265,4 +276,4 @@ const CreateBetModule = () => {
     </>
   );
 };
-export default withAuth(CreateBetModule);
+export default CreateBetModule;

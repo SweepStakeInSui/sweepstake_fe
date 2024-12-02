@@ -60,7 +60,7 @@ export default function PreviewBetRulesSummary({
           <Svg src="/icons/attach_money.svg" />
           <Stack>
             <Typography.Text size={15} weight="medium">
-              Projected payout on --
+              Projected will payout on --
             </Typography.Text>
             <Typography.Text size={13} className="text-text-subtle">
               --
