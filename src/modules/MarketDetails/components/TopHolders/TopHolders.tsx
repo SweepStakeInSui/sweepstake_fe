@@ -1,15 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import React from 'react';
-import { SwiperSlide } from 'swiper/react';
 
 import Empty from '@/components/common/Empty';
 import Flex from '@/components/common/Flex';
 import Stack from '@/components/common/Stack';
-import SwiperCustom from '@/components/common/SwipperCustom';
 import Typography from '@/components/common/Typography';
-import { Button } from '@/components/ui/button';
-import { marketSubTab } from '@/constants/marketSub';
 import AvatarRank from '@/modules/Home/components/TopVolume/AvatarRank';
 import { MarketService } from '@/services/markets';
 import type { TTopHolderItem } from '@/services/markets/types';
@@ -56,7 +52,8 @@ const TopHolders = () => {
 
   return (
     <div>
-      <div className="px-2 py-3 mb-2">
+      {/* TODO:more sub categories */}
+      {/* <div className="px-2 py-3 mb-2">
         <SwiperCustom slidesPerView="auto" spaceBetween={12} size={28}>
           {marketSubTab.map((item) => (
             <SwiperSlide
@@ -72,7 +69,7 @@ const TopHolders = () => {
             </SwiperSlide>
           ))}
         </SwiperCustom>
-      </div>
+      </div> */}
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[400px]">
         <Stack>
           <Typography.Text

@@ -580,7 +580,7 @@ Projected payout 2 hours after closing."
                 >
                   Average Price
                 </Typography.Text>
-                <Typography.Text size={13}>${avgPrice}</Typography.Text>
+                <Typography.Text size={13}>¢{avgPrice}</Typography.Text>
               </Flex>
               <Flex className="justify-between">
                 <Typography.Text

@@ -418,7 +418,9 @@ input[type='number'] {
 .swiper-deposit .swiper-slide.swiper-slide-next.swiper-action {
   transform: translate3d(0px, calc(-10% - 160px), -100px) rotateZ(0deg) scale(1) !important;
 }
-
+.swiper-cards .swiper-slide {
+  overflow: visible !important;
+}
 input[type='time']::-webkit-calendar-picker-indicator {
   background: none;
   display: none;

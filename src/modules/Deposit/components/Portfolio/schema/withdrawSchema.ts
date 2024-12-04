@@ -10,6 +10,15 @@ export const createWithdrawSchema = (balance: number) => {
       .refine(
         (value) => {
           const parsed = Number(value);
+          return parsed > 0;
+        },
+        {
+          message: 'Amount must be greater than 0',
+        },
+      )
+      .refine(
+        (value) => {
+          const parsed = Number(value);
           return parsed <= balance;
         },
         {

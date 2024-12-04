@@ -202,9 +202,9 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
                       </Select>
                       <FormControl>
                         <Input
-                          type="number"
+                          type="text"
                           disabled={selectedOption === 'connected_wallet'}
-                          placeholder={`${selectedOption === 'connected_wallet' ? profile.address : 'Input amount'}`}
+                          placeholder={`${selectedOption === 'connected_wallet' ? profile.address : 'Input address'}`}
                           {...field}
                         />
                       </FormControl>

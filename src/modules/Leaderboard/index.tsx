@@ -38,7 +38,7 @@ const tabs = [
   },
 ];
 const LeaderboardModule = () => {
-  const [paramSelected, setParamSelected] = useState(tabs[0]);
+  const [paramSelected, setParamSelected] = useState(tabs.slice(-1)[0]);
 
   const [select, setSelect] = useState<string>('profit');
   const listTabs = [
@@ -62,7 +62,7 @@ const LeaderboardModule = () => {
         Leaderboard
       </Typography.Heading>
       <div className="relative">
-        <Tabs defaultValue={paramSelected.query} className="w-full">
+        <Tabs defaultValue={paramSelected.title} className="w-full">
           <TabsList className="my-3">
             {tabs.map((item) => (
               <TabsTrigger
