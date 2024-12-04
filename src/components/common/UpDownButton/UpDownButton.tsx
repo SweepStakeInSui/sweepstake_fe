@@ -52,6 +52,7 @@ const UpDownButton = <TFieldValues extends FieldValues>({
           },
         })}
         disabled={disabled}
+        onWheel={(e) => e.currentTarget.blur()}
       />
       <p className="text-text absolute top-1/2 text-sm left-2">{prefix}</p>
       <Flex className="gap-1 absolute right-4 bottom-4">
