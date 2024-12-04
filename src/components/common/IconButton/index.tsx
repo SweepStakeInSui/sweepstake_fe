@@ -1,25 +1,31 @@
+import type { ButtonProps } from '@/components/ui/button';
 import { Button } from '@/components/ui/button';
 
-import { Icons } from '../Icon';
 import Stack from '../Stack';
 
-interface IconButtonProps {
-  icon: keyof typeof Icons;
-  text?: string;
+interface IconButtonProps extends ButtonProps {
+  children?: React.ReactNode;
+  isRounded?: boolean;
+  className?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
 export default function IconButton({
-  icon,
-  text,
+  children,
+  isRounded,
+  className,
+  onClick,
+  disabled,
 }: Readonly<IconButtonProps>): React.ReactElement {
-  const IconComponent = Icons[icon];
-
   return (
-    <Button className="h-full hover:bg-elevation-a100 dark:hover:bg-elevation-a800">
-      <Stack className="items-center gap-1">
-        <IconComponent />
-        <p className="text-md font-bold text-elevation-a500">{text ?? icon}</p>
-      </Stack>
+    <Button
+      onClick={onClick}
+      variant="ghost"
+      className={`h-full p-2 hover:bg-elevation-a100 dark:hover:bg-elevation-a800 ${isRounded ? 'rounded-full' : ''} ${className}`}
+      disabled={disabled}
+    >
+      <Stack className="items-center gap-1">{children}</Stack>
     </Button>
   );
 }

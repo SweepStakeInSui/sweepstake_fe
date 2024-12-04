@@ -1,5 +1,7 @@
+import { colors } from './src/utils/colorUtils';
 import type { Config } from 'tailwindcss';
-const { fontFamily } = require('tailwindcss/defaultTheme');
+const BASE = 16;
+export const rem = (px: number, key = px) => ({ [key / 4]: `${px / BASE}rem` });
 
 const config = {
   darkMode: ['selector'],
@@ -15,18 +17,43 @@ const config = {
     backgroundImage: {
       'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       'gradient-conic':
-        'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'conic-gradient(from 12.01deg at 89.19% 40.8%, rgba(233, 44, 146, 0.37) 0deg, rgba(109, 0, 0, 0.44) 50.4deg, rgba(0, 0, 0, 0.44) 138.38deg, #171717 261deg, rgba(18, 118, 174, 0.41) 304.2deg, rgba(233, 44, 146, 0.37) 360deg)',
+      card: 'linear-gradient(0deg, rgba(0, 0, 0, 0.00) 0%, #000 100%)',
+      'banner-home':
+        'radial-gradient(97.24% 183.5% at 134.15% 75.4%, #580808 16%, #121212 100%)',
+      'top-home':
+        'conic-gradient(from 346deg at 55.38% 52.84%, #5BAAF3 20.13%, #F029C4 11.87%, #FF8181 25.27%)',
+      'slider-home':
+        'linear-gradient(134deg, #E1EFF5 2.25%, rgba(250, 237, 249, 0.61) 52.75%, #FADCDC 100%)',
+      'slider-home-dark':
+        'linear-gradient(134deg, #061B23 2.25%, rgba(28, 4, 27, 0.61) 52.75%, #160101 100%)',
+      'linear-profile':
+        'linear-gradient(133deg, #E6F4FA -2.1%, rgba(250, 245, 237, 0.61) 51.84%, #FFEDED 102.3%)',
+      'linear-profile-dark':
+        'linear-gradient(133deg, #1B2C33 -2.1%, rgba(31, 28, 24, 0.61) 51.84%, #231212 102.3%)',
     },
     container: {
       center: true,
-      padding: '1.5rem',
+      padding: '2.5rem',
       screens: {
         '2xl': '1630px',
       },
     },
     extend: {
-      fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
+      fontSize: {
+        '10': ['0.625rem', '0.75rem'], // 10px
+        '12': ['0.75rem', '1rem'], // 12px
+        '13': ['0.8125rem', '1rem'], // 13px
+        '14': ['0.875rem', '1rem'], // 14px
+        '15': ['0.9375rem', '1rem'], // 15px
+        '16': ['1rem', '1.125rem'], // 16px
+        '18': ['1.125rem', '1.25rem'], // 18px
+        '20': ['1.25rem', '1.5rem'], // 20px
+        '24': ['1.5rem', '1.75rem'], // 24px
+        '28': ['1.75rem', '2rem'], // 28px
+        '32': ['2rem', '2.4rem'], // 32px
+        '48': ['3rem', '3.6rem'], // 48px
+        '64': ['4rem', '4.8rem'], // 64px
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -54,48 +81,150 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        white: '#FFFFFF',
-        elevation: {
-          a50: '#fafafa',
-          a100: '#f4f4f5',
-          a200: '#e4e4e7',
-          a300: '#d4d4d8',
-          a400: '#a1a1aa',
-          a500: '#71717a',
-          a600: '#52525b',
-          a700: '#3f3f46',
-          a800: '#27272a',
-          a900: '#18181b',
-        },
-        primary: {
-          a1000: '#ff3131',
-          a900: '#ff4646',
-          a800: '#ff5a5a',
-          a700: '#ff6f6f',
-          a600: '#ff8383',
-          a500: '#ff9898',
-          a400: '#ffadad',
-          a300: '#ffc1c1',
-          a200: '#ffd6d6',
-          a100: '#ffeaea',
-        },
-        secondary: {
-          green: {
-            a50: '#32fca8',
-            a100: '#12eb90',
-            a200: '#07d580',
-            a300: '#05be70',
-            a400: '#049a5b',
-          },
-
-          red: {
-            a50: '#ff8b8e',
-            a100: '#e03a3d',
-            a200: '#fe0000',
-            a300: '#dc0004',
-            a400: '#c80003',
+        text: {
+          DEFAULT: 'var(--text)',
+          inverse: 'var(--text-inverse)',
+          subtle: 'var(--text-subtle)',
+          sublest: 'var(--text-sublest)',
+          disable: 'var(--text-disable)',
+          support: {
+            green: 'var(--text-support-green)',
+            red: 'var(--text-support-red)',
+            yellow: 'var(--text-support-yellow)',
+            blue: 'var(--text-support-blue)',
+            match: 'var(--text-support-match)',
           },
         },
+        icon: {
+          DEFAULT: 'var(--icon)',
+          subtle: 'var(--icon-subtle)',
+          sublest: 'var(--icon-sublest)',
+          disable: 'var(--icon-disable)',
+          inverse: 'var(--icon-inverse)',
+          support: {
+            green: 'var(--icon-support-green)',
+            red: 'var(--icon-support-red)',
+            yellow: 'var(--icon-support-yellow)',
+            blue: 'var(--icon-support-blue)',
+          },
+        },
+        bg: {
+          primary: 'var(--bg-primary)',
+          surface: 'var(--bg-surface)',
+          isublested: 'var(--bg-isublested)',
+          disable: 'var(--bg-disable)',
+          surface85: 'var(--bg-surface85)',
+          sublest: 'var(--bg-sublest)',
+          hovered: 'var(--bg-hovered)',
+          container: 'var(--bg-container)',
+          inverse: 'var(--bg-inverse)',
+          inverseSubtle: 'var(--bg-inverse-subtle)',
+          inverseSublest: 'var(--bg-inverse-sublest)',
+          matcha: 'var(--bg-matcha)',
+          blue: 'var(--bg-blue)',
+          red: 'var(--bg-red)',
+          r_50: 'var(--bg-r-50)',
+          green: 'var(--bg-green)',
+          port: 'var(--bg-port)',
+          balance: 'var(--bg-balance)',
+          dyb: 'var(--bg-dyb)',
+        },
+        borderMain: 'var(--border-main)',
+        borderSubtle: 'var(--border-subtle)',
+        borderSublest: 'var(--border-sublest)',
+        borderPlain: 'var(--border-plain)',
+        btn: {
+          primary: {
+            DEFAULT: 'var(--btn-primary-default)',
+            hover: 'var(--btn-primary-hover)',
+            press: 'var(--btn-primary-press)',
+            disable: 'var(--btn-primary-disable)',
+          },
+          secondary: {
+            DEFAULT: 'var(--btn-secondary-default)',
+            hover: 'var(--btn-secondary-hover)',
+            press: 'var(--btn-secondary-press)',
+            disable: 'var(--btn-secondary-disable)',
+          },
+          terriary: {
+            DEFAULT: 'var(--btn-terriary-default)',
+            hover: 'var(--btn-terriary-hover)',
+            press: 'var(--btn-terriary-press)',
+            disable: 'var(--btn-terriary-disable)',
+          },
+          ghost: {
+            hover: 'var(--btn-ghost-hover)',
+            press: 'var(--btn-ghost-press)',
+          },
+          betYes: {
+            DEFAULT: 'var(--btn-bet-yes-default)',
+            hover: 'var(--btn-bet-yes-hover)',
+            press: 'var(--btn-bet-yes-press)',
+            shadow: 'var(--btn-bet-yes-shadow)',
+          },
+          betNo: {
+            DEFAULT: 'var(--btn-bet-no-default)',
+            hover: 'var(--btn-bet-no-hover)',
+            press: 'var(--btn-bet-no-press)',
+            shadow: 'var(--btn-bet-no-shadow)',
+          },
+          text: {
+            DEFAULT: 'var(--btn-text-default)',
+            hover: 'var(--btn-text-hover)',
+            press: 'var(--btn-text-press)',
+          },
+        },
+        tab: {
+          filled: {
+            DEFAULT: 'var(--tab-filled-BG-Selected)',
+            bgSelected: 'var(--tab-filled-BG-Selected)',
+            bgHover: 'var(--tab-stroke-Hover)',
+            bgPress: 'var(--tab-btn-yes-bg-press)',
+          },
+          underline: {
+            DEFAULT: 'var(--tab-underline-default)',
+            hover: 'var(--tab-underline-hover)',
+            selected: 'var(--tab-underline-selected)',
+            textPress: 'var(--tab-underline-press)',
+          },
+        },
+        searchFilter: {
+          background: {
+            DEFAULT: 'var(--search-filter-bg-default)',
+            hover: 'var(--search-filter-bg-hover)',
+            focus: 'var(--search-filter-bg-focus)',
+            fill: 'var(--search-filter-bg-fill)',
+          },
+          border: {
+            DEFAULT: 'var(--search-filter-border-default)',
+            hover: 'var(--search-filter-border-hover)',
+            focus: 'var(--search-filter-border-focus)',
+            fill: 'var(--search-filter-border-fill)',
+          },
+        },
+        field: {
+          background: {
+            DEFAULT: 'var(--field-bg-default)',
+            fill: 'var(--field-bg-fill)',
+            hover: 'var(--field-bg-hover)',
+            focus: 'var(--field-bg-focus)',
+            disable: 'var(--field-bg-disable)',
+          },
+          border: {
+            DEFAULT: 'var(--field-border-default)',
+            fill: 'var(--field-border-fill)',
+            hover: 'var(--field-border-hover)',
+            focus: 'var(--field-border-focus)',
+            disable: 'var(--field-border-disable)',
+          },
+        },
+        bagde: {
+          infor: 'var(--badge-infor-BG)',
+          save: 'var(--badge-save-BG)',
+          warn: 'var(--badge-warn-BG)',
+          danger: 'var(--badge-danger-BG)',
+        },
+        ...colors,
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -116,9 +245,41 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      gridTemplateColumns: {
+        autoFill: 'repeat(auto-fill, minmax(300px, 1fr))',
+      },
+      width: {
+        ...rem(40),
+        ...rem(52),
+        ...rem(54),
+        ...rem(60),
+        ...rem(80),
+        ...rem(120),
+        ...rem(140),
+      },
+      spacing: {
+        ...rem(40),
+        ...rem(52),
+        ...rem(54),
+        ...rem(60),
+        ...rem(80),
+        ...rem(120),
+        ...rem(140),
+      },
+      boxShadow: {
+        'button-yes-shadow': '0px 1px 0px 1px var(--btn-bet-yes-shadow)',
+        'button-no-shadow': '0px 1px 0px 1px var(--btn-bet-no-shadow)',
+        'search-header':
+          '0px 1px 0px 1px rgba(0, 0, 0, 0.01), 0px 2px 8px 0px rgba(0, 0, 0, 0.12)',
+        'card-bet-home': '0px 4px 12px 0px rgba(0, 0, 0, 0.06)',
+        'leaderboard-shadow': '0px 6px 17px 0px rgba(44, 41, 211, 0.05)',
+        'create-bet-shadow': '0px -3px 9px 0px #00000014',
+        dialog:
+          '0px 1px 0px 0px rgba(0, 0, 0, 0.02), 0px 2px 8px 0px rgba(0, 0, 0, 0.12)',
+      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  // plugins: [require('tailwindcss-animate')],
 } satisfies Config;
 
 export default config;

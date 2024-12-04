@@ -1,3 +1,8 @@
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import 'swiper/css/navigation';
+
+import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 
 interface IMyLayout {
@@ -11,7 +16,7 @@ export default function MyLayout({ children }: IMyLayout) {
 
       <main>{children}</main>
 
-      <footer />
+      <Footer />
     </div>
   );
 }

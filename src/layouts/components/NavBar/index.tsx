@@ -1,71 +1,82 @@
+/* eslint-disable */
 'use client';
+
+import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
-import type { IconName } from '@/components/common/Icon';
-import IconButton from '@/components/common/IconButton';
-import { Button } from '@/components/ui/button';
+import ConnectButton from '@/components/connectWallet/ConnectButton';
+import LoggedIn from '@/components/Login/LoggedIn';
+import { navList } from '@/constants/navList';
+import { UserService } from '@/services/userService';
+import { selectProfile, userData } from '@/store/profileSlice';
+import type { ProfileTypes } from '@/types/profile';
 
+import { MenuHeader } from '@/components/common/Menu';
+import { ThemeToggle } from '@/components/common/ThemeToggle';
+import { SearchHeader, SearchHeaderMobile } from '@/components/Search';
+import { useEffect } from 'react';
 import HomeLogo from '../HomeLogo';
-import { ModeToggle } from '../ModeToggle';
-
-const navList = [
-  {
-    name: 'Markets',
-    icon: 'Markets',
-  },
-  {
-    name: 'Election',
-    icon: 'Election',
-  },
-  {
-    name: 'Activity',
-    icon: 'Activity',
-  },
-  {
-    name: 'Ranks',
-    icon: 'Ranks',
-  },
-];
-
-const bottomNavList = [
-  'All',
-  'Politics',
-  'Midle East',
-  'Sports',
-  'Crypto',
-  'Pop Culture',
-  'Business',
-  'Science',
-];
 
 export default function NavBar(): React.ReactElement {
-  return (
-    <header className="sticky top-0 left-0 w-full bg-elevation-a50/75 dark:bg-elevation-a900/75 backdrop-blur-md">
-      <Container>
-        <Flex className="justify-between w-full py-1">
-          <HomeLogo />
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector(selectProfile);
 
-          <Flex>
-            <Flex className="gap-0">
+  const { data } = useQuery<ProfileTypes>({
+    queryKey: ['user-infor'],
+    queryFn: async () => {
+      const res = await UserService.getUserInfor();
+      return res;
+    },
+    enabled: isLoggedIn,
+  });
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(userData({ profile: data }));
+    }
+  }, [isLoggedIn, data]);
+
+  return (
+    <header className="sticky top-0 left-0 w-full backdrop-blur-md bg-bg-surface border-b border-borderSubtle border-solid z-50">
+      <Container size="sm">
+        <Flex className="justify-between w-full py-4">
+          <Flex className="gap-x-4">
+            <HomeLogo variant="squared" />
+
+            <Flex className="gap-x-0 hidden-mobile">
               {navList.map((item) => (
-                <IconButton
+                <Link
+                  href={item.href}
                   key={item.name}
-                  icon={item.icon as IconName}
-                  text={item.name}
-                />
+                  className="px-3 text-text-subtle text-[13px] font-semibold"
+                >
+                  {item.name}
+                </Link>
               ))}
             </Flex>
-            <ModeToggle />
           </Flex>
-        </Flex>
 
-        <Flex>
-          {bottomNavList.map((item) => (
-            <Button key={item} className="first:pl-0">
-              {item}
-            </Button>
-          ))}
+          <Flex className="grow justify-end gap-x-2 lg:gap-x-5">
+            <div className="hidden-mobile flex-grow ">
+              <SearchHeader />
+            </div>
+            {isLoggedIn ? (
+              <LoggedIn />
+            ) : (
+              <Flex>
+                <ConnectButton />
+                <ThemeToggle option="toggle" />
+              </Flex>
+            )}
+            {!isLoggedIn && (
+              <div className="hidden-PC">
+                <SearchHeaderMobile />
+                <MenuHeader />
+              </div>
+            )}
+          </Flex>
         </Flex>
       </Container>
     </header>

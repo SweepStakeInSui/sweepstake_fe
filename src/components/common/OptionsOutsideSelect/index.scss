@@ -1,0 +1,29 @@
+.react-select {
+  &__control {
+    height: 100%;
+    padding: rem(8) rem(12);
+    display: flex;
+    line-height: rem(24);
+    color: var(--text-sublest);
+    font-size: rem(15);
+  }
+
+  &__menu {
+    background-color: var(--bg-container);
+    padding: rem(4);
+    font-size: rem(14);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 10px;
+    border-radius: rem(4);
+  }
+
+  &__option {
+    height: rem(32);
+    line-height: rem(32);
+    padding: 0 rem(12);
+    border-radius: rem(4);
+
+    &:hover {
+      background-color: var(--bg-sublest);
+    }
+  }
+}

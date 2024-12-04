@@ -83,7 +83,6 @@ video {
   line-height: inherit;
   vertical-align: baseline;
   outline: none;
-  background: transparent;
   border: 0;
 }
 
@@ -94,11 +93,7 @@ ul {
 
 html {
   box-sizing: border-box;
-  font-size: 10px !important;
-
-  @include min-tablet {
-    font-size: 16px !important;
-  }
+  font-size: 16px !important;
 }
 
 *,
@@ -130,11 +125,6 @@ img:is([loading='lazy']) {
 }
 
 body {
-  line-height: 110%;
-  font-weight: normal;
-  font-size: rem(16px);
-  color: var(--blue);
-
   &.is-locked {
     overflow: hidden;
     height: 100%;

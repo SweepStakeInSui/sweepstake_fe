@@ -5,27 +5,38 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center w-fit justify-center whitespace-nowrap rounded-md duration-500 text-sm font-semibold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         primary:
-          'bg-primary-a800 text-white hover:bg-primary-a600 active:bg-primary-a500',
-        secondary_light:
-          'bg-elevation-a200 text-elevation-a700 hover:bg-elevation-a400 active:bg-elevation-a500',
-        secondary_dark:
-          'bg-elevation-a800 text-elevation-a50 hover:bg-elevation-a600 active:bg-elevation-a500',
-        light_outline:
-          'bg-elevation-a700 bg-opacity-25 text-elevation-a700 hover:border-elevation-a700 hover:bg-opacity-0 active:border-elevation-a700 active:bg-opacity-50 border border-elevation-a700 border-opacity-25',
-        accent_red:
-          'bg-secondary-red-a400 bg-opacity-25 text-secondary-red-a400 hover:bg-secondary-red-a100 hover:bg-secondary-red-a400 active:text-white hover:text-white active:bg-secondary-red-a200',
-        accent_green:
-          'bg-secondary-green-a400 bg-opacity-25 text-secondary-green-a400 hover:bg-secondary-a100 hover:bg-secondary-green-a100 active:text-white hover:text-white active:bg-secondary-green-a300',
+          'bg-btn-primary text-white hover:bg-btn-primary-hover active:bg-btn-primary-press',
+        secondary:
+          'bg-btn-secondary text-text-inverse hover:bg-btn-secondary-hover active:bg-btn-secondary-press',
+        terriary:
+          'border border-btn-terriary text-text-subtle hover:border-btn-terriary-hover active:border-btn-terriary-press ',
+        ghost: 'bg-transparent text-text-subtle active:bg-btn-ghost-press',
+        bet_yes:
+          'bg-btn-betYes text-text-support-match hover:bg-btn-betYes-press hover:shadow-button-yes-shadow hover:text-wht-a100 active:bg-btn-betYes-hover active:text-text-support-match bg-opacity-35',
+        bet_yes_active:
+          'bg-btn-betYes-press shadow-button-yes-shadow text-wht-a100 active:bg-btn-betYes-hover active:text-text-support-match bg-opacity-35',
+        bet_no:
+          'bg-btn-betNo text-text-support-blue hover:bg-btn-betNo-hover hover:shadow-button-no-shadow  hover:text-white active:bg-btn-betNo-press active:text-text-support-blue',
+        bet_no_active:
+          'bg-btn-betNo-hover shadow-button-no-shadow text-white active:bg-btn-betNo-press active:text-text-support-blue',
+        disable: 'bg-dyb-10 text-dyb-40 cursor-not-allowed',
+        sub_btn: 'text-dyb-70 border border-dyb-20 hover:border-dyb-80',
+        see_more:
+          'text-btn-text hover:after:absolute hover:after:w-full hover:after:bg-btn-text hover:after:h-0.5 hover:after:bottom-0',
+        see_more_red:
+          'text-btn-text hover:after:absolute hover:after:w-full hover:after:bg-text-support-red hover:after:h-0.5 hover:after:bottom-0',
       },
       size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
-        lg: 'h-11 rounded-md px-8',
+        default: 'px-4 py-2',
+        sm: 'h-12 px-4',
+        medium: 'h-10 px-4',
+        lg: 'h-11 px-4',
+        full: 'h-full w-full',
         icon: 'h-10 w-10',
       },
     },

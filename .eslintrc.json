@@ -44,6 +44,9 @@
         "react/jsx-props-no-spreading": "off", // _app.tsx uses spread operator and also, react-hook-form
         "react/jsx-no-useless-fragment": "error",
         "react/jsx-pascal-case": "off",
+        "jsx-a11y/no-static-element-interactions": "warn",
+        "jsx-a11y/click-events-have-key-events": "warn",
+        "react/no-array-index-key": "warn",
         "@typescript-eslint/comma-dangle": "off", // Avoid conflict rule between Eslint and Prettier
         "@typescript-eslint/consistent-type-imports": "error", // Ensure `import type` is used when it's necessary
         "no-restricted-syntax": [
@@ -57,11 +60,15 @@
         "simple-import-sort/exports": "error", // Export configuration for `eslint-plugin-simple-import-sort`
         "import/order": "off", // Avoid conflict rule between `eslint-plugin-import` and `eslint-plugin-simple-import-sort`
         "@typescript-eslint/no-unused-vars": "error",
+        "class-methods-use-this": "off",
+        "radix": "off",
+        "import/no-extraneous-dependencies": "warn",
         "unused-imports/no-unused-imports": "error",
         "unused-imports/no-unused-vars": [
           "error",
           { "argsIgnorePattern": "^_" }
-        ]
+        ],
+        "no-param-reassign": 0
       }
     }
     // // Configuration for testing

@@ -9,7 +9,19 @@ const nextConfig = {
   `,
   },
   images: {
-    domains: ['source.unsplash.com'],
+    domains: ['api.sweepstakes.market', 'api.sweepstake.market'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '**',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
   },
   env: {
@@ -40,6 +52,17 @@ const nextConfig = {
     });
     return config;
   },
+  experimental: {
+    swcPlugins: [
+      [
+        "@preact-signals/safe-react/swc",
+        {
+          mode: "auto",
+        },
+      ],
+    ],
+  },
+  output: "standalone",
 };
 
 module.exports = nextConfig;
