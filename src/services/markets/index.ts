@@ -77,6 +77,11 @@ const getOrderBook = async (marketId: string): Promise<TOrderBookResponse> => {
   return response.data;
 };
 
+const getMarketResult = async (marketId: string): Promise<string> => {
+  const response = await publicAxiosClient.get(`/market/oracle/${marketId}`);
+  return response.data.data;
+};
+
 export const MarketService = {
   getMarket,
   createMarket,
@@ -89,4 +94,5 @@ export const MarketService = {
   getTopHolders,
   getMarketPopular,
   getOrderBook,
+  getMarketResult,
 };
