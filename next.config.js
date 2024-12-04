@@ -9,7 +9,7 @@ const nextConfig = {
   `,
   },
   images: {
-    domains: ['api.sweepstakes.market','api.sweepstake.market'],
+    domains: ['api.sweepstakes.market', 'api.sweepstake.market'],
     remotePatterns: [
       {
         protocol: 'https',

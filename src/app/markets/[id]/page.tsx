@@ -28,7 +28,7 @@ export async function generateMetadata(
       site: 'https://x.com/Sweepstakes_Mkt',
       images: [market.image, ...previousImages],
     },
-    metadataBase: new URL('https://app.sweepstake.market/'),
+    metadataBase: new URL('https://app.sweepstakes.market/'),
     openGraph: {
       title: `Sweepstakes | ${market.name}`,
       description: `Follow market predictions for "${market.name}", or join the trading action yourself.`,

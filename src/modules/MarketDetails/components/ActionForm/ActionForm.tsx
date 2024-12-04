@@ -1,7 +1,9 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -22,6 +24,7 @@ import { defaultImg } from '@/constants/defaultImg';
 import { sections } from '@/constants/navList';
 import { BetOutcomeType, EBetOpenStatus } from '@/enums/bet-status';
 import BetAction from '@/modules/MarketDetails/components/ActionForm/BetAction';
+import { MarketService } from '@/services/markets';
 import { selectOrderbook, setOrderInput } from '@/store/orderbookSlice';
 import { selectProfile } from '@/store/profileSlice';
 import { toEST } from '@/utils/toEST';
@@ -46,6 +49,7 @@ const MarketsActionForm = ({
   const { isLoggedIn } = useSelector(selectProfile);
   const { type } = useSelector((state: any) => state.bet);
   const { activeSection } = useSectionIndicatorSignal();
+  const { id } = useParams();
 
   // States
   const [selectedValue, setSelectedValue] = useState('market');
@@ -81,6 +85,12 @@ const MarketsActionForm = ({
       setBetStatus({ title: EBetOpenStatus.OPEN, isActive: true });
     }
   }, [isLoggedIn, startTime, endTime]);
+
+  const { data: marketResultData, isLoading } = useQuery({
+    queryKey: ['marketResultData'],
+    queryFn: async () => MarketService.getMarketResult(id as string),
+    enabled: !!id,
+  });
 
   return (
     <Stack className="no-scrollbar sticky gap-y-0 border-l border-solid border-borderSubtle p-3 top-2 lg:top-[4.75rem] w-full lg:w-[22.8125rem] h-[calc(100vh-4.75rem)] overflow-auto">
@@ -152,24 +162,32 @@ const MarketsActionForm = ({
             </div>
           </>
         ) : (
-          <Stack className="gap-0">
-            <div className="bg-bg-sublest rounded-md p-2 w-fit mb-7">
-              <Svg src="/icons/alarm_on.svg" className="w-8 h-8" />
-            </div>
-            <Typography.Heading
-              size={28}
-              className="text-text-support-red mb-2"
-              weight="semibold"
-            >
-              {betStatus.title}
-            </Typography.Heading>
-            <Typography.Text size={15} className="text-text-subtle">
-              Projected payout will be on{' '}
-              {payoutOn
-                ? format(toEST(new Date(payoutOn * 1000)), 'MMM dd, yyyy')
-                : ''}
-            </Typography.Text>
-          </Stack>
+          <div>
+            {!isLoading && (
+              <Stack className="gap-0">
+                <div className="bg-bg-sublest rounded-md p-2 w-fit mb-7">
+                  <Svg
+                    src="/icons/check_circle.svg"
+                    className={`size-8 ${marketResultData ? 'text-text-support-match' : 'text-text-support-blue'}`}
+                  />
+                </div>
+                <Typography.Heading
+                  size={28}
+                  className={`${marketResultData ? 'text-text-support-match' : 'text-text-support-blue'} mb-2`}
+                  weight="semibold"
+                >
+                  {betStatus.title}{' '}
+                  {marketResultData ? BetOutcomeType.YES : BetOutcomeType.NO}
+                </Typography.Heading>
+                <Typography.Text size={15} className="text-text-subtle">
+                  Projected payout will be on{' '}
+                  {payoutOn
+                    ? format(toEST(new Date(payoutOn * 1000)), 'MMM dd, yyyy')
+                    : ''}
+                </Typography.Text>
+              </Stack>
+            )}
+          </div>
         )}
       </Stack>
 
