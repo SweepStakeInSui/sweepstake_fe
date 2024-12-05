@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next-nprogress-bar';
@@ -84,6 +85,8 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
 };
 const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const balance = useBalance();
+  const queryClient = useQueryClient();
+  const { profile } = useSelector(selectProfile);
 
   return (
     <div className="p-4 text-text bg-b-10 dark:bg-bg-balance rounded-sm relative overflow-hidden">
@@ -97,9 +100,16 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
             Wallet Balance
           </Typography.Text>
           <Tooltip content="Refresh balance">
-            <div className="cursor-pointer">
+            <button
+              className="cursor-pointer"
+              onClick={() =>
+                queryClient.refetchQueries({
+                  queryKey: [['useBalance', profile?.address], ['user-infor']],
+                })
+              }
+            >
               <Svg src="/icons/refresh.svg" />
-            </div>
+            </button>
           </Tooltip>
         </Flex>
         <button onClick={handleNextSlide}>
@@ -158,6 +168,7 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
 };
 const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const { profile } = useSelector(selectProfile);
+  const queryClient = useQueryClient();
 
   return (
     <div className="p-4 text-text bg-r-10 dark:bg-r-95 rounded-sm relative overflow-hidden">
@@ -171,9 +182,16 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
             Portfolio
           </Typography.Text>
           <Tooltip content="Refresh balance">
-            <div className="cursor-pointer">
+            <button
+              className="cursor-pointer"
+              onClick={() =>
+                queryClient.refetchQueries({
+                  queryKey: [['useBalance', profile?.address], ['user-infor']],
+                })
+              }
+            >
               <Svg src="/icons/refresh.svg" />
-            </div>
+            </button>
           </Tooltip>
         </Flex>
         <button onClick={handleNextSlide}>

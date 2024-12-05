@@ -152,9 +152,16 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
             Wallet balance
           </Typography.Text>
           <Tooltip content="Refresh balance">
-            <div className="cursor-pointer">
+            <button
+              className="cursor-pointer"
+              onClick={() =>
+                queryClient.refetchQueries({
+                  queryKey: [['useBalance', profile?.address], ['user-infor']],
+                })
+              }
+            >
               <Svg src="/icons/refresh.svg" />
-            </div>
+            </button>
           </Tooltip>
         </Flex>
         <button onClick={handleNextSlide}>
