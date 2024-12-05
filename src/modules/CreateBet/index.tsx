@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { addWeeks } from 'date-fns';
+import { useRouter } from 'next/navigation';
 import React, { useDeferredValue, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -81,6 +82,7 @@ const CreateBetModule = () => {
   const formValues = methods.watch();
   const { startDate, startClock, endDate, endClock } = formValues;
   const deferredFormData = useDeferredValue(formValues);
+  const router = useRouter();
 
   const {
     mutate: createBetMutate,
@@ -254,14 +256,16 @@ const CreateBetModule = () => {
 
       <StatusModal
         open={confirmCreateBetModalOpen.isOpen}
-        onOpenChange={() =>
-          setConfirmCreateBetModalOpen({ isOpen: false, message: '' })
-        }
+        onOpenChange={() => {
+          setConfirmCreateBetModalOpen({ isOpen: false, message: '' });
+          router.push(`/markets/${createBetData?.data.id}`);
+        }}
         isLoading={isCreateBetLoading}
         isSuccess={isCreateBetSuccess && createBetData.statusCode === 200}
         isError={isCreateBetError}
         title={(() => {
-          if (isCreateBetLoading) return 'Your Bet Being Created';
+          // if is being created title is bet title
+          if (isCreateBetLoading) return formValues.name;
           if (isCreateBetSuccess && createBetData.statusCode === 200)
             return 'Bet Created';
           if (isCreateBetError) return 'Bet Creation Failed';
