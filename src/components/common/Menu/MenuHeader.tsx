@@ -210,7 +210,7 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
       >
         $
         <FormatNumber
-          number={handleBignumber.divideDecimal(profile.balance) || 0}
+          number={handleBignumber.divideDecimal(profile?.balance) || 0}
         />
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">

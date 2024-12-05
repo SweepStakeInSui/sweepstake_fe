@@ -123,7 +123,11 @@ const CreateBetFormModule = () => {
             control={control}
             render={({ field }) => (
               <>
-                <Input {...field} placeholder="Input bet title" />
+                <Input
+                  {...field}
+                  placeholder="Input bet title"
+                  maxLength={125}
+                />
                 {errors.name && (
                   <Typography.Text
                     size={13}

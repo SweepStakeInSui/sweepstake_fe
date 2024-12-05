@@ -145,7 +145,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
       >
         $
         <FormatNumber
-          number={handleBignumber.divideDecimal(profile.balance) || 0}
+          number={handleBignumber.divideDecimal(profile?.balance) || 0}
         />
       </Typography.Heading>
       <Dialog open={withdrawModalOpen} onOpenChange={setWithdrawModalOpen}>
@@ -234,7 +234,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
                             className="text-text-subtle"
                           >
                             Available:{' '}
-                            {handleBignumber.divideDecimal(profile.balance)}{' '}
+                            {handleBignumber.divideDecimal(profile?.balance)}{' '}
                             USDT
                           </Typography.Text>
                           <button
@@ -242,7 +242,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
                             onClick={() => {
                               form.setValue(
                                 'amount',
-                                handleBignumber.divideDecimal(profile.balance),
+                                handleBignumber.divideDecimal(profile?.balance),
                                 {
                                   shouldValidate: true,
                                 },

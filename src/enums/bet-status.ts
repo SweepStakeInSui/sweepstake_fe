@@ -25,6 +25,6 @@ export enum EOrderType {
 
 export enum EBetOpenStatus {
   OPEN = 'Open',
-  CLOSED = 'Bet expired',
+  CLOSED = 'Outcome:',
   UPCOMING = 'Upcoming',
 }
