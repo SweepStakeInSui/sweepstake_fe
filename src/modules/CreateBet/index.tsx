@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { addWeeks } from 'date-fns';
 import React, { useDeferredValue, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
@@ -232,23 +231,20 @@ const CreateBetModule = () => {
             <PreviewBetModule data={deferredFormData} />
             <CreateBetFormModule />
           </Flex>
-          {createPortal(
-            <div className="sticky bottom-0 bg-bg-surface shadow-create-bet-shadow hidden lg:flex">
-              <Container className="flex space-x-2 justify-end w-full p-4">
-                <Button variant="terriary" onClick={() => methods.reset()}>
-                  Clear All
-                </Button>
+          <div className="fixed left-0 w-screen bottom-0 bg-bg-surface shadow-create-bet-shadow hidden lg:flex">
+            <div className="flex space-x-2 justify-end w-full p-4">
+              <Button variant="terriary" onClick={() => methods.reset()}>
+                Clear All
+              </Button>
 
-                <Button
-                  onClick={methods.handleSubmit(handleCreateBet)}
-                  disabled={isCreateBetLoading}
-                >
-                  {isCreateBetLoading ? 'Creating Bet' : 'Create Bet'}
-                </Button>
-              </Container>
-            </div>,
-            document.body,
-          )}
+              <Button
+                onClick={methods.handleSubmit(handleCreateBet)}
+                disabled={isCreateBetLoading}
+              >
+                {isCreateBetLoading ? 'Creating Bet' : 'Create Bet'}
+              </Button>
+            </div>
+          </div>
         </div>
       </FormProvider>
 

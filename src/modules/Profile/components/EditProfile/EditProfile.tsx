@@ -173,7 +173,7 @@ const EditProfile = () => {
                         id="avatar"
                         type="file"
                         ref={fileInputRef}
-                        accept="image/png,image/jpeg,image/gif"
+                        accept="image/*"
                         style={{ display: 'none' }}
                         onChange={(e) => {
                           const file = e.target.files?.[0];

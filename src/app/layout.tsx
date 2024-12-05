@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL('https://app.sweepstake.market/'),
+  metadataBase: new URL('https://app.sweepstakes.market/'),
   openGraph: {
     title: "Sweepstakes | The World's Largest Prediction Market",
     description: 'Bet on your beliefs',
