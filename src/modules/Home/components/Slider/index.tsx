@@ -62,7 +62,11 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
       <Stack className="relative z-10 col-span-12 lg:col-span-6">
         <Stack>
           <Stack>
-            <Typography.Heading size={20} weight="bold" className="text-text">
+            <Typography.Heading
+              size={20}
+              weight="bold"
+              className="text-text line-clamp-2"
+            >
               {slide?.name}
             </Typography.Heading>
             <Flex className="items-baseline">
