@@ -50,6 +50,7 @@ const useBalance = () => {
       }
       return 0;
     },
+    refetchInterval: 3000,
     enabled: isLoggedIn,
   });
   return query.data;

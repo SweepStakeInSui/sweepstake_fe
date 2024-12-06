@@ -139,12 +139,14 @@ export const ConnectWalletProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [web3auth, dispatch]);
 
-  useEffect(() => {
-    if (walletType) localStorage.setItem(LOCAL_STORE_WALLET, walletType);
-  }, [walletType]);
   const setWallet = useCallback((wallet: ConnectionType) => {
     setWalletType(wallet);
   }, []);
+  useEffect(() => {
+    if (walletType) localStorage.setItem(LOCAL_STORE_WALLET, walletType);
+    const wallet = localStorage.getItem(LOCAL_STORE_WALLET);
+    setWallet(wallet as ConnectionType);
+  }, [walletType]);
   const onDisconnect = useCallback(async () => {
     if (walletType === ConnectionType.Web3Auth) {
       if (!web3auth) {

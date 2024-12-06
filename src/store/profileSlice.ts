@@ -36,7 +36,7 @@ export const profileSlice = createSlice({
     },
     logout: (state) => {
       removeCookieToken();
-      localStorage.removeItem(LOCAL_STORE_WALLET);
+      // localStorage.removeItem(LOCAL_STORE_WALLET);
       state.accessToken = '';
       state.refreshToken = '';
       state.isLoggedIn = false;
