@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/select';
 import { TimePicker } from '@/components/ui/time-picker';
 import { Tooltip } from '@/components/ui/tooltip';
+import { USDC_DECIMALS } from '@/constants';
 import {
   BetOutcomeType,
   EBetStatusOption,
@@ -159,7 +160,7 @@ const BetAction = ({ isBid, isLimit }: IBetActionProps) => {
 
   // FORM HANDLERS
   const postOrderSchema = postOrder(
-    +handleBignumber.divideDecimal(profile?.balance),
+    +handleBignumber.divideDecimal(profile?.balance, USDC_DECIMALS),
     isLimit ? EOrderType.GTC : EOrderType.FOK,
     isBid,
     betState.type === BetOutcomeType.YES,

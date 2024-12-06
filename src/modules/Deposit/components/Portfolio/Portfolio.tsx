@@ -42,6 +42,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tooltip } from '@/components/ui/tooltip';
+import { USDC_DECIMALS } from '@/constants';
 import { UserService } from '@/services/userService';
 import { selectProfile } from '@/store/profileSlice';
 import { handleBignumber } from '@/utils/handleBignumber';
@@ -70,7 +71,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
   // const [txsString, setTxsString] = React.useState('');
   const { profile } = useSelector(selectProfile);
   const withdrawSchema = createWithdrawSchema(
-    +handleBignumber.divideDecimal(profile?.balance),
+    +handleBignumber.divideDecimal(profile?.balance, USDC_DECIMALS),
   );
   const form = useForm<z.infer<typeof withdrawSchema>>({
     resolver: zodResolver(withdrawSchema),
@@ -103,7 +104,7 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
   async function onWithdraw(values: z.infer<typeof withdrawSchema>) {
     setConfirmWithdrawModalOpen(true);
     withdrawMutation({
-      amount: handleBignumber.powDecimal(values.amount, 9),
+      amount: handleBignumber.powDecimal(values.amount),
       address: values.address,
     });
   }
@@ -145,7 +146,9 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
       >
         $
         <FormatNumber
-          number={handleBignumber.divideDecimal(profile?.balance) || 0}
+          number={
+            handleBignumber.divideDecimal(profile?.balance, USDC_DECIMALS) || 0
+          }
         />
       </Typography.Heading>
       <Dialog open={withdrawModalOpen} onOpenChange={setWithdrawModalOpen}>
@@ -234,7 +237,10 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
                             className="text-text-subtle"
                           >
                             Available:{' '}
-                            {handleBignumber.divideDecimal(profile?.balance)}{' '}
+                            {handleBignumber.divideDecimal(
+                              profile?.balance,
+                              USDC_DECIMALS,
+                            )}{' '}
                             USDT
                           </Typography.Text>
                           <button
@@ -242,7 +248,10 @@ const PortfolioDeposit: React.FC<ActionProps> = ({ handleNextSlide }) => {
                             onClick={() => {
                               form.setValue(
                                 'amount',
-                                handleBignumber.divideDecimal(profile?.balance),
+                                handleBignumber.divideDecimal(
+                                  profile?.balance,
+                                  USDC_DECIMALS,
+                                ),
                                 {
                                   shouldValidate: true,
                                 },

@@ -30,6 +30,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tooltip } from '@/components/ui/tooltip';
+import { USDC_DECIMALS } from '@/constants';
 import { menuListLogin, navList } from '@/constants/navList';
 import useBalance from '@/hooks/useBalance';
 import { selectProfile } from '@/store/profileSlice';
@@ -210,7 +211,9 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
       >
         $
         <FormatNumber
-          number={handleBignumber.divideDecimal(profile?.balance) || 0}
+          number={
+            handleBignumber.divideDecimal(profile?.balance, USDC_DECIMALS) || 0
+          }
         />
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">

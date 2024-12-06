@@ -5,6 +5,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import Container from '@/components/common/Container';
+import { getBalanceUSDC } from '@/hooks/useBalance';
 
 import { Banner } from './components/Banner';
 import { MarketTab } from './components/MarketTab';
@@ -19,9 +20,16 @@ export default function HomeModule() {
   const queryClient = useQueryClient();
   void queryClient.prefetchQuery(activityOptions);
   void queryClient.prefetchQuery(marketPopularOptions);
-
+  const test = () => {
+    const coins = getBalanceUSDC({
+      address:
+        '0x620715af76c2a7ae95b7efde47e366be04ef11a36e86550e229e455433bbe234',
+    });
+    console.log(coins);
+  };
   return (
     <section>
+      <button onClick={test}>TEST</button>
       <Banner />
       <MarketTab />
       <Slider />
