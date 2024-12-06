@@ -1,6 +1,11 @@
 import BigNumber from 'bignumber.js';
 
-const powDecimal = (price: number | string, decimals: number = 9): string => {
+import { USDC_DECIMALS } from '@/constants';
+
+const powDecimal = (
+  price: number | string,
+  decimals: number = USDC_DECIMALS,
+): string => {
   return new BigNumber(Number(price))
     .times(new BigNumber(10).pow(Number(decimals)))
     .toFixed();

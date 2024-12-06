@@ -29,6 +29,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { USDC_DECIMALS } from '@/constants';
 import { ROUTE } from '@/constants/routes';
 import { useNotification } from '@/hooks/useNotification';
 import { notificationService } from '@/services/notificationService';
@@ -232,8 +233,8 @@ const NotifItem = ({
                     className="text-text"
                   >
                     You have {type}{' '}
-                    {handleBignumber.divideDecimal(amount ?? 0, 9)} USDT to your
-                    account
+                    {handleBignumber.divideDecimal(amount ?? 0, USDC_DECIMALS)}{' '}
+                    USDT to your account
                   </Typography.Text>
                 );
               case 'betYes':

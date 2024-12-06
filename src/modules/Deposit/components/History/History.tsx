@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip } from '@/components/ui/tooltip';
+import { USDC_DECIMALS } from '@/constants';
 import { options } from '@/constants/marketSub';
 import { URL_SCAN } from '@/constants/navList';
 import type {
@@ -48,7 +49,8 @@ const HistoryItem = ({ item }: HistoryItemProps) => {
               <Typography.Text className="text-text flex gap-1.5">
                 <span className="first-letter:uppercase">{item.type}</span>{' '}
                 <span>
-                  {handleBignumber.divideDecimal(item.amount, 9)} USDT
+                  {handleBignumber.divideDecimal(item.amount, USDC_DECIMALS)}{' '}
+                  USDT
                 </span>
               </Typography.Text>
               <Flex className=" cursor-pointer">
