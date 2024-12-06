@@ -39,7 +39,7 @@ const LineChart: React.FC<LineChartProps> = ({
   const options: Highcharts.Options = {
     chart: {
       type: 'line',
-      height: size === 'sm' ? 200 : 300,
+      height: size === 'sm' ? 200 : 350,
       backgroundColor: 'transparent',
     },
     title: {
