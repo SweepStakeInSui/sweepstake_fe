@@ -30,6 +30,7 @@ export default function NavBar(): React.ReactElement {
       const res = await UserService.getUserInfor();
       return res;
     },
+    refetchInterval: 3000,
     enabled: isLoggedIn,
   });
   useEffect(() => {

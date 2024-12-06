@@ -54,6 +54,10 @@ interface MenuItemProps {
 }
 interface ActionProps {
   handleNextSlide: () => void;
+  setIsOpenMenu: React.Dispatch<React.SetStateAction<boolean>>;
+}
+interface MenuHeaderProps {
+  setIsOpenMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const MenuItem = ({ item, className }: MenuItemProps) => {
   const router = useRouter();
@@ -84,11 +88,13 @@ export const MenuItem = ({ item, className }: MenuItemProps) => {
     </button>
   );
 };
-const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
+const Wallet: React.FC<ActionProps> = ({ handleNextSlide, setIsOpenMenu }) => {
   const balance = useBalance();
   const queryClient = useQueryClient();
   const { profile } = useSelector(selectProfile);
-
+  const closeDialog = () => {
+    setIsOpenMenu(false);
+  };
   return (
     <div className="p-4 text-text bg-b-10 dark:bg-bg-balance rounded-sm relative overflow-hidden">
       <Flex className="z-10 relative mb-0.5 justify-between">
@@ -130,12 +136,12 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
         $<FormatNumber number={balance || 0} />
       </Typography.Heading>
       <Flex className="mt-5 relative z-10">
-        <Link href="/deposit" className="flex-1 ">
+        <Link href="/deposit" className="flex-1" onClick={closeDialog}>
           <Button variant="primary" size="medium" className="w-full">
             Deposit
           </Button>
         </Link>
-        <Link href="/deposit" className="flex-1 ">
+        <Link href="/deposit" className="flex-1" onClick={closeDialog}>
           <Button
             variant="ghost"
             size="medium"
@@ -167,10 +173,15 @@ const Wallet: React.FC<ActionProps> = ({ handleNextSlide }) => {
     </div>
   );
 };
-const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
+const Portfolio: React.FC<ActionProps> = ({
+  handleNextSlide,
+  setIsOpenMenu,
+}) => {
   const { profile } = useSelector(selectProfile);
   const queryClient = useQueryClient();
-
+  const closeDialog = () => {
+    setIsOpenMenu(false);
+  };
   return (
     <div className="p-4 text-text bg-r-10 dark:bg-r-95 rounded-sm relative overflow-hidden">
       <Flex className="z-10 relative mb-0.5 justify-between">
@@ -219,6 +230,7 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
       <Flex className="mt-5 relative z-10">
         <Link href="/deposit" className="flex-1">
           <Button
+            onClick={closeDialog}
             variant="ghost"
             size="medium"
             className="w-full bg-wht-a80/80 dark:bg-wht-a20/20"
@@ -244,7 +256,8 @@ const Portfolio: React.FC<ActionProps> = ({ handleNextSlide }) => {
     </div>
   );
 };
-export const ActionUser: React.FC = () => {
+
+export const ActionUser: React.FC<MenuHeaderProps> = ({ setIsOpenMenu }) => {
   const swiperRef = useRef<any>(null);
   const handleNextSlide = () => {
     if (swiperRef.current) {
@@ -263,10 +276,16 @@ export const ActionUser: React.FC = () => {
         className="mySwiper swiper-header mt-6"
       >
         <SwiperSlide className="swiper-action">
-          <Wallet handleNextSlide={handleNextSlide} />
+          <Wallet
+            handleNextSlide={handleNextSlide}
+            setIsOpenMenu={setIsOpenMenu}
+          />
         </SwiperSlide>
         <SwiperSlide className="swiper-action">
-          <Portfolio handleNextSlide={handleNextSlide} />
+          <Portfolio
+            handleNextSlide={handleNextSlide}
+            setIsOpenMenu={setIsOpenMenu}
+          />
         </SwiperSlide>
       </Swiper>
     </div>
@@ -276,8 +295,13 @@ export const ActionUser: React.FC = () => {
 const MenuHeader = () => {
   const { isLoggedIn } = useSelector(selectProfile);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
   const { onDisconnect } = useWallet();
   const router = useRouter();
+  const closeDrawer = () => {
+    setIsDrawerOpen(false);
+  };
   return (
     <>
       <div className="hidden-mobile">
@@ -295,7 +319,7 @@ const MenuHeader = () => {
             className="w-[370px] px-2.5 py-3 bg-bg-surface "
             align="end"
           >
-            <ActionUser />
+            <ActionUser setIsOpenMenu={setIsOpenMenu} />
             <DropdownMenuGroup className="mt-1">
               {menuListLogin(onDisconnect).map((item) => (
                 <DropdownMenuItem
@@ -314,12 +338,13 @@ const MenuHeader = () => {
         </DropdownMenu>
       </div>
       <div className="hidden-PC">
-        <Drawer direction="right">
+        <Drawer direction="right" open={isDrawerOpen}>
           <DrawerTrigger asChild>
             <Button
               variant="ghost"
               className="size-11 p-0"
               aria-label="drawer_menu"
+              onClick={() => setIsDrawerOpen(true)}
             >
               <Svg src="/icons/menu.svg" />
             </Button>
@@ -329,7 +354,7 @@ const MenuHeader = () => {
               <VisuallyHidden>
                 <DrawerTitle>Menu</DrawerTitle>
               </VisuallyHidden>
-              <DrawerClose className="flex justify-end">
+              <DrawerClose className="flex justify-end" onClick={closeDrawer}>
                 <Svg src="/icons/close.svg" />
               </DrawerClose>
             </DrawerHeader>
@@ -337,34 +362,36 @@ const MenuHeader = () => {
               <Stack className="gap-y-3 mt-3">
                 <Flex>
                   {navList.map((nav) => (
-                    <DrawerClose key={nav.href} className="basis-1/3">
-                      <button
-                        onClick={() => router.push(nav.href)}
-                        className="w-full"
-                      >
-                        <Stack className="basis-1/3 items-center bg-bg-sublest rounded-sm py-4">
-                          <Svg src={nav.icon} />
-                          <Typography.Text
-                            size={13}
-                            className="text-text-subtle"
-                            weight="semibold"
-                          >
-                            {nav.name}
-                          </Typography.Text>
-                        </Stack>
-                      </button>
-                    </DrawerClose>
+                    <button
+                      key={nav.name}
+                      onClick={() => {
+                        closeDrawer();
+                        router.push(nav.href);
+                      }}
+                      className="w-full"
+                    >
+                      <Stack className="basis-1/3 items-center bg-bg-sublest rounded-sm py-4">
+                        <Svg src={nav.icon} />
+                        <Typography.Text
+                          size={13}
+                          className="text-text-subtle"
+                          weight="semibold"
+                        >
+                          {nav.name}
+                        </Typography.Text>
+                      </Stack>
+                    </button>
                   ))}
                 </Flex>
 
                 {isLoggedIn && (
                   <>
-                    <ActionUser />
+                    <ActionUser setIsOpenMenu={setIsDrawerOpen} />
 
                     <div>
                       <NotificationDrawer />
 
-                      <DrawerClose className="w-full">
+                      <DrawerClose className="w-full" onClick={closeDrawer}>
                         {menuListLogin(onDisconnect).map((item) => (
                           <MenuItem key={item.slug} item={item} />
                         ))}

@@ -51,6 +51,8 @@ import { createRequestDepositSchema } from './schema/requestDepositSchema';
 const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
   const balance = useBalance();
   const { walletType, provider } = useWallet();
+  console.log(walletType);
+
   const queryClient = useQueryClient();
   const { profile } = useSelector(selectProfile);
   const [depositModalOpen, setDepositModalOpen] = useState(false);
@@ -72,6 +74,8 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
       amount: '',
     },
   });
+  console.log(walletType);
+
   const {
     mutate: depositMutation,
     isPending: isDepositLoading,
@@ -88,10 +92,13 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
 
         let bytes: string;
         let signature: string;
+        console.log({ walletType });
 
         // Determine wallet type and sign transaction accordingly
         if (walletType === ConnectionType.SuiWallet) {
           const tx = Transaction.from(dataRequest.data.txBytes);
+          console.log({ tx });
+
           // Sign the transaction
           const signedTransaction = await signTransaction({
             transaction: tx,
@@ -101,6 +108,8 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
           signature = signedTransaction.signature;
         } else if (provider) {
           const rpc = new SuiRPC(provider);
+          console.log(rpc);
+
           const signedTransaction = await rpc.requestDeposit(
             dataRequest.data.txBytes,
           );
@@ -240,9 +249,10 @@ const Balance: React.FC<ActionProps> = ({ handleNextSlide }) => {
                         <Flex>
                           <Typography.Text
                             size={13}
-                            className="text-text-subtle"
+                            className="text-text-subtle flex"
                           >
-                            Available: {balance} USDT
+                            Available: {<FormatNumber number={balance || 0} />}{' '}
+                            USDT
                           </Typography.Text>
                           <button
                             onClick={() => {
