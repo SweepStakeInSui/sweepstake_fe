@@ -1,11 +1,10 @@
-// import { Accordion } from '@radix-ui/react-accordion';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { LineChart } from '@/components/charts/LineChart';
+import { MarketLineChart } from '@/components/charts/MarketLineChart';
 import { AddWatchListButton } from '@/components/common/AddWatchListButton';
 import CopyButton from '@/components/common/CopyButton/CopyButton';
 import Flex from '@/components/common/Flex';
@@ -227,20 +226,7 @@ export default function MarketsDetail({ bet }: IMarketsDetailProps) {
       <Stack className="gap-3">
         <Stack className="gap-0">
           {/* TODO: orderbook for multiple bets */}
-          {/* <Flex className="hidden-mobile w-full justify-between border-b border-borderSublest py-1">
-            <Typography.Text size={13} className="text-text-subtle">
-              Outcome
-            </Typography.Text>
-
-            <Flex className="w-[21.25rem]">
-              <Typography.Text size={13} className="text-text-subtle">
-                %Chance
-              </Typography.Text>
-            </Flex>
-          </Flex> */}
-
-          {/* <MarketChart /> */}
-          <LineChart
+          <MarketLineChart
             data={[
               {
                 showInLegend: false,

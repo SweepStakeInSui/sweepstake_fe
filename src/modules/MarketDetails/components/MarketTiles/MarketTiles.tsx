@@ -49,7 +49,9 @@ export const MarketTile = ({ isSingleBet, data }: IMarketTitleProps) => {
     const noPrice = betState.isBid
       ? { bidPriceNo: outcomeNo.bidPrice }
       : { askPriceNo: outcomeNo.askPrice };
-    dispatch(setBet({ ...betState, type: BetOutcomeType.NO, noPrice }));
+    dispatch(
+      setBet({ ...betState, id: data.id, type: BetOutcomeType.NO, noPrice }),
+    );
   };
 
   const onYesClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -58,7 +60,9 @@ export const MarketTile = ({ isSingleBet, data }: IMarketTitleProps) => {
     const yesPrice = betState.isBid
       ? { bidPriceYes: outcomeYes.bidPrice }
       : { askPriceYes: outcomeYes.askPrice };
-    dispatch(setBet({ ...betState, type: BetOutcomeType.YES, yesPrice }));
+    dispatch(
+      setBet({ ...betState, id: data.id, type: BetOutcomeType.YES, yesPrice }),
+    );
   };
 
   return (
@@ -93,7 +97,7 @@ export const MarketTile = ({ isSingleBet, data }: IMarketTitleProps) => {
         <Flex className="w-full lg:w-[14.375rem] justify-center pb-4 lg:pb-0">
           <DrawerTrigger asChild>
             <Button
-              variant={`bet_yes${betState.type === BetOutcomeType.YES ? '_active' : ''}`}
+              variant={`bet_yes${data.id === betState.id && betState.type === BetOutcomeType.YES ? '_active' : ''}`}
               className="w-full"
               onClick={onYesClick}
             >
@@ -107,7 +111,7 @@ export const MarketTile = ({ isSingleBet, data }: IMarketTitleProps) => {
 
           <DrawerTrigger asChild>
             <Button
-              variant={`bet_no${betState.type === BetOutcomeType.NO ? '_active' : ''}`}
+              variant={`bet_no${data.id === betState.id && betState.type === BetOutcomeType.NO ? '_active' : ''}`}
               className="w-full"
               onClick={onNoClick}
             >

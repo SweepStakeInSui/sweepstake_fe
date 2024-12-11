@@ -8,7 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
-import { LineChart } from '@/components/charts/LineChart';
+import { MarketLineChart } from '@/components/charts/MarketLineChart';
 import Container from '@/components/common/Container';
 import Flex from '@/components/common/Flex';
 import { FormatNumber } from '@/components/common/FormatNumber';
@@ -112,7 +112,7 @@ function HomeSlide({ slide }: Readonly<IHomeSlide>) {
           <div>
             {/* <SelectBet /> */}
             <div className="relative w-full aspect-[675/223]">
-              <LineChart
+              <MarketLineChart
                 size="sm"
                 data={[
                   {

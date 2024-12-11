@@ -4,18 +4,12 @@ import { useState } from 'react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 import Svg from '@/components/common/Svg';
-import {
-  Command,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
+import { Command, CommandGroup, CommandList } from '@/components/ui/command';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { bets } from '@/mocks/mockBet';
 
 import Flex from '../../../../components/common/Flex';
 import Typography from '../../../../components/common/Typography';
@@ -66,8 +60,8 @@ export const BetItem: React.FC<BetItemProps> = ({ bet }) => {
 };
 const SelectBet = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [value, setValue] = useState('');
-  const bet = bets.find((item) => item.name === value) || bets[0];
+  // const [value, setValue] = useState('');
+  // const bet = bets.find((item) => item.name === value) || bets[0];
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -79,11 +73,11 @@ const SelectBet = () => {
           aria-label="Select bet"
           className="w-full justify-between flex border rounded-md border-borderSubtle p-2 items-center"
         >
-          {value || bets.length > 0 ? (
+          {/* {value || bets.length > 0 ? (
             <BetItem bet={bet} />
           ) : (
             'No Bets Available'
-          )}
+          )} */}
           <Svg
             src="/icons/chevron_right.svg"
             className="rotate-90 text-icon-subtle"
@@ -94,7 +88,7 @@ const SelectBet = () => {
         <Command>
           <CommandList>
             <CommandGroup>
-              {bets.map((item) => (
+              {/* {bets.map((item) => (
                 <CommandItem
                   key={item.name}
                   value={item.name}
@@ -106,7 +100,7 @@ const SelectBet = () => {
                 >
                   <BetItem bet={item} />
                 </CommandItem>
-              ))}
+              ))} */}
             </CommandGroup>
           </CommandList>
         </Command>

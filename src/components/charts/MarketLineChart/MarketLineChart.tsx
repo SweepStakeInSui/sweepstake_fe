@@ -7,14 +7,14 @@ import React, { useEffect, useRef } from 'react';
 import { TimeFilter } from '@/components/charts/TimeFilter';
 import { contentFont } from '@/constants/fonts';
 
-interface LineChartProps {
+interface MarketLineChartProps {
   data?: Highcharts.SeriesOptionsType[];
   onTimeChange?: (value: FilterTimes) => void;
   visibilityState: boolean[];
   size?: 'sm' | 'default';
 }
 
-const LineChart: React.FC<LineChartProps> = ({
+const MarketLineChart: React.FC<MarketLineChartProps> = ({
   data,
   onTimeChange,
   visibilityState,
@@ -41,6 +41,13 @@ const LineChart: React.FC<LineChartProps> = ({
       type: 'line',
       height: size === 'sm' ? 200 : 350,
       backgroundColor: 'transparent',
+    },
+    plotOptions: {
+      line: {
+        marker: {
+          enabledThreshold: 3,
+        },
+      },
     },
     title: {
       text: '',
@@ -154,4 +161,4 @@ const LineChart: React.FC<LineChartProps> = ({
   );
 };
 
-export default LineChart;
+export default MarketLineChart;
